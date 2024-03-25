@@ -27,23 +27,23 @@ public class Puesto extends javax.swing.JFrame {
     private void initComponents() {
 
         jSpinner1 = new javax.swing.JSpinner();
-        jPanel3 = new javax.swing.JPanel();
+        encabezadoJPanel = new javax.swing.JPanel();
         puestoJLabel = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        opcionJPanel = new javax.swing.JPanel();
         buscarJButton = new javax.swing.JButton();
         buscarJTextField = new javax.swing.JTextField();
         nuevoPuestoJCheckBox = new javax.swing.JCheckBox();
-        jPanel2 = new javax.swing.JPanel();
+        informacionJPanel = new javax.swing.JPanel();
         nombreJLabel = new javax.swing.JLabel();
         sueldoBaseJLabel = new javax.swing.JLabel();
         horarioJLabel = new javax.swing.JLabel();
         nombreJTextField = new javax.swing.JTextField();
         sueldoBaseJTextField = new javax.swing.JTextField();
-        HorarioJTextField = new javax.swing.JTextField();
+        horarioJTextField = new javax.swing.JTextField();
         DescripciónJLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         DescripcionJTextPane = new javax.swing.JTextPane();
-        jPanel4 = new javax.swing.JPanel();
+        botonesJPanel = new javax.swing.JPanel();
         cancelarJButton = new javax.swing.JButton();
         guardarJButton = new javax.swing.JButton();
         limpiarJButton = new javax.swing.JButton();
@@ -51,24 +51,24 @@ public class Puesto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel3.setBackground(new java.awt.Color(34, 85, 34));
+        encabezadoJPanel.setBackground(new java.awt.Color(34, 85, 34));
 
         puestoJLabel.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         puestoJLabel.setForeground(new java.awt.Color(255, 255, 255));
         puestoJLabel.setText("PUESTO");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout encabezadoJPanelLayout = new javax.swing.GroupLayout(encabezadoJPanel);
+        encabezadoJPanel.setLayout(encabezadoJPanelLayout);
+        encabezadoJPanelLayout.setHorizontalGroup(
+            encabezadoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(encabezadoJPanelLayout.createSequentialGroup()
                 .addGap(305, 305, 305)
                 .addComponent(puestoJLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        encabezadoJPanelLayout.setVerticalGroup(
+            encabezadoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, encabezadoJPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(puestoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -76,17 +76,27 @@ public class Puesto extends javax.swing.JFrame {
 
         buscarJButton.setToolTipText("Boton de búsqueda del puesto");
         buscarJButton.setLabel("Buscar");
+        buscarJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarJButtonActionPerformed(evt);
+            }
+        });
 
         buscarJTextField.setToolTipText("Ingrese nombre del puesto");
 
         nuevoPuestoJCheckBox.setText("Nuevo Puesto");
         nuevoPuestoJCheckBox.setToolTipText("Habilita la opción de generar un nuevo puesto");
+        nuevoPuestoJCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevoPuestoJCheckBoxActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout opcionJPanelLayout = new javax.swing.GroupLayout(opcionJPanel);
+        opcionJPanel.setLayout(opcionJPanelLayout);
+        opcionJPanelLayout.setHorizontalGroup(
+            opcionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(opcionJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(buscarJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -95,11 +105,11 @@ public class Puesto extends javax.swing.JFrame {
                 .addComponent(nuevoPuestoJCheckBox)
                 .addContainerGap(238, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        opcionJPanelLayout.setVerticalGroup(
+            opcionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(opcionJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(opcionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buscarJButton)
                     .addComponent(buscarJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nuevoPuestoJCheckBox))
@@ -114,49 +124,54 @@ public class Puesto extends javax.swing.JFrame {
 
         horarioJLabel.setText("Horario");
 
-        nombreJTextField.setToolTipText("");
+        nombreJTextField.setEditable(false);
+
+        sueldoBaseJTextField.setEditable(false);
+
+        horarioJTextField.setEditable(false);
 
         DescripciónJLabel.setText("Descripción");
 
+        DescripcionJTextPane.setEditable(false);
         jScrollPane2.setViewportView(DescripcionJTextPane);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout informacionJPanelLayout = new javax.swing.GroupLayout(informacionJPanel);
+        informacionJPanel.setLayout(informacionJPanelLayout);
+        informacionJPanelLayout.setHorizontalGroup(
+            informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(informacionJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nombreJLabel)
                     .addComponent(sueldoBaseJLabel)
                     .addComponent(horarioJLabel))
                 .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(nombreJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
                     .addComponent(sueldoBaseJTextField)
-                    .addComponent(HorarioJTextField))
+                    .addComponent(horarioJTextField))
                 .addGap(18, 18, 18)
                 .addComponent(DescripciónJLabel)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        informacionJPanelLayout.setVerticalGroup(
+            informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(informacionJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreJLabel)
                     .addComponent(nombreJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DescripciónJLabel))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sueldoBaseJLabel)
                     .addComponent(sueldoBaseJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(horarioJLabel)
-                    .addComponent(HorarioJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(horarioJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(118, Short.MAX_VALUE))
             .addComponent(jScrollPane2)
         );
@@ -166,19 +181,22 @@ public class Puesto extends javax.swing.JFrame {
 
         guardarJButton.setText("Guardar");
         guardarJButton.setToolTipText("Guarda los datos actuales");
+        guardarJButton.setEnabled(false);
 
         limpiarJButton.setText("Limpiar");
         limpiarJButton.setToolTipText("Limpia las opcion para escoger de nuevo entre buscar o crear nuevo puesto");
+        limpiarJButton.setEnabled(false);
 
         eliminarJButton.setBackground(new java.awt.Color(255, 0, 0));
         eliminarJButton.setText("Eliminar");
         eliminarJButton.setToolTipText("Elimina el puesto de forma permanente");
+        eliminarJButton.setEnabled(false);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout botonesJPanelLayout = new javax.swing.GroupLayout(botonesJPanel);
+        botonesJPanel.setLayout(botonesJPanelLayout);
+        botonesJPanelLayout.setHorizontalGroup(
+            botonesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonesJPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(eliminarJButton)
                 .addGap(18, 18, 18)
@@ -189,11 +207,11 @@ public class Puesto extends javax.swing.JFrame {
                 .addComponent(cancelarJButton)
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        botonesJPanelLayout.setVerticalGroup(
+            botonesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonesJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(botonesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarJButton)
                     .addComponent(guardarJButton)
                     .addComponent(limpiarJButton)
@@ -205,30 +223,55 @@ public class Puesto extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(encabezadoJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(opcionJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(botonesJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(informacionJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(encabezadoJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(opcionJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(informacionJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonesJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.getAccessibleContext().setAccessibleParent(jPanel1);
+        encabezadoJPanel.getAccessibleContext().setAccessibleParent(opcionJPanel);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void habilitar(){
+        nombreJTextField.setEditable(true);
+        sueldoBaseJTextField.setEditable(true);
+        horarioJTextField.setEditable(true);
+        DescripcionJTextPane.setEditable(true);
+        limpiarJButton.setEnabled(true);
+        guardarJButton.setEnabled(true);
+        nuevoPuestoJCheckBox.setEnabled(false);
+        buscarJButton.setEnabled(false);
+        buscarJTextField.setEnabled(false);
+    }
+    
+    
+    
+    private void buscarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarJButtonActionPerformed
+        habilitar();
+        eliminarJButton.setEnabled(true);
+    }//GEN-LAST:event_buscarJButtonActionPerformed
+
+    private void nuevoPuestoJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoPuestoJCheckBoxActionPerformed
+        if (nuevoPuestoJCheckBox.isSelected()) {
+            habilitar();
+        }
+    }//GEN-LAST:event_nuevoPuestoJCheckBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,23 +311,23 @@ public class Puesto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane DescripcionJTextPane;
     private javax.swing.JLabel DescripciónJLabel;
-    private javax.swing.JTextField HorarioJTextField;
+    private javax.swing.JPanel botonesJPanel;
     private javax.swing.JButton buscarJButton;
     private javax.swing.JTextField buscarJTextField;
     private javax.swing.JButton cancelarJButton;
     private javax.swing.JButton eliminarJButton;
+    private javax.swing.JPanel encabezadoJPanel;
     private javax.swing.JButton guardarJButton;
     private javax.swing.JLabel horarioJLabel;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JTextField horarioJTextField;
+    private javax.swing.JPanel informacionJPanel;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JButton limpiarJButton;
     private javax.swing.JLabel nombreJLabel;
     private javax.swing.JTextField nombreJTextField;
     private javax.swing.JCheckBox nuevoPuestoJCheckBox;
+    private javax.swing.JPanel opcionJPanel;
     private javax.swing.JLabel puestoJLabel;
     private javax.swing.JLabel sueldoBaseJLabel;
     private javax.swing.JTextField sueldoBaseJTextField;
