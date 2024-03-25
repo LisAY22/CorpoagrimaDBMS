@@ -251,7 +251,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextPane" name="DescripcionJTextPane">
+            <Component class="javax.swing.JTextPane" name="descripcionJTextPane">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
               </Properties>
@@ -299,6 +299,9 @@
             <Property name="text" type="java.lang.String" value="Cancelar"/>
             <Property name="toolTipText" type="java.lang.String" value="Cancela y cierra la ventana"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelarJButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="guardarJButton">
           <Properties>
@@ -313,6 +316,9 @@
             <Property name="toolTipText" type="java.lang.String" value="Limpia las opcion para escoger de nuevo entre buscar o crear nuevo puesto"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="limpiarJButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="eliminarJButton">
           <Properties>
@@ -323,6 +329,9 @@
             <Property name="toolTipText" type="java.lang.String" value="Elimina el puesto de forma permanente"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eliminarJButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

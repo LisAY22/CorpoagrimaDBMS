@@ -42,7 +42,7 @@ public class Puesto extends javax.swing.JFrame {
         horarioJTextField = new javax.swing.JTextField();
         DescripciónJLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        DescripcionJTextPane = new javax.swing.JTextPane();
+        descripcionJTextPane = new javax.swing.JTextPane();
         botonesJPanel = new javax.swing.JPanel();
         cancelarJButton = new javax.swing.JButton();
         guardarJButton = new javax.swing.JButton();
@@ -132,8 +132,8 @@ public class Puesto extends javax.swing.JFrame {
 
         DescripciónJLabel.setText("Descripción");
 
-        DescripcionJTextPane.setEditable(false);
-        jScrollPane2.setViewportView(DescripcionJTextPane);
+        descripcionJTextPane.setEditable(false);
+        jScrollPane2.setViewportView(descripcionJTextPane);
 
         javax.swing.GroupLayout informacionJPanelLayout = new javax.swing.GroupLayout(informacionJPanel);
         informacionJPanel.setLayout(informacionJPanelLayout);
@@ -178,6 +178,11 @@ public class Puesto extends javax.swing.JFrame {
 
         cancelarJButton.setText("Cancelar");
         cancelarJButton.setToolTipText("Cancela y cierra la ventana");
+        cancelarJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarJButtonActionPerformed(evt);
+            }
+        });
 
         guardarJButton.setText("Guardar");
         guardarJButton.setToolTipText("Guarda los datos actuales");
@@ -186,11 +191,21 @@ public class Puesto extends javax.swing.JFrame {
         limpiarJButton.setText("Limpiar");
         limpiarJButton.setToolTipText("Limpia las opcion para escoger de nuevo entre buscar o crear nuevo puesto");
         limpiarJButton.setEnabled(false);
+        limpiarJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarJButtonActionPerformed(evt);
+            }
+        });
 
         eliminarJButton.setBackground(new java.awt.Color(255, 0, 0));
         eliminarJButton.setText("Eliminar");
         eliminarJButton.setToolTipText("Elimina el puesto de forma permanente");
         eliminarJButton.setEnabled(false);
+        eliminarJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarJButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout botonesJPanelLayout = new javax.swing.GroupLayout(botonesJPanel);
         botonesJPanel.setLayout(botonesJPanelLayout);
@@ -252,7 +267,7 @@ public class Puesto extends javax.swing.JFrame {
         nombreJTextField.setEditable(true);
         sueldoBaseJTextField.setEditable(true);
         horarioJTextField.setEditable(true);
-        DescripcionJTextPane.setEditable(true);
+        descripcionJTextPane.setEditable(true);
         limpiarJButton.setEnabled(true);
         guardarJButton.setEnabled(true);
         nuevoPuestoJCheckBox.setEnabled(false);
@@ -260,7 +275,28 @@ public class Puesto extends javax.swing.JFrame {
         buscarJTextField.setEnabled(false);
     }
     
+    private void deshabilitar(){
+        nombreJTextField.setEditable(false);
+        sueldoBaseJTextField.setEditable(false);
+        horarioJTextField.setEditable(false);
+        descripcionJTextPane.setEditable(false);
+        limpiarJButton.setEnabled(false);
+        guardarJButton.setEnabled(false);
+        eliminarJButton.setEnabled(false);
+        nuevoPuestoJCheckBox.setSelected(false);
+        nuevoPuestoJCheckBox.setEnabled(true);
+        buscarJButton.setEnabled(true);
+        buscarJTextField.setEnabled(true);
+        
+    }
     
+    private void limpiar(){
+        nombreJTextField.setText("");
+        sueldoBaseJTextField.setText("");
+        horarioJTextField.setText("");
+        descripcionJTextPane.setText("");
+        buscarJTextField.setText("");
+    }
     
     private void buscarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarJButtonActionPerformed
         habilitar();
@@ -272,6 +308,20 @@ public class Puesto extends javax.swing.JFrame {
             habilitar();
         }
     }//GEN-LAST:event_nuevoPuestoJCheckBoxActionPerformed
+
+    private void limpiarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarJButtonActionPerformed
+        deshabilitar();
+        limpiar();
+    }//GEN-LAST:event_limpiarJButtonActionPerformed
+
+    private void eliminarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarJButtonActionPerformed
+        deshabilitar();
+        limpiar();
+    }//GEN-LAST:event_eliminarJButtonActionPerformed
+
+    private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cancelarJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -309,12 +359,12 @@ public class Puesto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextPane DescripcionJTextPane;
     private javax.swing.JLabel DescripciónJLabel;
     private javax.swing.JPanel botonesJPanel;
     private javax.swing.JButton buscarJButton;
     private javax.swing.JTextField buscarJTextField;
     private javax.swing.JButton cancelarJButton;
+    private javax.swing.JTextPane descripcionJTextPane;
     private javax.swing.JButton eliminarJButton;
     private javax.swing.JPanel encabezadoJPanel;
     private javax.swing.JButton guardarJButton;
