@@ -130,13 +130,16 @@
             <Property name="text" type="java.lang.String" value="ORDENAR"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ordenarJButtonActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ordenarJButtonMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buscarJButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="BUSCAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buscarJButtonMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="buscarJTextField">
           <Properties>
@@ -148,6 +151,9 @@
             <Property name="text" type="java.lang.String" value="ACTUALIZAR"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="actualizarJButtonMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

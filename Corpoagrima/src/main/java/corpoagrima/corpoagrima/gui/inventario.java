@@ -4,6 +4,16 @@
  */
 package corpoagrima.corpoagrima.gui;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.*;
+import java.sql.*;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author lisaj
@@ -13,8 +23,12 @@ public class Inventario extends javax.swing.JFrame {
     /**
      * Creates new form inventario
      */
+    
+    private JTable datosJtable;
+    
     public Inventario() {
         initComponents();
+        actualizarTabla();
     }
 
     /**
@@ -68,18 +82,28 @@ public class Inventario extends javax.swing.JFrame {
         );
 
         ordenarJButton.setText("ORDENAR");
-        ordenarJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ordenarJButtonActionPerformed(evt);
+        ordenarJButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ordenarJButtonMouseClicked(evt);
             }
         });
 
         buscarJButton.setText("BUSCAR");
+        buscarJButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buscarJButtonMouseClicked(evt);
+            }
+        });
 
         buscarJTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         actualizarJButton.setText("ACTUALIZAR");
         actualizarJButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        actualizarJButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                actualizarJButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout JPanel2Layout = new javax.swing.GroupLayout(JPanel2);
         JPanel2.setLayout(JPanel2Layout);
@@ -159,9 +183,63 @@ public class Inventario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ordenarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordenarJButtonActionPerformed
+    private void ordenarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ordenarJButtonMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_ordenarJButtonActionPerformed
+        
+    }//GEN-LAST:event_ordenarJButtonMouseClicked
+
+    private void actualizarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarJButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_actualizarJButtonMouseClicked
+
+    private void buscarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarJButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscarJButtonMouseClicked
+
+
+    private void actualizarTabla() {
+        try {
+            // Establecer la conexión a la base de datos
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/CorpoagrimaBD?serverTimezone=UTC", "root", "Mi.Brol.22");
+
+            // Crear una sentencia SQL
+            String sql = "SELECT * FROM producto";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            // Ejecutar la consulta y obtener el ResultSet
+            ResultSet rs = stmt.executeQuery();
+
+            // Crear un modelo de tabla y asignarlo a la JTable
+            DefaultTableModel model = new DefaultTableModel();
+            datosJTable.setModel(model);
+
+            // Agregar columnas al modelo de tabla
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+                model.addColumn(metaData.getColumnLabel(columnIndex));
+            }
+
+            // Agregar filas al modelo de tabla
+            while (rs.next()) {
+                Object[] rowData = new Object[columnCount];
+                for (int i = 0; i < columnCount; i++) {
+                    rowData[i] = rs.getObject(i + 1);
+                }
+                model.addRow(rowData);
+            }
+
+            // Cerrar la conexión y liberar recursos
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+}
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
