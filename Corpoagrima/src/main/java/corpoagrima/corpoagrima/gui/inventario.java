@@ -4,6 +4,7 @@
  */
 package corpoagrima.corpoagrima.gui;
 
+import java.awt.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,6 +13,10 @@ import java.sql.SQLException;
 import javax.swing.*;
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import java.util.ArrayList;
+
+
 
 
 /**
@@ -22,9 +27,8 @@ public class Inventario extends javax.swing.JFrame {
 
     /**
      * Creates new form inventario
-     */
+     */    
     
-    private JTable datosJtable;
     
     public Inventario() {
         initComponents();
@@ -42,6 +46,7 @@ public class Inventario extends javax.swing.JFrame {
 
         JPanel1 = new javax.swing.JPanel();
         inventarioJLabel = new javax.swing.JLabel();
+        regresarJButton = new javax.swing.JButton();
         JPanel2 = new javax.swing.JPanel();
         ordenarJButton = new javax.swing.JButton();
         buscarJButton = new javax.swing.JButton();
@@ -64,6 +69,16 @@ public class Inventario extends javax.swing.JFrame {
         inventarioJLabel.setText("INVENTARIO");
         inventarioJLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        regresarJButton.setBackground(new java.awt.Color(136, 213, 133));
+        regresarJButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        regresarJButton.setText("REGRESAR");
+        regresarJButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        regresarJButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                regresarJButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout JPanel1Layout = new javax.swing.GroupLayout(JPanel1);
         JPanel1.setLayout(JPanel1Layout);
         JPanel1Layout.setHorizontalGroup(
@@ -72,11 +87,15 @@ public class Inventario extends javax.swing.JFrame {
                 .addGap(233, 233, 233)
                 .addComponent(inventarioJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
                 .addGap(240, 240, 240))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(regresarJButton))
         );
         JPanel1Layout.setVerticalGroup(
             JPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addComponent(regresarJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(8, 8, 8)
                 .addComponent(inventarioJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(33, 33, 33))
         );
@@ -185,6 +204,32 @@ public class Inventario extends javax.swing.JFrame {
 
     private void ordenarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ordenarJButtonMouseClicked
         // TODO add your handling code here:
+        // Obtener el modelo de la tabla
+        DefaultTableModel model = (DefaultTableModel) datosJTable.getModel();
+
+        // Obtener el número de filas en la tabla
+        int rowCount = model.getRowCount();
+
+        // Verificar si hay al menos una fila en la tabla
+        if (rowCount > 0) {
+            // Crear un objeto TableRowSorter basado en el modelo de la tabla
+            TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+
+            // Asignar el TableRowSorter a la tabla
+            datosJTable.setRowSorter(sorter);
+
+            // Crear un RowSorter para ordenar por la columna "Nombre"
+            ArrayList<RowSorter.SortKey> sortKeys = new ArrayList<>();
+            int columnIndexToSort = 1; // Índice de la columna "Nombre" (comienza desde 0)
+            sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING)); // Orden ascendente
+            sorter.setSortKeys(sortKeys);
+
+            // Ordenar la tabla
+            sorter.sort();
+        } else {
+            // Mostrar un mensaje de advertencia si la tabla está vacía
+            JOptionPane.showMessageDialog(this, "No hay datos para ordenar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
         
     }//GEN-LAST:event_ordenarJButtonMouseClicked
 
@@ -195,7 +240,58 @@ public class Inventario extends javax.swing.JFrame {
 
     private void buscarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarJButtonMouseClicked
         // TODO add your handling code here:
+        String textoBusqueda = buscarJTextField.getText().trim();
+
+        if (!textoBusqueda.isEmpty()) {
+            try {
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/CorpoagrimaBD?serverTimezone=UTC", "root", "Mi.Brol.22");
+
+                String sql = "SELECT * FROM producto WHERE nombre LIKE ? OR ID_Producto = ?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, "%" + textoBusqueda + "%");
+                stmt.setString(2, textoBusqueda);
+
+                ResultSet rs = stmt.executeQuery();
+
+                DefaultTableModel model = new DefaultTableModel();
+                datosJTable.setModel(model);
+
+                ResultSetMetaData metaData = rs.getMetaData();
+                int columnCount = metaData.getColumnCount();
+                for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+                    model.addColumn(metaData.getColumnLabel(columnIndex));
+                }
+
+                while (rs.next()) {
+                    Object[] rowData = new Object[columnCount];
+                    for (int i = 0; i < columnCount; i++) {
+                        rowData[i] = rs.getObject(i + 1);
+                    }
+                    model.addRow(rowData);
+                }
+
+                rs.close();
+                stmt.close();
+                conn.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al realizar la búsqueda: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese un nombre o ID para buscar.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_buscarJButtonMouseClicked
+
+    private void regresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarJButtonMouseClicked
+        // TODO add your handling code here:
+        Principal principal_screen = new Principal();
+        principal_screen.setVisible(true);
+        principal_screen.setLocationRelativeTo(null);
+        
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_regresarJButtonMouseClicked
 
 
     private void actualizarTabla() {
@@ -254,5 +350,6 @@ public class Inventario extends javax.swing.JFrame {
     private javax.swing.JLabel inventarioJLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton ordenarJButton;
+    private javax.swing.JButton regresarJButton;
     // End of variables declaration//GEN-END:variables
 }
