@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -179,7 +180,10 @@ public class Login extends javax.swing.JFrame {
 
             // Cerrar la ventana actual
             dispose();
-        } 
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_ingresarJButtonMouseClicked
     
     private boolean verificarCredenciales(String usuario, String contraseña) {
