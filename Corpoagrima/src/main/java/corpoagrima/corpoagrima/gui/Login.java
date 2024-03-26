@@ -4,6 +4,12 @@
  */
 package corpoagrima.corpoagrima.gui;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author lisaj
@@ -160,14 +166,40 @@ public class Login extends javax.swing.JFrame {
 
     private void ingresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarJButtonMouseClicked
         // TODO add your handling code here:
-        // Crear una instancia de la nueva ventana
-        Principal principal_screen = new Principal();
-        principal_screen.setVisible(true);
-        principal_screen.setLocationRelativeTo(null);
+        // Obtener el usuario y la contraseña ingresados por el usuario
+        String usuario = usuarioJTextField.getText();
+        String contraseña = new String(contraseñaJPasswordField.getPassword());
         
-        // Cerrar la ventana actual
-        dispose();
+        // Verificar las credenciales en la base de datos
+        if (verificarCredenciales(usuario, contraseña)) {
+            // Si las credenciales son correctas, abrir la nueva ventana
+            Principal principal_screen = new Principal();
+            principal_screen.setVisible(true);
+            principal_screen.setLocationRelativeTo(null);
+
+            // Cerrar la ventana actual
+            dispose();
+        } 
     }//GEN-LAST:event_ingresarJButtonMouseClicked
+    
+    private boolean verificarCredenciales(String usuario, String contraseña) {
+        // Establecer la conexión a la base de datos
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/CorpoagrimaBD?serverTimezone=UTC", "root", "Mi.Brol.22")) {
+            // Crear la consulta SQL para verificar las credenciales
+            String sql = "SELECT * FROM usuario WHERE nombre = ? AND contraseña = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, usuario);
+                stmt.setString(2, contraseña);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    // Si se encuentra algún resultado, las credenciales son correctas
+                    return rs.next();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Si ocurre algún error, considerar las credenciales como incorrectas
+        }
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton contraseñaJButton;
