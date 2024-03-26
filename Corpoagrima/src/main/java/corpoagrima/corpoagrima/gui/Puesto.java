@@ -100,8 +100,8 @@ public class Puesto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(buscarJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buscarJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(241, 241, 241)
+                .addComponent(buscarJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(172, 172, 172)
                 .addComponent(nuevoPuestoJCheckBox)
                 .addContainerGap(238, Short.MAX_VALUE))
         );
