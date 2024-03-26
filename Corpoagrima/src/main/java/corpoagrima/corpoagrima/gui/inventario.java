@@ -190,6 +190,7 @@ public class Inventario extends javax.swing.JFrame {
 
     private void actualizarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarJButtonMouseClicked
         // TODO add your handling code here:
+        actualizarTabla();
     }//GEN-LAST:event_actualizarJButtonMouseClicked
 
     private void buscarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarJButtonMouseClicked
