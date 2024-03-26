@@ -299,14 +299,29 @@ public class Empleado extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Cancel_button.setText("Cancel");
+        Cancel_button.setText("Cancelar");
+        Cancel_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cancel_buttonActionPerformed(evt);
+            }
+        });
 
-        Save_button.setText("Save");
+        Save_button.setText("Guardar");
 
-        Clean_button.setText("Clean");
+        Clean_button.setText("Limpiar ");
+        Clean_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Clean_buttonActionPerformed(evt);
+            }
+        });
 
         Delete_button.setBackground(new java.awt.Color(255, 51, 51));
-        Delete_button.setText("Delete");
+        Delete_button.setText("Elimar");
+        Delete_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Delete_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -404,6 +419,18 @@ public class Empleado extends javax.swing.JFrame {
     private void Puesto_comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Puesto_comboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Puesto_comboBoxActionPerformed
+
+    private void Delete_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete_buttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Delete_buttonActionPerformed
+
+    private void Clean_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Clean_buttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Clean_buttonActionPerformed
+
+    private void Cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_buttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Cancel_buttonActionPerformed
 
     /**
      * @param args the command line arguments
