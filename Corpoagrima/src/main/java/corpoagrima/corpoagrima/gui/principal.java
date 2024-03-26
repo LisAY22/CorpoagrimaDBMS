@@ -40,7 +40,6 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu");
         setBackground(new java.awt.Color(196, 212, 209));
-        setPreferredSize(new java.awt.Dimension(580, 480));
         setResizable(false);
 
         regresarJButton.setBackground(new java.awt.Color(16, 82, 0));
@@ -54,8 +53,8 @@ public class Principal extends javax.swing.JFrame {
         });
 
         inventarioJButton.setBackground(new java.awt.Color(136, 213, 133));
-        inventarioJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        inventarioJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inventario.png")));
+        inventarioJButton.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        inventarioJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inventario.png"))); // NOI18N
         inventarioJButton.setText("INVENTARIO");
         inventarioJButton.setToolTipText("");
         inventarioJButton.setPreferredSize(new java.awt.Dimension(100, 100));
@@ -67,42 +66,42 @@ public class Principal extends javax.swing.JFrame {
 
         proveedoresJButton.setBackground(new java.awt.Color(136, 213, 133));
         proveedoresJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        proveedoresJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proveedores.png")));
+        proveedoresJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proveedores.png"))); // NOI18N
         proveedoresJButton.setText("PROVEEDORES");
         proveedoresJButton.setToolTipText("");
         proveedoresJButton.setPreferredSize(new java.awt.Dimension(100, 100));
 
         finanzasJButton.setBackground(new java.awt.Color(136, 213, 133));
         finanzasJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        finanzasJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/finanzas.png")));
+        finanzasJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/finanzas.png"))); // NOI18N
         finanzasJButton.setText("FINANZAS");
         finanzasJButton.setToolTipText("");
         finanzasJButton.setPreferredSize(new java.awt.Dimension(100, 100));
 
         clientesJButton.setBackground(new java.awt.Color(136, 213, 133));
         clientesJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        clientesJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/clientes.png")));
+        clientesJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/clientes.png"))); // NOI18N
         clientesJButton.setText("CLIENTES");
         clientesJButton.setToolTipText("");
         clientesJButton.setPreferredSize(new java.awt.Dimension(100, 100));
 
         ventasJButton.setBackground(new java.awt.Color(136, 213, 133));
         ventasJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        ventasJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ventas.png")));
+        ventasJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ventas.png"))); // NOI18N
         ventasJButton.setText("VENTAS");
         ventasJButton.setToolTipText("");
         ventasJButton.setPreferredSize(new java.awt.Dimension(100, 100));
 
         rhJButton.setBackground(new java.awt.Color(136, 213, 133));
         rhJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        rhJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rh.png")));
+        rhJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rh.png"))); // NOI18N
         rhJButton.setText("     RH");
         rhJButton.setToolTipText("");
         rhJButton.setPreferredSize(new java.awt.Dimension(100, 100));
 
         comprasJButton.setBackground(new java.awt.Color(136, 213, 133));
         comprasJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        comprasJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compras.png")));
+        comprasJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compras.png"))); // NOI18N
         comprasJButton.setText("COMPRAS");
         comprasJButton.setToolTipText("");
         comprasJButton.setPreferredSize(new java.awt.Dimension(100, 100));
