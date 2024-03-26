@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package gui;
+package corpoagrima.corpoagrima.gui;
 
 /**
  *
  * @author lisaj
  */
-public class principal extends javax.swing.JFrame {
+public class Principal extends javax.swing.JFrame {
 
     /**
      * Creates new form principal
      */
-    public principal() {
+    public Principal() {
         initComponents();
     }
 
@@ -28,14 +28,14 @@ public class principal extends javax.swing.JFrame {
 
         jSeparator1 = new javax.swing.JSeparator();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
-        jButton4 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        regresarJButton = new javax.swing.JButton();
+        inventarioJButton = new javax.swing.JButton();
+        proveedoresJButton = new javax.swing.JButton();
+        finanzasJButton = new javax.swing.JButton();
+        clientesJButton = new javax.swing.JButton();
+        ventasJButton = new javax.swing.JButton();
+        rhJButton = new javax.swing.JButton();
+        comprasJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu");
@@ -43,99 +43,69 @@ public class principal extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(580, 480));
         setResizable(false);
 
-        jButton4.setBackground(new java.awt.Color(16, 82, 0));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(248, 244, 227));
-        jButton4.setText("REGRESAR");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+        regresarJButton.setBackground(new java.awt.Color(16, 82, 0));
+        regresarJButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        regresarJButton.setForeground(new java.awt.Color(248, 244, 227));
+        regresarJButton.setText("REGRESAR");
+        regresarJButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                regresarJButtonMouseClicked(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(136, 213, 133));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/corpoagrima/corpoagrima/gui/inventario.png"))); // NOI18N
-        jButton1.setText("INVENTARIO");
-        jButton1.setToolTipText("");
-        jButton1.setPreferredSize(new java.awt.Dimension(100, 100));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        inventarioJButton.setBackground(new java.awt.Color(136, 213, 133));
+        inventarioJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        inventarioJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inventario.png")));
+        inventarioJButton.setText("INVENTARIO");
+        inventarioJButton.setToolTipText("");
+        inventarioJButton.setPreferredSize(new java.awt.Dimension(100, 100));
+        inventarioJButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inventarioJButtonMouseClicked(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(136, 213, 133));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/corpoagrima/corpoagrima/gui/proveedores.png"))); // NOI18N
-        jButton2.setText("PROVEEDORES");
-        jButton2.setToolTipText("");
-        jButton2.setPreferredSize(new java.awt.Dimension(100, 100));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        proveedoresJButton.setBackground(new java.awt.Color(136, 213, 133));
+        proveedoresJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        proveedoresJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proveedores.png")));
+        proveedoresJButton.setText("PROVEEDORES");
+        proveedoresJButton.setToolTipText("");
+        proveedoresJButton.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        jButton3.setBackground(new java.awt.Color(136, 213, 133));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/corpoagrima/corpoagrima/gui/finanzas.png"))); // NOI18N
-        jButton3.setText("FINANZAS");
-        jButton3.setToolTipText("");
-        jButton3.setPreferredSize(new java.awt.Dimension(100, 100));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        finanzasJButton.setBackground(new java.awt.Color(136, 213, 133));
+        finanzasJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        finanzasJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/finanzas.png")));
+        finanzasJButton.setText("FINANZAS");
+        finanzasJButton.setToolTipText("");
+        finanzasJButton.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        jButton5.setBackground(new java.awt.Color(136, 213, 133));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/corpoagrima/corpoagrima/gui/clientes.png"))); // NOI18N
-        jButton5.setText("CLIENTES");
-        jButton5.setToolTipText("");
-        jButton5.setPreferredSize(new java.awt.Dimension(100, 100));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
+        clientesJButton.setBackground(new java.awt.Color(136, 213, 133));
+        clientesJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        clientesJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/clientes.png")));
+        clientesJButton.setText("CLIENTES");
+        clientesJButton.setToolTipText("");
+        clientesJButton.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        jButton6.setBackground(new java.awt.Color(136, 213, 133));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/corpoagrima/corpoagrima/gui/ventas.png"))); // NOI18N
-        jButton6.setText("VENTAS");
-        jButton6.setToolTipText("");
-        jButton6.setPreferredSize(new java.awt.Dimension(100, 100));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
+        ventasJButton.setBackground(new java.awt.Color(136, 213, 133));
+        ventasJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        ventasJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ventas.png")));
+        ventasJButton.setText("VENTAS");
+        ventasJButton.setToolTipText("");
+        ventasJButton.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        jButton7.setBackground(new java.awt.Color(136, 213, 133));
-        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/corpoagrima/corpoagrima/gui/rh.png"))); // NOI18N
-        jButton7.setText("     RH");
-        jButton7.setToolTipText("");
-        jButton7.setPreferredSize(new java.awt.Dimension(100, 100));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
+        rhJButton.setBackground(new java.awt.Color(136, 213, 133));
+        rhJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        rhJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rh.png")));
+        rhJButton.setText("     RH");
+        rhJButton.setToolTipText("");
+        rhJButton.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        jButton8.setBackground(new java.awt.Color(136, 213, 133));
-        jButton8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/corpoagrima/corpoagrima/gui/compras.png"))); // NOI18N
-        jButton8.setText("COMPRAS");
-        jButton8.setToolTipText("");
-        jButton8.setPreferredSize(new java.awt.Dimension(100, 100));
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
+        comprasJButton.setBackground(new java.awt.Color(136, 213, 133));
+        comprasJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        comprasJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compras.png")));
+        comprasJButton.setText("COMPRAS");
+        comprasJButton.setToolTipText("");
+        comprasJButton.setPreferredSize(new java.awt.Dimension(100, 100));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,25 +115,25 @@ public class principal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(233, 233, 233)
-                        .addComponent(jButton4))
+                        .addComponent(regresarJButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(inventarioJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(clientesJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(36, 36, 36)
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(rhJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ventasJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
-                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comprasJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(finanzasJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(190, 190, 190)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(proveedoresJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -171,68 +141,56 @@ public class principal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(inventarioJButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clientesJButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rhJButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(proveedoresJButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ventasJButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(finanzasJButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comprasJButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(regresarJButton)
                 .addGap(20, 20, 20))
         );
 
-        jButton1.getAccessibleContext().setAccessibleName("inventario");
+        inventarioJButton.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void inventarioJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inventarioJButtonMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        Inventario inventario_screen = new Inventario();
+        inventario_screen.setVisible(true);
+        inventario_screen.setLocationRelativeTo(null);
+        
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_inventarioJButtonMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void regresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarJButtonMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+        Login login_screen = new Login();
+        login_screen.setVisible(true);
+        login_screen.setLocationRelativeTo(null);
+        
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_regresarJButtonMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton clientesJButton;
+    private javax.swing.JButton comprasJButton;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton finanzasJButton;
+    private javax.swing.JButton inventarioJButton;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton proveedoresJButton;
+    private javax.swing.JButton regresarJButton;
+    private javax.swing.JButton rhJButton;
+    private javax.swing.JButton ventasJButton;
     // End of variables declaration//GEN-END:variables
 }

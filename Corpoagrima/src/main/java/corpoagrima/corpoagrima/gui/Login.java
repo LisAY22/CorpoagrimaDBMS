@@ -36,6 +36,8 @@ public class Login extends javax.swing.JFrame {
         ingresarJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
+        setResizable(false);
 
         logoJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logoJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
@@ -58,11 +60,24 @@ public class Login extends javax.swing.JFrame {
         contraseñaJPasswordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         contraseñaJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ojo.png"))); // NOI18N
+        contraseñaJButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                contraseñaJButtonMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                contraseñaJButtonMouseReleased(evt);
+            }
+        });
 
         ingresarJButton.setBackground(new java.awt.Color(16, 82, 0));
         ingresarJButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ingresarJButton.setForeground(new java.awt.Color(252, 252, 252));
         ingresarJButton.setText("INGRESAR");
+        ingresarJButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ingresarJButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout principalJPanelLayout = new javax.swing.GroupLayout(principalJPanel);
         principalJPanel.setLayout(principalJPanelLayout);
@@ -126,6 +141,34 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void contraseñaJButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseñaJButtonMousePressed
+        // TODO add your handling code here:
+        String contraseña = new String(contraseñaJPasswordField.getPassword());
+    
+        // Establecer el campo de contraseña para mostrar el contenido en texto claro
+        contraseñaJPasswordField.setEchoChar((char) 0);
+    
+        // Establecer el texto del campo de contraseña como la contraseña
+        contraseñaJPasswordField.setText(contraseña);
+    }//GEN-LAST:event_contraseñaJButtonMousePressed
+
+    private void contraseñaJButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseñaJButtonMouseReleased
+        // TODO add your handling code here:
+        // Restablecer el campo de contraseña para mostrar los puntos
+        contraseñaJPasswordField.setEchoChar('°');
+    }//GEN-LAST:event_contraseñaJButtonMouseReleased
+
+    private void ingresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarJButtonMouseClicked
+        // TODO add your handling code here:
+        // Crear una instancia de la nueva ventana
+        Principal principal_screen = new Principal();
+        principal_screen.setVisible(true);
+        principal_screen.setLocationRelativeTo(null);
+        
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_ingresarJButtonMouseClicked
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton contraseñaJButton;
     private javax.swing.JLabel contraseñaJLabel;
