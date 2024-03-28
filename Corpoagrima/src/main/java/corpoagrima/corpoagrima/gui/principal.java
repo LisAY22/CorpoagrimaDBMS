@@ -4,16 +4,22 @@
  */
 package corpoagrima.corpoagrima.gui;
 
+import java.sql.Connection;
+
+
 /**
  *
  * @author lisaj
  */
-public class Principal extends javax.swing.JFrame {
-
+public class principal extends javax.swing.JFrame {
+    
     /**
      * Creates new form principal
      */
-    public Principal() {
+    private Connection conexion;
+    
+    public principal(Connection conexion) {
+        this.conexion = conexion;
         initComponents();
     }
 
@@ -162,7 +168,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void inventarioJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inventarioJButtonMouseClicked
         // TODO add your handling code here:
-        Inventario inventario_screen = new Inventario();
+        inventario inventario_screen = new inventario(conexion);
         inventario_screen.setVisible(true);
         inventario_screen.setLocationRelativeTo(null);
         

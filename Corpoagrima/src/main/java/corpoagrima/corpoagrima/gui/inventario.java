@@ -4,10 +4,8 @@
  */
 package corpoagrima.corpoagrima.gui;
 
-import java.awt.List;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.*;
@@ -23,14 +21,19 @@ import java.util.ArrayList;
  *
  * @author lisaj
  */
-public class Inventario extends javax.swing.JFrame {
+public class inventario extends javax.swing.JFrame {
 
     /**
      * Creates new form inventario
      */    
     
+    private Connection conexion;
+    private ConexionProducto inventario;
     
-    public Inventario() {
+    
+    public inventario(Connection conexion) {
+        this.conexion = conexion;
+        inventario = new ConexionProducto();
         initComponents();
         actualizarTabla();
     }
@@ -244,14 +247,7 @@ public class Inventario extends javax.swing.JFrame {
 
         if (!textoBusqueda.isEmpty()) {
             try {
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/CorpoagrimaBD?serverTimezone=UTC", "root", "Mi.Brol.22");
-
-                String sql = "SELECT * FROM producto WHERE nombre LIKE ? OR ID_Producto = ?";
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setString(1, "%" + textoBusqueda + "%");
-                stmt.setString(2, textoBusqueda);
-
-                ResultSet rs = stmt.executeQuery();
+                ResultSet rs = inventario.busqueda(conexion, textoBusqueda);
 
                 DefaultTableModel model = new DefaultTableModel();
                 datosJTable.setModel(model);
@@ -271,8 +267,6 @@ public class Inventario extends javax.swing.JFrame {
                 }
 
                 rs.close();
-                stmt.close();
-                conn.close();
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -285,7 +279,7 @@ public class Inventario extends javax.swing.JFrame {
 
     private void regresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarJButtonMouseClicked
         // TODO add your handling code here:
-        Principal principal_screen = new Principal();
+        principal principal_screen = new principal(conexion);
         principal_screen.setVisible(true);
         principal_screen.setLocationRelativeTo(null);
         
@@ -296,15 +290,9 @@ public class Inventario extends javax.swing.JFrame {
 
     private void actualizarTabla() {
         try {
-            // Establecer la conexión a la base de datos
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/CorpoagrimaBD?serverTimezone=UTC", "root", "Mi.Brol.22");
-
-            // Crear una sentencia SQL
-            String sql = "SELECT * FROM producto";
-            PreparedStatement stmt = conn.prepareStatement(sql);
 
             // Ejecutar la consulta y obtener el ResultSet
-            ResultSet rs = stmt.executeQuery();
+            ResultSet rs = inventario.consulta(conexion);
 
             // Crear un modelo de tabla y asignarlo a la JTable
             DefaultTableModel model = new DefaultTableModel();
@@ -328,8 +316,6 @@ public class Inventario extends javax.swing.JFrame {
 
             // Cerrar la conexión y liberar recursos
             rs.close();
-            stmt.close();
-            conn.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
