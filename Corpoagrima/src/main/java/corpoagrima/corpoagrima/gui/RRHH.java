@@ -47,7 +47,7 @@ public class RRHH extends javax.swing.JFrame {
         puestoJLabel.setText("RR.HH");
 
         Refresh_button.setBackground(new java.awt.Color(34, 85, 34));
-        Refresh_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/corpoagrima/corpoagrima/gui/actualizar.png"))); // NOI18N
+        Refresh_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizar.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
