@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class ConexionProducto {
     public ResultSet busqueda(Connection conexion, String textoBusqueda) throws SQLException{
 
-        String sql = "SELECT * FROM producto WHERE nombre LIKE ? OR ID_Producto = ?";
+        String sql = "SELECT * FROM Producto WHERE Nombre LIKE ? OR ID_Producto = ?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, "%" + textoBusqueda + "%");
         stmt.setString(2, textoBusqueda);
@@ -27,7 +27,7 @@ public class ConexionProducto {
     
     public ResultSet consulta(Connection conexion) throws SQLException{
         // Crear una sentencia SQL
-        String sql = "SELECT * FROM producto";
+        String sql = "SELECT * FROM Producto";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         
         return stmt.executeQuery();

@@ -17,7 +17,7 @@ public class ConexionUsuario {
     
     public boolean consulta(Connection conexion, String usuario, String contrasenia) {
         // Utilizar String.format() para crear la cadena completa
-        String sql = String.format("SELECT * FROM usuario WHERE nombre = '%s' AND contraseña = '%s'", usuario, contrasenia);
+        String sql = String.format("SELECT * FROM Usuario WHERE Nombre = '%s' AND Contraseña = '%s'", usuario, contrasenia);
         try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
                 try (ResultSet rs = stmt.executeQuery()) {
                     // Si se encuentra algún resultado, las credenciales son correctas
