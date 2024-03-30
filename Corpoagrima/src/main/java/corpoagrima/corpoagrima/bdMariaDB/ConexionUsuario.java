@@ -28,4 +28,38 @@ public class ConexionUsuario {
             return false; // Si ocurre algún error, considerar las credenciales como incorrectas
         }
     }
+    
+    public boolean agregar(Connection conexion, String nombre, 
+            String contrasenia) throws SQLException{
+        String sql = "INSERT INTO Usuario (Nombre, Contraseña) "
+                + "VALUES (?, ?)";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, nombre);
+        stmt.setString(2, contrasenia);
+        // ejecutar la consulta
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
+    
+    public boolean actualizar(Connection conexion, String nombre, 
+            String contrasenia, int id)throws SQLException{
+        String sql = "UPDATE Usuario SET Nombre=?, Contraseña=? "
+                + "WHERE ID_Usuario=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, nombre);
+        stmt.setString(2, contrasenia);
+        stmt.setInt(3, id);
+        // ejecutar la consulta
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
+    
+    public boolean eliminar(Connection conexion, int id) throws SQLException{
+        String sql = "DELETE FROM Usuario WHERE ID_Usuario=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setInt(1, id);
+        // ejecutar la consulta
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
 }
