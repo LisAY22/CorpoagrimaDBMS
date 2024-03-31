@@ -225,7 +225,15 @@ public class RRHH extends javax.swing.JFrame {
             new String [] {
                 "ID", "Nombre", "Apellido", "NIT", "Correo_Electrónico", "Dirección", "Bonificaciones", "Puesto", "Usuario", "Sueldo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(TablaEmpleado);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
