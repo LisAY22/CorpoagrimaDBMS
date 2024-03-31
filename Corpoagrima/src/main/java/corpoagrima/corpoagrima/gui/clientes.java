@@ -333,7 +333,6 @@ public class clientes extends javax.swing.JFrame {
 
     private void actualizarTabla() {
         try {
-
             ResultSet rs = clientes.consulta(conexion);
 
             // Obtener el modelo de la tabla actual
@@ -346,7 +345,22 @@ public class clientes extends javax.swing.JFrame {
             while (rs.next()) {
                 Object[] rowData = new Object[columnCount];
                 for (int i = 0; i < columnCount; i++) {
-                    rowData[i] = rs.getObject(i + 1);
+                    // Obtener el valor de la columna
+                    Object value = rs.getObject(i + 1);
+                    if (value instanceof Integer) {
+                        int intValue = (int) value;
+                        if (intValue == 0 && i != 0) {
+                            rowData[i] = "-";
+                        } else if (intValue == 1 && i != 0) {
+                            rowData[i] = "\u2605"; // Código Unicode para una estrella
+                        } else {
+                            rowData[i] = value;
+                        }
+                    } else if (value == null) {
+                        rowData[i] = "-";
+                    } else {
+                        rowData[i] = value;
+                    }
                 }
                 model.addRow(rowData);
             }
@@ -358,6 +372,8 @@ public class clientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Actualizar_Bn;
