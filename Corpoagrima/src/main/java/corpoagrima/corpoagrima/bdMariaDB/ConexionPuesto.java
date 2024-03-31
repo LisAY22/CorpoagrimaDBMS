@@ -23,10 +23,17 @@ public class ConexionPuesto {
         return stmt.executeQuery();
     }
     
-    public ResultSet puesto(Connection conexion, String nombre) throws SQLException{
-        String sql = "SELECT Nombre FROM Puesto WHERE Nombre LIKE ?";
+    public ResultSet puestoNombre(Connection conexion, String nombre) throws SQLException{
+        String sql = "SELECT Nombre FROM Puesto WHERE Nombre = ?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
-        stmt.setString(1, "%" + nombre + "%");
+        stmt.setString(1, nombre);
+        return stmt.executeQuery();
+    }
+    
+    public ResultSet puestoId(Connection conexion, int idPuesto) throws SQLException{
+        String sql = "SELECT Nombre, Salario_Base FROM Puesto WHERE ID_Puesto = ?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setInt(1, idPuesto);
         return stmt.executeQuery();
     }
     
