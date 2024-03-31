@@ -43,23 +43,24 @@ public class RRHH extends javax.swing.JFrame {
         ResultSet resultado = Empleado.consulta(conexion);
         
         while (resultado.next()) {
-        int ID = resultado.getInt("ID_Empleado");
-        String Nombre = resultado.getString("Nombre");
-        String Apellido = resultado.getString("Apellido");
-        String NIT = resultado.getString("NIT");
-        String Correo = resultado.getString("Correo_electronico");
-        String Direccion = resultado.getString("Direccion");
-        String Bonificaciones = resultado.getString("Bonificaciones");
-        int id_puesto = resultado.getInt("Puesto_ID_Puesto");
+            int ID = resultado.getInt("ID_Empleado");
+            String Nombre = resultado.getString("Nombre");
+            String Apellido = resultado.getString("Apellido");
+            String NIT = resultado.getString("NIT");
+            String Correo = resultado.getString("Correo_electronico");
+            String Direccion = resultado.getString("Direccion");
+            String Bonificaciones = resultado.getString("Bonificaciones");
+            int id_puesto = resultado.getInt("Puesto_ID_Puesto");
 
-        // Segunda consulta para obtener el puesto y el sueldo del puesto.
-        ResultSet Resultado_puesto = Puesto.puestoId(conexion, id_puesto);
-        
-        String Puesto = Resultado_puesto.getString(1);
-        Float Salario = Resultado_puesto.getFloat(5);
-        
-        // Agregar a la tabla
-        model.addRow(new Object[]{ID, Nombre, Apellido, NIT, Correo, Direccion, Bonificaciones, Puesto, Salario});
+            // Segunda consulta para obtener el puesto y el sueldo del puesto.
+            ResultSet resultadoPuesto = Puesto.puestoId(conexion, id_puesto);
+            
+            resultadoPuesto.next();
+            String puesto = resultadoPuesto.getString("Nombre");
+            Float salario = resultadoPuesto.getFloat("Salario_Base");
+
+            // Agregar a la tabla
+            model.addRow(new Object[]{ID, Nombre, Apellido, NIT, Correo, Direccion, Bonificaciones, puesto, salario});
         }
     }
     
