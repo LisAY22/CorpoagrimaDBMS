@@ -3,20 +3,111 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package corpoagrima.corpoagrima.gui;
-
+import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author User
  */
 public class RRHH extends javax.swing.JFrame {
-
+    
+    private Connection Conexion;
+    private ConexionEmpleado Empleado;
+    private ConexionPuesto Puesto;
     /**
      * Creates new form RH
+     * @throws java.sql.SQLException
      */
-    public RRHH() {
+    public RRHH() throws SQLException {
         initComponents();
+        Initial_table();
     }
+    
+    private void Initial_table() throws SQLException{
+        DefaultTableModel model = new DefaultTableModel();
+        TablaEmpleado.setModel(model);
+        ResultSet resultado = Empleado.consulta(Conexion);
+        
+        while (resultado.next()) {
+        int ID = resultado.getInt("ID_Empleado");
+        String Nombre = resultado.getString("Nombre");
+        String Apellido = resultado.getString("Apellido");
+        String NIT = resultado.getString("NIT");
+        String Correo = resultado.getString("Correo_electronico");
+        String Direccion = resultado.getString("Direccion");
+        String Bonificaciones = resultado.getString("Bonificaciones");
+        int id_puesto = resultado.getInt("Puesto_ID_Puesto");
 
+        // Segunda consulta para obtener el puesto y el sueldo del puesto.
+        ResultSet Resultado_puesto = Puesto.puestoId(Conexion, id_puesto);
+        
+        String Puesto = Resultado_puesto.getString(1);
+        Float Salario = Resultado_puesto.getFloat(5);
+        
+        // Agregar a la tabla
+        model.addRow(new Object[]{ID, Nombre, Apellido, NIT, Correo, Direccion, Bonificaciones, Puesto, Salario});
+        }
+    }
+    
+    private void order_by_name() throws SQLException{
+        DefaultTableModel model = new DefaultTableModel();
+        TablaEmpleado.setModel(model);
+        ResultSet resultado = Empleado.ordenarNombre(Conexion);
+        
+        while (resultado.next()) {
+        int ID = resultado.getInt("ID_Empleado");
+        String Nombre = resultado.getString("Nombre");
+        String Apellido = resultado.getString("Apellido");
+        String NIT = resultado.getString("NIT");
+        String Correo = resultado.getString("Correo_electronico");
+        String Direccion = resultado.getString("Direccion");
+        String Bonificaciones = resultado.getString("Bonificaciones");
+        int id_puesto = resultado.getInt("Puesto_ID_Puesto");
+
+        // Segunda consulta para obtener el puesto y el sueldo del puesto.
+        ResultSet Resultado_puesto = Puesto.puestoId(Conexion, id_puesto);
+        
+        String Puesto = Resultado_puesto.getString(1);
+        Float Salario = Resultado_puesto.getFloat(5);
+        
+        // Agregar a la tabla
+        model.addRow(new Object[]{ID, Nombre, Apellido, NIT, Correo, Direccion, Bonificaciones, Puesto, Salario});
+        }
+    }
+    
+    private void order_by_Apellido() throws SQLException{
+        DefaultTableModel model = new DefaultTableModel();
+        TablaEmpleado.setModel(model);
+        ResultSet resultado = Empleado.ordenarApellido(Conexion);
+        
+        while (resultado.next()) {
+        int ID = resultado.getInt("ID_Empleado");
+        String Nombre = resultado.getString("Nombre");
+        String Apellido = resultado.getString("Apellido");
+        String NIT = resultado.getString("NIT");
+        String Correo = resultado.getString("Correo_electronico");
+        String Direccion = resultado.getString("Direccion");
+        String Bonificaciones = resultado.getString("Bonificaciones");
+        int id_puesto = resultado.getInt("Puesto_ID_Puesto");
+
+        // Segunda consulta para obtener el puesto y el sueldo del puesto.
+        ResultSet Resultado_puesto = Puesto.puestoId(Conexion, id_puesto);
+        
+        String Puesto = Resultado_puesto.getString(1);
+        Float Salario = Resultado_puesto.getFloat(5);
+        
+        // Agregar a la tabla
+        model.addRow(new Object[]{ID, Nombre, Apellido, NIT, Correo, Direccion, Bonificaciones, Puesto, Salario});
+        }
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,7 +127,7 @@ public class RRHH extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaEmpleado = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +161,11 @@ public class RRHH extends javax.swing.JFrame {
         );
 
         jButton1.setText("Ordenamiento por nombre");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Ordenamiento por Apellido");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +207,7 @@ public class RRHH extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaEmpleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -121,16 +217,8 @@ public class RRHH extends javax.swing.JFrame {
             new String [] {
                 "ID", "Nombre", "Apellido", "NIT", "Correo_Electrónico", "Dirección", "Bonificaciones", "Puesto", "Usuario", "Sueldo"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
+        ));
+        jScrollPane1.setViewportView(TablaEmpleado);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -175,6 +263,10 @@ public class RRHH extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -206,13 +298,18 @@ public class RRHH extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RRHH().setVisible(true);
+                try {
+                    new RRHH().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(RRHH.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Refresh_button;
+    private javax.swing.JTable TablaEmpleado;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -221,7 +318,6 @@ public class RRHH extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel puestoJLabel;
     // End of variables declaration//GEN-END:variables
 }

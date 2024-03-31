@@ -5,6 +5,9 @@
 package corpoagrima.corpoagrima.gui;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -109,6 +112,11 @@ public class principal extends javax.swing.JFrame {
         rhJButton.setText("     RH");
         rhJButton.setToolTipText("");
         rhJButton.setPreferredSize(new java.awt.Dimension(100, 100));
+        rhJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rhJButtonActionPerformed(evt);
+            }
+        });
 
         comprasJButton.setBackground(new java.awt.Color(136, 213, 133));
         comprasJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -200,6 +208,16 @@ public class principal extends javax.swing.JFrame {
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_clientesJButtonMouseClicked
+
+    private void rhJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rhJButtonActionPerformed
+        try {
+            RRHH rh_window = new RRHH();
+            rh_window.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dispose();
+    }//GEN-LAST:event_rhJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clientesJButton;
