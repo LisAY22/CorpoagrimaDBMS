@@ -606,6 +606,12 @@ public class Empleado extends javax.swing.JFrame {
             
             //Deshabilitar los checkbox
             GenerarCódigo_checkBox.setEnabled(false);
+            Buscar_jButton.setEnabled(false);
+            
+            //Habilitar botones de guardado
+            Delete_button.setEnabled(true);
+            Save_button.setEnabled(true);
+            
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al consultar los datos", "Error", JOptionPane.ERROR_MESSAGE);
