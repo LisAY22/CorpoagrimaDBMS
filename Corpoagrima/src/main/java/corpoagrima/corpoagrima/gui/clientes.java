@@ -194,6 +194,11 @@ public class clientes extends javax.swing.JFrame {
 
         Editar_Bn.setBackground(new java.awt.Color(136, 213, 133));
         Editar_Bn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
+        Editar_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Editar_BnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -330,6 +335,16 @@ public class clientes extends javax.swing.JFrame {
     private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Regresar_BnActionPerformed
+
+    private void Editar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Editar_BnMouseClicked
+        // TODO add your handling code here:
+        clientes2 clientes2_screen = new clientes2(conexion);
+        clientes2_screen.setVisible(true);
+        clientes2_screen.setLocationRelativeTo(null);
+        
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_Editar_BnMouseClicked
 
     private void actualizarTabla() {
         try {
