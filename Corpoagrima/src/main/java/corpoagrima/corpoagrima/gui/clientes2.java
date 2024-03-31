@@ -43,11 +43,11 @@ public class clientes2 extends javax.swing.JFrame {
 
         jLabel8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        EditarLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         Buscar_textField = new javax.swing.JTextField();
         GenerarCódigo_checkBox = new javax.swing.JCheckBox();
-        jButton4 = new javax.swing.JButton();
+        Buscar_Button = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         NITLabel = new javax.swing.JLabel();
         ApellidoLabel = new javax.swing.JLabel();
@@ -78,9 +78,9 @@ public class clientes2 extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(34, 85, 34));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("EDITAR CLIENTE");
+        EditarLabel.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        EditarLabel.setForeground(new java.awt.Color(255, 255, 255));
+        EditarLabel.setText("EDITAR CLIENTE");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -88,14 +88,14 @@ public class clientes2 extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(379, 379, 379)
-                .addComponent(jLabel1)
+                .addComponent(EditarLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(EditarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -114,11 +114,11 @@ public class clientes2 extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(136, 213, 133));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        Buscar_Button.setBackground(new java.awt.Color(136, 213, 133));
+        Buscar_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
+        Buscar_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                Buscar_ButtonActionPerformed(evt);
             }
         });
 
@@ -128,7 +128,7 @@ public class clientes2 extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(79, 79, 79)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Buscar_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -140,7 +140,7 @@ public class clientes2 extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(Buscar_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(GenerarCódigo_checkBox)
                         .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -433,13 +433,14 @@ public class clientes2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_Buscar_ButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApellidoLabel;
     private javax.swing.JTextField Apellido_textField;
+    private javax.swing.JButton Buscar_Button;
     private javax.swing.JTextField Buscar_textField;
     private javax.swing.JButton Cancel_button;
     private javax.swing.JLabel CantidadComprasLabel;
@@ -450,6 +451,7 @@ public class clientes2 extends javax.swing.JFrame {
     private javax.swing.JCheckBox Destacado_checkBox;
     private javax.swing.JLabel DireccionLabel;
     private javax.swing.JTextField Direccion_textfield;
+    private javax.swing.JLabel EditarLabel;
     private javax.swing.JCheckBox GenerarCódigo_checkBox;
     private javax.swing.JButton Guardar_button;
     private javax.swing.JTextField ID_textField1;
@@ -459,8 +461,6 @@ public class clientes2 extends javax.swing.JFrame {
     private javax.swing.JTextField NIT_textfield;
     private javax.swing.JLabel NombreLabel;
     private javax.swing.JTextField Nombre_textField;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
