@@ -4,17 +4,56 @@
  */
 package corpoagrima.corpoagrima.gui;
 
+import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
  */
 public class Empleado extends javax.swing.JFrame {
-
+    private Connection conexion;
+    private ConexionEmpleado Empleado;
+    private ConexionPuesto Puesto;
+    private ConexionUsuario Usuario;
+    public String[] opciones = {"Seleccionar", "Gerente", "Empleado", "Cliente"};
+    /**
     /**
      * Creates new form Empleado
      */
-    public Empleado() {
+    public Empleado(Connection conexion) {
+        this.conexion = conexion;
+        Empleado = new ConexionEmpleado();
+        Puesto = new ConexionPuesto();
+        Usuario = new ConexionUsuario();
         initComponents();
+    }
+    
+    public void Enable(boolean source){
+        Apellido_textField.setEnabled(source);
+        Bonificaciones_textfield.setEnabled(source);
+        Buscar_textField.setEnabled(source);
+        Correo_textfield.setEnabled(source);
+        ID_textfield.setEnabled(source);
+        Direccion_textfield.setEnabled(source);
+        NIT_textfield.setEnabled(source);
+        Nombre_textField.setEnabled(source);
+        Telefono_textfield.setEnabled(source);
+        Usuario_textfield.setEnabled(source);
+        contrasena_textfield1.setEnabled(source);
+        Puesto_comboBox.setEnabled(source);
+    }
+    
+
+    private Empleado() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -33,7 +72,7 @@ public class Empleado extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         Buscar_textField = new javax.swing.JTextField();
         GenerarCódigo_checkBox = new javax.swing.JCheckBox();
-        jLabel5 = new javax.swing.JLabel();
+        Buscar_jButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -106,45 +145,42 @@ public class Empleado extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Buscar");
+        Buscar_jButton.setText("Buscar");
+        Buscar_jButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Buscar_jButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(93, 93, 93)
+                .addGap(24, 24, 24)
                 .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Buscar_jButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(GenerarCódigo_checkBox, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(29, 29, 29)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(824, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(GenerarCódigo_checkBox)))
+                        .addGap(44, 44, 44)
+                        .addComponent(GenerarCódigo_checkBox))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Buscar_jButton))))
                 .addContainerGap(41, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(36, 36, 36)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(42, Short.MAX_VALUE)))
         );
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -159,6 +195,7 @@ public class Empleado extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Nombre");
 
+        Nombre_textField.setEditable(false);
         Nombre_textField.setText("Ingrese Nombre");
         Nombre_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,10 +203,13 @@ public class Empleado extends javax.swing.JFrame {
             }
         });
 
+        Apellido_textField.setEditable(false);
         Apellido_textField.setText("Ingrese Apellido");
 
+        NIT_textfield.setEditable(false);
         NIT_textfield.setText("Ingrese NIT");
 
+        Correo_textfield.setEditable(false);
         Correo_textfield.setText("Ingrese correo electrónico");
         Correo_textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,6 +220,7 @@ public class Empleado extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("Dirección");
 
+        Direccion_textfield.setEditable(false);
         Direccion_textfield.setText("Ingrese dirección");
         Direccion_textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,6 +231,7 @@ public class Empleado extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("Bonificaciones ");
 
+        Bonificaciones_textfield.setEditable(false);
         Bonificaciones_textfield.setText("Ingrese bonificaciones");
         Bonificaciones_textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,6 +243,7 @@ public class Empleado extends javax.swing.JFrame {
         jLabel11.setText("Correo electrónico");
 
         Puesto_comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Puesto_comboBox.setEnabled(false);
         Puesto_comboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Puesto_comboBoxActionPerformed(evt);
@@ -210,6 +253,7 @@ public class Empleado extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setText("Puesto");
 
+        Sueldobase_textfield.setEditable(false);
         Sueldobase_textfield.setText("Sueldo en Quetzales");
         Sueldobase_textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,6 +264,7 @@ public class Empleado extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel13.setText("Contraseña");
 
+        Usuario_textfield.setEditable(false);
         Usuario_textfield.setText("Ingrese Usuario");
         Usuario_textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,6 +275,7 @@ public class Empleado extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel15.setText("Teléfono");
 
+        Telefono_textfield.setEditable(false);
         Telefono_textfield.setText("Ingrese Teléfono");
         Telefono_textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,6 +286,7 @@ public class Empleado extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel16.setText("Usuario");
 
+        contrasena_textfield1.setEditable(false);
         contrasena_textfield1.setText("Ingrese contraseña");
         contrasena_textfield1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,6 +297,7 @@ public class Empleado extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel14.setText("ID");
 
+        ID_textfield.setEditable(false);
         ID_textfield.setText("ID de empleado");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -349,8 +397,10 @@ public class Empleado extends javax.swing.JFrame {
         });
 
         Save_button.setText("Guardar");
+        Save_button.setEnabled(false);
 
         Clean_button.setText("Limpiar ");
+        Clean_button.setEnabled(false);
         Clean_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Clean_buttonActionPerformed(evt);
@@ -359,6 +409,7 @@ public class Empleado extends javax.swing.JFrame {
 
         Delete_button.setBackground(new java.awt.Color(255, 51, 51));
         Delete_button.setText("Eliminar");
+        Delete_button.setEnabled(false);
         Delete_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Delete_buttonActionPerformed(evt);
@@ -492,6 +543,75 @@ public class Empleado extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Nombre_textFieldActionPerformed
 
+    private void Buscar_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_jButtonActionPerformed
+        String IDString = Buscar_jButton.getText();
+        int IdInt = Integer.parseInt(IDString);
+        Enable(true);
+        
+        try {
+            ResultSet resultado = Empleado.empleadosID(conexion, IdInt);
+            resultado.next();
+            int ID = resultado.getInt("ID_Empleado");
+            String Nombre = resultado.getString("Nombre");
+            String Apellido = resultado.getString("Apellido");
+            String NIT = resultado.getString("NIT");
+            String Correo = resultado.getString("Correo_electronico");
+            String Direccion = resultado.getString("Direccion");
+            String Bonificaciones = resultado.getString("Bonificaciones");
+            int id_puesto = resultado.getInt("Puesto_ID_Puesto");
+            int id_usuario = resultado.getInt("Usuario_ID_Usuario");
+            
+            //Consulta de puesto y sueldo
+            ResultSet resultadoPuesto = Puesto.puestoId(conexion, id_puesto);
+            resultadoPuesto.next();
+            String puesto = resultadoPuesto.getString("Nombre");
+            Float salario = resultadoPuesto.getFloat("Salario_Base");
+            
+            // Tercera consulta para obtener el nombre de usuario 
+            ResultSet resultadoUsuario = Usuario.usuarioId(conexion, id_usuario);
+
+            resultadoUsuario.next();
+            String Nombre_usuario = resultadoUsuario.getString("Nombre");
+            
+            // Insertar en los textfield la informacion y habilitarlos
+            ID_textfield.setText(String.valueOf(ID));
+            Nombre_textField.setText(Nombre);
+            Apellido_textField.setText(Apellido);
+            NIT_textfield.setText(NIT);
+            Correo_textfield.setText(Correo);
+            Direccion_textfield.setText(Direccion);
+            Bonificaciones_textfield.setText(Bonificaciones);
+            Telefono_textfield.setText("No tiene xd");
+            
+            int indice = -1;
+            
+            for (int i = 0; i < opciones.length; i++) {
+            if (opciones[i].equals(puesto)) {
+                indice = i;
+                break;
+                }
+            }
+        
+            // Si se encontró una coincidencia, establecer ese índice como la selección predeterminada
+            if (indice != -1) {
+                Puesto_comboBox.setSelectedIndex(indice);
+            } else {
+                // Si no se encontró ninguna coincidencia, mostrar un mensaje de error
+                JOptionPane.showMessageDialog(null, "No se encontró ninguna coincidencia para el texto en las opciones del ComboBox.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            Sueldobase_textfield.setText(String.valueOf(salario));
+            Usuario_textfield.setText(Nombre_usuario);
+            contrasena_textfield1.setText("Ponga aqui su contraseña");
+            
+            //Deshabilitar los checkbox
+            GenerarCódigo_checkBox.setEnabled(false);
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al consultar los datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_Buscar_jButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -530,6 +650,7 @@ public class Empleado extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Apellido_textField;
     private javax.swing.JTextField Bonificaciones_textfield;
+    private javax.swing.JButton Buscar_jButton;
     private javax.swing.JTextField Buscar_textField;
     private javax.swing.JButton Cancel_button;
     private javax.swing.JButton Clean_button;
@@ -558,7 +679,6 @@ public class Empleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

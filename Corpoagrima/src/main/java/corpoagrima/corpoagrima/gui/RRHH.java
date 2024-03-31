@@ -72,13 +72,14 @@ public class RRHH extends javax.swing.JFrame {
                     
             
             // Agregar a la tabla
-            model.addRow(new Object[]{ID, Nombre, Apellido, NIT, Correo, Direccion, Bonificaciones, puesto, salario, Nombre_usuario});
+            model.addRow(new Object[]{ID, Nombre, Apellido, NIT, Correo, Direccion, Bonificaciones, puesto,Nombre_usuario, salario});
         }
     }
     
     private void order_by_name() throws SQLException{
         DefaultTableModel model = (DefaultTableModel) TablaEmpleado.getModel();
         ResultSet resultado = Empleado.ordenarNombre(conexion);
+        model.setRowCount(0);
         
         while (resultado.next()) {
         int ID = resultado.getInt("ID_Empleado");
@@ -89,21 +90,28 @@ public class RRHH extends javax.swing.JFrame {
         String Direccion = resultado.getString("Direccion");
         String Bonificaciones = resultado.getString("Bonificaciones");
         int id_puesto = resultado.getInt("Puesto_ID_Puesto");
+        int id_usuario = resultado.getInt("Usuario_ID_Usuario");
 
         // Segunda consulta para obtener el puesto y el sueldo del puesto.
-        ResultSet Resultado_puesto = Puesto.puestoId(conexion, id_puesto);
-        
-        String Puesto = Resultado_puesto.getString(1);
-        Float Salario = Resultado_puesto.getFloat(5);
-        
+        ResultSet resultadoPuesto = Puesto.puestoId(conexion, id_puesto);
+        resultadoPuesto.next();
+        String puesto = resultadoPuesto.getString("Nombre");
+        Float salario = resultadoPuesto.getFloat("Salario_Base");
+            
+        // Tercera consulta para obtener el nombre de usuario 
+        ResultSet resultadoUsuario = Usuario.usuarioId(conexion, id_usuario);
+            
+        resultadoUsuario.next();
+        String Nombre_usuario = resultadoUsuario.getString("Nombre");
         // Agregar a la tabla
-        model.addRow(new Object[]{ID, Nombre, Apellido, NIT, Correo, Direccion, Bonificaciones, Puesto, Salario});
+        model.addRow(new Object[]{ID, Nombre, Apellido, NIT, Correo, Direccion, Bonificaciones, puesto,Nombre_usuario, salario});
         }
     }
     
     private void order_by_Apellido() throws SQLException{
         DefaultTableModel model = (DefaultTableModel) TablaEmpleado.getModel();
         ResultSet resultado = Empleado.ordenarApellido(conexion);
+        model.setRowCount(0);
         
         while (resultado.next()) {
         int ID = resultado.getInt("ID_Empleado");
@@ -114,15 +122,22 @@ public class RRHH extends javax.swing.JFrame {
         String Direccion = resultado.getString("Direccion");
         String Bonificaciones = resultado.getString("Bonificaciones");
         int id_puesto = resultado.getInt("Puesto_ID_Puesto");
+        int id_usuario = resultado.getInt("Usuario_ID_Usuario");
 
         // Segunda consulta para obtener el puesto y el sueldo del puesto.
-        ResultSet Resultado_puesto = Puesto.puestoId(conexion, id_puesto);
-        
-        String Puesto = Resultado_puesto.getString(1);
-        Float Salario = Resultado_puesto.getFloat(5);
-        
+        ResultSet resultadoPuesto = Puesto.puestoId(conexion, id_puesto);
+        resultadoPuesto.next();
+        String puesto = resultadoPuesto.getString("Nombre");
+        Float salario = resultadoPuesto.getFloat("Salario_Base");
+            
+        // Tercera consulta para obtener el nombre de usuario 
+        ResultSet resultadoUsuario = Usuario.usuarioId(conexion, id_usuario);
+            
+        resultadoUsuario.next();
+        String Nombre_usuario = resultadoUsuario.getString("Nombre");
         // Agregar a la tabla
-        model.addRow(new Object[]{ID, Nombre, Apellido, NIT, Correo, Direccion, Bonificaciones, Puesto, Salario});
+        model.addRow(new Object[]{ID, Nombre, Apellido, NIT, Correo, Direccion, Bonificaciones, puesto,Nombre_usuario, salario});
+        
         }
     }
     
