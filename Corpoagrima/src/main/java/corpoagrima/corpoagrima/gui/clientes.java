@@ -25,6 +25,7 @@ public class clientes extends javax.swing.JFrame {
      */
     private Connection conexion;
     private ConexionCliente clientes;
+    private TableRowSorter<DefaultTableModel> sorter; // Variable miembro para mantener el TableRowSorter
     
     public clientes(Connection conexion) {
         this.conexion = conexion;
@@ -46,10 +47,10 @@ public class clientes extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        listaOrdenamiento = new javax.swing.JComboBox<>();
         Buscar_textField = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -94,15 +95,12 @@ public class clientes extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Ordenar por:");
-
-        jComboBox1.setBackground(new java.awt.Color(204, 204, 204));
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Apellido", "Destacado" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        listaOrdenamiento.setBackground(new java.awt.Color(204, 204, 204));
+        listaOrdenamiento.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        listaOrdenamiento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Apellido", "Destacado" }));
+        listaOrdenamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                listaOrdenamientoActionPerformed(evt);
             }
         });
 
@@ -121,16 +119,24 @@ public class clientes extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setBackground(new java.awt.Color(34, 85, 34));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ordenar.png"))); // NOI18N
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(listaOrdenamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 545, Short.MAX_VALUE)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -140,15 +146,16 @@ public class clientes extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addGap(15, 15, 15)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(listaOrdenamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -192,7 +199,7 @@ public class clientes extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,19 +219,25 @@ public class clientes extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(31, 31, 31))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -234,27 +247,24 @@ public class clientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Buscar_textFieldActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void listaOrdenamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaOrdenamientoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_listaOrdenamientoActionPerformed
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
-        // TODO add your handling code here:
         String textoBusqueda = Buscar_textField.getText().trim();
 
         if (!textoBusqueda.isEmpty()) {
             try {
                 ResultSet rs = clientes.busqueda(conexion, textoBusqueda);
 
-                DefaultTableModel model = new DefaultTableModel();
-                jTable1.setModel(model);
+                // Obtener el modelo de la tabla actual
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.setRowCount(0); // Limpiar los datos existentes
 
+                // Agregar nuevas filas al modelo de tabla
                 ResultSetMetaData metaData = rs.getMetaData();
                 int columnCount = metaData.getColumnCount();
-                for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-                    model.addColumn(metaData.getColumnLabel(columnIndex));
-                }
-
                 while (rs.next()) {
                     Object[] rowData = new Object[columnCount];
                     for (int i = 0; i < columnCount; i++) {
@@ -279,24 +289,48 @@ public class clientes extends javax.swing.JFrame {
         actualizarTabla();
     }//GEN-LAST:event_jButton2MouseClicked
 
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        // TODO add your handling code here:
+        int index = (listaOrdenamiento.getSelectedIndex());
+        switch (index) {
+        case 0 -> index = 1;
+        case 1 -> index = 2;
+        case 2 -> index = 6;
+        }
+        if (sorter == null) {
+            // Crear un objeto TableRowSorter basado en el modelo de la tabla
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            sorter = new TableRowSorter<>(model);
+            jTable1.setRowSorter(sorter);
+        }
+
+        // Crear un RowSorter para ordenar por la columna "Nombre"
+        ArrayList<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        int columnIndexToSort = index; // Índice de la columna que se organizara
+        sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING)); // Orden ascendente
+        sorter.setSortKeys(sortKeys);
+
+        // Ordenar la tabla
+        sorter.sort();
+
+        // Mostrar un mensaje indicando que la tabla ha sido ordenada
+        JOptionPane.showMessageDialog(this, "La tabla ha sido ordenada por la columna 'Nombre' en orden ascendente.", "Ordenar tabla", JOptionPane.INFORMATION_MESSAGE);
+
+        
+    }//GEN-LAST:event_jButton5MouseClicked
+
     private void actualizarTabla() {
         try {
 
-            // Ejecutar la consulta y obtener el ResultSet
             ResultSet rs = clientes.consulta(conexion);
 
-            // Crear un modelo de tabla y asignarlo a la JTable
-            DefaultTableModel model = new DefaultTableModel();
-            jTable1.setModel(model);
+            // Obtener el modelo de la tabla actual
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0); // Limpiar los datos existentes
 
-            // Agregar columnas al modelo de tabla
+            // Agregar nuevas filas al modelo de tabla
             ResultSetMetaData metaData = rs.getMetaData();
             int columnCount = metaData.getColumnCount();
-            for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-                model.addColumn(metaData.getColumnLabel(columnIndex));
-            }
-
-            // Agregar filas al modelo de tabla
             while (rs.next()) {
                 Object[] rowData = new Object[columnCount];
                 for (int i = 0; i < columnCount; i++) {
@@ -305,7 +339,6 @@ public class clientes extends javax.swing.JFrame {
                 model.addRow(rowData);
             }
 
-            // Cerrar la conexión y liberar recursos
             rs.close();
 
         } catch (SQLException e) {
@@ -319,14 +352,14 @@ public class clientes extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<String> listaOrdenamiento;
     // End of variables declaration//GEN-END:variables
 }
