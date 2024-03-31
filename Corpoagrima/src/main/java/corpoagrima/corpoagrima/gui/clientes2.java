@@ -483,23 +483,37 @@ public class Clientes2 extends javax.swing.JFrame{
     }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
     private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
-        // TODO add your handling code here:
-            int NIT = NIT_textfield.getText();
-            ResultSet resultSet = clientes.busqueda2(conexion,NIT);
-            resultSet.next();
-  
-            NIT = resultSet.getInt(NIT);
-            String nombre = resultSet.getString("Nombre");
-            String apellido = resultSet.getString(" Apellido");
-            String direccion = resultSet.getString("Direccion");
-            int cantidadcompras = resultSet.getInt(cantidadcompras);
-            String correo = resultSet.getString("Correo");
-            ID_textfield.setText(id);
-            Nombre_textfield.setText(nombre);
-            Apellido_textfield.setText(apellido);
-            Direccion_textfield.setText(direccion);
-            Cantidadcompras_textfield.setText(cantidadcompras);
-            Correo_textfield.setText(correo);
+    // TODO add your handling code here:
+// TODO add your handling code here:
+try {
+    int NIT = Integer.parseInt(NIT_textfield.getText());
+    ResultSet resultSet = clientes.busqueda2(conexion, NIT);
+    if (resultSet.next()) {
+        int id = resultSet.getInt("ID"); // Assuming ID is the column name for the ID field
+        String nombre = resultSet.getString("Nombre");
+        String apellido = resultSet.getString("Apellido"); // Corrected typo here
+        String direccion = resultSet.getString("Direccion");
+        int cantidadcompras = resultSet.getInt("CantidadCompras"); // Corrected column name here
+        String correo = resultSet.getString("Correo");
+        ID_textfield.setText(Integer.toString(id)); // Converting int to String for setText()
+        Nombre_textfield.setText(nombre);
+        Apellido_textfield.setText(apellido);
+        Direccion_textfield.setText(direccion);
+        Cantidadcompras_textfield.setText(Integer.toString(cantidadcompras)); // Converting int to String
+        Correo_textfield.setText(correo);
+    } else {
+        // Handle case where no data is found for the given NIT
+        // For example:
+        JOptionPane.showMessageDialog(null, "No se encontraron datos para el NIT proporcionado");
+    }
+} catch (SQLException ex) {
+    ex.printStackTrace(); // Handle or log the exception appropriately
+} catch (NumberFormatException ex) {
+    // Handle case where NIT_textfield.getText() is not a valid integer
+    // For example:
+    JOptionPane.showMessageDialog(null, "Ingrese un número válido para el NIT");
+}
+
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
