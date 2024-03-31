@@ -11,6 +11,19 @@ import java.sql.SQLException;
  * @author WilderL
  */
 public class ConexionEmpleado {
+    
+    public ResultSet ordenarNombre(Connection conexion) throws SQLException{
+        String sql = "SELECT * FROM Empleado ORDER BY Nombre ASC, Apellido ASC";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        return stmt.executeQuery();
+    }
+    
+    public ResultSet ordenarApellido(Connection conexion) throws SQLException{
+        String sql = "SELECT * FROM Empleado ORDER BY Apellido ASC, Nombre ASC";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        return stmt.executeQuery();
+    }
+    
     public ResultSet consulta(Connection conexion) throws SQLException{
         String sql = "SELECT * FROM Empleado";
         PreparedStatement stmt = conexion.prepareStatement(sql);
