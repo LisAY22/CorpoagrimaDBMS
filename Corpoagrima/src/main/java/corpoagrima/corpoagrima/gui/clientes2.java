@@ -17,18 +17,20 @@ import java.util.ArrayList;
 /**
  *
  * @author karol
+ * @author Diana
+ * 
  */
-public class clientes2 extends javax.swing.JFrame {
+public class Clientes2 extends javax.swing.JFrame{
 
      private Connection conexion;
-    private ConexionCliente clientes2;
+    private ConexionCliente clientes;
     
     /**
      * Creates new form clientes2
      */
-    public clientes2(Connection conexion) {
+    public Clientes2(Connection conexion) {
         this.conexion = conexion;
-        clientes2 = new ConexionCliente();
+        clientes = new ConexionCliente();
         initComponents();
     }
 
@@ -482,25 +484,24 @@ public class clientes2 extends javax.swing.JFrame {
 
     private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
         // TODO add your handling code here:
-            String NIT = NIT_textfield.getText();
-            ResultSet resultSet = clientes2.clientes2NIT(conexion,NIT);
+            int NIT = NIT_textfield.getText();
+            ResultSet resultSet = clientes.busqueda2(conexion,NIT);
             resultSet.next();
   
-            NIT = resultSet.getString("NIT")
-            float nombre = resultSet.getFloat("Nombre");
+            NIT = resultSet.getInt(NIT);
+            String nombre = resultSet.getString("Nombre");
             String apellido = resultSet.getString(" Apellido");
             String direccion = resultSet.getString("Direccion");
-            String cantidadcompras = resultSet.getString("Cantidad de compras");
+            int cantidadcompras = resultSet.getInt(cantidadcompras);
             String correo = resultSet.getString("Correo");
-            ID_textfield.setText(nombre)
-            Nombre_textfield.setText(apellido);
+            ID_textfield.setText(id);
+            Nombre_textfield.setText(nombre);
             Apellido_textfield.setText(apellido);
             Direccion_textfield.setText(direccion);
             Cantidadcompras_textfield.setText(cantidadcompras);
             Correo_textfield.setText(correo);
-  
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
-}   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApellidoLabel;
     private javax.swing.JTextField Apellido_textfield;

@@ -338,7 +338,7 @@ public class clientes extends javax.swing.JFrame {
 
     private void Editar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Editar_BnMouseClicked
         // TODO add your handling code here:
-        clientes2 clientes2_screen = new clientes2(conexion);
+        Clientes2 clientes2_screen = new Clientes2(conexion);
         clientes2_screen.setVisible(true);
         clientes2_screen.setLocationRelativeTo(null);
         
