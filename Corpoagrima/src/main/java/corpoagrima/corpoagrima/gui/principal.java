@@ -211,7 +211,7 @@ public class principal extends javax.swing.JFrame {
 
     private void rhJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rhJButtonActionPerformed
         try {
-            RRHH rh_window = new RRHH();
+            RRHH rh_window = new RRHH(conexion);
             rh_window.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);

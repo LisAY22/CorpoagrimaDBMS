@@ -17,22 +17,30 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RRHH extends javax.swing.JFrame {
     
-    private Connection Conexion;
+    private Connection conexion;
     private ConexionEmpleado Empleado;
     private ConexionPuesto Puesto;
     /**
      * Creates new form RH
+     * @param conexion
      * @throws java.sql.SQLException
      */
-    public RRHH() throws SQLException {
+    public RRHH(Connection conexion) throws SQLException {
+        this.conexion = conexion;
+        Empleado = new ConexionEmpleado();
+        Puesto = new ConexionPuesto();
         initComponents();
         Initial_table();
+    }
+
+    private RRHH() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     private void Initial_table() throws SQLException{
         DefaultTableModel model = new DefaultTableModel();
         TablaEmpleado.setModel(model);
-        ResultSet resultado = Empleado.consulta(Conexion);
+        ResultSet resultado = Empleado.consulta(conexion);
         
         while (resultado.next()) {
         int ID = resultado.getInt("ID_Empleado");
@@ -45,7 +53,7 @@ public class RRHH extends javax.swing.JFrame {
         int id_puesto = resultado.getInt("Puesto_ID_Puesto");
 
         // Segunda consulta para obtener el puesto y el sueldo del puesto.
-        ResultSet Resultado_puesto = Puesto.puestoId(Conexion, id_puesto);
+        ResultSet Resultado_puesto = Puesto.puestoId(conexion, id_puesto);
         
         String Puesto = Resultado_puesto.getString(1);
         Float Salario = Resultado_puesto.getFloat(5);
@@ -58,7 +66,7 @@ public class RRHH extends javax.swing.JFrame {
     private void order_by_name() throws SQLException{
         DefaultTableModel model = new DefaultTableModel();
         TablaEmpleado.setModel(model);
-        ResultSet resultado = Empleado.ordenarNombre(Conexion);
+        ResultSet resultado = Empleado.ordenarNombre(conexion);
         
         while (resultado.next()) {
         int ID = resultado.getInt("ID_Empleado");
@@ -71,7 +79,7 @@ public class RRHH extends javax.swing.JFrame {
         int id_puesto = resultado.getInt("Puesto_ID_Puesto");
 
         // Segunda consulta para obtener el puesto y el sueldo del puesto.
-        ResultSet Resultado_puesto = Puesto.puestoId(Conexion, id_puesto);
+        ResultSet Resultado_puesto = Puesto.puestoId(conexion, id_puesto);
         
         String Puesto = Resultado_puesto.getString(1);
         Float Salario = Resultado_puesto.getFloat(5);
@@ -84,7 +92,7 @@ public class RRHH extends javax.swing.JFrame {
     private void order_by_Apellido() throws SQLException{
         DefaultTableModel model = new DefaultTableModel();
         TablaEmpleado.setModel(model);
-        ResultSet resultado = Empleado.ordenarApellido(Conexion);
+        ResultSet resultado = Empleado.ordenarApellido(conexion);
         
         while (resultado.next()) {
         int ID = resultado.getInt("ID_Empleado");
@@ -97,7 +105,7 @@ public class RRHH extends javax.swing.JFrame {
         int id_puesto = resultado.getInt("Puesto_ID_Puesto");
 
         // Segunda consulta para obtener el puesto y el sueldo del puesto.
-        ResultSet Resultado_puesto = Puesto.puestoId(Conexion, id_puesto);
+        ResultSet Resultado_puesto = Puesto.puestoId(conexion, id_puesto);
         
         String Puesto = Resultado_puesto.getString(1);
         Float Salario = Resultado_puesto.getFloat(5);
@@ -298,11 +306,7 @@ public class RRHH extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new RRHH().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(RRHH.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new RRHH().setVisible(true);
             }
         });
     }
