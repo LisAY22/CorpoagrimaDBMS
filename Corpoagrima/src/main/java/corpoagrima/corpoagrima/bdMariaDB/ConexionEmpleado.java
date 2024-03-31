@@ -37,6 +37,12 @@ public class ConexionEmpleado {
         return stmt.executeQuery();
     }
     
+    public ResultSet empleadosID(Connection conexion, int IDEmpleado) throws SQLException{
+        String sql = "SELECT * FROM Empleado WHERE ID_Empleado LIKE ?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, "%" + IDEmpleado + "%");
+        return stmt.executeQuery();
+    }
     public boolean agregar(Connection conexion, int idEmpleado, String nombre, 
             String apellido, String nit, String correoElectronico, 
             String direccion, String ajusteSueldo, float bonificaciones, 
