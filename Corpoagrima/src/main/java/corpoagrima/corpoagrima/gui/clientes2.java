@@ -365,6 +365,11 @@ public class Clientes2 extends javax.swing.JFrame{
 
         Guardar_button.setText("Guardar");
         Guardar_button.setEnabled(false);
+        Guardar_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Guardar_buttonActionPerformed(evt);
+            }
+        });
 
         Delete_button.setBackground(new java.awt.Color(255, 51, 51));
         Delete_button.setText("Eliminar");
@@ -433,21 +438,34 @@ public class Clientes2 extends javax.swing.JFrame{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void limpiar(){
+        ID_textfield.setText("");
+        Nombre_textfield.setText("");
+        Apellido_textfield.setText("");
+        NIT_textfield.setText("");
+        Direccion_textfield.setText("");
+        Cantidadcompras_textfield.setText("");
+        Correo_textfield.setText("");
+    }      
     private void GenerarCodigo_checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarCodigo_checkBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_GenerarCodigo_checkBoxActionPerformed
 
     private void Buscar_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_textFieldActionPerformed
         // TODO add your handling code here:
+        habilitar();
+        Delete_button.setEnabled(true);
     }//GEN-LAST:event_Buscar_textFieldActionPerformed
 
     private void Delete_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete_buttonActionPerformed
         // TODO add your handling code here:
+        deshabilitar();
+        limpiar();
     }//GEN-LAST:event_Delete_buttonActionPerformed
 
     private void Cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_buttonActionPerformed
         // TODO add your handling code here:
+          this.dispose();
     }//GEN-LAST:event_Cancel_buttonActionPerformed
 
     private void Correo_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Correo_textfieldActionPerformed
@@ -476,14 +494,20 @@ public class Clientes2 extends javax.swing.JFrame{
 
     private void Destacado_checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Destacado_checkBoxActionPerformed
         // TODO add your handling code here:
+        if (Destacado_checkBox.isSelected()) {
+            habilitar();
+        }
     }//GEN-LAST:event_Destacado_checkBoxActionPerformed
 
     private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
         // TODO add your handling code here:
+        deshabilitar();
+        limpiar();
     }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
     private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
     // TODO add your handling code here:
+    
     try {
         // Obtener el NIT ingresado en el campo de texto
         String NIT = Buscar_textField.getText();
@@ -511,6 +535,10 @@ public class Clientes2 extends javax.swing.JFrame{
         ex.printStackTrace(); // Manejar o registrar la excepción adecuadamente
     }
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
+
+    private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Guardar_buttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApellidoLabel;
