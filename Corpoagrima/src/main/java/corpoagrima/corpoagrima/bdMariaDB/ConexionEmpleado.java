@@ -81,7 +81,7 @@ public class ConexionEmpleado {
         stmt.setFloat(8, bonificaciones);
         stmt.setInt(9, idPuesto);
         stmt.setInt(10, idUsuario);
-        stmt.setInt(5, idEmpleado);
+        stmt.setInt(11, idEmpleado);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
