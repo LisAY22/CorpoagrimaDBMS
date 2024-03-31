@@ -198,7 +198,7 @@
                     <Column editable="false" title="Nombre" type="java.lang.Object"/>
                     <Column editable="false" title="Apellido" type="java.lang.Object"/>
                     <Column editable="false" title="NIT" type="java.lang.Object"/>
-                    <Column editable="false" title="Correo Electr&#xf3;nico" type="java.lang.Object"/>
+                    <Column editable="false" title="Correo_Electr&#xf3;nico" type="java.lang.Object"/>
                     <Column editable="false" title="Direcci&#xf3;n" type="java.lang.Object"/>
                     <Column editable="false" title="Bonificaciones" type="java.lang.Object"/>
                     <Column editable="false" title="Puesto" type="java.lang.Object"/>

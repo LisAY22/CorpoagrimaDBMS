@@ -119,7 +119,7 @@ public class RRHH extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Apellido", "NIT", "Correo Electrónico", "Dirección", "Bonificaciones", "Puesto", "Usuario", "Sueldo"
+                "ID", "Nombre", "Apellido", "NIT", "Correo_Electrónico", "Dirección", "Bonificaciones", "Puesto", "Usuario", "Sueldo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
