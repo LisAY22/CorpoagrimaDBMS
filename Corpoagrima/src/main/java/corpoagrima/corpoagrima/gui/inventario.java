@@ -29,6 +29,7 @@ public class inventario extends javax.swing.JFrame {
     
     private Connection conexion;
     private ConexionProducto inventario;
+    private TableRowSorter<DefaultTableModel> sorter; // Variable miembro para mantener el TableRowSorter
     
     
     public inventario(Connection conexion) {
@@ -207,33 +208,25 @@ public class inventario extends javax.swing.JFrame {
 
     private void ordenarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ordenarJButtonMouseClicked
         // TODO add your handling code here:
-        // Obtener el modelo de la tabla
-        DefaultTableModel model = (DefaultTableModel) datosJTable.getModel();
-
-        // Obtener el número de filas en la tabla
-        int rowCount = model.getRowCount();
-
-        // Verificar si hay al menos una fila en la tabla
-        if (rowCount > 0) {
+         if (sorter == null) {
             // Crear un objeto TableRowSorter basado en el modelo de la tabla
-            TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
-
-            // Asignar el TableRowSorter a la tabla
+            DefaultTableModel model = (DefaultTableModel) datosJTable.getModel();
+            sorter = new TableRowSorter<>(model);
             datosJTable.setRowSorter(sorter);
-
-            // Crear un RowSorter para ordenar por la columna "Nombre"
-            ArrayList<RowSorter.SortKey> sortKeys = new ArrayList<>();
-            int columnIndexToSort = 1; // Índice de la columna "Nombre" (comienza desde 0)
-            sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING)); // Orden ascendente
-            sorter.setSortKeys(sortKeys);
-
-            // Ordenar la tabla
-            sorter.sort();
-        } else {
-            // Mostrar un mensaje de advertencia si la tabla está vacía
-            JOptionPane.showMessageDialog(this, "No hay datos para ordenar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-        
+
+        // Crear un RowSorter para ordenar por la columna "Nombre"
+        ArrayList<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        int columnIndexToSort = 1; // Índice de la columna "Nombre" (comienza desde 0)
+        sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING)); // Orden ascendente
+        sorter.setSortKeys(sortKeys);
+
+        // Ordenar la tabla
+        sorter.sort();
+
+        // Mostrar un mensaje indicando que la tabla ha sido ordenada
+        JOptionPane.showMessageDialog(this, "La tabla ha sido ordenada por la columna 'Nombre' en orden ascendente.", "Ordenar tabla", JOptionPane.INFORMATION_MESSAGE);
+
     }//GEN-LAST:event_ordenarJButtonMouseClicked
 
     private void actualizarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarJButtonMouseClicked
@@ -249,15 +242,13 @@ public class inventario extends javax.swing.JFrame {
             try {
                 ResultSet rs = inventario.busqueda(conexion, textoBusqueda);
 
-                DefaultTableModel model = new DefaultTableModel();
-                datosJTable.setModel(model);
+                // Obtener el modelo de la tabla actual
+                DefaultTableModel model = (DefaultTableModel) datosJTable.getModel();
+                model.setRowCount(0); // Limpiar los datos existentes
 
+                // Agregar nuevas filas al modelo de tabla
                 ResultSetMetaData metaData = rs.getMetaData();
                 int columnCount = metaData.getColumnCount();
-                for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-                    model.addColumn(metaData.getColumnLabel(columnIndex));
-                }
-
                 while (rs.next()) {
                     Object[] rowData = new Object[columnCount];
                     for (int i = 0; i < columnCount; i++) {
@@ -291,21 +282,15 @@ public class inventario extends javax.swing.JFrame {
     private void actualizarTabla() {
         try {
 
-            // Ejecutar la consulta y obtener el ResultSet
             ResultSet rs = inventario.consulta(conexion);
 
-            // Crear un modelo de tabla y asignarlo a la JTable
-            DefaultTableModel model = new DefaultTableModel();
-            datosJTable.setModel(model);
+            // Obtener el modelo de la tabla actual
+            DefaultTableModel model = (DefaultTableModel) datosJTable.getModel();
+            model.setRowCount(0); // Limpiar los datos existentes
 
-            // Agregar columnas al modelo de tabla
+            // Agregar nuevas filas al modelo de tabla
             ResultSetMetaData metaData = rs.getMetaData();
             int columnCount = metaData.getColumnCount();
-            for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-                model.addColumn(metaData.getColumnLabel(columnIndex));
-            }
-
-            // Agregar filas al modelo de tabla
             while (rs.next()) {
                 Object[] rowData = new Object[columnCount];
                 for (int i = 0; i < columnCount; i++) {
@@ -314,7 +299,6 @@ public class inventario extends javax.swing.JFrame {
                 model.addRow(rowData);
             }
 
-            // Cerrar la conexión y liberar recursos
             rs.close();
 
         } catch (SQLException e) {
