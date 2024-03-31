@@ -49,25 +49,25 @@ public class clientes2 extends javax.swing.JFrame {
         GenerarCódigo_checkBox = new javax.swing.JCheckBox();
         jButton4 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        NITLabel = new javax.swing.JLabel();
+        ApellidoLabel = new javax.swing.JLabel();
+        IDlabel = new javax.swing.JLabel();
         Nombre_textField = new javax.swing.JTextField();
         Apellido_textField = new javax.swing.JTextField();
-        Dato1_textfield = new javax.swing.JTextField();
-        Dato2_textfield = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        Dato3_textfield = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        Dato4_textfield = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        Nombre_textField1 = new javax.swing.JTextField();
+        NIT_textfield = new javax.swing.JTextField();
+        Direccion_textfield = new javax.swing.JTextField();
+        CantidadComprasLabel = new javax.swing.JLabel();
+        Cantidadcompras_textfield = new javax.swing.JTextField();
+        CorreoLabel = new javax.swing.JLabel();
+        Correo_textfield = new javax.swing.JTextField();
+        DireccionLabel = new javax.swing.JLabel();
+        NombreLabel = new javax.swing.JLabel();
+        ID_textField1 = new javax.swing.JTextField();
         Destacado_checkBox = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
         Cancel_button = new javax.swing.JButton();
-        Save_button = new javax.swing.JButton();
-        Clean_button = new javax.swing.JButton();
+        Limpiar_button = new javax.swing.JButton();
+        Guardar_button = new javax.swing.JButton();
         Delete_button = new javax.swing.JButton();
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -139,21 +139,22 @@ public class clientes2 extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GenerarCódigo_checkBox)
-                    .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(GenerarCódigo_checkBox)
+                        .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Nit");
+        NITLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        NITLabel.setText("Nit");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel7.setText("Apellido");
+        ApellidoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        ApellidoLabel.setText("Apellido");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel9.setText("ID");
+        IDlabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        IDlabel.setText("ID");
 
         Nombre_textField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Nombre_textField.addActionListener(new java.awt.event.ActionListener() {
@@ -164,50 +165,50 @@ public class clientes2 extends javax.swing.JFrame {
 
         Apellido_textField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        Dato1_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Dato1_textfield.addActionListener(new java.awt.event.ActionListener() {
+        NIT_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        NIT_textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Dato1_textfieldActionPerformed(evt);
+                NIT_textfieldActionPerformed(evt);
             }
         });
 
-        Dato2_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Dato2_textfield.addActionListener(new java.awt.event.ActionListener() {
+        Direccion_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Direccion_textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Dato2_textfieldActionPerformed(evt);
+                Direccion_textfieldActionPerformed(evt);
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel10.setText("Cantidad de compras ");
+        CantidadComprasLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        CantidadComprasLabel.setText("Cantidad de compras ");
 
-        Dato3_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Dato3_textfield.addActionListener(new java.awt.event.ActionListener() {
+        Cantidadcompras_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Cantidadcompras_textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Dato3_textfieldActionPerformed(evt);
+                Cantidadcompras_textfieldActionPerformed(evt);
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel11.setText("Correo Electronico");
+        CorreoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        CorreoLabel.setText("Correo Electronico");
 
-        Dato4_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Dato4_textfield.addActionListener(new java.awt.event.ActionListener() {
+        Correo_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Correo_textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Dato4_textfieldActionPerformed(evt);
+                Correo_textfieldActionPerformed(evt);
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel12.setText("Dirección");
+        DireccionLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        DireccionLabel.setText("Dirección");
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel13.setText("Nombre");
+        NombreLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        NombreLabel.setText("Nombre");
 
-        Nombre_textField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Nombre_textField1.addActionListener(new java.awt.event.ActionListener() {
+        ID_textField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ID_textField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Nombre_textField1ActionPerformed(evt);
+                ID_textField1ActionPerformed(evt);
             }
         });
 
@@ -227,32 +228,32 @@ public class clientes2 extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(IDlabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ApellidoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                        .addComponent(NombreLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(NITLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Nombre_textField, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                     .addComponent(Apellido_textField)
-                    .addComponent(Dato1_textfield)
-                    .addComponent(Nombre_textField1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
+                    .addComponent(NIT_textfield)
+                    .addComponent(ID_textField1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(0, 38, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(CantidadComprasLabel)
+                                    .addComponent(CorreoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(31, 31, 31)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Dato4_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Dato3_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(Correo_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Cantidadcompras_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(DireccionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(104, 104, 104)
-                                .addComponent(Dato2_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(Direccion_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(83, 83, 83))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -265,35 +266,35 @@ public class clientes2 extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(Dato2_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Direccion_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Dato3_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Cantidadcompras_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Nombre_textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(DireccionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(IDlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ID_textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CantidadComprasLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(NombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(Nombre_textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(6, 6, 6)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Dato4_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Correo_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CorreoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Apellido_textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ApellidoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Dato1_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(NIT_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(NITLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(14, 14, 14))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -308,14 +309,14 @@ public class clientes2 extends javax.swing.JFrame {
             }
         });
 
-        Save_button.setText("Limpiar");
-        Save_button.addActionListener(new java.awt.event.ActionListener() {
+        Limpiar_button.setText("Limpiar");
+        Limpiar_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Save_buttonActionPerformed(evt);
+                Limpiar_buttonActionPerformed(evt);
             }
         });
 
-        Clean_button.setText("Guardar");
+        Guardar_button.setText("Guardar");
 
         Delete_button.setBackground(new java.awt.Color(255, 51, 51));
         Delete_button.setText("Eliminar");
@@ -333,9 +334,9 @@ public class clientes2 extends javax.swing.JFrame {
                 .addContainerGap(584, Short.MAX_VALUE)
                 .addComponent(Delete_button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Save_button)
+                .addComponent(Limpiar_button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Clean_button)
+                .addComponent(Guardar_button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Cancel_button)
                 .addContainerGap())
@@ -346,8 +347,8 @@ public class clientes2 extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Delete_button)
-                    .addComponent(Save_button)
-                    .addComponent(Clean_button)
+                    .addComponent(Limpiar_button)
+                    .addComponent(Guardar_button)
                     .addComponent(Cancel_button))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
@@ -400,67 +401,67 @@ public class clientes2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Cancel_buttonActionPerformed
 
-    private void Dato4_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Dato4_textfieldActionPerformed
+    private void Correo_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Correo_textfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Dato4_textfieldActionPerformed
+    }//GEN-LAST:event_Correo_textfieldActionPerformed
 
-    private void Dato2_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Dato2_textfieldActionPerformed
+    private void Direccion_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Direccion_textfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Dato2_textfieldActionPerformed
+    }//GEN-LAST:event_Direccion_textfieldActionPerformed
 
-    private void Dato1_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Dato1_textfieldActionPerformed
+    private void NIT_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NIT_textfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Dato1_textfieldActionPerformed
+    }//GEN-LAST:event_NIT_textfieldActionPerformed
 
     private void Nombre_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nombre_textFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Nombre_textFieldActionPerformed
 
-    private void Dato3_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Dato3_textfieldActionPerformed
+    private void Cantidadcompras_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cantidadcompras_textfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Dato3_textfieldActionPerformed
+    }//GEN-LAST:event_Cantidadcompras_textfieldActionPerformed
 
-    private void Nombre_textField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nombre_textField1ActionPerformed
+    private void ID_textField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ID_textField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Nombre_textField1ActionPerformed
+    }//GEN-LAST:event_ID_textField1ActionPerformed
 
     private void Destacado_checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Destacado_checkBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Destacado_checkBoxActionPerformed
 
-    private void Save_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_buttonActionPerformed
+    private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Save_buttonActionPerformed
+    }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ApellidoLabel;
     private javax.swing.JTextField Apellido_textField;
     private javax.swing.JTextField Buscar_textField;
     private javax.swing.JButton Cancel_button;
-    private javax.swing.JButton Clean_button;
-    private javax.swing.JTextField Dato1_textfield;
-    private javax.swing.JTextField Dato2_textfield;
-    private javax.swing.JTextField Dato3_textfield;
-    private javax.swing.JTextField Dato4_textfield;
+    private javax.swing.JLabel CantidadComprasLabel;
+    private javax.swing.JTextField Cantidadcompras_textfield;
+    private javax.swing.JLabel CorreoLabel;
+    private javax.swing.JTextField Correo_textfield;
     private javax.swing.JButton Delete_button;
     private javax.swing.JCheckBox Destacado_checkBox;
+    private javax.swing.JLabel DireccionLabel;
+    private javax.swing.JTextField Direccion_textfield;
     private javax.swing.JCheckBox GenerarCódigo_checkBox;
+    private javax.swing.JButton Guardar_button;
+    private javax.swing.JTextField ID_textField1;
+    private javax.swing.JLabel IDlabel;
+    private javax.swing.JButton Limpiar_button;
+    private javax.swing.JLabel NITLabel;
+    private javax.swing.JTextField NIT_textfield;
+    private javax.swing.JLabel NombreLabel;
     private javax.swing.JTextField Nombre_textField;
-    private javax.swing.JTextField Nombre_textField1;
-    private javax.swing.JButton Save_button;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

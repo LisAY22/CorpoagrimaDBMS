@@ -128,10 +128,12 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="18" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="GenerarCódigo_checkBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Buscar_textField" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jButton4" alignment="0" pref="31" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="GenerarCódigo_checkBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="Buscar_textField" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -184,18 +186,18 @@
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel7" alignment="0" pref="90" max="32767" attributes="0"/>
-                          <Component id="jLabel13" alignment="1" max="32767" attributes="0"/>
+                          <Component id="IDlabel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="ApellidoLabel" alignment="0" pref="90" max="32767" attributes="0"/>
+                          <Component id="NombreLabel" alignment="1" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="jLabel4" alignment="0" min="-2" pref="54" max="-2" attributes="0"/>
+                      <Component id="NITLabel" alignment="0" min="-2" pref="54" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="Nombre_textField" alignment="0" pref="212" max="32767" attributes="0"/>
                       <Component id="Apellido_textField" alignment="0" max="32767" attributes="0"/>
-                      <Component id="Dato1_textfield" alignment="0" max="32767" attributes="0"/>
-                      <Component id="Nombre_textField1" alignment="0" pref="212" max="32767" attributes="0"/>
+                      <Component id="NIT_textfield" alignment="0" max="32767" attributes="0"/>
+                      <Component id="ID_textField1" alignment="0" pref="212" max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -203,19 +205,19 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel11" min="-2" pref="168" max="-2" attributes="0"/>
+                                      <Component id="CantidadComprasLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="CorreoLabel" min="-2" pref="168" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="31" pref="31" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="Dato4_textfield" min="-2" pref="237" max="-2" attributes="0"/>
-                                      <Component id="Dato3_textfield" alignment="0" min="-2" pref="237" max="-2" attributes="0"/>
+                                      <Component id="Correo_textfield" min="-2" pref="237" max="-2" attributes="0"/>
+                                      <Component id="Cantidadcompras_textfield" alignment="0" min="-2" pref="237" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="jLabel12" min="-2" pref="107" max="-2" attributes="0"/>
+                                  <Component id="DireccionLabel" min="-2" pref="107" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
-                                  <Component id="Dato2_textfield" min="-2" pref="237" max="-2" attributes="0"/>
+                                  <Component id="Direccion_textfield" min="-2" pref="237" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
@@ -235,23 +237,23 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                          <Component id="Dato2_textfield" min="-2" max="-2" attributes="0"/>
+                          <Component id="Direccion_textfield" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="Dato3_textfield" min="-2" max="-2" attributes="0"/>
+                          <Component id="Cantidadcompras_textfield" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel12" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="jLabel9" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="Nombre_textField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="DireccionLabel" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="IDlabel" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="ID_textField1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel10" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="CantidadComprasLabel" min="-2" pref="35" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel13" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                  <Component id="NombreLabel" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                                   <Component id="Nombre_textField" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -259,19 +261,19 @@
                       </Group>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="Dato4_textfield" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel11" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="Correo_textfield" min="-2" max="-2" attributes="0"/>
+                      <Component id="CorreoLabel" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="Apellido_textField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel7" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="ApellidoLabel" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="Dato1_textfield" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel4" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="NIT_textfield" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="NITLabel" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       </Group>
@@ -286,7 +288,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JLabel" name="NITLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -294,7 +296,7 @@
             <Property name="text" type="java.lang.String" value="Nit"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel7">
+        <Component class="javax.swing.JLabel" name="ApellidoLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -302,7 +304,7 @@
             <Property name="text" type="java.lang.String" value="Apellido"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel9">
+        <Component class="javax.swing.JLabel" name="IDlabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -327,27 +329,27 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="Dato1_textfield">
+        <Component class="javax.swing.JTextField" name="NIT_textfield">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Dato1_textfieldActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NIT_textfieldActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="Dato2_textfield">
+        <Component class="javax.swing.JTextField" name="Direccion_textfield">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Dato2_textfieldActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Direccion_textfieldActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel10">
+        <Component class="javax.swing.JLabel" name="CantidadComprasLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -355,17 +357,17 @@
             <Property name="text" type="java.lang.String" value="Cantidad de compras "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="Dato3_textfield">
+        <Component class="javax.swing.JTextField" name="Cantidadcompras_textfield">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Dato3_textfieldActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Cantidadcompras_textfieldActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel11">
+        <Component class="javax.swing.JLabel" name="CorreoLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -373,17 +375,17 @@
             <Property name="text" type="java.lang.String" value="Correo Electronico"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="Dato4_textfield">
+        <Component class="javax.swing.JTextField" name="Correo_textfield">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Dato4_textfieldActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Correo_textfieldActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel12">
+        <Component class="javax.swing.JLabel" name="DireccionLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -391,7 +393,7 @@
             <Property name="text" type="java.lang.String" value="Direcci&#xf3;n"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel13">
+        <Component class="javax.swing.JLabel" name="NombreLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
@@ -399,14 +401,14 @@
             <Property name="text" type="java.lang.String" value="Nombre"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="Nombre_textField1">
+        <Component class="javax.swing.JTextField" name="ID_textField1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Nombre_textField1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ID_textField1ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="Destacado_checkBox">
@@ -431,9 +433,9 @@
                   <EmptySpace pref="584" max="32767" attributes="0"/>
                   <Component id="Delete_button" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="Save_button" min="-2" max="-2" attributes="0"/>
+                  <Component id="Limpiar_button" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="Clean_button" min="-2" max="-2" attributes="0"/>
+                  <Component id="Guardar_button" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="Cancel_button" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -446,8 +448,8 @@
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Delete_button" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Save_button" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Clean_button" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Limpiar_button" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Guardar_button" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="Cancel_button" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="8" max="32767" attributes="0"/>
@@ -464,15 +466,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Cancel_buttonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="Save_button">
+        <Component class="javax.swing.JButton" name="Limpiar_button">
           <Properties>
             <Property name="text" type="java.lang.String" value="Limpiar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Save_buttonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Limpiar_buttonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="Clean_button">
+        <Component class="javax.swing.JButton" name="Guardar_button">
           <Properties>
             <Property name="text" type="java.lang.String" value="Guardar"/>
           </Properties>
