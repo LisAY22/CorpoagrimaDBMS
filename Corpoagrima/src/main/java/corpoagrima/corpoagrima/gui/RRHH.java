@@ -43,6 +43,7 @@ public class RRHH extends javax.swing.JFrame {
     private void Initial_table() throws SQLException{
         DefaultTableModel model = (DefaultTableModel) TablaEmpleado.getModel();
         ResultSet resultado = Empleado.consulta(conexion);
+        model.setRowCount(0); // Limpiar los datos existentes
         
         while (resultado.next()) {
             int ID = resultado.getInt("ID_Empleado");

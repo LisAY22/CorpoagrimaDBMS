@@ -16,14 +16,14 @@ import java.sql.SQLException;
 public class ConexionUsuario {
     
     public ResultSet usuario(Connection conexion, int idUsuario) throws SQLException{
-        String sql = "SELECT * FROM Puesto WHERE ID_Usuario = ?";
+        String sql = "SELECT * FROM Usuario WHERE ID_Usuario = ?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setInt(1, idUsuario);
         return stmt.executeQuery();
     }
     
     public ResultSet usuarioId(Connection conexion, int idUsuario) throws SQLException{
-        String sql = "SELECT Nombre FROM Puesto WHERE ID_Usuario = ?";
+        String sql = "SELECT Nombre FROM Usuario WHERE ID_Usuario = ?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setInt(1, idUsuario);
         return stmt.executeQuery();
