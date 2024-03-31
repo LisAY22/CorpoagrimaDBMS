@@ -5,6 +5,7 @@
 package corpoagrima.corpoagrima.gui;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ public class RRHH extends javax.swing.JFrame {
     private Connection conexion;
     private ConexionEmpleado Empleado;
     private ConexionPuesto Puesto;
+    private ConexionUsuario Usuario;
     /**
      * Creates new form RH
      * @param conexion
@@ -29,6 +31,7 @@ public class RRHH extends javax.swing.JFrame {
         this.conexion = conexion;
         Empleado = new ConexionEmpleado();
         Puesto = new ConexionPuesto();
+        Usuario = new ConexionUsuario();
         initComponents();
         Initial_table();
     }
@@ -38,8 +41,7 @@ public class RRHH extends javax.swing.JFrame {
     }
     
     private void Initial_table() throws SQLException{
-        DefaultTableModel model = new DefaultTableModel();
-        TablaEmpleado.setModel(model);
+        DefaultTableModel model = (DefaultTableModel) TablaEmpleado.getModel();
         ResultSet resultado = Empleado.consulta(conexion);
         
         while (resultado.next()) {
@@ -51,6 +53,7 @@ public class RRHH extends javax.swing.JFrame {
             String Direccion = resultado.getString("Direccion");
             String Bonificaciones = resultado.getString("Bonificaciones");
             int id_puesto = resultado.getInt("Puesto_ID_Puesto");
+            int id_usuario = resultado.getInt("Usuario_ID_Usuario");
 
             // Segunda consulta para obtener el puesto y el sueldo del puesto.
             ResultSet resultadoPuesto = Puesto.puestoId(conexion, id_puesto);
@@ -58,15 +61,22 @@ public class RRHH extends javax.swing.JFrame {
             resultadoPuesto.next();
             String puesto = resultadoPuesto.getString("Nombre");
             Float salario = resultadoPuesto.getFloat("Salario_Base");
-
+            
+            // Tercera consulta para obtener el nombre de usuario
+            
+            ResultSet resultado_usuario = Usuario.usuarioId(conexion, id_usuario);
+            
+            resultado_usuario.next();
+            String Nombre_usuario = resultado_usuario.getString("Nombre");
+                    
+            
             // Agregar a la tabla
-            model.addRow(new Object[]{ID, Nombre, Apellido, NIT, Correo, Direccion, Bonificaciones, puesto, salario});
+            model.addRow(new Object[]{ID, Nombre, Apellido, NIT, Correo, Direccion, Bonificaciones, puesto, salario, Nombre_usuario});
         }
     }
     
     private void order_by_name() throws SQLException{
-        DefaultTableModel model = new DefaultTableModel();
-        TablaEmpleado.setModel(model);
+        DefaultTableModel model = (DefaultTableModel) TablaEmpleado.getModel();
         ResultSet resultado = Empleado.ordenarNombre(conexion);
         
         while (resultado.next()) {
@@ -91,8 +101,7 @@ public class RRHH extends javax.swing.JFrame {
     }
     
     private void order_by_Apellido() throws SQLException{
-        DefaultTableModel model = new DefaultTableModel();
-        TablaEmpleado.setModel(model);
+        DefaultTableModel model = (DefaultTableModel) TablaEmpleado.getModel();
         ResultSet resultado = Empleado.ordenarApellido(conexion);
         
         while (resultado.next()) {
