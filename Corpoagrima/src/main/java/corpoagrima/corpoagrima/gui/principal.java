@@ -90,6 +90,11 @@ public class principal extends javax.swing.JFrame {
         clientesJButton.setText("CLIENTES");
         clientesJButton.setToolTipText("");
         clientesJButton.setPreferredSize(new java.awt.Dimension(100, 100));
+        clientesJButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clientesJButtonMouseClicked(evt);
+            }
+        });
 
         ventasJButton.setBackground(new java.awt.Color(136, 213, 133));
         ventasJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -185,6 +190,16 @@ public class principal extends javax.swing.JFrame {
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_regresarJButtonMouseClicked
+
+    private void clientesJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientesJButtonMouseClicked
+        // TODO add your handling code here:
+        clientes clientes_screen = new clientes(conexion);
+        clientes_screen.setVisible(true);
+        clientes_screen.setLocationRelativeTo(null);
+        
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_clientesJButtonMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clientesJButton;
