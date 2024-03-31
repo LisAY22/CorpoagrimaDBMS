@@ -67,6 +67,11 @@ public class clientes extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(34, 85, 34));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizar.png"))); // NOI18N
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,6 +115,11 @@ public class clientes extends javax.swing.JFrame {
 
         jButton4.setBackground(new java.awt.Color(34, 85, 34));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -227,6 +237,47 @@ public class clientes extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        // TODO add your handling code here:
+        String textoBusqueda = Buscar_textField.getText().trim();
+
+        if (!textoBusqueda.isEmpty()) {
+            try {
+                ResultSet rs = clientes.busqueda(conexion, textoBusqueda);
+
+                DefaultTableModel model = new DefaultTableModel();
+                jTable1.setModel(model);
+
+                ResultSetMetaData metaData = rs.getMetaData();
+                int columnCount = metaData.getColumnCount();
+                for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+                    model.addColumn(metaData.getColumnLabel(columnIndex));
+                }
+
+                while (rs.next()) {
+                    Object[] rowData = new Object[columnCount];
+                    for (int i = 0; i < columnCount; i++) {
+                        rowData[i] = rs.getObject(i + 1);
+                    }
+                    model.addRow(rowData);
+                }
+
+                rs.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al realizar la búsqueda: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese un nombre o ID para buscar.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        actualizarTabla();
+    }//GEN-LAST:event_jButton2MouseClicked
 
     private void actualizarTabla() {
         try {

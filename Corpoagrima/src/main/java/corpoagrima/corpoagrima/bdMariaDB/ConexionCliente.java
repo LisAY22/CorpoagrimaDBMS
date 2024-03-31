@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class ConexionCliente {
     public ResultSet busqueda(Connection conexion, String textoBusqueda) throws SQLException{
 
-        String sql = "SELECT * FROM cliente WHERE ID__Cliente = ? OR NIT = ?";
+        String sql = "SELECT * FROM cliente WHERE ID_Cliente = ? OR NIT = ?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, textoBusqueda);
         stmt.setString(2, textoBusqueda);
