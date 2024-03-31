@@ -24,9 +24,9 @@ public class ConexionPuesto {
     }
     
     public ResultSet puestoNombre(Connection conexion, String nombre) throws SQLException{
-        String sql = "SELECT Nombre FROM Puesto WHERE Nombre LIKE ?";
+        String sql = "SELECT * FROM Puesto WHERE Nombre = ?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
-        stmt.setString(1, "%" + nombre + "%");
+        stmt.setString(1, nombre);
         return stmt.executeQuery();
     }
     

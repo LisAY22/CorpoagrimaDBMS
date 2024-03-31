@@ -9,8 +9,6 @@ import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -19,9 +17,9 @@ import javax.swing.table.DefaultTableModel;
 public class RRHH extends javax.swing.JFrame {
     
     private Connection conexion;
-    private ConexionEmpleado Empleado;
-    private ConexionPuesto Puesto;
-    private ConexionUsuario Usuario;
+    private ConexionEmpleado empleado;
+    private ConexionPuesto puesto;
+    private ConexionUsuario usuario;
     /**
      * Creates new form RH
      * @param conexion
@@ -29,9 +27,9 @@ public class RRHH extends javax.swing.JFrame {
      */
     public RRHH(Connection conexion) throws SQLException {
         this.conexion = conexion;
-        Empleado = new ConexionEmpleado();
-        Puesto = new ConexionPuesto();
-        Usuario = new ConexionUsuario();
+        empleado = new ConexionEmpleado();
+        puesto = new ConexionPuesto();
+        usuario = new ConexionUsuario();
         initComponents();
         Initial_table();
     }
@@ -42,7 +40,7 @@ public class RRHH extends javax.swing.JFrame {
     
     private void Initial_table() throws SQLException{
         DefaultTableModel model = (DefaultTableModel) TablaEmpleado.getModel();
-        ResultSet resultado = Empleado.consulta(conexion);
+        ResultSet resultado = empleado.consulta(conexion);
         model.setRowCount(0); // Limpiar los datos existentes
         
         while (resultado.next()) {
@@ -57,7 +55,7 @@ public class RRHH extends javax.swing.JFrame {
             int id_usuario = resultado.getInt("Usuario_ID_Usuario");
 
             // Segunda consulta para obtener el puesto y el sueldo del puesto.
-            ResultSet resultadoPuesto = Puesto.puestoId(conexion, id_puesto);
+            ResultSet resultadoPuesto = puesto.puestoId(conexion, id_puesto);
             
             resultadoPuesto.next();
             String puesto = resultadoPuesto.getString("Nombre");
@@ -65,7 +63,7 @@ public class RRHH extends javax.swing.JFrame {
             
             // Tercera consulta para obtener el nombre de usuario
             
-            ResultSet resultado_usuario = Usuario.usuarioId(conexion, id_usuario);
+            ResultSet resultado_usuario = usuario.usuarioId(conexion, id_usuario);
             
             resultado_usuario.next();
             String Nombre_usuario = resultado_usuario.getString("Nombre");
@@ -78,7 +76,7 @@ public class RRHH extends javax.swing.JFrame {
     
     private void order_by_name() throws SQLException{
         DefaultTableModel model = (DefaultTableModel) TablaEmpleado.getModel();
-        ResultSet resultado = Empleado.ordenarNombre(conexion);
+        ResultSet resultado = empleado.ordenarNombre(conexion);
         model.setRowCount(0);
         
         while (resultado.next()) {
@@ -93,13 +91,13 @@ public class RRHH extends javax.swing.JFrame {
         int id_usuario = resultado.getInt("Usuario_ID_Usuario");
 
         // Segunda consulta para obtener el puesto y el sueldo del puesto.
-        ResultSet resultadoPuesto = Puesto.puestoId(conexion, id_puesto);
+        ResultSet resultadoPuesto = puesto.puestoId(conexion, id_puesto);
         resultadoPuesto.next();
         String puesto = resultadoPuesto.getString("Nombre");
         Float salario = resultadoPuesto.getFloat("Salario_Base");
             
         // Tercera consulta para obtener el nombre de usuario 
-        ResultSet resultadoUsuario = Usuario.usuarioId(conexion, id_usuario);
+        ResultSet resultadoUsuario = usuario.usuarioId(conexion, id_usuario);
             
         resultadoUsuario.next();
         String Nombre_usuario = resultadoUsuario.getString("Nombre");
@@ -110,7 +108,7 @@ public class RRHH extends javax.swing.JFrame {
     
     private void order_by_Apellido() throws SQLException{
         DefaultTableModel model = (DefaultTableModel) TablaEmpleado.getModel();
-        ResultSet resultado = Empleado.ordenarApellido(conexion);
+        ResultSet resultado = empleado.ordenarApellido(conexion);
         model.setRowCount(0);
         
         while (resultado.next()) {
@@ -125,13 +123,13 @@ public class RRHH extends javax.swing.JFrame {
         int id_usuario = resultado.getInt("Usuario_ID_Usuario");
 
         // Segunda consulta para obtener el puesto y el sueldo del puesto.
-        ResultSet resultadoPuesto = Puesto.puestoId(conexion, id_puesto);
+        ResultSet resultadoPuesto = puesto.puestoId(conexion, id_puesto);
         resultadoPuesto.next();
         String puesto = resultadoPuesto.getString("Nombre");
         Float salario = resultadoPuesto.getFloat("Salario_Base");
             
         // Tercera consulta para obtener el nombre de usuario 
-        ResultSet resultadoUsuario = Usuario.usuarioId(conexion, id_usuario);
+        ResultSet resultadoUsuario = usuario.usuarioId(conexion, id_usuario);
             
         resultadoUsuario.next();
         String Nombre_usuario = resultadoUsuario.getString("Nombre");
@@ -209,6 +207,11 @@ public class RRHH extends javax.swing.JFrame {
         });
 
         jButton3.setText("Editar puesto");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Editar empleado");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -319,6 +322,11 @@ public class RRHH extends javax.swing.JFrame {
         EmpleadoWindow.setVisible(true);
         
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Puesto puestoWindow = new Puesto(conexion);
+        puestoWindow.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

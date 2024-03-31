@@ -1,19 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package corpoagrima.corpoagrima.gui;
+
+import java.sql.Connection;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author alfaryus
+ * @author WilderL
  */
 public class Puesto extends javax.swing.JFrame {
 
+    private Connection conexion;
+    private ConexionPuesto puesto;
+    private int id;
+
     /**
      * Creates new form Puesto
+     *
+     * @param conexion
      */
-    public Puesto() {
+    public Puesto(Connection conexion) {
+        this.conexion = conexion;
+        puesto = new ConexionPuesto();
         initComponents();
     }
 
@@ -35,10 +47,10 @@ public class Puesto extends javax.swing.JFrame {
         nuevoPuestoJCheckBox = new javax.swing.JCheckBox();
         informacionJPanel = new javax.swing.JPanel();
         nombreJLabel = new javax.swing.JLabel();
-        sueldoBaseJLabel = new javax.swing.JLabel();
+        salarioBaseJLabel = new javax.swing.JLabel();
         horarioJLabel = new javax.swing.JLabel();
         nombreJTextField = new javax.swing.JTextField();
-        sueldoBaseJTextField = new javax.swing.JTextField();
+        salarioBaseJTextField = new javax.swing.JTextField();
         horarioJTextField = new javax.swing.JTextField();
         DescripciónJLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -49,7 +61,7 @@ public class Puesto extends javax.swing.JFrame {
         limpiarJButton = new javax.swing.JButton();
         eliminarJButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         encabezadoJPanel.setBackground(new java.awt.Color(34, 85, 34));
 
@@ -120,13 +132,13 @@ public class Puesto extends javax.swing.JFrame {
 
         nombreJLabel.setText("Nombre");
 
-        sueldoBaseJLabel.setText("Sueldo Base");
+        salarioBaseJLabel.setText("Salario Base");
 
         horarioJLabel.setText("Horario");
 
         nombreJTextField.setEditable(false);
 
-        sueldoBaseJTextField.setEditable(false);
+        salarioBaseJTextField.setEditable(false);
 
         horarioJTextField.setEditable(false);
 
@@ -143,12 +155,12 @@ public class Puesto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nombreJLabel)
-                    .addComponent(sueldoBaseJLabel)
+                    .addComponent(salarioBaseJLabel)
                     .addComponent(horarioJLabel))
                 .addGap(27, 27, 27)
                 .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(nombreJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                    .addComponent(sueldoBaseJTextField)
+                    .addComponent(salarioBaseJTextField)
                     .addComponent(horarioJTextField))
                 .addGap(18, 18, 18)
                 .addComponent(DescripciónJLabel)
@@ -166,8 +178,8 @@ public class Puesto extends javax.swing.JFrame {
                     .addComponent(DescripciónJLabel))
                 .addGap(18, 18, 18)
                 .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sueldoBaseJLabel)
-                    .addComponent(sueldoBaseJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(salarioBaseJLabel)
+                    .addComponent(salarioBaseJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(horarioJLabel)
@@ -187,6 +199,11 @@ public class Puesto extends javax.swing.JFrame {
         guardarJButton.setText("Guardar");
         guardarJButton.setToolTipText("Guarda los datos actuales");
         guardarJButton.setEnabled(false);
+        guardarJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarJButtonActionPerformed(evt);
+            }
+        });
 
         limpiarJButton.setText("Limpiar");
         limpiarJButton.setToolTipText("Limpia las opcion para escoger de nuevo entre buscar o crear nuevo puesto");
@@ -258,14 +275,12 @@ public class Puesto extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        encabezadoJPanel.getAccessibleContext().setAccessibleParent(opcionJPanel);
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void habilitar(){
+    private void habilitar() {
         nombreJTextField.setEditable(true);
-        sueldoBaseJTextField.setEditable(true);
+        salarioBaseJTextField.setEditable(true);
         horarioJTextField.setEditable(true);
         descripcionJTextPane.setEditable(true);
         limpiarJButton.setEnabled(true);
@@ -274,10 +289,10 @@ public class Puesto extends javax.swing.JFrame {
         buscarJButton.setEnabled(false);
         buscarJTextField.setEnabled(false);
     }
-    
-    private void deshabilitar(){
+
+    private void deshabilitar() {
         nombreJTextField.setEditable(false);
-        sueldoBaseJTextField.setEditable(false);
+        salarioBaseJTextField.setEditable(false);
         horarioJTextField.setEditable(false);
         descripcionJTextPane.setEditable(false);
         limpiarJButton.setEnabled(false);
@@ -287,76 +302,152 @@ public class Puesto extends javax.swing.JFrame {
         nuevoPuestoJCheckBox.setEnabled(true);
         buscarJButton.setEnabled(true);
         buscarJTextField.setEnabled(true);
-        
+
     }
-    
-    private void limpiar(){
+
+    private void limpiar() {
         nombreJTextField.setText("");
-        sueldoBaseJTextField.setText("");
+        salarioBaseJTextField.setText("");
         horarioJTextField.setText("");
         descripcionJTextPane.setText("");
         buscarJTextField.setText("");
     }
-    
+
     private void buscarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarJButtonActionPerformed
-        habilitar();
-        eliminarJButton.setEnabled(true);
+        try {
+            String nombre = buscarJTextField.getText().trim();
+
+            if (nombre != null && !nombre.isEmpty()) {
+                ResultSet resultSet = puesto.puestoNombre(conexion, nombre);
+                if (resultSet.next()) {
+                    id = resultSet.getInt("ID_Puesto");
+                    nombre = resultSet.getString("Nombre");
+                    float salarioBase = resultSet.getFloat("Salario_Base");
+                    String horario = resultSet.getString("Horario");
+                    String descripcion = resultSet.getString("Descripcion");
+
+                    nombreJTextField.setText(nombre);
+                    salarioBaseJTextField.setText(String.valueOf(salarioBase));
+                    horarioJTextField.setText(horario);
+                    descripcionJTextPane.setText(descripcion);
+
+                    JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
+                            "Busqueda", JOptionPane.INFORMATION_MESSAGE);
+                    habilitar();
+                    eliminarJButton.setEnabled(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontraron resultados",
+                            "Busqueda", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Busqueda",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Ha habido un error "
+                    + "compruebe la información", "Busqueda",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_buscarJButtonActionPerformed
 
     private void nuevoPuestoJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoPuestoJCheckBoxActionPerformed
         if (nuevoPuestoJCheckBox.isSelected()) {
             habilitar();
+
         }
     }//GEN-LAST:event_nuevoPuestoJCheckBoxActionPerformed
 
     private void limpiarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarJButtonActionPerformed
         deshabilitar();
         limpiar();
+        JOptionPane.showMessageDialog(this, "Se ha limpiado los campos"
+                + "exitosamente.", "Limpieza",
+                JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_limpiarJButtonActionPerformed
 
     private void eliminarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarJButtonActionPerformed
-        deshabilitar();
-        limpiar();
+        try {
+            int opcion = JOptionPane.showConfirmDialog(null,
+                    "¿Quieres continuar?\nSe eliminara el puesto permanentemente",
+                    "Eliminar Puesto", JOptionPane.YES_NO_OPTION);
+
+            // Comprobar la opción seleccionada
+            if (opcion == JOptionPane.YES_OPTION) {
+                boolean resultSet = puesto.eliminar(conexion, id);
+                if (resultSet) {
+                    JOptionPane.showMessageDialog(this,
+                            "Se ha eliminado exitosamente el puesto.",
+                            "Eliminar Puesto", JOptionPane.INFORMATION_MESSAGE);
+                    deshabilitar();
+                    limpiar();
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Ha habido un error "
+                    + "compruebe la información", "Eliminar puesto",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_eliminarJButtonActionPerformed
 
     private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelarJButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Puesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Puesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Puesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Puesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void guardarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarJButtonActionPerformed
+        if (nuevoPuestoJCheckBox.isSelected()) {
+            try {
+                String nombre = nombreJTextField.getText();
+                float salarioBase = Float.parseFloat(salarioBaseJTextField.getText());
+                String horario = horarioJTextField.getText();
+                String descripcion = descripcionJTextPane.getText();
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Puesto().setVisible(true);
+                boolean resultSet = puesto.agregar(conexion, nombre, horario,
+                        descripcion, salarioBase);
+
+                if (resultSet) {
+                    JOptionPane.showMessageDialog(this, "Se ha creado un nuevo "
+                            + "puesto exitosamente.", "Nuevo Puesto",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ha habido un error "
+                            + "compruebe la información", "Nuevo Puesto",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Nuevo Puesto",
+                        JOptionPane.ERROR_MESSAGE);
             }
-        });
-    }
+        } else {
+            try {
+                String nombre = nombreJTextField.getText();
+                float salarioBase = Float.parseFloat(salarioBaseJTextField.getText());
+                String horario = horarioJTextField.getText();
+                String descripcion = descripcionJTextPane.getText();
+                boolean resultSet = puesto.actualizar(conexion, nombre, horario, descripcion,
+                        salarioBase, id);
+                if (resultSet) {
+                    JOptionPane.showMessageDialog(this,
+                            "Se ha guardado exitosamente el puesto.",
+                            "Guardar Puesto", JOptionPane.INFORMATION_MESSAGE);
+                    deshabilitar();
+                    limpiar();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Guardar Puesto",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_guardarJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DescripciónJLabel;
@@ -379,7 +470,7 @@ public class Puesto extends javax.swing.JFrame {
     private javax.swing.JCheckBox nuevoPuestoJCheckBox;
     private javax.swing.JPanel opcionJPanel;
     private javax.swing.JLabel puestoJLabel;
-    private javax.swing.JLabel sueldoBaseJLabel;
-    private javax.swing.JTextField sueldoBaseJTextField;
+    private javax.swing.JLabel salarioBaseJLabel;
+    private javax.swing.JTextField salarioBaseJTextField;
     // End of variables declaration//GEN-END:variables
 }
