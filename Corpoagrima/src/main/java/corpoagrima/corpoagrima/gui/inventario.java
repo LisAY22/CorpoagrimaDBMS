@@ -51,35 +51,49 @@ public class inventario extends javax.swing.JFrame {
         JPanel1 = new javax.swing.JPanel();
         inventarioJLabel = new javax.swing.JLabel();
         regresarJButton = new javax.swing.JButton();
+        Actualizar_Bn = new javax.swing.JButton();
         JPanel2 = new javax.swing.JPanel();
+        buscarJTextField = new javax.swing.JTextField();
         ordenarJButton = new javax.swing.JButton();
         buscarJButton = new javax.swing.JButton();
-        buscarJTextField = new javax.swing.JTextField();
-        actualizarJButton = new javax.swing.JButton();
         JPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         datosJTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inventario");
-        setPreferredSize(new java.awt.Dimension(1300, 600));
 
-        JPanel1.setBackground(new java.awt.Color(16, 82, 0));
+        JPanel1.setBackground(new java.awt.Color(34, 85, 34));
+        JPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JPanel1MouseClicked(evt);
+            }
+        });
 
-        inventarioJLabel.setBackground(new java.awt.Color(16, 82, 0));
+        inventarioJLabel.setBackground(new java.awt.Color(34, 85, 34));
         inventarioJLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         inventarioJLabel.setForeground(new java.awt.Color(252, 252, 252));
         inventarioJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         inventarioJLabel.setText("INVENTARIO");
         inventarioJLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        regresarJButton.setBackground(new java.awt.Color(136, 213, 133));
-        regresarJButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        regresarJButton.setText("REGRESAR");
-        regresarJButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        regresarJButton.setBackground(new java.awt.Color(34, 85, 34));
+        regresarJButton.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        regresarJButton.setForeground(new java.awt.Color(255, 255, 255));
+        regresarJButton.setText("←");
+        regresarJButton.setBorderPainted(false);
         regresarJButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 regresarJButtonMouseClicked(evt);
+            }
+        });
+
+        Actualizar_Bn.setBackground(new java.awt.Color(34, 85, 34));
+        Actualizar_Bn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizar.png"))); // NOI18N
+        Actualizar_Bn.setBorderPainted(false);
+        Actualizar_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Actualizar_BnMouseClicked(evt);
             }
         });
 
@@ -88,43 +102,44 @@ public class inventario extends javax.swing.JFrame {
         JPanel1Layout.setHorizontalGroup(
             JPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPanel1Layout.createSequentialGroup()
-                .addGap(233, 233, 233)
-                .addComponent(inventarioJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
-                .addGap(240, 240, 240))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(regresarJButton))
+                .addGap(21, 21, 21)
+                .addComponent(regresarJButton)
+                .addGap(157, 157, 157)
+                .addComponent(inventarioJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(151, 151, 151)
+                .addComponent(Actualizar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
         JPanel1Layout.setVerticalGroup(
             JPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPanel1Layout.createSequentialGroup()
-                .addComponent(regresarJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(8, 8, 8)
-                .addComponent(inventarioJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(33, 33, 33))
+                .addGap(20, 20, 20)
+                .addGroup(JPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JPanel1Layout.createSequentialGroup()
+                        .addComponent(Actualizar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(JPanel1Layout.createSequentialGroup()
+                        .addGroup(JPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(inventarioJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(regresarJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27))))
         );
 
-        ordenarJButton.setText("ORDENAR");
+        buscarJTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        ordenarJButton.setBackground(new java.awt.Color(136, 213, 133));
+        ordenarJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ordenar.png"))); // NOI18N
         ordenarJButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ordenarJButtonMouseClicked(evt);
             }
         });
 
-        buscarJButton.setText("BUSCAR");
+        buscarJButton.setBackground(new java.awt.Color(136, 213, 133));
+        buscarJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
         buscarJButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 buscarJButtonMouseClicked(evt);
-            }
-        });
-
-        buscarJTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        actualizarJButton.setText("ACTUALIZAR");
-        actualizarJButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        actualizarJButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                actualizarJButtonMouseClicked(evt);
             }
         });
 
@@ -133,26 +148,29 @@ public class inventario extends javax.swing.JFrame {
         JPanel2Layout.setHorizontalGroup(
             JPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(ordenarJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(27, 27, 27)
-                .addComponent(buscarJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(buscarJTextField)
-                .addGap(33, 33, 33)
-                .addComponent(actualizarJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(17, 17, 17))
+                .addGap(19, 19, 19)
+                .addComponent(ordenarJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buscarJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(buscarJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
         JPanel2Layout.setVerticalGroup(
             JPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(JPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ordenarJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buscarJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buscarJTextField)
-                    .addComponent(actualizarJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(JPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(JPanel2Layout.createSequentialGroup()
+                        .addContainerGap(20, Short.MAX_VALUE)
+                        .addComponent(ordenarJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(JPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(JPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(JPanel2Layout.createSequentialGroup()
+                                .addComponent(buscarJTextField)
+                                .addGap(1, 1, 1))
+                            .addComponent(buscarJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         datosJTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -165,24 +183,31 @@ public class inventario extends javax.swing.JFrame {
             new String [] {
                 "ID", "Nombre", "Descripcion", "Costo", "Marca", "Fecha de Vencimiento", "Categoria", "Stock", "Unidad de Medida", "Precio"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(datosJTable);
 
         javax.swing.GroupLayout JPanel3Layout = new javax.swing.GroupLayout(JPanel3);
         JPanel3.setLayout(JPanel3Layout);
         JPanel3Layout.setHorizontalGroup(
             JPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanel3Layout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         JPanel3Layout.setVerticalGroup(
             JPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanel3Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
-                .addGap(14, 14, 14))
+            .addGroup(JPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 3, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -191,7 +216,9 @@ public class inventario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(JPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(JPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(JPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(JPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,15 +227,30 @@ public class inventario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(3, 3, 3)
-                .addComponent(JPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(JPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void JPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPanel1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JPanel1MouseClicked
+
+    private void regresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarJButtonMouseClicked
+        // TODO add your handling code here:
+        principal principal_screen = new principal(conexion);
+        principal_screen.setVisible(true);
+        principal_screen.setLocationRelativeTo(null);
+        
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_regresarJButtonMouseClicked
+
     private void ordenarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ordenarJButtonMouseClicked
         // TODO add your handling code here:
-         if (sorter == null) {
+
+        if (sorter == null) {
             // Crear un objeto TableRowSorter basado en el modelo de la tabla
             DefaultTableModel model = (DefaultTableModel) datosJTable.getModel();
             sorter = new TableRowSorter<>(model);
@@ -217,7 +259,7 @@ public class inventario extends javax.swing.JFrame {
 
         // Crear un RowSorter para ordenar por la columna "Nombre"
         ArrayList<RowSorter.SortKey> sortKeys = new ArrayList<>();
-        int columnIndexToSort = 1; // Índice de la columna "Nombre" (comienza desde 0)
+        int columnIndexToSort = 1;
         sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING)); // Orden ascendente
         sorter.setSortKeys(sortKeys);
 
@@ -225,17 +267,16 @@ public class inventario extends javax.swing.JFrame {
         sorter.sort();
 
         // Mostrar un mensaje indicando que la tabla ha sido ordenada
-        JOptionPane.showMessageDialog(this, "La tabla ha sido ordenada por la columna 'Nombre' en orden ascendente.", "Ordenar tabla", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "El ordenamiento de la tabla ha sido habilitado.", "Ordenar tabla", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_ordenarJButtonMouseClicked
 
-    private void actualizarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarJButtonMouseClicked
+    private void Actualizar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Actualizar_BnMouseClicked
         // TODO add your handling code here:
         actualizarTabla();
-    }//GEN-LAST:event_actualizarJButtonMouseClicked
+    }//GEN-LAST:event_Actualizar_BnMouseClicked
 
     private void buscarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarJButtonMouseClicked
-        // TODO add your handling code here:
         String textoBusqueda = buscarJTextField.getText().trim();
 
         if (!textoBusqueda.isEmpty()) {
@@ -267,16 +308,6 @@ public class inventario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ingrese un nombre o ID para buscar.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_buscarJButtonMouseClicked
-
-    private void regresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarJButtonMouseClicked
-        // TODO add your handling code here:
-        principal principal_screen = new principal(conexion);
-        principal_screen.setVisible(true);
-        principal_screen.setLocationRelativeTo(null);
-        
-        // Cerrar la ventana actual
-        dispose();
-    }//GEN-LAST:event_regresarJButtonMouseClicked
 
 
     private void actualizarTabla() {
@@ -310,10 +341,10 @@ public class inventario extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Actualizar_Bn;
     private javax.swing.JPanel JPanel1;
     private javax.swing.JPanel JPanel2;
     private javax.swing.JPanel JPanel3;
-    private javax.swing.JButton actualizarJButton;
     private javax.swing.JButton buscarJButton;
     private javax.swing.JTextField buscarJTextField;
     private javax.swing.JTable datosJTable;

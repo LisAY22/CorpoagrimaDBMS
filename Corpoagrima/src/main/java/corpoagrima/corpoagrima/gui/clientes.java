@@ -46,8 +46,8 @@ public class clientes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Actualizar_Bn = new javax.swing.JButton();
+        Regresar_Bn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        listaOrdenamiento = new javax.swing.JComboBox<>();
         Buscar_textField = new javax.swing.JTextField();
         Buscar_Bn = new javax.swing.JButton();
         Ordenar_Bn = new javax.swing.JButton();
@@ -68,9 +68,26 @@ public class clientes extends javax.swing.JFrame {
 
         Actualizar_Bn.setBackground(new java.awt.Color(34, 85, 34));
         Actualizar_Bn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizar.png"))); // NOI18N
+        Actualizar_Bn.setBorderPainted(false);
         Actualizar_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Actualizar_BnMouseClicked(evt);
+            }
+        });
+
+        Regresar_Bn.setBackground(new java.awt.Color(34, 85, 34));
+        Regresar_Bn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        Regresar_Bn.setForeground(new java.awt.Color(255, 255, 255));
+        Regresar_Bn.setText("←");
+        Regresar_Bn.setBorderPainted(false);
+        Regresar_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Regresar_BnMouseClicked(evt);
+            }
+        });
+        Regresar_Bn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Regresar_BnActionPerformed(evt);
             }
         });
 
@@ -79,9 +96,11 @@ public class clientes extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(495, 495, 495)
+                .addGap(27, 27, 27)
+                .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(401, 401, 401)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 376, Short.MAX_VALUE)
                 .addComponent(Actualizar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -90,19 +109,11 @@ public class clientes extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Actualizar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
-
-        listaOrdenamiento.setBackground(new java.awt.Color(204, 204, 204));
-        listaOrdenamiento.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        listaOrdenamiento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Apellido", "Destacado" }));
-        listaOrdenamiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaOrdenamientoActionPerformed(evt);
-            }
-        });
 
         Buscar_textField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Buscar_textField.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +122,7 @@ public class clientes extends javax.swing.JFrame {
             }
         });
 
-        Buscar_Bn.setBackground(new java.awt.Color(34, 85, 34));
+        Buscar_Bn.setBackground(new java.awt.Color(136, 213, 133));
         Buscar_Bn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
         Buscar_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -119,7 +130,7 @@ public class clientes extends javax.swing.JFrame {
             }
         });
 
-        Ordenar_Bn.setBackground(new java.awt.Color(34, 85, 34));
+        Ordenar_Bn.setBackground(new java.awt.Color(136, 213, 133));
         Ordenar_Bn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ordenar.png"))); // NOI18N
         Ordenar_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -132,11 +143,9 @@ public class clientes extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(52, 52, 52)
                 .addComponent(Ordenar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(listaOrdenamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 545, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 676, Short.MAX_VALUE)
                 .addComponent(Buscar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -153,9 +162,7 @@ public class clientes extends javax.swing.JFrame {
                             .addComponent(Buscar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addGap(15, 15, 15)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Ordenar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(listaOrdenamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(Ordenar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -171,7 +178,7 @@ public class clientes extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -185,7 +192,7 @@ public class clientes extends javax.swing.JFrame {
         jLabel3.setAlignmentX(0.5F);
         jLabel3.setAlignmentY(0.0F);
 
-        Editar_Bn.setBackground(new java.awt.Color(34, 85, 34));
+        Editar_Bn.setBackground(new java.awt.Color(136, 213, 133));
         Editar_Bn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -247,10 +254,6 @@ public class clientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Buscar_textFieldActionPerformed
 
-    private void listaOrdenamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaOrdenamientoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listaOrdenamientoActionPerformed
-
     private void Buscar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Buscar_BnMouseClicked
         String textoBusqueda = Buscar_textField.getText().trim();
 
@@ -291,12 +294,7 @@ public class clientes extends javax.swing.JFrame {
 
     private void Ordenar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Ordenar_BnMouseClicked
         // TODO add your handling code here:
-        int index = (listaOrdenamiento.getSelectedIndex());
-        switch (index) {
-        case 0 -> index = 1;
-        case 1 -> index = 2;
-        case 2 -> index = 6;
-        }
+        
         if (sorter == null) {
             // Crear un objeto TableRowSorter basado en el modelo de la tabla
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -306,7 +304,7 @@ public class clientes extends javax.swing.JFrame {
 
         // Crear un RowSorter para ordenar por la columna "Nombre"
         ArrayList<RowSorter.SortKey> sortKeys = new ArrayList<>();
-        int columnIndexToSort = index; // Índice de la columna que se organizara
+        int columnIndexToSort = 1;
         sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING)); // Orden ascendente
         sorter.setSortKeys(sortKeys);
 
@@ -314,10 +312,24 @@ public class clientes extends javax.swing.JFrame {
         sorter.sort();
 
         // Mostrar un mensaje indicando que la tabla ha sido ordenada
-        JOptionPane.showMessageDialog(this, "La tabla ha sido ordenada por la columna 'Nombre' en orden ascendente.", "Ordenar tabla", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "El ordenamiento de la tabla ha sido habilitado.", "Ordenar tabla", JOptionPane.INFORMATION_MESSAGE);
 
         
     }//GEN-LAST:event_Ordenar_BnMouseClicked
+
+    private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
+        // TODO add your handling code here:
+        principal principal_screen = new principal(conexion);
+        principal_screen.setVisible(true);
+        principal_screen.setLocationRelativeTo(null);
+        
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_Regresar_BnMouseClicked
+
+    private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Regresar_BnActionPerformed
 
     private void actualizarTabla() {
         try {
@@ -353,6 +365,7 @@ public class clientes extends javax.swing.JFrame {
     private javax.swing.JTextField Buscar_textField;
     private javax.swing.JButton Editar_Bn;
     private javax.swing.JButton Ordenar_Bn;
+    private javax.swing.JButton Regresar_Bn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
@@ -360,6 +373,5 @@ public class clientes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JComboBox<String> listaOrdenamiento;
     // End of variables declaration//GEN-END:variables
 }
