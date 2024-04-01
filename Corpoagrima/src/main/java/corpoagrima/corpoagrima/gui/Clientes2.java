@@ -440,6 +440,9 @@ public class Clientes2 extends javax.swing.JFrame{
     }      
     private void GenerarCodigo_checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarCodigo_checkBoxActionPerformed
         // TODO add your handling code here:
+        if (GenerarCodigo_checkBox.isSelected()) {
+            habilitar();
+        }
     }//GEN-LAST:event_GenerarCodigo_checkBoxActionPerformed
 
     private void Buscar_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_textFieldActionPerformed
@@ -504,9 +507,6 @@ public class Clientes2 extends javax.swing.JFrame{
 
     private void Destacado_checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Destacado_checkBoxActionPerformed
         // TODO add your handling code here:
-        if (Destacado_checkBox.isSelected()) {
-            habilitar();
-        }
     }//GEN-LAST:event_Destacado_checkBoxActionPerformed
 
     private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
@@ -514,6 +514,7 @@ public class Clientes2 extends javax.swing.JFrame{
         deshabilitar();
         limpiar();
         Destacado_checkBox.setSelected(false);
+        GenerarCodigo_checkBox.setSelected(false);
         JOptionPane.showMessageDialog(this, "Se han limpiado los campos exitosamente.", "Limpieza",
                 JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_Limpiar_buttonActionPerformed
