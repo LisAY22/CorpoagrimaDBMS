@@ -33,22 +33,23 @@ public final class Empleado extends javax.swing.JFrame {
         Empleado = new ConexionEmpleado();
         Puesto = new ConexionPuesto();
         Usuario = new ConexionUsuario();
-        comboboxfull();
         initComponents();
+        comboboxfull();
     }
     
     public void Enable(){
-        Apellido_textField.setEnabled(true);
-        Bonificaciones_textfield.setEnabled(true);
-        Buscar_textField.setEnabled(true);
-        Correo_textfield.setEnabled(true);
-        ID_textfield.setEnabled(true);
-        Direccion_textfield.setEnabled(true);
-        NIT_textfield.setEnabled(true);
-        Nombre_textField.setEnabled(true);
-        Telefono_textfield.setEnabled(true);
-        Usuario_textfield.setEnabled(true);
-        contrasena_textfield1.setEnabled(true );
+        Apellido_textField.setEditable(true);
+        Bonificaciones_textfield.setEditable(true);
+        Buscar_textField.setEditable(true);
+        Correo_textfield.setEditable(true);
+        ID_textfield.setEditable(true);
+        Direccion_textfield.setEditable(true);
+        NIT_textfield.setEditable(true);
+        Nombre_textField.setEditable(true);
+        Telefono_textfield.setEditable(true);
+        Usuario_textfield.setEditable(true);
+        contrasena_textfield1.setEditable(true);
+        AjusteSueldo_textfield.setEditable(true);
         Puesto_comboBox.setEnabled(true);
     }
     
@@ -303,7 +304,6 @@ public final class Empleado extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel11.setText("Correo electrónico");
 
-        Puesto_comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         Puesto_comboBox.setEnabled(false);
         Puesto_comboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -404,9 +404,9 @@ public final class Empleado extends javax.swing.JFrame {
                             .addComponent(Bonificaciones_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Telefono_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -418,7 +418,7 @@ public final class Empleado extends javax.swing.JFrame {
                     .addComponent(Usuario_textfield)
                     .addComponent(Sueldobase_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                     .addComponent(contrasena_textfield1)
-                    .addComponent(Puesto_comboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Puesto_comboBox, 0, 280, Short.MAX_VALUE)
                     .addComponent(AjusteSueldo_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -453,8 +453,7 @@ public final class Empleado extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(NIT_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Telefono_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -463,7 +462,8 @@ public final class Empleado extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Usuario_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Usuario_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Telefono_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -575,6 +575,8 @@ public final class Empleado extends javax.swing.JFrame {
         Buscar_textField.setEnabled(false);
         Delete_button.setEnabled(false);
         GenerarCódigo_checkBox.setEnabled(false);
+        Save_button.setEnabled(true);
+        Clean_button.setEnabled(true);
         Enable();
     }//GEN-LAST:event_GenerarCódigo_checkBoxActionPerformed
 
@@ -606,9 +608,31 @@ public final class Empleado extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_Delete_buttonActionPerformed
-
-    private void Clean_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Clean_buttonActionPerformed
+    
+    private void reset(){
         Clean();
+        Buscar_jButton.setEnabled(true);
+        Buscar_textField.setEditable(true);
+        GenerarCódigo_checkBox.setEnabled(true);
+        GenerarCódigo_checkBox.setSelected(false);
+        ID_textfield.setEditable(false);
+        Nombre_textField.setEditable(false);
+        Apellido_textField.setEditable(false);
+        NIT_textfield.setEditable(false);
+        Correo_textfield.setEditable(false);
+        Direccion_textfield.setEditable(false);
+        Bonificaciones_textfield.setEditable(false);
+        Telefono_textfield.setEditable(false);
+        Puesto_comboBox.setEnabled(false);
+        Usuario_textfield.setEditable(false);
+        contrasena_textfield1.setEditable(false);
+        Delete_button.setEnabled(false);
+        Clean_button.setEnabled(false);
+        Save_button.setEnabled(false);
+    }
+    
+    private void Clean_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Clean_buttonActionPerformed
+        reset();
     }//GEN-LAST:event_Clean_buttonActionPerformed
 
     private void Cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_buttonActionPerformed
@@ -667,6 +691,7 @@ public final class Empleado extends javax.swing.JFrame {
             String Bonificaciones = resultado.getString("Bonificaciones");
             int id_puesto = resultado.getInt("Puesto_ID_Puesto");
             int id_usuario = resultado.getInt("Usuario_ID_Usuario");
+            String ajusteSueldo = resultado.getString("Ajuste_Sueldo");
             
             //Consulta de puesto y sueldo
             ResultSet resultadoPuesto = Puesto.puestoId(conexion, id_puesto);
@@ -675,10 +700,11 @@ public final class Empleado extends javax.swing.JFrame {
             Float salario = resultadoPuesto.getFloat("Salario_Base");
             
             // Tercera consulta para obtener el nombre de usuario 
-            ResultSet resultadoUsuario = Usuario.usuarioId(conexion, id_usuario);
+            ResultSet resultadoUsuario = Usuario.usuario(conexion, id_usuario);
 
             resultadoUsuario.next();
             String Nombre_usuario = resultadoUsuario.getString("Nombre");
+            String contrasenia = resultadoUsuario.getString("Contraseña");
             
             // Insertar en los textfield la informacion y habilitarlos
             ID_textfield.setText(String.valueOf(ID));
@@ -689,6 +715,7 @@ public final class Empleado extends javax.swing.JFrame {
             Direccion_textfield.setText(Direccion);
             Bonificaciones_textfield.setText(Bonificaciones);
             Telefono_textfield.setText("No tiene xd");
+            AjusteSueldo_textfield.setText(ajusteSueldo);
             
             
             //Autoajustar el combobox para que aparezca por defecto el que tiene en puesto
@@ -715,7 +742,7 @@ public final class Empleado extends javax.swing.JFrame {
             
             Sueldobase_textfield.setText(String.valueOf(salario));
             Usuario_textfield.setText(Nombre_usuario);
-            contrasena_textfield1.setText("Ponga aqui su contraseña");
+            contrasena_textfield1.setText(contrasenia);
             
             //Deshabilitar los checkbox
             GenerarCódigo_checkBox.setEnabled(false);
