@@ -449,9 +449,30 @@ public class Clientes2 extends javax.swing.JFrame{
     }//GEN-LAST:event_Buscar_textFieldActionPerformed
 
     private void Eliminar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_buttonActionPerformed
-        // TODO add your handling code here:
-        deshabilitar();
-        limpiar();
+        try {
+            int opcion = JOptionPane.showConfirmDialog(null,
+                    "¿Quieres continuar?\nSe eliminara el cliente permanentemente",
+                    "Eliminar Cliente", JOptionPane.YES_NO_OPTION);
+
+            // Comprobar la opción seleccionada
+            if (opcion == JOptionPane.YES_OPTION) {
+                boolean resultSet = clientes.eliminar(conexion, id);
+                if (resultSet) {
+                    JOptionPane.showMessageDialog(this,
+                            "Se ha eliminado exitosamente el cliente.",
+                            "Eliminar Cliente", JOptionPane.INFORMATION_MESSAGE);
+                    deshabilitar();
+                    limpiar();
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "ERROR "
+                    + "compruebe la información", "Eliminar Cliente",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_Eliminar_buttonActionPerformed
 
     private void Cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_buttonActionPerformed
