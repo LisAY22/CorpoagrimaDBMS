@@ -342,8 +342,6 @@ public class clientes extends javax.swing.JFrame {
         clientes2_screen.setVisible(true);
         clientes2_screen.setLocationRelativeTo(null);
         
-        // Cerrar la ventana actual
-        dispose();
     }//GEN-LAST:event_Editar_BnMouseClicked
 
     private void actualizarTabla() {
