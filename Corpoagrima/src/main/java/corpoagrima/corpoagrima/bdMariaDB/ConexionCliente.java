@@ -42,10 +42,10 @@ public class ConexionCliente {
     }
     public boolean agregar(Connection conexion, int idCliente, String nombre, 
             String apellido, String nit, String correoElectronico, 
-            String direccion, int clienteDestacado, int cantidadCompra) 
+            String direccion, boolean clienteDestacado, int cantidadCompra) 
             throws SQLException{
         String sql = "INSERT INTO Cliente "
-                + "(ID_Cliente, Nombre, Apellido, NIT, Correo_Electronico,"
+                + "(ID_Cliente, Nombre, Apellido, NIT, CorreoElectronico,"
                 + "Direccion, Cliente_destacado, Cantidad_compras) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conexion.prepareStatement(sql);
@@ -55,7 +55,7 @@ public class ConexionCliente {
         stmt.setString(4, nit);
         stmt.setString(5, correoElectronico);
         stmt.setString(6, direccion);
-        stmt.setInt(7, clienteDestacado);
+        stmt.setBoolean(7, clienteDestacado);
         stmt.setInt(8, cantidadCompra);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
@@ -64,22 +64,19 @@ public class ConexionCliente {
     
     public boolean actualizar(Connection conexion, int idCliente, String nombre, 
             String apellido, String nit, String correoElectronico, 
-            String direccion, int clienteDestacado, int cantidadCompra)
+            String direccion, boolean clienteDestacado, int cantidadCompra)
             throws SQLException{
-        String sql = "UPDATE Empleado SET ID_Empleado=?, Nombre=?, Apellido=?, "
-                + "NIT=?, Correo_Electronico=?, Direccion=?, Ajuste_Sueldo=?, "
-                + "Bonificaciones=?, Puesto_ID_Puesto=?, Usuario_ID_Usuario=? "
-                + "WHERE ID_Empleado=?";
+        String sql = "UPDATE Cliente SET Nombre=?, Apellido=?, "
+                + "NIT=?, CorreoElectronico=?, Direccion=?, Cliente_destacado=?, Cantidad_compras=? WHERE ID_Cliente=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
-        stmt.setInt(1, idCliente);
-        stmt.setString(2, nombre);
-        stmt.setString(3, apellido);
-        stmt.setString(4, nit);
-        stmt.setString(5, correoElectronico);
-        stmt.setString(6, direccion);
-        stmt.setInt(7, clienteDestacado);
-        stmt.setInt(8, cantidadCompra);
-        stmt.setInt(9, idCliente);
+        stmt.setString(1, nombre);
+        stmt.setString(2, apellido);
+        stmt.setString(3, nit);
+        stmt.setString(4, correoElectronico);
+        stmt.setString(5, direccion);
+        stmt.setBoolean(6, clienteDestacado);
+        stmt.setInt(7, cantidadCompra);
+        stmt.setInt(8, idCliente);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
