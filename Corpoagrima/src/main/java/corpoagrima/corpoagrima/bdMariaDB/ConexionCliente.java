@@ -40,27 +40,6 @@ public class ConexionCliente {
         
         return stmt.executeQuery();
     }
-    
-    public ResultSet ordenarNombre(Connection conexion) throws SQLException{
-        String sql = "SELECT * FROM Cliente ORDER BY Nombre ASC, Apellido ASC";
-        PreparedStatement stmt = conexion.prepareStatement(sql);
-        
-        return stmt.executeQuery();
-    }
-    
-    public ResultSet ordenarApellido(Connection conexion) throws SQLException{
-        String sql = "SELECT * FROM Cliente ORDER BY Apellido ASC, Nombre ASC";
-        PreparedStatement stmt = conexion.prepareStatement(sql);
-        
-        return stmt.executeQuery();
-    }
-    
-    public ResultSet ordenarDestacado(Connection conexion) throws SQLException{
-        String sql = "SELECT * FROM Cliente ORDER BY Cliente_destacado DES";
-        PreparedStatement stmt = conexion.prepareStatement(sql);
-        return stmt.executeQuery();
-    }
-    
     public boolean agregar(Connection conexion, int idCliente, String nombre, 
             String apellido, String nit, String correoElectronico, 
             String direccion, int clienteDestacado, int cantidadCompra) 
