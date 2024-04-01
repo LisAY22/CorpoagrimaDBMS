@@ -444,8 +444,6 @@ public class Clientes2 extends javax.swing.JFrame{
 
     private void Buscar_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_textFieldActionPerformed
         // TODO add your handling code here:
-        habilitar();
-        Eliminar_button.setEnabled(true);
     }//GEN-LAST:event_Buscar_textFieldActionPerformed
 
     private void Eliminar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_buttonActionPerformed
