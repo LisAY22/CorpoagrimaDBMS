@@ -19,7 +19,7 @@ public class Conexion {
     public Connection obtenerConexion() {
         if (conexion == null) {
             try {
-                conexion = DriverManager.getConnection("jdbc:mariadb://localhost:3306/CorpoagrimaBD?serverTimezone=UTC", "root", "Necrosis98");
+                conexion = DriverManager.getConnection("jdbc:mariadb://localhost:3306/CorpoagrimaBD?serverTimezone=UTC", "root","Meli202320");
                 System.out.println("Conexión establecida correctamente.");
             } catch (SQLException e) {
                 System.out.println("Error al conectar a la base de datos: " + e.getMessage());
