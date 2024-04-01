@@ -515,6 +515,9 @@ public class Clientes2 extends javax.swing.JFrame{
         // TODO add your handling code here:
         deshabilitar();
         limpiar();
+        Destacado_checkBox.setSelected(false);
+        JOptionPane.showMessageDialog(this, "Se han limpiado los campos exitosamente.", "Limpieza",
+                JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
     private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
