@@ -126,16 +126,16 @@ public class Clientes2 extends javax.swing.JFrame{
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(379, 379, 379)
+                .addGap(287, 287, 287)
                 .addComponent(EditarLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(EditarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         Buscar_textField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -511,6 +511,14 @@ public class Clientes2 extends javax.swing.JFrame{
                         String direccion = rs.getString("Direccion");
                         int destacado = rs.getInt("Cliente_destacado");
                         int cantCompras = rs.getInt("Cantidad_compras");
+                        
+                        if (destacado == 1) {
+                            // Si el número es 1, marcamos el checkbox como seleccionado
+                            Destacado_checkBox.setSelected(true);
+                        } else {
+                            // Si el número no es 1, no marcamos el checkbox
+                            Destacado_checkBox.setSelected(false);
+                        }
 
                         ID_textfield.setText(String.valueOf(id));
                         Nombre_textfield.setText(nombre);
