@@ -441,6 +441,7 @@ public class Clientes2 extends javax.swing.JFrame{
     private void GenerarCodigo_checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarCodigo_checkBoxActionPerformed
         // TODO add your handling code here:
         if (GenerarCodigo_checkBox.isSelected()) {
+            Destacado_checkBox.setSelected(false);
             habilitar();
         }
     }//GEN-LAST:event_GenerarCodigo_checkBoxActionPerformed
@@ -575,7 +576,64 @@ public class Clientes2 extends javax.swing.JFrame{
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
 
     private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
-        // TODO add your handling code here:
+        if (GenerarCodigo_checkBox.isSelected()) {
+            try {
+                id = Integer.parseInt(ID_textfield.getText());
+                String nombre = Nombre_textfield.getText();
+                String apellido = Apellido_textfield.getText();
+                String nit = NIT_textfield.getText();
+                String correoELectronico = Correo_textfield.getText();
+                String direccion = Direccion_textfield.getText();
+                int cantCompras = 0;
+                boolean destacado;
+                destacado = Destacado_checkBox.isSelected();
+                
+
+                boolean rs = clientes.agregar(conexion, id, nombre, apellido, nit, correoELectronico, 
+                        direccion, destacado, cantCompras);
+
+                if (rs) {
+                    JOptionPane.showMessageDialog(this, "Se ha creado un nuevo cliente exitosamente.", "Nuevo Cliente",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ha habido un error "
+                            + "compruebe la información", "Nuevo Cliente",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Nuevo Cliente",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            try {
+                id = Integer.parseInt(ID_textfield.getText());
+                String nombre = Nombre_textfield.getText();
+                String apellido = Apellido_textfield.getText();
+                String nit = NIT_textfield.getText();
+                String correoELectronico = Correo_textfield.getText();
+                String direccion = Direccion_textfield.getText();
+                int cantCompras = Integer.parseInt(Cantidadcompras_textfield.getText());
+                boolean destacado;
+                destacado = Destacado_checkBox.isSelected();
+                
+                boolean rs = clientes.actualizar(conexion, id, nombre, apellido, nit, correoELectronico, 
+                        direccion, destacado, cantCompras);
+                if (rs) {
+                    JOptionPane.showMessageDialog(this,
+                            "Se ha guardado exitosamente el cliente.",
+                            "Guardar Cliente", JOptionPane.INFORMATION_MESSAGE);
+                    deshabilitar();
+                    limpiar();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Guardar Cliente",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_Guardar_buttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

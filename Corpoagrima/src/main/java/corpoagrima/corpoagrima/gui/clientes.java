@@ -360,19 +360,25 @@ public class clientes extends javax.swing.JFrame {
                 for (int i = 0; i < columnCount; i++) {
                     // Obtener el valor de la columna
                     Object value = rs.getObject(i + 1);
-                    if (value instanceof Integer) {
-                        int intValue = (int) value;
-                        if (intValue == 0 && i != 0) {
-                            rowData[i] = "-";
-                        } else if (intValue == 1 && i != 0) {
-                            rowData[i] = "\u2605"; // Código Unicode para una estrella
+                    if (i == 6) { 
+                        if (value instanceof Integer) {
+                            int intValue = (int) value;
+                            switch (intValue) {
+                                case 0:
+                                    rowData[i] = "-";
+                                    break;
+                                case 1:
+                                    rowData[i] = "\u2605"; // Código Unicode para una estrella
+                                    break;
+                                default:
+                                    rowData[i] = value;
+                                    break;
+                            }
                         } else {
-                            rowData[i] = value;
+                            rowData[i] = value == null ? "-" : value; // Si el valor es null, colocamos un guion "-"
                         }
-                    } else if (value == null) {
-                        rowData[i] = "-";
                     } else {
-                        rowData[i] = value;
+                        rowData[i] = value == null ? "-" : value; // Si el valor es null, colocamos un guion "-"
                     }
                 }
                 model.addRow(rowData);
@@ -385,6 +391,7 @@ public class clientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 
 
 
