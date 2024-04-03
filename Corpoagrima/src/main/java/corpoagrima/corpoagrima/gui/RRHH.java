@@ -56,13 +56,14 @@ public class RRHH extends javax.swing.JFrame {
             String Bonificaciones = resultado.getString("Bonificaciones");
             int id_puesto = resultado.getInt("Puesto_ID_Puesto");
             int id_usuario = resultado.getInt("Usuario_ID_Usuario");
+            float ajusteSueldo = Float.valueOf(resultado.getString("Ajuste_Sueldo"));
 
             // Segunda consulta para obtener el puesto y el sueldo del puesto.
             ResultSet resultadoPuesto = puesto.puestoId(conexion, id_puesto);
             
             resultadoPuesto.next();
             String puesto = resultadoPuesto.getString("Nombre");
-            Float salario = resultadoPuesto.getFloat("Salario_Base");
+            Float salario = resultadoPuesto.getFloat("Salario_Base") + ajusteSueldo;
             
             // Tercera consulta para obtener el nombre de usuario
             

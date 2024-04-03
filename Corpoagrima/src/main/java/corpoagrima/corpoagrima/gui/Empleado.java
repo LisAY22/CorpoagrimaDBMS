@@ -7,6 +7,9 @@ package corpoagrima.corpoagrima.gui;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionTelefono;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,12 +23,18 @@ import javax.swing.JOptionPane;
  * @author User
  */
 public final class Empleado extends javax.swing.JFrame {
+
     private Connection conexion;
     private ConexionEmpleado Empleado;
     private ConexionPuesto Puesto;
     private ConexionUsuario Usuario;
+    private ConexionTelefono Telefono;
+    private int idPuesto;
+    private int idUsuario;
+    private int idTelefono;
+
     /**
-    /**
+     * /**
      * Creates new form Empleado
      */
     public Empleado(Connection conexion) {
@@ -33,11 +42,18 @@ public final class Empleado extends javax.swing.JFrame {
         Empleado = new ConexionEmpleado();
         Puesto = new ConexionPuesto();
         Usuario = new ConexionUsuario();
+        Telefono = new ConexionTelefono();
         initComponents();
         comboboxfull();
+        String nombre = (String) Puesto_comboBox.getSelectedItem();
+        try {
+            sueldoBase(nombre);
+        } catch (SQLException ex) {
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
-    public void Enable(){
+
+    public void Enable() {
         Apellido_textField.setEditable(true);
         Bonificaciones_textfield.setEditable(true);
         Buscar_textField.setEditable(true);
@@ -52,28 +68,12 @@ public final class Empleado extends javax.swing.JFrame {
         AjusteSueldo_textfield.setEditable(true);
         Puesto_comboBox.setEnabled(true);
     }
-    
-    public void Unable(){
-        Apellido_textField.setEnabled(false);
-        Bonificaciones_textfield.setEnabled(false);
-        Buscar_textField.setEnabled(false);
-        Correo_textfield.setEnabled(false);
-        ID_textfield.setEnabled(false);
-        Direccion_textfield.setEnabled(false);
-        NIT_textfield.setEnabled(false);
-        Nombre_textField.setEnabled(false);
-        Telefono_textfield.setEnabled(false);
-        Usuario_textfield.setEnabled(false);
-        contrasena_textfield1.setEnabled(false );
-        Puesto_comboBox.setEnabled(false);
-    }
-    
-    
-    public void comboboxfull(){
+
+    public void comboboxfull() {
         try {
             ResultSet puestos = Puesto.puestos(conexion);
-            
-            while (puestos.next()){
+
+            while (puestos.next()) {
                 String puesto = puestos.getString("Nombre");
                 Puesto_comboBox.addItem(puesto);
             }
@@ -81,7 +81,7 @@ public final class Empleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se encontró ningún puesto para el ComboBox.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private String[] getComboBoxItems(JComboBox<String> comboBox) {
         int itemCount = comboBox.getItemCount();
 
@@ -92,9 +92,9 @@ public final class Empleado extends javax.swing.JFrame {
         }
 
         return itemsArray;
-    }    
-    
-    private void Clean(){
+    }
+
+    private void Clean() {
         Apellido_textField.setText("");
         Bonificaciones_textfield.setText("");
         Buscar_textField.setText("");
@@ -109,7 +109,6 @@ public final class Empleado extends javax.swing.JFrame {
         Sueldobase_textfield.setText("");
         AjusteSueldo_textfield.setText("");
     }
-    
 
     private Empleado() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -305,6 +304,11 @@ public final class Empleado extends javax.swing.JFrame {
         jLabel11.setText("Correo electrónico");
 
         Puesto_comboBox.setEnabled(false);
+        Puesto_comboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                Puesto_comboBoxItemStateChanged(evt);
+            }
+        });
         Puesto_comboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Puesto_comboBoxActionPerformed(evt);
@@ -583,7 +587,7 @@ public final class Empleado extends javax.swing.JFrame {
     private void Delete_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete_buttonActionPerformed
         String id = ID_textfield.getText();
         int IdInt = Integer.parseInt(id);
-        
+
         try {
             int opcion = JOptionPane.showConfirmDialog(null,
                     "¿Quieres continuar?\nSe eliminara el puesto permanentemente",
@@ -591,13 +595,14 @@ public final class Empleado extends javax.swing.JFrame {
 
             // Comprobar la opción seleccionada
             if (opcion == JOptionPane.YES_OPTION) {
+                boolean resultTelefono = Telefono.eliminar(conexion, idTelefono);
                 boolean resultSet = Empleado.eliminar(conexion, IdInt);
-                if (resultSet) {
+                boolean resultUsuario = Usuario.eliminar(conexion, idUsuario);
+                if (resultSet && resultTelefono && resultUsuario) {
                     JOptionPane.showMessageDialog(this,
                             "Se ha eliminado exitosamente el puesto.",
                             "Eliminar Puesto", JOptionPane.INFORMATION_MESSAGE);
-                Clean();
-                Unable();
+                    reset();
                 }
             }
 
@@ -608,17 +613,19 @@ public final class Empleado extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_Delete_buttonActionPerformed
-    
-    private void reset(){
+
+    private void reset() {
         Clean();
         Buscar_jButton.setEnabled(true);
         Buscar_textField.setEditable(true);
+        Buscar_textField.setEnabled(true);
         GenerarCódigo_checkBox.setEnabled(true);
         GenerarCódigo_checkBox.setSelected(false);
         ID_textfield.setEditable(false);
         Nombre_textField.setEditable(false);
         Apellido_textField.setEditable(false);
         NIT_textfield.setEditable(false);
+        AjusteSueldo_textfield.setEditable(false);
         Correo_textfield.setEditable(false);
         Direccion_textfield.setEditable(false);
         Bonificaciones_textfield.setEditable(false);
@@ -630,7 +637,7 @@ public final class Empleado extends javax.swing.JFrame {
         Clean_button.setEnabled(false);
         Save_button.setEnabled(false);
     }
-    
+
     private void Clean_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Clean_buttonActionPerformed
         reset();
     }//GEN-LAST:event_Clean_buttonActionPerformed
@@ -656,7 +663,7 @@ public final class Empleado extends javax.swing.JFrame {
     }//GEN-LAST:event_Sueldobase_textfieldActionPerformed
 
     private void Puesto_comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Puesto_comboBoxActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_Puesto_comboBoxActionPerformed
 
     private void Bonificaciones_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bonificaciones_textfieldActionPerformed
@@ -675,11 +682,18 @@ public final class Empleado extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Nombre_textFieldActionPerformed
 
+    private void sueldoBase(String nombre) throws SQLException {
+        ResultSet result = Puesto.puestoNombre(conexion, nombre);
+        result.next();
+        String salario = String.valueOf(result.getFloat("Salario_Base"));
+        Sueldobase_textfield.setText(salario);
+    }
+
     private void Buscar_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_jButtonActionPerformed
         String IDString = Buscar_textField.getText();
-        int IdInt = Integer.parseInt(IDString);
-        
+
         try {
+            int IdInt = Integer.parseInt(IDString);
             ResultSet resultado = Empleado.empleadosID(conexion, IdInt);
             resultado.next();
             int ID = resultado.getInt("ID_Empleado");
@@ -692,20 +706,29 @@ public final class Empleado extends javax.swing.JFrame {
             int id_puesto = resultado.getInt("Puesto_ID_Puesto");
             int id_usuario = resultado.getInt("Usuario_ID_Usuario");
             String ajusteSueldo = resultado.getString("Ajuste_Sueldo");
-            
+
             //Consulta de puesto y sueldo
             ResultSet resultadoPuesto = Puesto.puestoId(conexion, id_puesto);
             resultadoPuesto.next();
+            idPuesto = id_puesto;
             String puesto = resultadoPuesto.getString("Nombre");
             Float salario = resultadoPuesto.getFloat("Salario_Base");
-            
+
             // Tercera consulta para obtener el nombre de usuario 
             ResultSet resultadoUsuario = Usuario.usuario(conexion, id_usuario);
 
             resultadoUsuario.next();
+            idUsuario = resultadoUsuario.getInt("ID_Usuario");
             String Nombre_usuario = resultadoUsuario.getString("Nombre");
             String contrasenia = resultadoUsuario.getString("Contraseña");
             
+            // Cuarta consulta para obtener el numero de telefono
+            ResultSet resultadoTelefono = Telefono.telefono(conexion, ID, "Empleado");
+            
+            resultadoTelefono.next();
+            idTelefono = resultadoTelefono.getInt("ID_Telefono");
+            String telefono = resultadoTelefono.getString("Numero");
+
             // Insertar en los textfield la informacion y habilitarlos
             ID_textfield.setText(String.valueOf(ID));
             Nombre_textField.setText(Nombre);
@@ -714,23 +737,21 @@ public final class Empleado extends javax.swing.JFrame {
             Correo_textfield.setText(Correo);
             Direccion_textfield.setText(Direccion);
             Bonificaciones_textfield.setText(Bonificaciones);
-            Telefono_textfield.setText("No tiene xd");
+            Telefono_textfield.setText(telefono);
             AjusteSueldo_textfield.setText(ajusteSueldo);
-            
-            
+
             //Autoajustar el combobox para que aparezca por defecto el que tiene en puesto
-            
             String[] itemsArray = getComboBoxItems(Puesto_comboBox);
-            
+
             int indice = -1;
-            
+
             for (int i = 0; i < itemsArray.length; i++) {
-            if (itemsArray[i].equals(puesto)) {
-                indice = i;
-                break;
+                if (itemsArray[i].equals(puesto)) {
+                    indice = i;
+                    break;
                 }
             }
-        
+
             // Si se encontró una coincidencia, establecer ese índice como la selección predeterminada
             if (indice != -1) {
                 Puesto_comboBox.setSelectedIndex(indice);
@@ -738,26 +759,28 @@ public final class Empleado extends javax.swing.JFrame {
                 // Si no se encontró ninguna coincidencia, mostrar un mensaje de error
                 JOptionPane.showMessageDialog(null, "No se encontró ninguna coincidencia para el texto en las opciones del ComboBox.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            
-            
+
             Sueldobase_textfield.setText(String.valueOf(salario));
             Usuario_textfield.setText(Nombre_usuario);
             contrasena_textfield1.setText(contrasenia);
-            
+
             //Deshabilitar los checkbox
             GenerarCódigo_checkBox.setEnabled(false);
             Buscar_jButton.setEnabled(false);
             Buscar_textField.setEnabled(false);
-            
+
             //Habilitar botones de guardado, borrar y limpiar
             Delete_button.setEnabled(true);
             Save_button.setEnabled(true);
             Clean_button.setEnabled(true);
-            
+
             Enable();
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al consultar los datos", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Ingrese correctamente el Id",
+                    "Busqueda", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_Buscar_jButtonActionPerformed
 
@@ -766,8 +789,116 @@ public final class Empleado extends javax.swing.JFrame {
     }//GEN-LAST:event_AjusteSueldo_textfieldActionPerformed
 
     private void Save_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_buttonActionPerformed
-        
+        if (GenerarCódigo_checkBox.isSelected()) {
+            try {
+                String apellido = Apellido_textField.getText();
+                float bonificaciones = Float.parseFloat(Bonificaciones_textfield.getText());
+                String correoElectronico = Correo_textfield.getText();
+                int idEmpleado = Integer.parseInt(ID_textfield.getText());
+                String direccion = Direccion_textfield.getText();
+                String nit = NIT_textfield.getText();
+                String nombre = Nombre_textField.getText();
+                String telefono = Telefono_textfield.getText();
+                String usuario = Usuario_textfield.getText();
+                String contrasenia = contrasena_textfield1.getText();
+                String ajusteSueldo = AjusteSueldo_textfield.getText();
+                String puesto = (String) Puesto_comboBox.getSelectedItem();
+                int idUsuario;
+                int idPuesto;
+                
+                // tabla usuario
+                boolean resultUsuario = Usuario.agregar(conexion, usuario, contrasenia);
+                
+                
+                ResultSet resultPuesto = Puesto.puestoID(conexion, puesto);
+                ResultSet restUsuario = Usuario.usuarioID(conexion, usuario);
+                
+                resultPuesto.next();
+                restUsuario.next();
+                idPuesto = resultPuesto.getInt("ID_Puesto");
+                idUsuario = restUsuario.getInt("ID_Usuario");
+                
+                // tabla empleado
+                boolean resultSet = Empleado.agregar(conexion, idEmpleado, nombre,
+                        apellido, nit, correoElectronico, direccion, ajusteSueldo,
+                        bonificaciones, idPuesto, idUsuario);
+                
+                // tabla telefono
+                boolean resultTelefono = Telefono.agregar(conexion, telefono,
+                        "Empleado", idEmpleado);
+
+                if (resultSet && resultTelefono && resultUsuario) {
+                    JOptionPane.showMessageDialog(this, "Se ha creado un nuevo "
+                            + "empleado exitosamente.", "Nuevo Empleado",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    reset();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ha habido un error "
+                            + "compruebe la información", "Nuevo Empleado",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Nuevo Empleado",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            try {
+                String apellido = Apellido_textField.getText();
+                float bonificaciones = Float.parseFloat(Bonificaciones_textfield.getText());
+                String correoElectronico = Correo_textfield.getText();
+                int idEmpleado = Integer.parseInt(ID_textfield.getText());
+                String direccion = Direccion_textfield.getText();
+                String nit = NIT_textfield.getText();
+                String nombre = Nombre_textField.getText();
+                String telefono = Telefono_textfield.getText();
+                String usuario = Usuario_textfield.getText();
+                String contrasenia = contrasena_textfield1.getText();
+                String ajusteSueldo = AjusteSueldo_textfield.getText();
+                String puesto = (String) Puesto_comboBox.getSelectedItem();
+                int idPuesto;
+
+                ResultSet restPuesto = Puesto.puestoID(conexion, puesto);
+                
+                restPuesto.next();
+                
+                idPuesto = restPuesto.getInt("ID_Puesto");
+
+                boolean resultTelefono = Telefono.actualizar(conexion, telefono, idTelefono);
+                boolean resultUsuario = Usuario.actualizar(conexion, usuario, contrasenia, idUsuario);
+                boolean resultSet = Empleado.actualizar(conexion, idEmpleado, nombre,
+                        apellido, nit, correoElectronico, direccion, ajusteSueldo,
+                        bonificaciones, idPuesto, idUsuario);
+
+                if (resultSet && resultTelefono && resultUsuario) {
+                    JOptionPane.showMessageDialog(this,
+                            "Se ha guardado exitosamente el empleado.",
+                            "Guardar Empleado", JOptionPane.INFORMATION_MESSAGE);
+                    reset();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Guardar Emplrado",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_Save_buttonActionPerformed
+
+    private void Puesto_comboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Puesto_comboBoxItemStateChanged
+        Puesto_comboBox.addItemListener((ItemEvent e) -> {
+            if (evt.getStateChange() == ItemEvent.SELECTED) {
+                try {
+                    String nombre = (String) Puesto_comboBox.getSelectedItem();
+                    sueldoBase(nombre);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+    }//GEN-LAST:event_Puesto_comboBoxItemStateChanged
 
     /**
      * @param args the command line arguments

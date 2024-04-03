@@ -340,9 +340,8 @@ public class Puesto extends javax.swing.JFrame {
                             "Busqueda", JOptionPane.WARNING_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Ha habido un error "
-                        + "compruebe la información", "Busqueda",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ingrese correctamente el "
+                        + "nombre", "Busqueda", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (SQLException ex) {
@@ -413,6 +412,7 @@ public class Puesto extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Se ha creado un nuevo "
                             + "puesto exitosamente.", "Nuevo Puesto",
                             JOptionPane.INFORMATION_MESSAGE);
+                    limpiar();
                 } else {
                     JOptionPane.showMessageDialog(this, "Ha habido un error "
                             + "compruebe la información", "Nuevo Puesto",
@@ -446,8 +446,7 @@ public class Puesto extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
         }
-        limpiar();
-
+        
     }//GEN-LAST:event_guardarJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

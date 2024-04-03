@@ -47,7 +47,7 @@ public class ConexionEmpleado {
             String apellido, String nit, String correoElectronico, 
             String direccion, String ajusteSueldo, float bonificaciones, 
             int idPuesto, int idUsuario) throws SQLException{
-        String sql = "INSERT INTO Empleados "
+        String sql = "INSERT INTO Empleado "
                 + "(ID_Empleado, Nombre, Apellido, NIT, Correo_Electronico,"
                 + "Direccion, Ajuste_Sueldo, Bonificaciones, Puesto_ID_Puesto,"
                 + "Usuario_ID_Usuario) "
@@ -94,7 +94,7 @@ public class ConexionEmpleado {
     }
     
     public boolean eliminar(Connection conexion, int id) throws SQLException{
-        String sql = "DELETE FROM Puesto WHERE ID_Puesto=?";
+        String sql = "DELETE FROM Empleado WHERE ID_Empleado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setInt(1, id);
         // ejecutar la consulta

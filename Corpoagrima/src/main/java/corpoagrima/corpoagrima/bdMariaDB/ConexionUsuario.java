@@ -22,6 +22,13 @@ public class ConexionUsuario {
         return stmt.executeQuery();
     }
     
+    public ResultSet usuarioID(Connection conexion, String nombre) throws SQLException{
+        String sql = "SELECT * FROM Usuario WHERE Nombre = ?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, nombre);
+        return stmt.executeQuery();
+    }
+    
     public ResultSet usuarioId(Connection conexion, int idUsuario) throws SQLException{
         String sql = "SELECT Nombre FROM Usuario WHERE ID_Usuario = ?";
         PreparedStatement stmt = conexion.prepareStatement(sql);

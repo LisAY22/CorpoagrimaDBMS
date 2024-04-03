@@ -12,33 +12,33 @@ import java.sql.SQLException;
  */
 public class ConexionTelefono {
     
+    public ResultSet telefonoId(Connection conexion, String numero) throws SQLException{
+        String sql = "SELECT ID_Telefono FROM Telefono WHERE " + numero + " = ?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, numero);
+        return stmt.executeQuery();
+    }
+    
     /**
      * 
      * @param conexion Coneccion a la base de datos
-     * @param id Llave foranea asociada al numero de telefono 
+     * @param idForanea Llave foranea asociada al numero de telefono 
      * @param tipoEntidad Entidad tipo Cliente, Empleado o Proveedor, para la busqueda
      * @return Un booleano si la operacion a si exitosa o no
      * @throws SQLException 
      */
-    public ResultSet telefono(Connection conexion, int id, String tipoEntidad) throws SQLException {
+    public ResultSet telefono(Connection conexion, int idForanea, String tipoEntidad) throws SQLException {
         String columnaId = "";
         switch (tipoEntidad) {
-            case "Empleado":
-                columnaId = "Empleado_ID_Empleado";
-                break;
-            case "Cliente":
-                columnaId = "Cliente_ID_Cliente";
-                break;
-            case "Proveedor":
-                columnaId = "Proveedor_ID_Proveedor";
-                break;
-            default:
-                throw new IllegalArgumentException("Tipo de entidad no válido");
+            case "Empleado" -> columnaId = "Empleado_ID_Empleado";
+            case "Cliente" -> columnaId = "Cliente_ID_Cliente";
+            case "Proveedor" -> columnaId = "Proveedor_ID_Proveedor";
+            default -> throw new IllegalArgumentException("Tipo de entidad no válido");
         }
 
-        String sql = "SELECT Numero FROM Telefono WHERE " + columnaId + " = ?";
+        String sql = "SELECT * FROM Telefono WHERE " + columnaId + " = ?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
-        stmt.setInt(1, id);
+        stmt.setInt(1, idForanea);
         return stmt.executeQuery();
     }
 
@@ -47,31 +47,25 @@ public class ConexionTelefono {
      * @param conexion Coneccion a la base de datos
      * @param numero Numero telefonico
      * @param tipoEntidad Entidad tipo Cliente, Empleado o Proveedor, para agregar
+     * @param idForanea
      * @return Un booleano si la operacion a si exitosa o no
      * @throws SQLException 
      */
     public boolean agregar(Connection conexion, String numero, 
-            String tipoEntidad) throws SQLException{
+            String tipoEntidad, int idForanea) throws SQLException{
         String columnaId = "";
         switch (tipoEntidad) {
-            case "Empleado":
-                columnaId = "Empleado_ID_Empleado";
-                break;
-            case "Cliente":
-                columnaId = "Cliente_ID_Cliente";
-                break;
-            case "Proveedor":
-                columnaId = "Proveedor_ID_Proveedor";
-                break;
-            default:
-                throw new IllegalArgumentException("Tipo de entidad no válido");
+            case "Empleado" -> columnaId = "Empleado_ID_Empleado";
+            case "Cliente" -> columnaId = "Cliente_ID_Cliente";
+            case "Proveedor" -> columnaId = "Proveedor_ID_Proveedor";
+            default -> throw new IllegalArgumentException("Tipo de entidad no válido");
         }
         
-        String sql = "INSERT INTO Empleado (Numero, " + columnaId + ") "
+        String sql = "INSERT INTO Telefono (Numero, " + columnaId + ") "
                 + "VALUES (?, ?)";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, numero);
-        stmt.setString(2, tipoEntidad);
+        stmt.setInt(2, idForanea);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
