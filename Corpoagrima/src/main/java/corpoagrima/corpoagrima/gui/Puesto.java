@@ -446,6 +446,7 @@ public class Puesto extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
         }
+        limpiar();
 
     }//GEN-LAST:event_guardarJButtonActionPerformed
 
