@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -174,6 +175,11 @@ public class RRHH extends javax.swing.JFrame {
 
         Refresh_button.setBackground(new java.awt.Color(34, 85, 34));
         Refresh_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizar.png"))); // NOI18N
+        Refresh_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Refresh_buttonActionPerformed(evt);
+            }
+        });
 
         back_Button.setBackground(new java.awt.Color(34, 85, 34));
         back_Button.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -332,6 +338,9 @@ public class RRHH extends javax.swing.JFrame {
             order_by_Apellido();
         } catch (SQLException ex) {
             Logger.getLogger(RRHH.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Ha habido un error "
+                    + "en el ordenamiento", "Ordenamiento por apellido",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -340,6 +349,9 @@ public class RRHH extends javax.swing.JFrame {
             order_by_name();
         } catch (SQLException ex) {
             Logger.getLogger(RRHH.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Ha habido un error "
+                    + "en el ordenamiento", "Ordenamiento por nombre",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -363,6 +375,20 @@ public class RRHH extends javax.swing.JFrame {
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_back_ButtonMouseClicked
+
+    private void Refresh_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Refresh_buttonActionPerformed
+        try {
+            Initial_table();
+            JOptionPane.showMessageDialog(this,
+                            "Se ha actualizado exitosamente.",
+                            "Actualizar", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(RRHH.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Ha habido un error "
+                    + "en la actualizacion.", "Actualizar",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_Refresh_buttonActionPerformed
 
     /**
      * @param args the command line arguments
