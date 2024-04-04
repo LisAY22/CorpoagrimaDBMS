@@ -40,15 +40,7 @@ public class Login extends javax.swing.JFrame {
                 ingresar(); // Llama al método ingresar cuando se presiona "Enter" en el campo de contraseña
             }
         });
-        
-        // Agregar un ActionListener adicional al campo de contraseña para restablecer la visibilidad de la contraseña
-        contraseñaJPasswordField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                contraseñaJButtonMouseReleased(null); // Llamar al método para restablecer la visibilidad de la contraseña
-                ingresar(); // Llama al método ingresar cuando se presiona "Enter" en el campo de contraseña
-            }
-        });
+    
     }
 
     /**
