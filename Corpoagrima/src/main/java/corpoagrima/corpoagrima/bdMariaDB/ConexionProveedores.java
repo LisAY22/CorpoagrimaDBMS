@@ -25,13 +25,14 @@ public class ConexionProveedores {
             String nombre, String direccion, String nit, String correo_electronico)
             throws SQLException{
         String sql = "UPDATE Proveedor SET Empresa=?, Nombre=?, "
-                + "Direccion=?, NIT=?, Correo_Electronico=?";
+                + "Direccion=?, NIT=?, Correo_Electronico=? WHERE ID_Proveedor=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, empresa);
         stmt.setString(2, nombre);
         stmt.setString(3, direccion);
         stmt.setString(4, nit);
         stmt.setString(5, correo_electronico);
+        stmt.setInt(6, idProveedor);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
