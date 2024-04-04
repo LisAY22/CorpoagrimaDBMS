@@ -9,10 +9,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.*;
-import java.sql.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -113,6 +109,7 @@ public class Clientes2 extends javax.swing.JFrame{
         jLabel8.setText("Nombre");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Editar Cliente");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(34, 85, 34));
