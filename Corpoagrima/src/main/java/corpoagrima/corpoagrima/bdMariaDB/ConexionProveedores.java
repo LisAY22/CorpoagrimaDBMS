@@ -25,7 +25,7 @@ public class ConexionProveedores {
             String nombre, String direccion, String nit, String correo_electronico)
             throws SQLException{
         String sql = "UPDATE Proveedor SET Empresa=?, Nombre=?, "
-                + "Direccion=?, NIT=?, Direccion=?, Correo_Electronico=?";
+                + "Direccion=?, NIT=?, Correo_Electronico=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, empresa);
         stmt.setString(2, nombre);
@@ -48,5 +48,32 @@ public class ConexionProveedores {
         return stmt.executeQuery();
     }
 
+    public ResultSet busqueda2(Connection conexion, String textoBusqueda) throws SQLException{
+
+        String sql = "SELECT * FROM Proveedor WHERE ID_Proveedor = ?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, textoBusqueda);
+        stmt.setString(2, textoBusqueda);
+
+        return stmt.executeQuery();
+    }
     
+    public boolean agregar(Connection conexion, int idProveedor, String empresa, 
+            String nombre, String direccion, String nit, String correo_electronico) 
+            throws SQLException{
+        String sql = "INSERT INTO Proveedor "
+                + "(ID_Proveedor, Empresa, Nombre, Direccion, NIT,"
+                + "Correo_Electronico) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setInt(1, idProveedor);
+        stmt.setString(2, empresa);
+        stmt.setString(3, nombre);
+        stmt.setString(4, direccion);
+        stmt.setString(5, nit);
+        stmt.setString(6, correo_electronico);
+        // ejecutar la consulta
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
 }

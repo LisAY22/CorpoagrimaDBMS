@@ -58,6 +58,8 @@ public class Proveedores extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         Editar_Bn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        Nuevo_Bn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1098, 529));
@@ -109,7 +111,7 @@ public class Proveedores extends javax.swing.JFrame {
                     .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Actualizar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         Buscar_textField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -160,7 +162,7 @@ public class Proveedores extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addGap(15, 15, 15)
                             .addComponent(Ordenar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -197,6 +199,18 @@ public class Proveedores extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("NUEVO");
+
+        Nuevo_Bn.setBackground(new java.awt.Color(136, 213, 133));
+        Nuevo_Bn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
+        Nuevo_Bn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Nuevo_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Nuevo_BnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -207,7 +221,9 @@ public class Proveedores extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Editar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Editar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(Nuevo_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -217,7 +233,11 @@ public class Proveedores extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(Editar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Nuevo_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(98, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -328,8 +348,23 @@ public class Proveedores extends javax.swing.JFrame {
 
     private void Editar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Editar_BnMouseClicked
         // TODO add your handling code here:
-
+        Proveedores2 proveedores2_screen = new Proveedores2(conexion);
+        proveedores2_screen.setVisible(true);
+        proveedores2_screen.setLocationRelativeTo(null);
+        
+        // Cerrar la ventana actual
+        dispose();
     }//GEN-LAST:event_Editar_BnMouseClicked
+
+    private void Nuevo_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Nuevo_BnMouseClicked
+        // TODO add your handling code here:
+        Proveedores3 proveedores3_screen = new Proveedores3(conexion);
+        proveedores3_screen.setVisible(true);
+        proveedores3_screen.setLocationRelativeTo(null);
+        
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_Nuevo_BnMouseClicked
 
     private void actualizarTabla() {
         try {
@@ -366,9 +401,11 @@ public class Proveedores extends javax.swing.JFrame {
     private javax.swing.JButton Buscar_Bn;
     private javax.swing.JTextField Buscar_textField;
     private javax.swing.JButton Editar_Bn;
+    private javax.swing.JButton Nuevo_Bn;
     private javax.swing.JButton Ordenar_Bn;
     private javax.swing.JButton Regresar_Bn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
