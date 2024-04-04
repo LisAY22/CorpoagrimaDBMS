@@ -79,6 +79,11 @@ public class principal extends javax.swing.JFrame {
         proveedoresJButton.setText("PROVEEDORES");
         proveedoresJButton.setToolTipText("");
         proveedoresJButton.setPreferredSize(new java.awt.Dimension(100, 100));
+        proveedoresJButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                proveedoresJButtonMouseClicked(evt);
+            }
+        });
 
         finanzasJButton.setBackground(new java.awt.Color(136, 213, 133));
         finanzasJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -218,6 +223,16 @@ public class principal extends javax.swing.JFrame {
         }
         dispose();
     }//GEN-LAST:event_rhJButtonActionPerformed
+
+    private void proveedoresJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_proveedoresJButtonMouseClicked
+        // TODO add your handling code here:
+        Proveedores proveedores_screen = new Proveedores(conexion);
+        proveedores_screen.setVisible(true);
+        proveedores_screen.setLocationRelativeTo(null);
+        
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_proveedoresJButtonMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clientesJButton;
