@@ -48,13 +48,11 @@ public class ConexionProveedores {
 
         return stmt.executeQuery();
     }
-
+    
     public ResultSet busqueda2(Connection conexion, String textoBusqueda) throws SQLException{
-
         String sql = "SELECT * FROM Proveedor WHERE ID_Proveedor = ?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, textoBusqueda);
-        stmt.setString(2, textoBusqueda);
 
         return stmt.executeQuery();
     }
@@ -65,7 +63,7 @@ public class ConexionProveedores {
         String sql = "INSERT INTO Proveedor "
                 + "(ID_Proveedor, Empresa, Nombre, Direccion, NIT,"
                 + "Correo_Electronico) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setInt(1, idProveedor);
         stmt.setString(2, empresa);
@@ -73,6 +71,16 @@ public class ConexionProveedores {
         stmt.setString(4, direccion);
         stmt.setString(5, nit);
         stmt.setString(6, correo_electronico);
+        // ejecutar la consulta
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
+
+    
+    public boolean eliminar(Connection conexion, int id) throws SQLException{
+        String sql = "DELETE FROM Proveedor WHERE ID_Proveedor=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setInt(1, id);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;

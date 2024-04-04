@@ -6,6 +6,11 @@ package corpoagrima.corpoagrima.gui;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +20,8 @@ public class Proveedores2 extends javax.swing.JFrame {
 
     private Connection conexion;
     private ConexionProveedores proveedores;
+    private int id;
+
     /**
      * Creates new form Proveedores2
      */
@@ -24,6 +31,43 @@ public class Proveedores2 extends javax.swing.JFrame {
         initComponents();
     }
 
+    private void habilitar(){
+        ID_textfield.setEditable(true);
+        Empresa_textfield.setEditable(true);
+        Nombre_textfield.setEditable(true);
+        NIT_textfield.setEditable(true);
+        Direccion_textfield.setEditable(true);
+        Correo_textfield.setEditable(true);
+        Limpiar_button1.setEnabled(true);
+        Guardar_button1.setEnabled(true);
+        Eliminar_button1.setEnabled(true);
+        Buscar_Button.setEnabled(false);
+        Buscar_textField.setEnabled(false);
+    }
+    
+    private void deshabilitar(){
+        ID_textfield.setEditable(false);
+        Empresa_textfield.setEditable(false);
+        Nombre_textfield.setEditable(false);
+        NIT_textfield.setEditable(false);
+        Direccion_textfield.setEditable(false);
+        Correo_textfield.setEditable(false);
+        Limpiar_button1.setEnabled(false);
+        Guardar_button1.setEnabled(false);
+        Eliminar_button1.setEnabled(false);
+        Buscar_Button.setEnabled(true);
+        Buscar_textField.setEnabled(true);
+    }
+    
+    private void limpiar(){
+        ID_textfield.setText("");
+        Empresa_textfield.setText("");
+        Nombre_textfield.setText("");
+        NIT_textfield.setText("");
+        Direccion_textfield.setText("");
+        Correo_textfield.setText("");
+    }      
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,8 +86,8 @@ public class Proveedores2 extends javax.swing.JFrame {
         NITLabel = new javax.swing.JLabel();
         ApellidoLabel = new javax.swing.JLabel();
         IDlabel = new javax.swing.JLabel();
+        Empresa_textfield = new javax.swing.JTextField();
         Nombre_textfield = new javax.swing.JTextField();
-        Apellido_textfield = new javax.swing.JTextField();
         NIT_textfield = new javax.swing.JTextField();
         Direccion_textfield = new javax.swing.JTextField();
         CorreoLabel = new javax.swing.JLabel();
@@ -129,16 +173,16 @@ public class Proveedores2 extends javax.swing.JFrame {
         IDlabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         IDlabel.setText("ID");
 
-        Nombre_textfield.setEditable(false);
-        Nombre_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Nombre_textfield.addActionListener(new java.awt.event.ActionListener() {
+        Empresa_textfield.setEditable(false);
+        Empresa_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Empresa_textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Nombre_textfieldActionPerformed(evt);
+                Empresa_textfieldActionPerformed(evt);
             }
         });
 
-        Apellido_textfield.setEditable(false);
-        Apellido_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Nombre_textfield.setEditable(false);
+        Nombre_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         NIT_textfield.setEditable(false);
         NIT_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -193,8 +237,8 @@ public class Proveedores2 extends javax.swing.JFrame {
                     .addComponent(NombreLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Nombre_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                    .addComponent(Apellido_textfield)
+                    .addComponent(Empresa_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                    .addComponent(Nombre_textfield)
                     .addComponent(ID_textfield))
                 .addGap(88, 88, 88)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,13 +274,13 @@ public class Proveedores2 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(NombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Nombre_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Empresa_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(NITLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CorreoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Apellido_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Nombre_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(ApellidoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(Correo_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -331,12 +375,51 @@ public class Proveedores2 extends javax.swing.JFrame {
     }//GEN-LAST:event_Buscar_textFieldActionPerformed
 
     private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
-  
+        try {
+                String textoBusqueda = Buscar_textField.getText().trim();
+
+                if (textoBusqueda != null && !textoBusqueda.isEmpty()) {
+                    ResultSet rs = proveedores.busqueda2(conexion, textoBusqueda);
+                    if (rs.next()) {
+                        id = rs.getInt("ID_Proveedor");
+                        String empresa = rs.getString("Empresa");
+                        String nombre = rs.getString("Nombre");
+                        String direccion = rs.getString("Direccion");
+                        String nit = rs.getString("Nit");
+                        String correoElectronico = rs.getString("Correo_Electronico");
+
+                        ID_textfield.setText(String.valueOf(id));
+                        Empresa_textfield.setText(empresa);
+                        Nombre_textfield.setText(nombre);
+                        NIT_textfield.setText(direccion);
+                        Correo_textfield.setText(nit);
+                        Direccion_textfield.setText(correoElectronico);
+                        
+                        JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
+                                "Busqueda", JOptionPane.INFORMATION_MESSAGE);
+                        habilitar();
+                        Eliminar_button1.setEnabled(true);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se encontraron resultados",
+                                "Busqueda", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "ERROR"
+                            + "compruebe el codigo ingresado", "Busqueda",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Busqueda",
+                        JOptionPane.ERROR_MESSAGE);
+            }
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
 
-    private void Nombre_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nombre_textfieldActionPerformed
+    private void Empresa_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Empresa_textfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Nombre_textfieldActionPerformed
+    }//GEN-LAST:event_Empresa_textfieldActionPerformed
 
     private void NIT_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NIT_textfieldActionPerformed
         // TODO add your handling code here:
@@ -364,19 +447,66 @@ public class Proveedores2 extends javax.swing.JFrame {
 
     private void Limpiar_button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_button1ActionPerformed
         // TODO add your handling code here:
+        deshabilitar();
+        limpiar();
+        JOptionPane.showMessageDialog(this, "Se han limpiado los campos exitosamente.", "Limpieza",
+                JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_Limpiar_button1ActionPerformed
 
     private void Guardar_button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_button1ActionPerformed
-        
+        try {
+                id = Integer.parseInt(ID_textfield.getText());
+                String empresa = Empresa_textfield.getText();
+                String nombre = Nombre_textfield.getText();
+                String nit = NIT_textfield.getText();
+                String correoELectronico = Correo_textfield.getText();
+                String direccion = Direccion_textfield.getText();
+
+                boolean rs = proveedores.actualizar(conexion, id, empresa, nombre, direccion, nit, correoELectronico);
+                if (rs) {
+                    JOptionPane.showMessageDialog(this,
+                            "Se ha guardado exitosamente el Proveedor.",
+                            "Guardar Proveedor", JOptionPane.INFORMATION_MESSAGE);
+                    deshabilitar();
+                    limpiar();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Guardar Proveedor",
+                        JOptionPane.ERROR_MESSAGE);
+            }     
     }//GEN-LAST:event_Guardar_button1ActionPerformed
 
     private void Eliminar_button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_button1ActionPerformed
-        
+        try {
+            int opcion = JOptionPane.showConfirmDialog(null,
+                    "¿Quieres continuar?\nSe eliminara el proveedor permanentemente",
+                    "Eliminar Proveedor", JOptionPane.YES_NO_OPTION);
+
+            // Comprobar la opción seleccionada
+            if (opcion == JOptionPane.YES_OPTION) {
+                boolean resultSet = proveedores.eliminar(conexion, id);
+                if (resultSet) {
+                    JOptionPane.showMessageDialog(this,
+                            "Se ha eliminado exitosamente el Proveedor.",
+                            "Eliminar Proveedor", JOptionPane.INFORMATION_MESSAGE);
+                    deshabilitar();
+                    limpiar();
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "ERROR "
+                    + "compruebe la información", "Eliminar Proveedor",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_Eliminar_button1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApellidoLabel;
-    private javax.swing.JTextField Apellido_textfield;
     private javax.swing.JButton Buscar_Button;
     private javax.swing.JTextField Buscar_textField;
     private javax.swing.JButton Cancel_button;
@@ -388,6 +518,7 @@ public class Proveedores2 extends javax.swing.JFrame {
     private javax.swing.JLabel EditarLabel;
     private javax.swing.JButton Eliminar_button;
     private javax.swing.JButton Eliminar_button1;
+    private javax.swing.JTextField Empresa_textfield;
     private javax.swing.JButton Guardar_button;
     private javax.swing.JButton Guardar_button1;
     private javax.swing.JTextField ID_textfield;

@@ -157,8 +157,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="Nombre_textfield" alignment="0" pref="212" max="32767" attributes="0"/>
-                      <Component id="Apellido_textfield" alignment="0" max="32767" attributes="0"/>
+                      <Component id="Empresa_textfield" alignment="0" pref="212" max="32767" attributes="0"/>
+                      <Component id="Nombre_textfield" alignment="0" max="32767" attributes="0"/>
                       <Component id="ID_textfield" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
@@ -204,7 +204,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="NombreLabel" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="Nombre_textfield" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Empresa_textfield" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="NITLabel" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -213,7 +213,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="CorreoLabel" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="Apellido_textfield" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="Nombre_textfield" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ApellidoLabel" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <Component id="Correo_textfield" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -248,7 +248,7 @@
             <Property name="text" type="java.lang.String" value="ID"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="Nombre_textfield">
+        <Component class="javax.swing.JTextField" name="Empresa_textfield">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -256,10 +256,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Nombre_textfieldActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Empresa_textfieldActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="Apellido_textfield">
+        <Component class="javax.swing.JTextField" name="Nombre_textfield">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
