@@ -6,6 +6,8 @@ package corpoagrima.corpoagrima.gui;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
 import corpoagrima.corpoagrima.bdMariaDB.Conexion;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 
@@ -24,6 +26,29 @@ public class Login extends javax.swing.JFrame {
         Conexion conexion = new Conexion();
         this.conexion = conexion.obtenerConexion();
         initComponents();
+        
+        usuarioJTextField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ingresar(); // Llama al método ingresar cuando se presiona "Enter" en el campo de usuario
+            }
+        });
+
+        contraseñaJPasswordField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ingresar(); // Llama al método ingresar cuando se presiona "Enter" en el campo de contraseña
+            }
+        });
+        
+        // Agregar un ActionListener adicional al campo de contraseña para restablecer la visibilidad de la contraseña
+        contraseñaJPasswordField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                contraseñaJButtonMouseReleased(null); // Llamar al método para restablecer la visibilidad de la contraseña
+                ingresar(); // Llama al método ingresar cuando se presiona "Enter" en el campo de contraseña
+            }
+        });
     }
 
     /**
@@ -187,6 +212,25 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_ingresarJButtonMouseClicked
+        
+    private void ingresar() {
+        String usuario = usuarioJTextField.getText();
+        String contraseña = new String(contraseñaJPasswordField.getPassword());
+        
+        // Verificar las credenciales en la base de datos
+        if (verificarCredenciales(usuario, contraseña)) {
+            // Si las credenciales son correctas, abrir la nueva ventana
+            principal principal_screen = new principal(conexion);
+            principal_screen.setVisible(true);
+            principal_screen.setLocationRelativeTo(null);
+
+            // Cerrar la ventana actual
+            dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     
     private boolean verificarCredenciales(String usuario, String contraseña) {
         ConexionUsuario login = new ConexionUsuario();
