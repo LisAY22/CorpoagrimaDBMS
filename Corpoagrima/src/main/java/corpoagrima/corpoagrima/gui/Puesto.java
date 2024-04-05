@@ -44,7 +44,6 @@ public class Puesto extends javax.swing.JFrame {
         opcionJPanel = new javax.swing.JPanel();
         buscarJButton = new javax.swing.JButton();
         buscarJTextField = new javax.swing.JTextField();
-        nuevoPuestoJCheckBox = new javax.swing.JCheckBox();
         informacionJPanel = new javax.swing.JPanel();
         nombreJLabel = new javax.swing.JLabel();
         salarioBaseJLabel = new javax.swing.JLabel();
@@ -76,7 +75,7 @@ public class Puesto extends javax.swing.JFrame {
             .addGroup(encabezadoJPanelLayout.createSequentialGroup()
                 .addGap(305, 305, 305)
                 .addComponent(puestoJLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(320, Short.MAX_VALUE))
         );
         encabezadoJPanelLayout.setVerticalGroup(
             encabezadoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,8 +85,10 @@ public class Puesto extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        buscarJButton.setBackground(new java.awt.Color(136, 213, 133));
+        buscarJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
+        buscarJButton.setText("");
         buscarJButton.setToolTipText("Boton de búsqueda del puesto");
-        buscarJButton.setLabel("Buscar");
         buscarJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscarJButtonActionPerformed(evt);
@@ -96,35 +97,24 @@ public class Puesto extends javax.swing.JFrame {
 
         buscarJTextField.setToolTipText("Ingrese nombre del puesto");
 
-        nuevoPuestoJCheckBox.setText("Nuevo Puesto");
-        nuevoPuestoJCheckBox.setToolTipText("Habilita la opción de generar un nuevo puesto");
-        nuevoPuestoJCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nuevoPuestoJCheckBoxActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout opcionJPanelLayout = new javax.swing.GroupLayout(opcionJPanel);
         opcionJPanel.setLayout(opcionJPanelLayout);
         opcionJPanelLayout.setHorizontalGroup(
             opcionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(opcionJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(buscarJButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(25, 25, 25)
+                .addComponent(buscarJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(buscarJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(172, 172, 172)
-                .addComponent(nuevoPuestoJCheckBox)
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         opcionJPanelLayout.setVerticalGroup(
             opcionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(opcionJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(opcionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(opcionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(buscarJButton)
-                    .addComponent(buscarJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nuevoPuestoJCheckBox))
+                    .addComponent(buscarJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -285,7 +275,6 @@ public class Puesto extends javax.swing.JFrame {
         descripcionJTextPane.setEditable(true);
         limpiarJButton.setEnabled(true);
         guardarJButton.setEnabled(true);
-        nuevoPuestoJCheckBox.setEnabled(false);
         buscarJButton.setEnabled(false);
         buscarJTextField.setEnabled(false);
     }
@@ -298,8 +287,6 @@ public class Puesto extends javax.swing.JFrame {
         limpiarJButton.setEnabled(false);
         guardarJButton.setEnabled(false);
         eliminarJButton.setEnabled(false);
-        nuevoPuestoJCheckBox.setSelected(false);
-        nuevoPuestoJCheckBox.setEnabled(true);
         buscarJButton.setEnabled(true);
         buscarJTextField.setEnabled(true);
 
@@ -352,13 +339,6 @@ public class Puesto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buscarJButtonActionPerformed
 
-    private void nuevoPuestoJCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoPuestoJCheckBoxActionPerformed
-        if (nuevoPuestoJCheckBox.isSelected()) {
-            habilitar();
-
-        }
-    }//GEN-LAST:event_nuevoPuestoJCheckBoxActionPerformed
-
     private void limpiarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarJButtonActionPerformed
         deshabilitar();
         limpiar();
@@ -394,38 +374,18 @@ public class Puesto extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarJButtonActionPerformed
 
     private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
+        try {
+            RRHH rh_window = new RRHH(conexion);
+            rh_window.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         this.dispose();
     }//GEN-LAST:event_cancelarJButtonActionPerformed
 
     private void guardarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarJButtonActionPerformed
-        if (nuevoPuestoJCheckBox.isSelected()) {
-            try {
-                String nombre = nombreJTextField.getText();
-                float salarioBase = Float.parseFloat(salarioBaseJTextField.getText());
-                String horario = horarioJTextField.getText();
-                String descripcion = descripcionJTextPane.getText();
-
-                boolean resultSet = puesto.agregar(conexion, nombre, horario,
-                        descripcion, salarioBase);
-
-                if (resultSet) {
-                    JOptionPane.showMessageDialog(this, "Se ha creado un nuevo "
-                            + "puesto exitosamente.", "Nuevo Puesto",
-                            JOptionPane.INFORMATION_MESSAGE);
-                    limpiar();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Ha habido un error "
-                            + "compruebe la información", "Nuevo Puesto",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Ha habido un error "
-                        + "compruebe la información", "Nuevo Puesto",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            try {
+        try {
                 String nombre = nombreJTextField.getText();
                 float salarioBase = Float.parseFloat(salarioBaseJTextField.getText());
                 String horario = horarioJTextField.getText();
@@ -445,8 +405,6 @@ public class Puesto extends javax.swing.JFrame {
                         + "compruebe la información", "Guardar Puesto",
                         JOptionPane.ERROR_MESSAGE);
             }
-        }
-        
     }//GEN-LAST:event_guardarJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -467,7 +425,6 @@ public class Puesto extends javax.swing.JFrame {
     private javax.swing.JButton limpiarJButton;
     private javax.swing.JLabel nombreJLabel;
     private javax.swing.JTextField nombreJTextField;
-    private javax.swing.JCheckBox nuevoPuestoJCheckBox;
     private javax.swing.JPanel opcionJPanel;
     private javax.swing.JLabel puestoJLabel;
     private javax.swing.JLabel salarioBaseJLabel;

@@ -271,6 +271,7 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonEDPMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEDPActionPerformed"/>
           </Events>
         </Component>
@@ -287,6 +288,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="NUEVO PUESTO"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonNPMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonEDE">
           <Properties>
@@ -301,6 +305,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="EDITAR EMPLEADO"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonEDEMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonNE">
           <Properties>
@@ -315,6 +322,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="NUEVO EMPLEADO"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonNEMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -20,7 +20,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 /**
  *
- * @author User
+ * @author lisaj
  */
 public class RRHH extends javax.swing.JFrame {
     
@@ -251,6 +251,11 @@ public class RRHH extends javax.swing.JFrame {
         jButtonEDP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
         jButtonEDP.setText("EDITAR PUESTO");
         jButtonEDP.setToolTipText("");
+        jButtonEDP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonEDPMouseClicked(evt);
+            }
+        });
         jButtonEDP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEDPActionPerformed(evt);
@@ -261,16 +266,31 @@ public class RRHH extends javax.swing.JFrame {
         jButtonNP.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonNP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
         jButtonNP.setText("NUEVO PUESTO");
+        jButtonNP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonNPMouseClicked(evt);
+            }
+        });
 
         jButtonEDE.setBackground(new java.awt.Color(136, 213, 133));
         jButtonEDE.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonEDE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
         jButtonEDE.setText("EDITAR EMPLEADO");
+        jButtonEDE.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonEDEMouseClicked(evt);
+            }
+        });
 
         jButtonNE.setBackground(new java.awt.Color(136, 213, 133));
         jButtonNE.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonNE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
         jButtonNE.setText("NUEVO EMPLEADO");
+        jButtonNE.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonNEMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -417,41 +437,45 @@ public class RRHH extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Ordenar_BnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RRHH.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RRHH.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RRHH.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RRHH.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void jButtonEDPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEDPMouseClicked
+        // TODO add your handling code here:
+        Puesto puestoed_screen = new Puesto(conexion);
+        puestoed_screen.setVisible(true);
+        puestoed_screen.setLocationRelativeTo(null);
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RRHH().setVisible(true);
-            }
-        });
-    }
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_jButtonEDPMouseClicked
+
+    private void jButtonNPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNPMouseClicked
+        // TODO add your handling code here:
+        Puesto2 pueston_screen = new Puesto2(conexion);
+        pueston_screen.setVisible(true);
+        pueston_screen.setLocationRelativeTo(null);
+
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_jButtonNPMouseClicked
+
+    private void jButtonEDEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEDEMouseClicked
+        // TODO add your handling code here:
+        Empleado empleadoed_screen = new Empleado(conexion);
+        empleadoed_screen.setVisible(true);
+        empleadoed_screen.setLocationRelativeTo(null);
+
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_jButtonEDEMouseClicked
+
+    private void jButtonNEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNEMouseClicked
+        // TODO add your handling code here:
+        Empleado empleadon_screen = new Empleado(conexion);
+        empleadon_screen.setVisible(true);
+        empleadon_screen.setLocationRelativeTo(null);
+
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_jButtonNEMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Ordenar_Bn;
