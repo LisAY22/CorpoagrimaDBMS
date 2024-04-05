@@ -470,7 +470,7 @@ public class RRHH extends javax.swing.JFrame {
 
     private void jButtonNEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNEMouseClicked
         // TODO add your handling code here:
-        Empleado empleadon_screen = new Empleado(conexion);
+        Empleado2 empleadon_screen = new Empleado2(conexion);
         empleadon_screen.setVisible(true);
         empleadon_screen.setLocationRelativeTo(null);
 
