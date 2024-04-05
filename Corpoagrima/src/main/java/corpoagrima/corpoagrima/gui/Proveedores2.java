@@ -458,9 +458,9 @@ public class Proveedores2 extends javax.swing.JFrame {
                 id = Integer.parseInt(ID_textfield.getText());
                 String empresa = Empresa_textfield.getText();
                 String nombre = Nombre_textfield.getText();
+                String direccion = Direccion_textfield.getText();
                 String nit = NIT_textfield.getText();
                 String correoELectronico = Correo_textfield.getText();
-                String direccion = Direccion_textfield.getText();
 
                 boolean rs = proveedores.actualizar(conexion, id, empresa, nombre, direccion, nit, correoELectronico);
                 if (rs) {

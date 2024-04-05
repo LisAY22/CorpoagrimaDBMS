@@ -6,6 +6,10 @@ package corpoagrima.corpoagrima.gui;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +19,8 @@ public class Proveedores3 extends javax.swing.JFrame {
 
     private Connection conexion;
     private ConexionProveedores proveedores;
+    private int id;
+
     
     /**
      * Creates new form Proveedores3
@@ -25,6 +31,37 @@ public class Proveedores3 extends javax.swing.JFrame {
         initComponents();
     }
 
+    private void habilitar(){
+        ID_textfield.setEditable(true);
+        Empresa_textfield.setEditable(true);
+        Nombre_textfield.setEditable(true);
+        NIT_textfield.setEditable(true);
+        Direccion_textfield.setEditable(true);
+        Correo_textfield.setEditable(true);
+        Limpiar_button.setEnabled(true);
+        Guardar_button.setEnabled(true);
+    }
+    
+    private void deshabilitar(){
+        ID_textfield.setEditable(false);
+        Empresa_textfield.setEditable(false);
+        Nombre_textfield.setEditable(false);
+        NIT_textfield.setEditable(false);
+        Direccion_textfield.setEditable(false);
+        Correo_textfield.setEditable(false);
+        Limpiar_button.setEnabled(false);
+        Guardar_button.setEnabled(false);
+    }
+    
+    private void limpiar(){
+        ID_textfield.setText("");
+        Empresa_textfield.setText("");
+        Nombre_textfield.setText("");
+        NIT_textfield.setText("");
+        Direccion_textfield.setText("");
+        Correo_textfield.setText("");
+    }      
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,8 +77,8 @@ public class Proveedores3 extends javax.swing.JFrame {
         NITLabel = new javax.swing.JLabel();
         ApellidoLabel = new javax.swing.JLabel();
         IDlabel = new javax.swing.JLabel();
+        Empresa_textfield = new javax.swing.JTextField();
         Nombre_textfield = new javax.swing.JTextField();
-        Apellido_textfield = new javax.swing.JTextField();
         NIT_textfield = new javax.swing.JTextField();
         Direccion_textfield = new javax.swing.JTextField();
         CorreoLabel = new javax.swing.JLabel();
@@ -50,13 +87,12 @@ public class Proveedores3 extends javax.swing.JFrame {
         NombreLabel = new javax.swing.JLabel();
         ID_textfield = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        Cancel_button1 = new javax.swing.JButton();
-        Limpiar_button1 = new javax.swing.JButton();
-        Guardar_button1 = new javax.swing.JButton();
+        Cancel_button = new javax.swing.JButton();
+        Limpiar_button = new javax.swing.JButton();
+        Guardar_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nuevo Proveedor");
-        setPreferredSize(new java.awt.Dimension(900, 370));
 
         jPanel1.setBackground(new java.awt.Color(34, 85, 34));
 
@@ -90,17 +126,17 @@ public class Proveedores3 extends javax.swing.JFrame {
         IDlabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         IDlabel.setText("ID");
 
-        Nombre_textfield.setEditable(true);
-        Nombre_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Nombre_textfield.addActionListener(new java.awt.event.ActionListener() {
+        Empresa_textfield.setEditable(true);
+        Empresa_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Empresa_textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Nombre_textfieldActionPerformed(evt);
+                Empresa_textfieldActionPerformed(evt);
             }
         });
 
-        Apellido_textfield.setEditable(true
+        Nombre_textfield.setEditable(true
         );
-        Apellido_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Nombre_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         NIT_textfield.setEditable(true);
         NIT_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -155,8 +191,8 @@ public class Proveedores3 extends javax.swing.JFrame {
                     .addComponent(NombreLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Nombre_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                    .addComponent(Apellido_textfield)
+                    .addComponent(Empresa_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                    .addComponent(Nombre_textfield)
                     .addComponent(ID_textfield))
                 .addGap(88, 88, 88)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,38 +228,38 @@ public class Proveedores3 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(NombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Nombre_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Empresa_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(NITLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CorreoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Apellido_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Nombre_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(ApellidoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(Correo_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        Cancel_button1.setText("Cancelar");
-        Cancel_button1.addActionListener(new java.awt.event.ActionListener() {
+        Cancel_button.setText("Cancelar");
+        Cancel_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cancel_button1ActionPerformed(evt);
+                Cancel_buttonActionPerformed(evt);
             }
         });
 
-        Limpiar_button1.setText("Limpiar");
-        Limpiar_button1.setEnabled(true);
-        Limpiar_button1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Limpiar_button1ActionPerformed(evt);
+        Limpiar_button.setText("Limpiar");
+        Limpiar_button.setEnabled(true);
+        Limpiar_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Limpiar_buttonMouseClicked(evt);
             }
         });
 
-        Guardar_button1.setText("Guardar");
-        Guardar_button1.setEnabled(true);
-        Guardar_button1.addActionListener(new java.awt.event.ActionListener() {
+        Guardar_button.setText("Guardar");
+        Guardar_button.setEnabled(true);
+        Guardar_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Guardar_button1ActionPerformed(evt);
+                Guardar_buttonActionPerformed(evt);
             }
         });
 
@@ -233,11 +269,11 @@ public class Proveedores3 extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Limpiar_button1)
+                .addComponent(Limpiar_button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Guardar_button1)
+                .addComponent(Guardar_button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Cancel_button1)
+                .addComponent(Cancel_button)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -245,9 +281,9 @@ public class Proveedores3 extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Limpiar_button1)
-                    .addComponent(Guardar_button1)
-                    .addComponent(Cancel_button1))
+                    .addComponent(Limpiar_button)
+                    .addComponent(Guardar_button)
+                    .addComponent(Cancel_button))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -273,9 +309,9 @@ public class Proveedores3 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Nombre_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nombre_textfieldActionPerformed
+    private void Empresa_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Empresa_textfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Nombre_textfieldActionPerformed
+    }//GEN-LAST:event_Empresa_textfieldActionPerformed
 
     private void NIT_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NIT_textfieldActionPerformed
         // TODO add your handling code here:
@@ -293,35 +329,63 @@ public class Proveedores3 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ID_textfieldActionPerformed
 
-    private void Cancel_button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_button1ActionPerformed
+    private void Cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_buttonActionPerformed
         // TODO add your handling code here:
         Proveedores proveedores_screen = new Proveedores(conexion);
         proveedores_screen.setVisible(true);
         proveedores_screen.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_Cancel_button1ActionPerformed
+    }//GEN-LAST:event_Cancel_buttonActionPerformed
 
-    private void Limpiar_button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_button1ActionPerformed
+    private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
+        try {
+                id = Integer.parseInt(ID_textfield.getText());
+                String empresa = Empresa_textfield.getText();
+                String nombre = Nombre_textfield.getText();
+                String direccion = Direccion_textfield.getText();
+                String nit = NIT_textfield.getText();
+                String correoELectronico = Correo_textfield.getText();
+                
+
+                boolean rs = proveedores.agregar(conexion, id, empresa, nombre, direccion, nit, correoELectronico);
+
+                if (rs) {
+                    JOptionPane.showMessageDialog(this, "Se ha creado un nuevo proveedor exitosamente.", "Nuevo Proveedor",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ha habido un error "
+                            + "compruebe la información", "Nuevo Proveedor",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Nuevo Proveedor",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+    }//GEN-LAST:event_Guardar_buttonActionPerformed
+
+    private void Limpiar_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Limpiar_buttonMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_Limpiar_button1ActionPerformed
-
-    private void Guardar_button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_button1ActionPerformed
-
-    }//GEN-LAST:event_Guardar_button1ActionPerformed
+        deshabilitar();
+        limpiar();
+        JOptionPane.showMessageDialog(this, "Se han limpiado los campos exitosamente.", "Limpieza",
+                JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_Limpiar_buttonMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApellidoLabel;
-    private javax.swing.JTextField Apellido_textfield;
-    private javax.swing.JButton Cancel_button1;
+    private javax.swing.JButton Cancel_button;
     private javax.swing.JLabel CorreoLabel;
     private javax.swing.JTextField Correo_textfield;
     private javax.swing.JLabel DireccionLabel;
     private javax.swing.JTextField Direccion_textfield;
     private javax.swing.JLabel EditarLabel;
-    private javax.swing.JButton Guardar_button1;
+    private javax.swing.JTextField Empresa_textfield;
+    private javax.swing.JButton Guardar_button;
     private javax.swing.JTextField ID_textfield;
     private javax.swing.JLabel IDlabel;
-    private javax.swing.JButton Limpiar_button1;
+    private javax.swing.JButton Limpiar_button;
     private javax.swing.JLabel NITLabel;
     private javax.swing.JTextField NIT_textfield;
     private javax.swing.JLabel NombreLabel;
