@@ -352,6 +352,7 @@ public class Proveedores3 extends javax.swing.JFrame {
                 if (rs) {
                     JOptionPane.showMessageDialog(this, "Se ha creado un nuevo proveedor exitosamente.", "Nuevo Proveedor",
                             JOptionPane.INFORMATION_MESSAGE);
+                    limpiar();
                 } else {
                     JOptionPane.showMessageDialog(this, "Ha habido un error "
                             + "compruebe la información", "Nuevo Proveedor",

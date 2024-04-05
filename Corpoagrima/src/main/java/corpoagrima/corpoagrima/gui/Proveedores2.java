@@ -391,9 +391,9 @@ public class Proveedores2 extends javax.swing.JFrame {
                         ID_textfield.setText(String.valueOf(id));
                         Empresa_textfield.setText(empresa);
                         Nombre_textfield.setText(nombre);
-                        NIT_textfield.setText(direccion);
-                        Correo_textfield.setText(nit);
-                        Direccion_textfield.setText(correoElectronico);
+                        NIT_textfield.setText(nit);
+                        Correo_textfield.setText(correoElectronico);
+                        Direccion_textfield.setText(direccion);
                         
                         JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
                                 "Busqueda", JOptionPane.INFORMATION_MESSAGE);
