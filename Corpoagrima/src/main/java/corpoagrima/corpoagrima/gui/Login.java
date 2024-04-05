@@ -193,7 +193,7 @@ public class Login extends javax.swing.JFrame {
         // Verificar las credenciales en la base de datos
         if (verificarCredenciales(usuario, contraseña)) {
             // Si las credenciales son correctas, abrir la nueva ventana
-            principal principal_screen = new principal(conexion);
+            Principal principal_screen = new Principal(conexion);
             principal_screen.setVisible(true);
             principal_screen.setLocationRelativeTo(null);
 
@@ -212,7 +212,7 @@ public class Login extends javax.swing.JFrame {
         // Verificar las credenciales en la base de datos
         if (verificarCredenciales(usuario, contraseña)) {
             // Si las credenciales son correctas, abrir la nueva ventana
-            principal principal_screen = new principal(conexion);
+            Principal principal_screen = new Principal(conexion);
             principal_screen.setVisible(true);
             principal_screen.setLocationRelativeTo(null);
 

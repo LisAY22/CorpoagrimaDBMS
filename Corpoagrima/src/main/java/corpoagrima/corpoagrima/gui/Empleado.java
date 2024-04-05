@@ -616,7 +616,7 @@ public final class Empleado extends javax.swing.JFrame {
             RRHH rh_window = new RRHH(conexion);
             rh_window.setVisible(true);
         } catch (SQLException ex) {
-            Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
     }//GEN-LAST:event_Cancel_buttonActionPerformed

@@ -14,14 +14,14 @@ import java.util.logging.Logger;
  *
  * @author lisaj
  */
-public class principal extends javax.swing.JFrame {
+public class Principal extends javax.swing.JFrame {
     
     /**
      * Creates new form principal
      */
     private Connection conexion;
     
-    public principal(Connection conexion) {
+    public Principal(Connection conexion) {
         this.conexion = conexion;
         initComponents();
     }
@@ -186,7 +186,7 @@ public class principal extends javax.swing.JFrame {
 
     private void inventarioJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inventarioJButtonMouseClicked
         // TODO add your handling code here:
-        inventario inventario_screen = new inventario(conexion);
+        Inventario inventario_screen = new Inventario(conexion);
         inventario_screen.setVisible(true);
         inventario_screen.setLocationRelativeTo(null);
         
@@ -206,7 +206,7 @@ public class principal extends javax.swing.JFrame {
 
     private void clientesJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientesJButtonMouseClicked
         // TODO add your handling code here:
-        clientes clientes_screen = new clientes(conexion);
+        Clientes clientes_screen = new Clientes(conexion);
         clientes_screen.setVisible(true);
         clientes_screen.setLocationRelativeTo(null);
         
@@ -219,7 +219,7 @@ public class principal extends javax.swing.JFrame {
             RRHH rh_window = new RRHH(conexion);
             rh_window.setVisible(true);
         } catch (SQLException ex) {
-            Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();
     }//GEN-LAST:event_rhJButtonActionPerformed

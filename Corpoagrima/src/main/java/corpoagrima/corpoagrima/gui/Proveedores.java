@@ -275,7 +275,7 @@ public class Proveedores extends javax.swing.JFrame {
 
     private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
         // TODO add your handling code here:
-        principal principal_screen = new principal(conexion);
+        Principal principal_screen = new Principal(conexion);
         principal_screen.setVisible(true);
         principal_screen.setLocationRelativeTo(null);
 

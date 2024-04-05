@@ -385,7 +385,7 @@ public class RRHH extends javax.swing.JFrame {
 
     private void back_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_ButtonMouseClicked
         // TODO add your handling code here:
-        principal principal_screen = new principal(conexion);
+        Principal principal_screen = new Principal(conexion);
         principal_screen.setVisible(true);
         principal_screen.setLocationRelativeTo(null);
 

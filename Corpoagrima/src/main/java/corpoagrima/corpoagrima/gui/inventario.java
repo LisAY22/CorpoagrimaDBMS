@@ -21,7 +21,7 @@ import java.util.ArrayList;
  *
  * @author lisaj
  */
-public class inventario extends javax.swing.JFrame {
+public class Inventario extends javax.swing.JFrame {
 
     /**
      * Creates new form inventario
@@ -32,7 +32,7 @@ public class inventario extends javax.swing.JFrame {
     private TableRowSorter<DefaultTableModel> sorter; // Variable miembro para mantener el TableRowSorter
     
     
-    public inventario(Connection conexion) {
+    public Inventario(Connection conexion) {
         this.conexion = conexion;
         inventario = new ConexionProducto();
         initComponents();
@@ -239,7 +239,7 @@ public class inventario extends javax.swing.JFrame {
 
     private void regresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarJButtonMouseClicked
         // TODO add your handling code here:
-        principal principal_screen = new principal(conexion);
+        Principal principal_screen = new Principal(conexion);
         principal_screen.setVisible(true);
         principal_screen.setLocationRelativeTo(null);
         
