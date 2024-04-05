@@ -102,7 +102,7 @@
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Component id="buscarJButton" min="-2" pref="32" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="buscarJTextField" min="-2" pref="148" max="-2" attributes="0"/>
+                  <Component id="buscarJTextField" min="-2" pref="158" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -111,9 +111,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="buscarJButton" min="-2" max="-2" attributes="0"/>
-                      <Component id="buscarJTextField" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="buscarJButton" max="32767" attributes="0"/>
+                      <Component id="buscarJTextField" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
@@ -129,7 +129,6 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/lupa.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value=""/>
             <Property name="toolTipText" type="java.lang.String" value="Boton de b&#xfa;squeda del puesto"/>
           </Properties>
           <Events>

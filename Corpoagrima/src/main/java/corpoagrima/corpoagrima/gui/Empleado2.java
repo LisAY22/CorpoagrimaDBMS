@@ -80,3 +80,57 @@ public class Empleado2 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
+
+//try {
+//                String apellido = Apellido_textField.getText();
+//                float bonificaciones = Float.parseFloat(Bonificaciones_textfield.getText());
+//                String correoElectronico = Correo_textfield.getText();
+//                int idEmpleado = Integer.parseInt(ID_textfield.getText());
+//                String direccion = Direccion_textfield.getText();
+//                String nit = NIT_textfield.getText();
+//                String nombre = Nombre_textField.getText();
+//                String telefono = Telefono_textfield.getText();
+//                String usuario = Usuario_textfield.getText();
+//                String contrasenia = contrasena_textfield1.getText();
+//                String ajusteSueldo = AjusteSueldo_textfield.getText();
+//                String puesto = (String) Puesto_comboBox.getSelectedItem();
+//                int idUsuario;
+//                int idPuesto;
+//                
+//                // tabla usuario
+//                boolean resultUsuario = Usuario.agregar(conexion, usuario, contrasenia);
+//                
+//                
+//                ResultSet resultPuesto = Puesto.puestoID(conexion, puesto);
+//                ResultSet restUsuario = Usuario.usuarioID(conexion, usuario);
+//                
+//                resultPuesto.next();
+//                restUsuario.next();
+//                idPuesto = resultPuesto.getInt("ID_Puesto");
+//                idUsuario = restUsuario.getInt("ID_Usuario");
+//                
+//                // tabla empleado
+//                boolean resultSet = Empleado.agregar(conexion, idEmpleado, nombre,
+//                        apellido, nit, correoElectronico, direccion, ajusteSueldo,
+//                        bonificaciones, idPuesto, idUsuario);
+//                
+//                // tabla telefono
+//                boolean resultTelefono = Telefono.agregar(conexion, telefono,
+//                        "Empleado", idEmpleado);
+//
+//                if (resultSet && resultTelefono && resultUsuario) {
+//                    JOptionPane.showMessageDialog(this, "Se ha creado un nuevo "
+//                            + "empleado exitosamente.", "Nuevo Empleado",
+//                            JOptionPane.INFORMATION_MESSAGE);
+//                    reset();
+//                } else {
+//                    JOptionPane.showMessageDialog(this, "Ha habido un error "
+//                            + "compruebe la información", "Nuevo Empleado",
+//                            JOptionPane.ERROR_MESSAGE);
+//                }
+//            } catch (SQLException ex) {
+//                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+//                JOptionPane.showMessageDialog(this, "Ha habido un error "
+//                        + "compruebe la información", "Nuevo Empleado",
+//                        JOptionPane.ERROR_MESSAGE);
+//            }

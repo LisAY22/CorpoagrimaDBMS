@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author WilderL
+ * @author User
  */
 public class Puesto extends javax.swing.JFrame {
 
@@ -87,7 +88,6 @@ public class Puesto extends javax.swing.JFrame {
 
         buscarJButton.setBackground(new java.awt.Color(136, 213, 133));
         buscarJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
-        buscarJButton.setText("");
         buscarJButton.setToolTipText("Boton de búsqueda del puesto");
         buscarJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,16 +105,16 @@ public class Puesto extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(buscarJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(buscarJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buscarJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         opcionJPanelLayout.setVerticalGroup(
             opcionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(opcionJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(opcionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buscarJButton)
-                    .addComponent(buscarJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(opcionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(buscarJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buscarJTextField))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 

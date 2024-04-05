@@ -20,6 +20,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 /**
  *
+ * @author User
  * @author lisaj
  */
 public class RRHH extends javax.swing.JFrame {

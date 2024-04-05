@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author User
+ * @author lisaj
  */
 public final class Empleado extends javax.swing.JFrame {
 
@@ -127,9 +128,7 @@ public final class Empleado extends javax.swing.JFrame {
         Encabezado_panel = new javax.swing.JPanel();
         Encabezad_panel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         Buscar_textField = new javax.swing.JTextField();
-        GenerarCódigo_checkBox = new javax.swing.JCheckBox();
         Buscar_jButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -165,6 +164,7 @@ public final class Empleado extends javax.swing.JFrame {
         Delete_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1027, 540));
 
         Encabezado_panel.setBackground(new java.awt.Color(34, 85, 34));
 
@@ -185,12 +185,9 @@ public final class Empleado extends javax.swing.JFrame {
             Encabezado_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Encabezado_panelLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(Encabezad_panel2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                .addComponent(Encabezad_panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(29, 29, 29))
         );
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("Generar nuevo código");
 
         Buscar_textField.setToolTipText("Ingrese el ID del usuario");
         Buscar_textField.addActionListener(new java.awt.event.ActionListener() {
@@ -199,14 +196,8 @@ public final class Empleado extends javax.swing.JFrame {
             }
         });
 
-        GenerarCódigo_checkBox.setToolTipText("Click para llenar nuevo empleado");
-        GenerarCódigo_checkBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GenerarCódigo_checkBoxActionPerformed(evt);
-            }
-        });
-
-        Buscar_jButton.setText("Buscar");
+        Buscar_jButton.setBackground(new java.awt.Color(136, 213, 133));
+        Buscar_jButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
         Buscar_jButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Buscar_jButtonActionPerformed(evt);
@@ -218,30 +209,20 @@ public final class Empleado extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Buscar_jButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 497, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(GenerarCódigo_checkBox, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(33, 33, 33)
+                .addComponent(Buscar_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(761, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(GenerarCódigo_checkBox))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Buscar_jButton))))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Buscar_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Buscar_textField))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -563,7 +544,7 @@ public final class Empleado extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -573,16 +554,6 @@ public final class Empleado extends javax.swing.JFrame {
     private void Buscar_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_textFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Buscar_textFieldActionPerformed
-
-    private void GenerarCódigo_checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarCódigo_checkBoxActionPerformed
-        Buscar_jButton.setEnabled(false);
-        Buscar_textField.setEnabled(false);
-        Delete_button.setEnabled(false);
-        GenerarCódigo_checkBox.setEnabled(false);
-        Save_button.setEnabled(true);
-        Clean_button.setEnabled(true);
-        Enable();
-    }//GEN-LAST:event_GenerarCódigo_checkBoxActionPerformed
 
     private void Delete_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete_buttonActionPerformed
         String id = ID_textfield.getText();
@@ -619,8 +590,6 @@ public final class Empleado extends javax.swing.JFrame {
         Buscar_jButton.setEnabled(true);
         Buscar_textField.setEditable(true);
         Buscar_textField.setEnabled(true);
-        GenerarCódigo_checkBox.setEnabled(true);
-        GenerarCódigo_checkBox.setSelected(false);
         ID_textfield.setEditable(false);
         Nombre_textField.setEditable(false);
         Apellido_textField.setEditable(false);
@@ -643,6 +612,12 @@ public final class Empleado extends javax.swing.JFrame {
     }//GEN-LAST:event_Clean_buttonActionPerformed
 
     private void Cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_buttonActionPerformed
+        try {
+            RRHH rh_window = new RRHH(conexion);
+            rh_window.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }//GEN-LAST:event_Cancel_buttonActionPerformed
 
@@ -695,86 +670,98 @@ public final class Empleado extends javax.swing.JFrame {
         try {
             int IdInt = Integer.parseInt(IDString);
             ResultSet resultado = Empleado.empleadosID(conexion, IdInt);
-            resultado.next();
-            int ID = resultado.getInt("ID_Empleado");
-            String Nombre = resultado.getString("Nombre");
-            String Apellido = resultado.getString("Apellido");
-            String NIT = resultado.getString("NIT");
-            String Correo = resultado.getString("Correo_electronico");
-            String Direccion = resultado.getString("Direccion");
-            String Bonificaciones = resultado.getString("Bonificaciones");
-            int id_puesto = resultado.getInt("Puesto_ID_Puesto");
-            int id_usuario = resultado.getInt("Usuario_ID_Usuario");
-            String ajusteSueldo = resultado.getString("Ajuste_Sueldo");
 
-            //Consulta de puesto y sueldo
-            ResultSet resultadoPuesto = Puesto.puestoId(conexion, id_puesto);
-            resultadoPuesto.next();
-            idPuesto = id_puesto;
-            String puesto = resultadoPuesto.getString("Nombre");
-            Float salario = resultadoPuesto.getFloat("Salario_Base");
+            if (resultado.next()) { // Verificar si hay resultados antes de acceder a ellos
+                int ID = resultado.getInt("ID_Empleado");
+                String Nombre = resultado.getString("Nombre");
+                String Apellido = resultado.getString("Apellido");
+                String NIT = resultado.getString("NIT");
+                String Correo = resultado.getString("Correo_electronico");
+                String Direccion = resultado.getString("Direccion");
+                String Bonificaciones = resultado.getString("Bonificaciones");
+                int id_puesto = resultado.getInt("Puesto_ID_Puesto");
+                int id_usuario = resultado.getInt("Usuario_ID_Usuario");
+                String ajusteSueldo = resultado.getString("Ajuste_Sueldo");
 
-            // Tercera consulta para obtener el nombre de usuario 
-            ResultSet resultadoUsuario = Usuario.usuario(conexion, id_usuario);
+                //Consulta de puesto y sueldo
+                ResultSet resultadoPuesto = Puesto.puestoId(conexion, id_puesto);
 
-            resultadoUsuario.next();
-            idUsuario = resultadoUsuario.getInt("ID_Usuario");
-            String Nombre_usuario = resultadoUsuario.getString("Nombre");
-            String contrasenia = resultadoUsuario.getString("Contraseña");
-            
-            // Cuarta consulta para obtener el numero de telefono
-            ResultSet resultadoTelefono = Telefono.telefono(conexion, ID, "Empleado");
-            
-            resultadoTelefono.next();
-            idTelefono = resultadoTelefono.getInt("ID_Telefono");
-            String telefono = resultadoTelefono.getString("Numero");
+                if (resultadoPuesto.next()) { // Verificar si hay resultados antes de acceder a ellos
+                    idPuesto = id_puesto;
+                    String puesto = resultadoPuesto.getString("Nombre");
+                    Float salario = resultadoPuesto.getFloat("Salario_Base");
 
-            // Insertar en los textfield la informacion y habilitarlos
-            ID_textfield.setText(String.valueOf(ID));
-            Nombre_textField.setText(Nombre);
-            Apellido_textField.setText(Apellido);
-            NIT_textfield.setText(NIT);
-            Correo_textfield.setText(Correo);
-            Direccion_textfield.setText(Direccion);
-            Bonificaciones_textfield.setText(Bonificaciones);
-            Telefono_textfield.setText(telefono);
-            AjusteSueldo_textfield.setText(ajusteSueldo);
+                    // Tercera consulta para obtener el nombre de usuario 
+                    ResultSet resultadoUsuario = Usuario.usuario(conexion, id_usuario);
 
-            //Autoajustar el combobox para que aparezca por defecto el que tiene en puesto
-            String[] itemsArray = getComboBoxItems(Puesto_comboBox);
+                    if (resultadoUsuario.next()) { // Verificar si hay resultados antes de acceder a ellos
+                        idUsuario = resultadoUsuario.getInt("ID_Usuario");
+                        String Nombre_usuario = resultadoUsuario.getString("Nombre");
+                        String contrasenia = resultadoUsuario.getString("Contraseña");
 
-            int indice = -1;
+                        // Cuarta consulta para obtener el numero de telefono
+                        ResultSet resultadoTelefono = Telefono.telefono(conexion, ID, "Empleado");
 
-            for (int i = 0; i < itemsArray.length; i++) {
-                if (itemsArray[i].equals(puesto)) {
-                    indice = i;
-                    break;
+                        if (resultadoTelefono.next()) { // Verificar si hay resultados antes de acceder a ellos
+                            idTelefono = resultadoTelefono.getInt("ID_Telefono");
+                            String telefono = resultadoTelefono.getString("Numero");
+
+                            // Insertar en los textfield la informacion y habilitarlos
+                            ID_textfield.setText(String.valueOf(ID));
+                            Nombre_textField.setText(Nombre);
+                            Apellido_textField.setText(Apellido);
+                            NIT_textfield.setText(NIT);
+                            Correo_textfield.setText(Correo);
+                            Direccion_textfield.setText(Direccion);
+                            Bonificaciones_textfield.setText(Bonificaciones);
+                            Telefono_textfield.setText(telefono);
+                            AjusteSueldo_textfield.setText(ajusteSueldo);
+
+                            //Autoajustar el combobox para que aparezca por defecto el que tiene en puesto
+                            String[] itemsArray = getComboBoxItems(Puesto_comboBox);
+
+                            int indice = -1;
+
+                            for (int i = 0; i < itemsArray.length; i++) {
+                                if (itemsArray[i].equals(puesto)) {
+                                    indice = i;
+                                    break;
+                                }
+                            }
+
+                            // Si se encontró una coincidencia, establecer ese índice como la selección predeterminada
+                            if (indice != -1) {
+                                Puesto_comboBox.setSelectedIndex(indice);
+                            } else {
+                                // Si no se encontró ninguna coincidencia, mostrar un mensaje de error
+                                JOptionPane.showMessageDialog(null, "No se encontró ninguna coincidencia para el texto en las opciones del ComboBox.", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+
+                            Sueldobase_textfield.setText(String.valueOf(salario));
+                            Usuario_textfield.setText(Nombre_usuario);
+                            contrasena_textfield1.setText(contrasenia);
+
+                            Buscar_jButton.setEnabled(false);
+                            Buscar_textField.setEnabled(false);
+
+                            //Habilitar botones de guardado, borrar y limpiar
+                            Delete_button.setEnabled(true);
+                            Save_button.setEnabled(true);
+                            Clean_button.setEnabled(true);
+
+                            Enable();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el número de teléfono.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el puesto y salario.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            }
-
-            // Si se encontró una coincidencia, establecer ese índice como la selección predeterminada
-            if (indice != -1) {
-                Puesto_comboBox.setSelectedIndex(indice);
             } else {
-                // Si no se encontró ninguna coincidencia, mostrar un mensaje de error
-                JOptionPane.showMessageDialog(null, "No se encontró ninguna coincidencia para el texto en las opciones del ComboBox.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el ID especificado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
-            Sueldobase_textfield.setText(String.valueOf(salario));
-            Usuario_textfield.setText(Nombre_usuario);
-            contrasena_textfield1.setText(contrasenia);
-
-            //Deshabilitar los checkbox
-            GenerarCódigo_checkBox.setEnabled(false);
-            Buscar_jButton.setEnabled(false);
-            Buscar_textField.setEnabled(false);
-
-            //Habilitar botones de guardado, borrar y limpiar
-            Delete_button.setEnabled(true);
-            Save_button.setEnabled(true);
-            Clean_button.setEnabled(true);
-
-            Enable();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al consultar los datos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -782,6 +769,7 @@ public final class Empleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ingrese correctamente el Id",
                     "Busqueda", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_Buscar_jButtonActionPerformed
 
     private void AjusteSueldo_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjusteSueldo_textfieldActionPerformed
@@ -789,62 +777,7 @@ public final class Empleado extends javax.swing.JFrame {
     }//GEN-LAST:event_AjusteSueldo_textfieldActionPerformed
 
     private void Save_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_buttonActionPerformed
-        if (GenerarCódigo_checkBox.isSelected()) {
-            try {
-                String apellido = Apellido_textField.getText();
-                float bonificaciones = Float.parseFloat(Bonificaciones_textfield.getText());
-                String correoElectronico = Correo_textfield.getText();
-                int idEmpleado = Integer.parseInt(ID_textfield.getText());
-                String direccion = Direccion_textfield.getText();
-                String nit = NIT_textfield.getText();
-                String nombre = Nombre_textField.getText();
-                String telefono = Telefono_textfield.getText();
-                String usuario = Usuario_textfield.getText();
-                String contrasenia = contrasena_textfield1.getText();
-                String ajusteSueldo = AjusteSueldo_textfield.getText();
-                String puesto = (String) Puesto_comboBox.getSelectedItem();
-                int idUsuario;
-                int idPuesto;
-                
-                // tabla usuario
-                boolean resultUsuario = Usuario.agregar(conexion, usuario, contrasenia);
-                
-                
-                ResultSet resultPuesto = Puesto.puestoID(conexion, puesto);
-                ResultSet restUsuario = Usuario.usuarioID(conexion, usuario);
-                
-                resultPuesto.next();
-                restUsuario.next();
-                idPuesto = resultPuesto.getInt("ID_Puesto");
-                idUsuario = restUsuario.getInt("ID_Usuario");
-                
-                // tabla empleado
-                boolean resultSet = Empleado.agregar(conexion, idEmpleado, nombre,
-                        apellido, nit, correoElectronico, direccion, ajusteSueldo,
-                        bonificaciones, idPuesto, idUsuario);
-                
-                // tabla telefono
-                boolean resultTelefono = Telefono.agregar(conexion, telefono,
-                        "Empleado", idEmpleado);
-
-                if (resultSet && resultTelefono && resultUsuario) {
-                    JOptionPane.showMessageDialog(this, "Se ha creado un nuevo "
-                            + "empleado exitosamente.", "Nuevo Empleado",
-                            JOptionPane.INFORMATION_MESSAGE);
-                    reset();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Ha habido un error "
-                            + "compruebe la información", "Nuevo Empleado",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Ha habido un error "
-                        + "compruebe la información", "Nuevo Empleado",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            try {
+        try {
                 String apellido = Apellido_textField.getText();
                 float bonificaciones = Float.parseFloat(Bonificaciones_textfield.getText());
                 String correoElectronico = Correo_textfield.getText();
@@ -883,7 +816,6 @@ public final class Empleado extends javax.swing.JFrame {
                         + "compruebe la información", "Guardar Emplrado",
                         JOptionPane.ERROR_MESSAGE);
             }
-        }
     }//GEN-LAST:event_Save_buttonActionPerformed
 
     private void Puesto_comboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Puesto_comboBoxItemStateChanged
@@ -900,41 +832,6 @@ public final class Empleado extends javax.swing.JFrame {
 
     }//GEN-LAST:event_Puesto_comboBoxItemStateChanged
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Empleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Empleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Empleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Empleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Empleado().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AjusteSueldo_textfield;
     private javax.swing.JLabel Ajuste_label;
@@ -949,7 +846,6 @@ public final class Empleado extends javax.swing.JFrame {
     private javax.swing.JTextField Direccion_textfield;
     private javax.swing.JLabel Encabezad_panel2;
     private javax.swing.JPanel Encabezado_panel;
-    private javax.swing.JCheckBox GenerarCódigo_checkBox;
     private javax.swing.JTextField ID_textfield;
     private javax.swing.JTextField NIT_textfield;
     private javax.swing.JTextField Nombre_textField;
@@ -967,7 +863,6 @@ public final class Empleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
