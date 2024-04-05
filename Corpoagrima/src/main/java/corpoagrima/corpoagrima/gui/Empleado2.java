@@ -60,7 +60,7 @@ public class Empleado2 extends javax.swing.JFrame {
                 Puesto_comboBox.addItem(puesto);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se encontró ningún puesto para el ComboBox.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se encontró ningún empleado para el ComboBox.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

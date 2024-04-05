@@ -31,28 +31,6 @@ public class Proveedores3 extends javax.swing.JFrame {
         initComponents();
     }
 
-    private void habilitar(){
-        ID_textfield.setEditable(true);
-        Empresa_textfield.setEditable(true);
-        Nombre_textfield.setEditable(true);
-        NIT_textfield.setEditable(true);
-        Direccion_textfield.setEditable(true);
-        Correo_textfield.setEditable(true);
-        Limpiar_button.setEnabled(true);
-        Guardar_button.setEnabled(true);
-    }
-    
-    private void deshabilitar(){
-        ID_textfield.setEditable(false);
-        Empresa_textfield.setEditable(false);
-        Nombre_textfield.setEditable(false);
-        NIT_textfield.setEditable(false);
-        Direccion_textfield.setEditable(false);
-        Correo_textfield.setEditable(false);
-        Limpiar_button.setEnabled(false);
-        Guardar_button.setEnabled(false);
-    }
-    
     private void limpiar(){
         ID_textfield.setText("");
         Empresa_textfield.setText("");
@@ -368,7 +346,6 @@ public class Proveedores3 extends javax.swing.JFrame {
 
     private void Limpiar_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Limpiar_buttonMouseClicked
         // TODO add your handling code here:
-        deshabilitar();
         limpiar();
         JOptionPane.showMessageDialog(this, "Se han limpiado los campos exitosamente.", "Limpieza",
                 JOptionPane.INFORMATION_MESSAGE);

@@ -79,7 +79,7 @@ public final class Empleado extends javax.swing.JFrame {
                 Puesto_comboBox.addItem(puesto);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se encontró ningún puesto para el ComboBox.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se encontró ningún empleado para el ComboBox.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -561,8 +561,8 @@ public final class Empleado extends javax.swing.JFrame {
 
         try {
             int opcion = JOptionPane.showConfirmDialog(null,
-                    "¿Quieres continuar?\nSe eliminara el puesto permanentemente",
-                    "Eliminar Puesto", JOptionPane.YES_NO_OPTION);
+                    "¿Quieres continuar?\nSe eliminara el empleado permanentemente",
+                    "Eliminar Empleado", JOptionPane.YES_NO_OPTION);
 
             // Comprobar la opción seleccionada
             if (opcion == JOptionPane.YES_OPTION) {
@@ -571,8 +571,8 @@ public final class Empleado extends javax.swing.JFrame {
                 boolean resultUsuario = Usuario.eliminar(conexion, idUsuario);
                 if (resultSet && resultTelefono && resultUsuario) {
                     JOptionPane.showMessageDialog(this,
-                            "Se ha eliminado exitosamente el puesto.",
-                            "Eliminar Puesto", JOptionPane.INFORMATION_MESSAGE);
+                            "Se ha eliminado exitosamente el empleado.",
+                            "Eliminar Empleado", JOptionPane.INFORMATION_MESSAGE);
                     reset();
                 }
             }
@@ -580,7 +580,7 @@ public final class Empleado extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
-                    + "compruebe la información", "Eliminar puesto",
+                    + "compruebe la información", "Eliminar empleado",
                     JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_Delete_buttonActionPerformed
