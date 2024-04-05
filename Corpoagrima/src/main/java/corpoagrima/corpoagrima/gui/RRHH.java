@@ -166,6 +166,10 @@ public class RRHH extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaEmpleado = new javax.swing.JTable();
+        jButtonEDP = new javax.swing.JButton();
+        jButtonNP = new javax.swing.JButton();
+        jButtonEDE = new javax.swing.JButton();
+        jButtonNE = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         Ordenar_Bn = new javax.swing.JButton();
 
@@ -179,6 +183,7 @@ public class RRHH extends javax.swing.JFrame {
 
         Refresh_button.setBackground(new java.awt.Color(34, 85, 34));
         Refresh_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizar.png"))); // NOI18N
+        Refresh_button.setBorderPainted(false);
         Refresh_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Refresh_buttonActionPerformed(evt);
@@ -204,7 +209,7 @@ public class RRHH extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(back_Button)
                 .addGap(317, 317, 317)
-                .addComponent(puestoJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                .addComponent(puestoJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(136, 136, 136)
                 .addComponent(Refresh_button, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -241,13 +246,50 @@ public class RRHH extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TablaEmpleado);
 
+        jButtonEDP.setBackground(new java.awt.Color(136, 213, 133));
+        jButtonEDP.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonEDP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
+        jButtonEDP.setText("EDITAR PUESTO");
+        jButtonEDP.setToolTipText("");
+        jButtonEDP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEDPActionPerformed(evt);
+            }
+        });
+
+        jButtonNP.setBackground(new java.awt.Color(136, 213, 133));
+        jButtonNP.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonNP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
+        jButtonNP.setText("NUEVO PUESTO");
+
+        jButtonEDE.setBackground(new java.awt.Color(136, 213, 133));
+        jButtonEDE.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonEDE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
+        jButtonEDE.setText("EDITAR EMPLEADO");
+
+        jButtonNE.setBackground(new java.awt.Color(136, 213, 133));
+        jButtonNE.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonNE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
+        jButtonNE.setText("NUEVO EMPLEADO");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonNE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonEDP)
+                            .addComponent(jButtonNP)
+                            .addComponent(jButtonEDE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -255,6 +297,16 @@ public class RRHH extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jButtonEDP)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonNP)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonEDE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonNE)
+                .addGap(48, 48, 48))
         );
 
         Ordenar_Bn.setBackground(new java.awt.Color(136, 213, 133));
@@ -264,22 +316,27 @@ public class RRHH extends javax.swing.JFrame {
                 Ordenar_BnMouseClicked(evt);
             }
         });
+        Ordenar_Bn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Ordenar_BnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(34, 34, 34)
                 .addComponent(Ordenar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(792, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addComponent(Ordenar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -296,8 +353,8 @@ public class RRHH extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -352,6 +409,14 @@ public class RRHH extends javax.swing.JFrame {
 
     }//GEN-LAST:event_Ordenar_BnMouseClicked
 
+    private void jButtonEDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEDPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEDPActionPerformed
+
+    private void Ordenar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ordenar_BnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Ordenar_BnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -393,6 +458,10 @@ public class RRHH extends javax.swing.JFrame {
     private javax.swing.JButton Refresh_button;
     private javax.swing.JTable TablaEmpleado;
     private javax.swing.JButton back_Button;
+    private javax.swing.JButton jButtonEDE;
+    private javax.swing.JButton jButtonEDP;
+    private javax.swing.JButton jButtonNE;
+    private javax.swing.JButton jButtonNP;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
