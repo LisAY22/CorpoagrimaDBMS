@@ -30,6 +30,7 @@ public class Clientes2 extends javax.swing.JFrame{
      */
     public Clientes2(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
+        this.credenciales = credenciales;
         clientes = new ConexionCliente();
         
         initComponents();

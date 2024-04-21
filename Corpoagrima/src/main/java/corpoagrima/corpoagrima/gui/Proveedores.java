@@ -33,6 +33,7 @@ public class Proveedores extends javax.swing.JFrame {
      */
     public Proveedores(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
+        this.credenciales = credenciales;
         proveedores = new ConexionProveedores();
         initComponents();
         actualizarTabla();

@@ -35,8 +35,9 @@ public class Inventario extends javax.swing.JFrame {
     private TableRowSorter<DefaultTableModel> sorter; // Variable miembro para mantener el TableRowSorter
     
     
-    public Inventario(Connection conexion) {
+    public Inventario(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
+        this.credenciales = credenciales;
         inventario = new ConexionProducto();
         initComponents();
         actualizarTabla();

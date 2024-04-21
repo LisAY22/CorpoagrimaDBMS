@@ -32,6 +32,7 @@ public class Clientes extends javax.swing.JFrame {
     
     public Clientes(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
+        this.credenciales = credenciales;
         clientes = new ConexionCliente();
         initComponents();
         actualizarTabla();
@@ -350,7 +351,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void NuevoBnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NuevoBnMouseClicked
         // TODO add your handling code here:
-        Clientes3 clientes3_screen = new Clientes3(conexion);
+        Clientes3 clientes3_screen = new Clientes3(conexion, credenciales);
         clientes3_screen.setVisible(true);
         clientes3_screen.setLocationRelativeTo(null);
         
@@ -362,18 +363,18 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_Regresar_BnActionPerformed
 
     private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
-        // TODO add your handling code here:
-        Principal principal_screen = null;
         try {
-            principal_screen = new Principal(conexion, credenciales);
+            // TODO add your handling code here:
+            Principal principal_screen = new Principal(conexion, credenciales);
+            
+            principal_screen.setVisible(true);
+            principal_screen.setLocationRelativeTo(null);
+            
+            // Cerrar la ventana actual
+            dispose();
         } catch (SQLException ex) {
             Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        principal_screen.setVisible(true);
-        principal_screen.setLocationRelativeTo(null);
-
-        // Cerrar la ventana actual
-        dispose();
     }//GEN-LAST:event_Regresar_BnMouseClicked
 
     private void Actualizar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Actualizar_BnMouseClicked

@@ -42,6 +42,7 @@ public final class Empleado extends javax.swing.JFrame {
      */
     public Empleado(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
+        this.credenciales = credenciales;
         Empleado = new ConexionEmpleado();
         Puesto = new ConexionPuesto();
         Usuario = new ConexionUsuario();

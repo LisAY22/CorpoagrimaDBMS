@@ -25,8 +25,9 @@ public class Puesto extends javax.swing.JFrame {
      *
      * @param conexion
      */
-    public Puesto(Connection conexion) {
+    public Puesto(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
+        this.credenciales = credenciales;
         puesto = new ConexionPuesto();
         initComponents();
     }

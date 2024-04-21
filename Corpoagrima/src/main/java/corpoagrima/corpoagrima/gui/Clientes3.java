@@ -26,8 +26,9 @@ public class Clientes3 extends javax.swing.JFrame {
     /**
      * Creates new form Clientes3
      */
-    public Clientes3(Connection conexion) {
+    public Clientes3(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
+        this.credenciales = credenciales;
         clientes = new ConexionCliente();
         initComponents();
     }

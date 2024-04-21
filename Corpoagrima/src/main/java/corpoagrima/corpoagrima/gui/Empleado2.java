@@ -40,6 +40,7 @@ public class Empleado2 extends javax.swing.JFrame {
      */
     public Empleado2(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
+        this.credenciales = credenciales;
         Empleado = new ConexionEmpleado();
         Puesto = new ConexionPuesto();
         Usuario = new ConexionUsuario();

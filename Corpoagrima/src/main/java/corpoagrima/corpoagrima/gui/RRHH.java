@@ -39,6 +39,7 @@ public class RRHH extends javax.swing.JFrame {
      */
     public RRHH(Connection conexion, ResultSet credenciales) throws SQLException {
         this.conexion = conexion;
+        this.credenciales = credenciales;
         empleado = new ConexionEmpleado();
         puesto = new ConexionPuesto();
         usuario = new ConexionUsuario();
@@ -447,7 +448,7 @@ public class RRHH extends javax.swing.JFrame {
 
     private void jButtonEDPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEDPMouseClicked
         // TODO add your handling code here:
-        Puesto puestoed_screen = new Puesto(conexion);
+        Puesto puestoed_screen = new Puesto(conexion, credenciales);
         puestoed_screen.setVisible(true);
         puestoed_screen.setLocationRelativeTo(null);
 
@@ -457,7 +458,7 @@ public class RRHH extends javax.swing.JFrame {
 
     private void jButtonNPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNPMouseClicked
         // TODO add your handling code here:
-        Puesto2 pueston_screen = new Puesto2(conexion);
+        Puesto2 pueston_screen = new Puesto2(conexion, credenciales);
         pueston_screen.setVisible(true);
         pueston_screen.setLocationRelativeTo(null);
 

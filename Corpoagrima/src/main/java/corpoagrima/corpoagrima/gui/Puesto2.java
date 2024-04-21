@@ -26,8 +26,9 @@ public class Puesto2 extends javax.swing.JFrame {
     /**
      * Creates new form Puesto2
      */
-    public Puesto2(Connection conexion) {
+    public Puesto2(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
+        this.credenciales = credenciales;
         puesto = new ConexionPuesto();
         initComponents();
     }

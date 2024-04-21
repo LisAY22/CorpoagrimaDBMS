@@ -25,6 +25,7 @@ public class Principal extends javax.swing.JFrame {
     
     public Principal(Connection conexion, ResultSet credenciales) throws SQLException {
         this.conexion = conexion;
+        this.credenciales = credenciales;
         initComponents();
         boolean permisoInventario = credenciales.getBoolean("Modulo_Inventario");
         boolean permisoCliente = credenciales.getBoolean("Modulo_Cliente");
@@ -232,7 +233,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void inventarioJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inventarioJButtonMouseClicked
         // TODO add your handling code here:
-        Inventario inventario_screen = new Inventario(conexion);
+        Inventario inventario_screen = new Inventario(conexion, credenciales);
         inventario_screen.setVisible(true);
         inventario_screen.setLocationRelativeTo(null);
         
