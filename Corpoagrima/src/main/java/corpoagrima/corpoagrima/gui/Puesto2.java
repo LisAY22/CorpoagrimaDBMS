@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author lisaj
  */
 public class Puesto2 extends javax.swing.JFrame {
-    
+
     private Connection conexion;
     private ConexionPuesto puesto;
     private int id;
@@ -55,6 +55,14 @@ public class Puesto2 extends javax.swing.JFrame {
         DescripciónJLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         descripcionJTextPane = new javax.swing.JTextPane();
+        moduloRHJCheckBox = new javax.swing.JCheckBox();
+        moduloFinancieroJCheckBox = new javax.swing.JCheckBox();
+        moduloCompraJCheckBox = new javax.swing.JCheckBox();
+        moduloInventarioJCheckBox = new javax.swing.JCheckBox();
+        moduloVentaJCheckBox = new javax.swing.JCheckBox();
+        moduloClienteJCheckBox = new javax.swing.JCheckBox();
+        moduloProveedoresJCheckBox = new javax.swing.JCheckBox();
+        PermisoJLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(739, 420));
@@ -149,6 +157,22 @@ public class Puesto2 extends javax.swing.JFrame {
         descripcionJTextPane.setEditable(true);
         jScrollPane2.setViewportView(descripcionJTextPane);
 
+        moduloRHJCheckBox.setText("Recursos Humanos");
+
+        moduloFinancieroJCheckBox.setText("Financiero");
+
+        moduloCompraJCheckBox.setText("Compras");
+
+        moduloInventarioJCheckBox.setText("Inventario");
+
+        moduloVentaJCheckBox.setText("Ventas");
+
+        moduloClienteJCheckBox.setText("Clientes");
+
+        moduloProveedoresJCheckBox.setText("Proveedores");
+
+        PermisoJLabel.setText("Permisos");
+
         javax.swing.GroupLayout informacionJPanelLayout = new javax.swing.GroupLayout(informacionJPanel);
         informacionJPanel.setLayout(informacionJPanelLayout);
         informacionJPanelLayout.setHorizontalGroup(
@@ -156,18 +180,34 @@ public class Puesto2 extends javax.swing.JFrame {
             .addGroup(informacionJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nombreJLabel)
-                    .addComponent(salarioBaseJLabel)
-                    .addComponent(horarioJLabel))
-                .addGap(27, 27, 27)
-                .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(nombreJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                    .addComponent(salarioBaseJTextField)
-                    .addComponent(horarioJTextField))
-                .addGap(18, 18, 18)
-                .addComponent(DescripciónJLabel)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2)
+                    .addGroup(informacionJPanelLayout.createSequentialGroup()
+                        .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(moduloInventarioJCheckBox)
+                            .addComponent(moduloVentaJCheckBox))
+                        .addGap(18, 18, 18)
+                        .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(moduloClienteJCheckBox)
+                            .addComponent(moduloCompraJCheckBox)
+                            .addComponent(moduloProveedoresJCheckBox))
+                        .addGap(19, 19, 19)
+                        .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(moduloRHJCheckBox)
+                            .addComponent(moduloFinancieroJCheckBox)))
+                    .addGroup(informacionJPanelLayout.createSequentialGroup()
+                        .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nombreJLabel)
+                            .addComponent(salarioBaseJLabel)
+                            .addComponent(horarioJLabel))
+                        .addGap(27, 27, 27)
+                        .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nombreJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                            .addComponent(salarioBaseJTextField)
+                            .addComponent(horarioJTextField))
+                        .addGap(18, 18, 18)
+                        .addComponent(DescripciónJLabel))
+                    .addComponent(PermisoJLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                 .addContainerGap())
         );
         informacionJPanelLayout.setVerticalGroup(
@@ -186,7 +226,21 @@ public class Puesto2 extends javax.swing.JFrame {
                 .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(horarioJLabel)
                     .addComponent(horarioJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(PermisoJLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(moduloInventarioJCheckBox)
+                    .addComponent(moduloClienteJCheckBox)
+                    .addComponent(moduloRHJCheckBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(moduloProveedoresJCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(moduloVentaJCheckBox)
+                    .addComponent(moduloCompraJCheckBox)
+                    .addComponent(moduloFinancieroJCheckBox))
+                .addContainerGap())
             .addComponent(jScrollPane2)
         );
 
@@ -211,14 +265,21 @@ public class Puesto2 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void limpiar() {
         nombreJTextField.setText("");
         salarioBaseJTextField.setText("");
         horarioJTextField.setText("");
         descripcionJTextPane.setText("");
+        moduloClienteJCheckBox.setSelected(false);
+        moduloCompraJCheckBox.setSelected(false);
+        moduloFinancieroJCheckBox.setSelected(false);
+        moduloInventarioJCheckBox.setSelected(false);
+        moduloProveedoresJCheckBox.setSelected(false);
+        moduloRHJCheckBox.setSelected(false);
+        moduloVentaJCheckBox.setSelected(false);
     }
-    
+
     private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
         try {
             RRHH rh_window = new RRHH(conexion);
@@ -231,41 +292,50 @@ public class Puesto2 extends javax.swing.JFrame {
 
     private void guardarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarJButtonActionPerformed
         try {
-                String nombre = nombreJTextField.getText();
-                float salarioBase = Float.parseFloat(salarioBaseJTextField.getText());
-                String horario = horarioJTextField.getText();
-                String descripcion = descripcionJTextPane.getText();
+            String nombre = nombreJTextField.getText();
+            float salarioBase = Float.parseFloat(salarioBaseJTextField.getText());
+            String horario = horarioJTextField.getText();
+            String descripcion = descripcionJTextPane.getText();
+            boolean moduloInventario = moduloInventarioJCheckBox.isSelected();
+            boolean moduloCliente = moduloClienteJCheckBox.isSelected();
+            boolean moduloRH = moduloRHJCheckBox.isSelected();
+            boolean moduloProveedores = moduloProveedoresJCheckBox.isSelected();
+            boolean moduloRegVenta = moduloVentaJCheckBox.isSelected();
+            boolean moduloRegCompra = moduloCompraJCheckBox.isSelected();
+            boolean moduloFinanciero = moduloFinancieroJCheckBox.isSelected();
+            boolean resultSet = puesto.actualizar(conexion, nombre, horario,
+                    descripcion, salarioBase, moduloCliente, moduloRH,
+                    moduloProveedores, moduloRegCompra, moduloRegVenta,
+                    moduloFinanciero, moduloInventario, id);
 
-                boolean resultSet = puesto.agregar(conexion, nombre, horario,
-                        descripcion, salarioBase);
-
-                if (resultSet) {
-                    JOptionPane.showMessageDialog(this, "Se ha creado un nuevo "
-                            + "puesto exitosamente.", "Nuevo Puesto",
-                            JOptionPane.INFORMATION_MESSAGE);
-                    limpiar();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Ha habido un error "
-                            + "compruebe la información", "Nuevo Puesto",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            if (resultSet) {
+                JOptionPane.showMessageDialog(this, "Se ha creado un nuevo "
+                        + "puesto exitosamente.", "Nuevo Puesto",
+                        JOptionPane.INFORMATION_MESSAGE);
+                limpiar();
+            } else {
                 JOptionPane.showMessageDialog(this, "Ha habido un error "
                         + "compruebe la información", "Nuevo Puesto",
                         JOptionPane.ERROR_MESSAGE);
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Ha habido un error "
+                    + "compruebe la información", "Nuevo Puesto",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_guardarJButtonActionPerformed
 
     private void limpiarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarJButtonActionPerformed
         limpiar();
         JOptionPane.showMessageDialog(this, "Se ha limpiado los campos"
-            + "exitosamente.", "Limpieza",
-            JOptionPane.INFORMATION_MESSAGE);
+                + "exitosamente.", "Limpieza",
+                JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_limpiarJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DescripciónJLabel;
+    private javax.swing.JLabel PermisoJLabel;
     private javax.swing.JPanel botonesJPanel;
     private javax.swing.JButton cancelarJButton;
     private javax.swing.JTextPane descripcionJTextPane;
@@ -276,6 +346,13 @@ public class Puesto2 extends javax.swing.JFrame {
     private javax.swing.JPanel informacionJPanel;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton limpiarJButton;
+    private javax.swing.JCheckBox moduloClienteJCheckBox;
+    private javax.swing.JCheckBox moduloCompraJCheckBox;
+    private javax.swing.JCheckBox moduloFinancieroJCheckBox;
+    private javax.swing.JCheckBox moduloInventarioJCheckBox;
+    private javax.swing.JCheckBox moduloProveedoresJCheckBox;
+    private javax.swing.JCheckBox moduloRHJCheckBox;
+    private javax.swing.JCheckBox moduloVentaJCheckBox;
     private javax.swing.JLabel nombreJLabel;
     private javax.swing.JTextField nombreJTextField;
     private javax.swing.JLabel puestoJLabel;

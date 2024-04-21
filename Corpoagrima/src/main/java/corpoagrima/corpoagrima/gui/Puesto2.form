@@ -160,20 +160,42 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="nombreJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="salarioBaseJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="horarioJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="moduloInventarioJCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="moduloVentaJCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="moduloClienteJCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="moduloCompraJCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="moduloProveedoresJCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="moduloRHJCheckBox" min="-2" max="-2" attributes="0"/>
+                              <Component id="moduloFinancieroJCheckBox" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="nombreJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="salarioBaseJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="horarioJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="nombreJTextField" alignment="0" pref="187" max="32767" attributes="0"/>
+                              <Component id="salarioBaseJTextField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="horarioJTextField" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="DescripciónJLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="PermisoJLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="nombreJTextField" alignment="0" pref="187" max="32767" attributes="0"/>
-                      <Component id="salarioBaseJTextField" alignment="0" max="32767" attributes="0"/>
-                      <Component id="horarioJTextField" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="DescripciónJLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" pref="311" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -197,7 +219,23 @@
                       <Component id="horarioJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="horarioJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="118" max="32767" attributes="0"/>
+                  <EmptySpace pref="10" max="32767" attributes="0"/>
+                  <Component id="PermisoJLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="moduloInventarioJCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="moduloClienteJCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="moduloRHJCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="moduloProveedoresJCheckBox" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="moduloVentaJCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="moduloCompraJCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="moduloFinancieroJCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
           </Group>
@@ -261,6 +299,46 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JCheckBox" name="moduloRHJCheckBox">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Recursos Humanos"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="moduloFinancieroJCheckBox">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Financiero"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="moduloCompraJCheckBox">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Compras"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="moduloInventarioJCheckBox">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Inventario"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="moduloVentaJCheckBox">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ventas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="moduloClienteJCheckBox">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Clientes"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="moduloProveedoresJCheckBox">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Proveedores"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="PermisoJLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Permisos"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
