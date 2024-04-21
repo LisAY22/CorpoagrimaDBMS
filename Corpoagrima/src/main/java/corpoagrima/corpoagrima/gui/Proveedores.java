@@ -13,6 +13,8 @@ import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,13 +24,14 @@ public class Proveedores extends javax.swing.JFrame {
 
     
     private Connection conexion;
+    private ResultSet credenciales;
     private ConexionProveedores proveedores;
     private TableRowSorter<DefaultTableModel> sorter; // Variable miembro para mantener el TableRowSorter
     
     /**
      * Creates new form Proveedores
      */
-    public Proveedores(Connection conexion) {
+    public Proveedores(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         proveedores = new ConexionProveedores();
         initComponents();
@@ -275,7 +278,12 @@ public class Proveedores extends javax.swing.JFrame {
 
     private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
         // TODO add your handling code here:
-        Principal principal_screen = new Principal(conexion);
+        Principal principal_screen = null;
+        try {
+            principal_screen = new Principal(conexion, credenciales);
+        } catch (SQLException ex) {
+            Logger.getLogger(Proveedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
         principal_screen.setVisible(true);
         principal_screen.setLocationRelativeTo(null);
 
@@ -347,7 +355,7 @@ public class Proveedores extends javax.swing.JFrame {
 
     private void Editar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Editar_BnMouseClicked
         // TODO add your handling code here:
-        Proveedores2 proveedores2_screen = new Proveedores2(conexion);
+        Proveedores2 proveedores2_screen = new Proveedores2(conexion, credenciales);
         proveedores2_screen.setVisible(true);
         proveedores2_screen.setLocationRelativeTo(null);
         

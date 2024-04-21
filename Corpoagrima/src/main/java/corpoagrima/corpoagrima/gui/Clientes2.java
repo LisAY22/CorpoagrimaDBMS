@@ -21,13 +21,14 @@ import java.util.logging.Logger;
 public class Clientes2 extends javax.swing.JFrame{
 
     private Connection conexion;
+    private ResultSet credenciales;
     private ConexionCliente clientes;
     private int id;
     
     /**
      * Creates new form clientes2
      */
-    public Clientes2(Connection conexion) {
+    public Clientes2(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         clientes = new ConexionCliente();
         
@@ -453,7 +454,7 @@ public class Clientes2 extends javax.swing.JFrame{
 
     private void Cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_buttonActionPerformed
         // TODO add your handling code here:
-        Clientes clientes_screen = new Clientes(conexion);
+        Clientes clientes_screen = new Clientes(conexion, credenciales);
         clientes_screen.setVisible(true);
         clientes_screen.setLocationRelativeTo(null);
           this.dispose();

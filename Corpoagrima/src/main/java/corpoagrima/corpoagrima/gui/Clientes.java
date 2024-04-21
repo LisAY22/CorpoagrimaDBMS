@@ -13,6 +13,8 @@ import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,10 +26,11 @@ public class Clientes extends javax.swing.JFrame {
      * Creates new form clientes
      */
     private Connection conexion;
+    private ResultSet credenciales;
     private ConexionCliente clientes;
     private TableRowSorter<DefaultTableModel> sorter; // Variable miembro para mantener el TableRowSorter
     
-    public Clientes(Connection conexion) {
+    public Clientes(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         clientes = new ConexionCliente();
         initComponents();
@@ -43,10 +46,6 @@ public class Clientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        Actualizar_Bn = new javax.swing.JButton();
-        Regresar_Bn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         Buscar_textField = new javax.swing.JTextField();
         Buscar_Bn = new javax.swing.JButton();
@@ -61,61 +60,6 @@ public class Clientes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-
-        jPanel1.setBackground(new java.awt.Color(34, 85, 34));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("CLIENTES");
-
-        Actualizar_Bn.setBackground(new java.awt.Color(34, 85, 34));
-        Actualizar_Bn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizar.png"))); // NOI18N
-        Actualizar_Bn.setBorderPainted(false);
-        Actualizar_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Actualizar_BnMouseClicked(evt);
-            }
-        });
-
-        Regresar_Bn.setBackground(new java.awt.Color(34, 85, 34));
-        Regresar_Bn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        Regresar_Bn.setForeground(new java.awt.Color(255, 255, 255));
-        Regresar_Bn.setText("←");
-        Regresar_Bn.setBorderPainted(false);
-        Regresar_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Regresar_BnMouseClicked(evt);
-            }
-        });
-        Regresar_Bn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Regresar_BnActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(401, 401, 401)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Actualizar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Actualizar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
 
         Buscar_textField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Buscar_textField.addActionListener(new java.awt.event.ActionListener() {
@@ -250,7 +194,6 @@ public class Clientes extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,8 +206,7 @@ public class Clientes extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(124, 124, 124)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -311,11 +253,6 @@ public class Clientes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Buscar_BnMouseClicked
 
-    private void Actualizar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Actualizar_BnMouseClicked
-        // TODO add your handling code here:
-        actualizarTabla();
-    }//GEN-LAST:event_Actualizar_BnMouseClicked
-
     private void Ordenar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Ordenar_BnMouseClicked
         // TODO add your handling code here:
         
@@ -341,23 +278,9 @@ public class Clientes extends javax.swing.JFrame {
         
     }//GEN-LAST:event_Ordenar_BnMouseClicked
 
-    private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
-        // TODO add your handling code here:
-        Principal principal_screen = new Principal(conexion);
-        principal_screen.setVisible(true);
-        principal_screen.setLocationRelativeTo(null);
-        
-        // Cerrar la ventana actual
-        dispose();
-    }//GEN-LAST:event_Regresar_BnMouseClicked
-
-    private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Regresar_BnActionPerformed
-
     private void Editar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Editar_BnMouseClicked
         // TODO add your handling code here:
-        Clientes2 clientes2_screen = new Clientes2(conexion);
+        Clientes2 clientes2_screen = new Clientes2(conexion, credenciales);
         clientes2_screen.setVisible(true);
         clientes2_screen.setLocationRelativeTo(null);
         
@@ -425,17 +348,13 @@ public class Clientes extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Actualizar_Bn;
     private javax.swing.JButton Buscar_Bn;
     private javax.swing.JTextField Buscar_textField;
     private javax.swing.JButton Editar_Bn;
     private javax.swing.JButton NuevoBn;
     private javax.swing.JButton Ordenar_Bn;
-    private javax.swing.JButton Regresar_Bn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;

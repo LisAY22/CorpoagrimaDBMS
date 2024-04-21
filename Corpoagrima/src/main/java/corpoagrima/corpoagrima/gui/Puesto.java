@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 public class Puesto extends javax.swing.JFrame {
 
     private Connection conexion;
+    private ResultSet credenciales;
     private ConexionPuesto puesto;
     private int id;
 
@@ -473,7 +474,7 @@ public class Puesto extends javax.swing.JFrame {
 
     private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
         try {
-            RRHH rh_window = new RRHH(conexion);
+            RRHH rh_window = new RRHH(conexion, credenciales);
             rh_window.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);

@@ -26,6 +26,7 @@ import javax.swing.JOptionPane;
 public final class Empleado extends javax.swing.JFrame {
 
     private Connection conexion;
+    private ResultSet credenciales;
     private ConexionEmpleado Empleado;
     private ConexionPuesto Puesto;
     private ConexionUsuario Usuario;
@@ -39,7 +40,7 @@ public final class Empleado extends javax.swing.JFrame {
      * /**
      * Creates new form Empleado
      */
-    public Empleado(Connection conexion) {
+    public Empleado(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         Empleado = new ConexionEmpleado();
         Puesto = new ConexionPuesto();
@@ -614,7 +615,7 @@ public final class Empleado extends javax.swing.JFrame {
 
     private void Cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_buttonActionPerformed
         try {
-            RRHH rh_window = new RRHH(conexion);
+            RRHH rh_window = new RRHH(conexion, credenciales);
             rh_window.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);

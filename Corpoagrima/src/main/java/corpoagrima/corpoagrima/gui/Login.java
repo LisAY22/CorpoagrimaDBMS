@@ -10,6 +10,10 @@ import corpoagrima.corpoagrima.logic.encriptar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,14 +35,22 @@ public class Login extends javax.swing.JFrame {
         usuarioJTextField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ingresar(); // Llama al método ingresar cuando se presiona "Enter" en el campo de usuario
+                try {
+                    ingresar(); // Llama al método ingresar cuando se presiona "Enter" en el campo de usuario
+                } catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
         contraseñaJPasswordField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ingresar(); // Llama al método ingresar cuando se presiona "Enter" en el campo de contraseña
+                try {
+                    ingresar(); // Llama al método ingresar cuando se presiona "Enter" en el campo de contraseña
+                } catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     
@@ -186,18 +198,24 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_contraseñaJButtonMouseReleased
 
     private void ingresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarJButtonMouseClicked
-        ingresar();
+        try {
+            ingresar();
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_ingresarJButtonMouseClicked
         
-    private void ingresar() {
+    private void ingresar() throws SQLException {
         String usuario = usuarioJTextField.getText();
         String contraseña = new String(contraseñaJPasswordField.getPassword());
         String contraseniaEncriptada = encriptar.encriptarContrasenia(contraseña);
         
+        ConexionUsuario login = new ConexionUsuario();
+        ResultSet credenciales = login.consulta(conexion, usuario, contraseniaEncriptada);
         // Verificar las credenciales en la base de datos
-        if (verificarCredenciales(usuario, contraseniaEncriptada)) {
+        if (credenciales.next()) {
             // Si las credenciales son correctas, abrir la nueva ventana
-            Principal principal_screen = new Principal(conexion);
+            Principal principal_screen = new Principal(conexion, credenciales);
             principal_screen.setVisible(true);
             principal_screen.setLocationRelativeTo(null);
 
@@ -209,10 +227,6 @@ public class Login extends javax.swing.JFrame {
         }
     }
     
-    private boolean verificarCredenciales(String usuario, String contraseña) {
-        ConexionUsuario login = new ConexionUsuario();
-        return login.consulta(conexion, usuario, contraseña);
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton contraseñaJButton;

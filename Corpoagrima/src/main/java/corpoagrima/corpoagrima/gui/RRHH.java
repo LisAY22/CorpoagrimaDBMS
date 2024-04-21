@@ -26,6 +26,7 @@ import javax.swing.table.TableRowSorter;
 public class RRHH extends javax.swing.JFrame {
     
     private Connection conexion;
+    private ResultSet credenciales;
     private ConexionEmpleado empleado;
     private ConexionPuesto puesto;
     private ConexionUsuario usuario;
@@ -33,9 +34,10 @@ public class RRHH extends javax.swing.JFrame {
     /**
      * Creates new form RH
      * @param conexion
+     * @param credenciales
      * @throws java.sql.SQLException
      */
-    public RRHH(Connection conexion) throws SQLException {
+    public RRHH(Connection conexion, ResultSet credenciales) throws SQLException {
         this.conexion = conexion;
         empleado = new ConexionEmpleado();
         puesto = new ConexionPuesto();
@@ -385,7 +387,12 @@ public class RRHH extends javax.swing.JFrame {
 
     private void back_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_ButtonMouseClicked
         // TODO add your handling code here:
-        Principal principal_screen = new Principal(conexion);
+        Principal principal_screen = null;
+        try {
+            principal_screen = new Principal(conexion, credenciales);
+        } catch (SQLException ex) {
+            Logger.getLogger(RRHH.class.getName()).log(Level.SEVERE, null, ex);
+        }
         principal_screen.setVisible(true);
         principal_screen.setLocationRelativeTo(null);
 
@@ -460,7 +467,7 @@ public class RRHH extends javax.swing.JFrame {
 
     private void jButtonEDEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEDEMouseClicked
         // TODO add your handling code here:
-        Empleado empleadoed_screen = new Empleado(conexion);
+        Empleado empleadoed_screen = new Empleado(conexion, credenciales);
         empleadoed_screen.setVisible(true);
         empleadoed_screen.setLocationRelativeTo(null);
 
@@ -470,7 +477,7 @@ public class RRHH extends javax.swing.JFrame {
 
     private void jButtonNEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNEMouseClicked
         // TODO add your handling code here:
-        Empleado2 empleadon_screen = new Empleado2(conexion);
+        Empleado2 empleadon_screen = new Empleado2(conexion, credenciales);
         empleadon_screen.setVisible(true);
         empleadon_screen.setLocationRelativeTo(null);
 

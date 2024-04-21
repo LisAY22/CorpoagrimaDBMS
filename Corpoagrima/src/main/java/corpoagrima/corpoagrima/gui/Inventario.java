@@ -13,6 +13,8 @@ import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -28,6 +30,7 @@ public class Inventario extends javax.swing.JFrame {
      */    
     
     private Connection conexion;
+    private ResultSet credenciales;
     private ConexionProducto inventario;
     private TableRowSorter<DefaultTableModel> sorter; // Variable miembro para mantener el TableRowSorter
     
@@ -239,7 +242,12 @@ public class Inventario extends javax.swing.JFrame {
 
     private void regresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarJButtonMouseClicked
         // TODO add your handling code here:
-        Principal principal_screen = new Principal(conexion);
+        Principal principal_screen = null;
+        try {
+            principal_screen = new Principal(conexion, credenciales);
+        } catch (SQLException ex) {
+            Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+        }
         principal_screen.setVisible(true);
         principal_screen.setLocationRelativeTo(null);
         

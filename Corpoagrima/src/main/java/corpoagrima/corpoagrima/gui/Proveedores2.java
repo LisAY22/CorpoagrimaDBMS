@@ -19,13 +19,14 @@ import javax.swing.JOptionPane;
 public class Proveedores2 extends javax.swing.JFrame {
 
     private Connection conexion;
+    private ResultSet credenciales;
     private ConexionProveedores proveedores;
     private int id;
 
     /**
      * Creates new form Proveedores2
      */
-    public Proveedores2(Connection conexion) {
+    public Proveedores2(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         proveedores = new ConexionProveedores();
         initComponents();
@@ -439,7 +440,7 @@ public class Proveedores2 extends javax.swing.JFrame {
 
     private void Cancel_button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_button1ActionPerformed
         // TODO add your handling code here:
-        Proveedores proveedores_screen = new Proveedores(conexion);
+        Proveedores proveedores_screen = new Proveedores(conexion, credenciales);
         proveedores_screen.setVisible(true);
         proveedores_screen.setLocationRelativeTo(null);
         this.dispose();

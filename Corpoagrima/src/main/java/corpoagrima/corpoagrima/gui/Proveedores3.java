@@ -6,6 +6,7 @@ package corpoagrima.corpoagrima.gui;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
 public class Proveedores3 extends javax.swing.JFrame {
 
     private Connection conexion;
+    private ResultSet credenciales;
     private ConexionProveedores proveedores;
     private int id;
 
@@ -309,7 +311,7 @@ public class Proveedores3 extends javax.swing.JFrame {
 
     private void Cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_buttonActionPerformed
         // TODO add your handling code here:
-        Proveedores proveedores_screen = new Proveedores(conexion);
+        Proveedores proveedores_screen = new Proveedores(conexion, credenciales);
         proveedores_screen.setVisible(true);
         proveedores_screen.setLocationRelativeTo(null);
         this.dispose();

@@ -6,6 +6,7 @@ package corpoagrima.corpoagrima.gui;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
 public class Puesto2 extends javax.swing.JFrame {
 
     private Connection conexion;
+    private ResultSet credenciales;
     private ConexionPuesto puesto;
     private int id;
 
@@ -282,7 +284,7 @@ public class Puesto2 extends javax.swing.JFrame {
 
     private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
         try {
-            RRHH rh_window = new RRHH(conexion);
+            RRHH rh_window = new RRHH(conexion, credenciales);
             rh_window.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
