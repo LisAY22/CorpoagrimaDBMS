@@ -75,6 +75,17 @@ public class ConexionUsuario {
         return filasAfectadas > 0;
     }
     
+    public boolean actualizarSinContrasenia(Connection conexion, String nombre, int id)throws SQLException{
+        String sql = "UPDATE Usuario SET Nombre=? "
+                + "WHERE ID_Usuario=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, nombre);
+        stmt.setInt(2, id);
+        // ejecutar la consulta
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
+    
     public boolean eliminar(Connection conexion, int id) throws SQLException{
         String sql = "DELETE FROM Usuario WHERE ID_Usuario=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);

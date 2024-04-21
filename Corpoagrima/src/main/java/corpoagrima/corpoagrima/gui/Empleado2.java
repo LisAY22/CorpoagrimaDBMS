@@ -8,6 +8,7 @@ import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionTelefono;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
+import corpoagrima.corpoagrima.logic.encriptar;
 import java.awt.event.ItemEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -548,8 +549,9 @@ public class Empleado2 extends javax.swing.JFrame {
             int idUsuario;
             int idPuesto;
 
+            String contraseniaEncriptada = encriptar.encriptarContrasenia(contrasenia);
             // tabla usuario
-            boolean resultUsuario = Usuario.agregar(conexion, usuario, contrasenia);
+            boolean resultUsuario = Usuario.agregar(conexion, usuario, contraseniaEncriptada);
 
 
             ResultSet resultPuesto = Puesto.puestoID(conexion, puesto);

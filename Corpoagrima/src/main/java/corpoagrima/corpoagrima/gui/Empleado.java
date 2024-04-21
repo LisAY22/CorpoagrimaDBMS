@@ -8,8 +8,8 @@ import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionTelefono;
+import corpoagrima.corpoagrima.logic.encriptar;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,6 +33,7 @@ public final class Empleado extends javax.swing.JFrame {
     private int idPuesto;
     private int idUsuario;
     private int idTelefono;
+    private String contrasenia;
 
     /**
      * /**
@@ -698,6 +699,7 @@ public final class Empleado extends javax.swing.JFrame {
                         idUsuario = resultadoUsuario.getInt("ID_Usuario");
                         String Nombre_usuario = resultadoUsuario.getString("Nombre");
                         String contrasenia = resultadoUsuario.getString("Contraseña");
+                        this.contrasenia = contrasenia;
 
                         // Cuarta consulta para obtener el numero de telefono
                         ResultSet resultadoTelefono = Telefono.telefono(conexion, ID, "Empleado");
@@ -778,44 +780,50 @@ public final class Empleado extends javax.swing.JFrame {
 
     private void Save_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_buttonActionPerformed
         try {
-                String apellido = Apellido_textField.getText();
-                float bonificaciones = Float.parseFloat(Bonificaciones_textfield.getText());
-                String correoElectronico = Correo_textfield.getText();
-                int idEmpleado = Integer.parseInt(ID_textfield.getText());
-                String direccion = Direccion_textfield.getText();
-                String nit = NIT_textfield.getText();
-                String nombre = Nombre_textField.getText();
-                String telefono = Telefono_textfield.getText();
-                String usuario = Usuario_textfield.getText();
-                String contrasenia = contrasena_textfield1.getText();
-                String ajusteSueldo = AjusteSueldo_textfield.getText();
-                String puesto = (String) Puesto_comboBox.getSelectedItem();
-                int idPuesto;
+            String apellido = Apellido_textField.getText();
+            float bonificaciones = Float.parseFloat(Bonificaciones_textfield.getText());
+            String correoElectronico = Correo_textfield.getText();
+            int idEmpleado = Integer.parseInt(ID_textfield.getText());
+            String direccion = Direccion_textfield.getText();
+            String nit = NIT_textfield.getText();
+            String nombre = Nombre_textField.getText();
+            String telefono = Telefono_textfield.getText();
+            String usuario = Usuario_textfield.getText();
+            String contrasenia = contrasena_textfield1.getText();
+            String ajusteSueldo = AjusteSueldo_textfield.getText();
+            String puesto = (String) Puesto_comboBox.getSelectedItem();
+            int idPuesto;
 
-                ResultSet restPuesto = Puesto.puestoID(conexion, puesto);
-                
-                restPuesto.next();
-                
-                idPuesto = restPuesto.getInt("ID_Puesto");
+            ResultSet restPuesto = Puesto.puestoID(conexion, puesto);
 
-                boolean resultTelefono = Telefono.actualizar(conexion, telefono, idTelefono);
-                boolean resultUsuario = Usuario.actualizar(conexion, usuario, contrasenia, idUsuario);
-                boolean resultSet = Empleado.actualizar(conexion, idEmpleado, nombre,
-                        apellido, nit, correoElectronico, direccion, ajusteSueldo,
-                        bonificaciones, idPuesto, idUsuario);
+            restPuesto.next();
 
-                if (resultSet && resultTelefono && resultUsuario) {
-                    JOptionPane.showMessageDialog(this,
-                            "Se ha guardado exitosamente el empleado.",
-                            "Guardar Empleado", JOptionPane.INFORMATION_MESSAGE);
-                    reset();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Ha habido un error "
-                        + "compruebe la información", "Guardar Emplrado",
-                        JOptionPane.ERROR_MESSAGE);
+            idPuesto = restPuesto.getInt("ID_Puesto");
+            boolean resultUsuario;
+            boolean resultTelefono = Telefono.actualizar(conexion, telefono, idTelefono);
+            if (this.contrasenia.equals(contrasenia)) {
+                resultUsuario = Usuario.actualizarSinContrasenia(conexion, usuario, idUsuario);
+            } else {
+                String contraseniaEncriptada = encriptar.encriptarContrasenia(contrasenia);
+                resultUsuario = Usuario.actualizar(conexion, usuario, contraseniaEncriptada, idUsuario);
             }
+
+            boolean resultSet = Empleado.actualizar(conexion, idEmpleado, nombre,
+                    apellido, nit, correoElectronico, direccion, ajusteSueldo,
+                    bonificaciones, idPuesto, idUsuario);
+
+            if (resultSet && resultTelefono && resultUsuario) {
+                JOptionPane.showMessageDialog(this,
+                        "Se ha guardado exitosamente el empleado.",
+                        "Guardar Empleado", JOptionPane.INFORMATION_MESSAGE);
+                reset();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Ha habido un error "
+                    + "compruebe la información", "Guardar Emplrado",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_Save_buttonActionPerformed
 
     private void Puesto_comboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Puesto_comboBoxItemStateChanged

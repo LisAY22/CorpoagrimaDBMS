@@ -6,6 +6,7 @@ package corpoagrima.corpoagrima.gui;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
 import corpoagrima.corpoagrima.bdMariaDB.Conexion;
+import corpoagrima.corpoagrima.logic.encriptar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -185,32 +186,16 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_contraseñaJButtonMouseReleased
 
     private void ingresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarJButtonMouseClicked
-        // TODO add your handling code here:
-        // Obtener el usuario y la contraseña ingresados por el usuario
-        String usuario = usuarioJTextField.getText();
-        String contraseña = new String(contraseñaJPasswordField.getPassword());
-        
-        // Verificar las credenciales en la base de datos
-        if (verificarCredenciales(usuario, contraseña)) {
-            // Si las credenciales son correctas, abrir la nueva ventana
-            Principal principal_screen = new Principal(conexion);
-            principal_screen.setVisible(true);
-            principal_screen.setLocationRelativeTo(null);
-
-            // Cerrar la ventana actual
-            dispose();
-        }
-        else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
-        }
+        ingresar();
     }//GEN-LAST:event_ingresarJButtonMouseClicked
         
     private void ingresar() {
         String usuario = usuarioJTextField.getText();
         String contraseña = new String(contraseñaJPasswordField.getPassword());
+        String contraseniaEncriptada = encriptar.encriptarContrasenia(contraseña);
         
         // Verificar las credenciales en la base de datos
-        if (verificarCredenciales(usuario, contraseña)) {
+        if (verificarCredenciales(usuario, contraseniaEncriptada)) {
             // Si las credenciales son correctas, abrir la nueva ventana
             Principal principal_screen = new Principal(conexion);
             principal_screen.setVisible(true);
