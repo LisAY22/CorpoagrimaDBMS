@@ -402,7 +402,7 @@ public class Clientes3 extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Clientes3.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Nuevo Cliente",
                     JOptionPane.ERROR_MESSAGE);

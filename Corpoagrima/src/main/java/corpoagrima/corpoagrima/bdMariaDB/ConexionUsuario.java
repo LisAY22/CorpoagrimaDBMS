@@ -38,10 +38,10 @@ public class ConexionUsuario {
 
     public ResultSet consulta(Connection conexion, String usuario, String contrasenia) throws SQLException {
         String sql = """
-                     SELECT puesto.nombre, puesto.Modulo_Cliente, puesto.Modulo_RH, puesto.Modulo_Proveedores, puesto.Modulo_Reg_Compra, 
-                    puesto.Modulo_Reg_Venta, puesto.Modulo_Financiero, puesto.Modulo_Inventario FROM usuario
-                    INNER JOIN empleado ON empleado.Usuario_ID_Usuario = usuario.ID_Usuario
-                    INNER JOIN puesto ON empleado.Puesto_ID_Puesto = puesto.ID_Puesto WHERE usuario.Nombre = ? AND usuario.Contraseña = ?""";
+                     SELECT Puesto.Nombre, Puesto.Modulo_Cliente, Puesto.Modulo_RH, Puesto.Modulo_Proveedores, Puesto.Modulo_Reg_Compra, 
+                    Puesto.Modulo_Reg_Venta, Puesto.Modulo_Financiero, Puesto.Modulo_Inventario FROM Usuario
+                    INNER JOIN Empleado ON Empleado.Usuario_ID_Usuario = Usuario.ID_Usuario
+                    INNER JOIN Puesto ON Empleado.Puesto_ID_Puesto = Puesto.ID_Puesto WHERE Usuario.Nombre = ? AND Usuario.Contraseña = ?""";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, usuario);
         stmt.setString(2, contrasenia);

@@ -416,7 +416,7 @@ public class Proveedores2 extends javax.swing.JFrame {
                 }
 
             } catch (SQLException ex) {
-                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Proveedores2.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Ha habido un error "
                         + "compruebe la información", "Busqueda",
                         JOptionPane.ERROR_MESSAGE);
@@ -469,7 +469,7 @@ public class Proveedores2 extends javax.swing.JFrame {
                     limpiar();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Proveedores2.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Ha habido un error "
                         + "compruebe la información", "Guardar Proveedor",
                         JOptionPane.ERROR_MESSAGE);
@@ -495,7 +495,7 @@ public class Proveedores2 extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Proveedores2.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "ERROR "
                     + "compruebe la información", "Eliminar Proveedor",
                     JOptionPane.ERROR_MESSAGE);

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package corpoagrima.corpoagrima.gui;
+package corpoagrima.corpoagrima.gui.rrhh;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
@@ -585,7 +585,7 @@ public final class Empleado extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Eliminar empleado",
                     JOptionPane.ERROR_MESSAGE);
@@ -815,7 +815,7 @@ public final class Empleado extends javax.swing.JFrame {
                 reset();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Guardar Emplrado",
                     JOptionPane.ERROR_MESSAGE);
@@ -842,7 +842,7 @@ public final class Empleado extends javax.swing.JFrame {
             RRHH rh_window = new RRHH(conexion, credenciales);
             rh_window.setVisible(true);
         } catch (SQLException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();
     }//GEN-LAST:event_back_ButtonMouseClicked

@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package corpoagrima.corpoagrima.gui;
+package corpoagrima.corpoagrima.gui.rrhh;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
+import corpoagrima.corpoagrima.gui.Principal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author User
@@ -448,7 +450,7 @@ public class RRHH extends javax.swing.JFrame {
 
     private void jButtonEDPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEDPMouseClicked
         // TODO add your handling code here:
-        Puesto puestoed_screen = new Puesto(conexion, credenciales);
+        BuscarPuesto puestoed_screen = new BuscarPuesto(conexion, credenciales);
         puestoed_screen.setVisible(true);
         puestoed_screen.setLocationRelativeTo(null);
 
@@ -458,7 +460,7 @@ public class RRHH extends javax.swing.JFrame {
 
     private void jButtonNPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNPMouseClicked
         // TODO add your handling code here:
-        Puesto2 pueston_screen = new Puesto2(conexion, credenciales);
+        CrearPuesto pueston_screen = new CrearPuesto(conexion, credenciales);
         pueston_screen.setVisible(true);
         pueston_screen.setLocationRelativeTo(null);
 

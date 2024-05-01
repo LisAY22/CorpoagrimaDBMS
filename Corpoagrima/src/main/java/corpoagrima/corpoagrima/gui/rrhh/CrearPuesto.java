@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package corpoagrima.corpoagrima.gui;
+package corpoagrima.corpoagrima.gui.rrhh;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
+import corpoagrima.corpoagrima.gui.Principal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author lisaj
  */
-public class Puesto2 extends javax.swing.JFrame {
+public class CrearPuesto extends javax.swing.JFrame {
 
     private Connection conexion;
     private ResultSet credenciales;
@@ -26,7 +27,7 @@ public class Puesto2 extends javax.swing.JFrame {
     /**
      * Creates new form Puesto2
      */
-    public Puesto2(Connection conexion, ResultSet credenciales) {
+    public CrearPuesto(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
         puesto = new ConexionPuesto();
@@ -315,7 +316,7 @@ public class Puesto2 extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BuscarPuesto.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Nuevo Puesto",
                     JOptionPane.ERROR_MESSAGE);

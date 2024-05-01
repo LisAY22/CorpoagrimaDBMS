@@ -4,6 +4,7 @@
  */
 package corpoagrima.corpoagrima.gui;
 
+import corpoagrima.corpoagrima.gui.rrhh.RRHH;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

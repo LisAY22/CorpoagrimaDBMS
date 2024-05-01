@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package corpoagrima.corpoagrima.gui;
+package corpoagrima.corpoagrima.gui.rrhh;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
@@ -51,7 +51,7 @@ public class Empleado2 extends javax.swing.JFrame {
         try {
             sueldoBase(nombre);
         } catch (SQLException ex) {
-            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Empleado2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -170,7 +170,7 @@ public class Empleado2 extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addComponent(back_Button)
                 .addGap(303, 303, 303)
-                .addComponent(Encabezad_panel2, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                .addComponent(Encabezad_panel2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, Short.MAX_VALUE)
                 .addGap(339, 339, 339))
         );
         Encabezado_panelLayout.setVerticalGroup(
@@ -506,7 +506,7 @@ public class Empleado2 extends javax.swing.JFrame {
                     String nombre = (String) Puesto_comboBox.getSelectedItem();
                     sueldoBase(nombre);
                 } catch (SQLException ex) {
-                    Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Empleado2.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -586,7 +586,7 @@ public class Empleado2 extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Empleado2.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Nuevo Empleado",
                     JOptionPane.ERROR_MESSAGE);
@@ -608,7 +608,7 @@ public class Empleado2 extends javax.swing.JFrame {
             RRHH rh_window = new RRHH(conexion, credenciales);
             rh_window.setVisible(true);
         } catch (SQLException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Empleado2.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();
     }//GEN-LAST:event_back_ButtonMouseClicked

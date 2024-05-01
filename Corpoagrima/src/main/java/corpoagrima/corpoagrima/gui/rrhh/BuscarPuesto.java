@@ -1,7 +1,8 @@
-package corpoagrima.corpoagrima.gui;
+package corpoagrima.corpoagrima.gui.rrhh;
 
 import java.sql.Connection;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
+import corpoagrima.corpoagrima.gui.Principal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author WilderL
  * @author User
  */
-public class Puesto extends javax.swing.JFrame {
+public class BuscarPuesto extends javax.swing.JFrame {
 
     private Connection conexion;
     private ResultSet credenciales;
@@ -25,7 +26,7 @@ public class Puesto extends javax.swing.JFrame {
      *
      * @param conexion
      */
-    public Puesto(Connection conexion, ResultSet credenciales) {
+    public BuscarPuesto(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
         puesto = new ConexionPuesto();
@@ -436,7 +437,7 @@ public class Puesto extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BuscarPuesto.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Busqueda",
                     JOptionPane.ERROR_MESSAGE);
@@ -470,7 +471,7 @@ public class Puesto extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BuscarPuesto.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Eliminar puesto",
                     JOptionPane.ERROR_MESSAGE);
@@ -502,7 +503,7 @@ public class Puesto extends javax.swing.JFrame {
                 limpiar();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Puesto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BuscarPuesto.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Guardar Puesto",
                     JOptionPane.ERROR_MESSAGE);
