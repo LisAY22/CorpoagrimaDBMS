@@ -52,4 +52,35 @@ public class ConexionProducto {
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
     }
+    
+    public boolean eliminar(Connection conexion, int id) throws SQLException{
+        String sql = "DELETE FROM Producto WHERE ID_Producto=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setInt(1, id);
+        // ejecutar la consulta
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
+    
+    public boolean actualizar(Connection conexion, String nombre, String descripcion, String marca, 
+            String fecha_vencimiento, String categoria, int cantidad, String unidad_medida, 
+            float precio_venta, int id) throws SQLException {
+            String sql = "UPDATE PRODUCTO SET Nombre=?, Descripcion=?, Marca=?, Fecha_Vencimiento=?, "
+                    + "Categoria=?, Stock=?, Unidad_Medida=?, Precio_Venta=? WHERE ID_Producto=?";
+            
+            PreparedStatement stmt = conexion.prepareStatement(sql);
+            stmt.setString(1, nombre);
+            stmt.setString(2, descripcion);
+            stmt.setString(3, marca);
+            stmt.setString(4, fecha_vencimiento);
+            stmt.setString(5, categoria);
+            stmt.setInt(6, cantidad);
+            stmt.setString(7, unidad_medida);
+            stmt.setFloat(8, precio_venta);
+            stmt.setInt(9, id);
+            
+        // ejecutar la consulta
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
 }

@@ -120,6 +120,11 @@ public class EditarProducto extends javax.swing.JFrame {
 
         Guardar_button.setText("Guardar");
         Guardar_button.setEnabled(false);
+        Guardar_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Guardar_buttonActionPerformed(evt);
+            }
+        });
 
         Eliminar_button1.setText("Eliminar");
         Eliminar_button1.setEnabled(false);
@@ -453,6 +458,25 @@ public class EditarProducto extends javax.swing.JFrame {
 
     private void Eliminar_button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_button1ActionPerformed
         // TODO add your handling code here:
+        int opcion = JOptionPane.showConfirmDialog(null,
+                    "¿Quieres continuar?\nSe eliminara el producto permanentemente",
+                    "Eliminar Producto", JOptionPane.YES_NO_OPTION);
+        // Comprobar la opción seleccionada
+        if (opcion == JOptionPane.YES_OPTION) {
+            try {
+                boolean resultSet = inventario.eliminar(conexion, id);
+                if (resultSet) {
+                    JOptionPane.showMessageDialog(this,
+                            "Se ha eliminado exitosamente el producto.",
+                            "Eliminar Producto", JOptionPane.INFORMATION_MESSAGE);
+                    desabilitar();
+                    limpiar();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(EditarProducto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+
     }//GEN-LAST:event_Eliminar_button1ActionPerformed
 
     private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
@@ -520,6 +544,32 @@ public class EditarProducto extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
+
+    private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
+        try {
+            // TODO add your handling code here:
+            String nombre = nombre_jTextField1.getText();
+            String marca = marca_jTextField2.getText();
+            String fechaVen = fechaV_jTextField3.getText();
+            int cantidad = Integer.parseInt(cantidad_jTextField4.getText());
+            String categoria =  categoria_jTextField2.getText();
+            String unidad_Med = unidadM_jTextField3.getText();
+            float precioVen = Float.parseFloat(precioV_jTextField4.getText());
+            String descripcion = descripcion_jTextField4.getText();
+            
+            boolean resultSet = inventario.actualizar(conexion, nombre, descripcion, marca, fechaVen, categoria, cantidad, unidad_Med, precioVen, id);
+            if (resultSet) {
+                JOptionPane.showMessageDialog(this,
+                        "Se ha actualizado exitosamente el producto.",
+                        "Guardar Puesto", JOptionPane.INFORMATION_MESSAGE);
+                desabilitar();
+                limpiar();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EditarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_Guardar_buttonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
