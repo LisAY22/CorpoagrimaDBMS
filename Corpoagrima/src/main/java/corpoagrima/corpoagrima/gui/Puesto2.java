@@ -306,10 +306,10 @@ public class Puesto2 extends javax.swing.JFrame {
             boolean moduloRegVenta = moduloVentaJCheckBox.isSelected();
             boolean moduloRegCompra = moduloCompraJCheckBox.isSelected();
             boolean moduloFinanciero = moduloFinancieroJCheckBox.isSelected();
-            boolean resultSet = puesto.actualizar(conexion, nombre, horario,
+            boolean resultSet = puesto.agregar(conexion, nombre, horario,
                     descripcion, salarioBase, moduloCliente, moduloRH,
                     moduloProveedores, moduloRegCompra, moduloRegVenta,
-                    moduloFinanciero, moduloInventario, id);
+                    moduloFinanciero, moduloInventario);
 
             if (resultSet) {
                 JOptionPane.showMessageDialog(this, "Se ha creado un nuevo "

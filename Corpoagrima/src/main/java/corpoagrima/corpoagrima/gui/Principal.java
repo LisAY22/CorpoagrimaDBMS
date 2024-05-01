@@ -77,9 +77,9 @@ public class Principal extends javax.swing.JFrame {
         inventarioJButton.setText("INVENTARIO");
         inventarioJButton.setToolTipText("");
         inventarioJButton.setPreferredSize(new java.awt.Dimension(100, 100));
-        inventarioJButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                inventarioJButtonMouseClicked(evt);
+        inventarioJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventarioJButtonActionPerformed(evt);
             }
         });
 
@@ -89,9 +89,9 @@ public class Principal extends javax.swing.JFrame {
         proveedoresJButton.setText("PROVEEDORES");
         proveedoresJButton.setToolTipText("");
         proveedoresJButton.setPreferredSize(new java.awt.Dimension(100, 100));
-        proveedoresJButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                proveedoresJButtonMouseClicked(evt);
+        proveedoresJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proveedoresJButtonActionPerformed(evt);
             }
         });
 
@@ -108,9 +108,9 @@ public class Principal extends javax.swing.JFrame {
         clientesJButton.setText("CLIENTES");
         clientesJButton.setToolTipText("");
         clientesJButton.setPreferredSize(new java.awt.Dimension(100, 100));
-        clientesJButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                clientesJButtonMouseClicked(evt);
+        clientesJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clientesJButtonActionPerformed(evt);
             }
         });
 
@@ -231,16 +231,6 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void inventarioJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inventarioJButtonMouseClicked
-        // TODO add your handling code here:
-        Inventario inventario_screen = new Inventario(conexion, credenciales);
-        inventario_screen.setVisible(true);
-        inventario_screen.setLocationRelativeTo(null);
-        
-        // Cerrar la ventana actual
-        dispose();
-    }//GEN-LAST:event_inventarioJButtonMouseClicked
-
     private void regresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarJButtonMouseClicked
         // TODO add your handling code here:
         Login login_screen = new Login();
@@ -250,16 +240,6 @@ public class Principal extends javax.swing.JFrame {
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_regresarJButtonMouseClicked
-
-    private void clientesJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientesJButtonMouseClicked
-        // TODO add your handling code here:
-        Clientes clientes_screen = new Clientes(conexion, credenciales);
-        clientes_screen.setVisible(true);
-        clientes_screen.setLocationRelativeTo(null);
-        
-        // Cerrar la ventana actual
-        dispose();
-    }//GEN-LAST:event_clientesJButtonMouseClicked
 
     private void rhJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rhJButtonActionPerformed
         try {
@@ -271,19 +251,33 @@ public class Principal extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_rhJButtonActionPerformed
 
-    private void proveedoresJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_proveedoresJButtonMouseClicked
-        // TODO add your handling code here:
-        Proveedores proveedores_screen = new Proveedores(conexion, credenciales);
-        proveedores_screen.setVisible(true);
-        proveedores_screen.setLocationRelativeTo(null);
-        
-        // Cerrar la ventana actual
-        dispose();
-    }//GEN-LAST:event_proveedoresJButtonMouseClicked
-
     private void regresarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarJButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_regresarJButtonActionPerformed
+
+    private void inventarioJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventarioJButtonActionPerformed
+        // TODO add your handling code here:
+        Inventario inventario_screen = new Inventario(conexion, credenciales);
+        inventario_screen.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_inventarioJButtonActionPerformed
+
+    private void clientesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesJButtonActionPerformed
+        // TODO add your handling code here:
+        Clientes clientes_screen = new Clientes(conexion, credenciales);
+        clientes_screen.setVisible(true);        
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_clientesJButtonActionPerformed
+
+    private void proveedoresJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proveedoresJButtonActionPerformed
+        // TODO add your handling code here:
+        Proveedores proveedores_screen = new Proveedores(conexion, credenciales);
+        proveedores_screen.setVisible(true);
+        
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_proveedoresJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clientesJButton;

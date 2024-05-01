@@ -115,7 +115,7 @@
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
       </AccessibilityProperties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="inventarioJButtonMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inventarioJButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="proveedoresJButton">
@@ -136,7 +136,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="proveedoresJButtonMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="proveedoresJButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="finanzasJButton">
@@ -175,7 +175,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="clientesJButtonMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clientesJButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ventasJButton">
