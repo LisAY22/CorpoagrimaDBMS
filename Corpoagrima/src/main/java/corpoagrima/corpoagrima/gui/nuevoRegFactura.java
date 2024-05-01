@@ -31,8 +31,8 @@ public class nuevoRegFactura extends javax.swing.JFrame {
         Actualizar_Bn = new javax.swing.JButton();
         Regresar_Bn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        ApellidoLabel = new javax.swing.JLabel();
-        IDlabel = new javax.swing.JLabel();
+        FechaLabel = new javax.swing.JLabel();
+        FacturaLabel = new javax.swing.JLabel();
         Apellido_textfield = new javax.swing.JTextField();
         Direccion_textfield = new javax.swing.JTextField();
         CantidadComprasLabel = new javax.swing.JLabel();
@@ -40,18 +40,17 @@ public class nuevoRegFactura extends javax.swing.JFrame {
         CorreoLabel = new javax.swing.JLabel();
         Correo_textfield = new javax.swing.JTextField();
         DireccionLabel = new javax.swing.JLabel();
-        NombreLabel = new javax.swing.JLabel();
+        ProveedorLabel = new javax.swing.JLabel();
         ID_textfield = new javax.swing.JTextField();
         Destacado_checkBox = new javax.swing.JCheckBox();
-        Puesto_comboBox = new javax.swing.JComboBox<>();
+        Proveedor_comboBox = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        NuevoBn = new javax.swing.JButton();
+        AgregarBn = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         Limpiar_button = new javax.swing.JButton();
         Guardar_button = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,11 +109,11 @@ public class nuevoRegFactura extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        ApellidoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ApellidoLabel.setText("Fecha");
+        FechaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FechaLabel.setText("Fecha");
 
-        IDlabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        IDlabel.setText("No. Factura");
+        FacturaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FacturaLabel.setText("No. Factura");
 
         Apellido_textfield.setEditable(true);
         Apellido_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -152,8 +151,8 @@ public class nuevoRegFactura extends javax.swing.JFrame {
         DireccionLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         DireccionLabel.setText("Teléfono");
 
-        NombreLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        NombreLabel.setText("Proveedor");
+        ProveedorLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        ProveedorLabel.setText("Proveedor");
 
         ID_textfield.setEditable(true
         );
@@ -173,15 +172,15 @@ public class nuevoRegFactura extends javax.swing.JFrame {
             }
         });
 
-        Puesto_comboBox.setEnabled(true);
-        Puesto_comboBox.addItemListener(new java.awt.event.ItemListener() {
+        Proveedor_comboBox.setEnabled(true);
+        Proveedor_comboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                Puesto_comboBoxItemStateChanged(evt);
+                Proveedor_comboBoxItemStateChanged(evt);
             }
         });
-        Puesto_comboBox.addActionListener(new java.awt.event.ActionListener() {
+        Proveedor_comboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Puesto_comboBoxActionPerformed(evt);
+                Proveedor_comboBoxActionPerformed(evt);
             }
         });
 
@@ -194,12 +193,12 @@ public class nuevoRegFactura extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(NombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ApellidoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ProveedorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FechaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(Puesto_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Proveedor_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(Apellido_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -207,7 +206,7 @@ public class nuevoRegFactura extends javax.swing.JFrame {
                                 .addComponent(Destacado_checkBox)
                                 .addGap(149, 149, 149))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(IDlabel)
+                        .addComponent(FacturaLabel)
                         .addGap(18, 18, 18)
                         .addComponent(ID_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -241,7 +240,7 @@ public class nuevoRegFactura extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(IDlabel)
+                    .addComponent(FacturaLabel)
                     .addComponent(CorreoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Correo_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ID_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -250,11 +249,11 @@ public class nuevoRegFactura extends javax.swing.JFrame {
                     .addComponent(Destacado_checkBox, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Apellido_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ApellidoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(FechaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Puesto_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ProveedorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Proveedor_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -280,13 +279,13 @@ public class nuevoRegFactura extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Agregar");
+        jLabel2.setText("AGREGAR");
 
-        NuevoBn.setBackground(new java.awt.Color(136, 213, 133));
-        NuevoBn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
-        NuevoBn.addMouseListener(new java.awt.event.MouseAdapter() {
+        AgregarBn.setBackground(new java.awt.Color(136, 213, 133));
+        AgregarBn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agregar.png"))); // NOI18N
+        AgregarBn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NuevoBnMouseClicked(evt);
+                AgregarBnMouseClicked(evt);
             }
         });
 
@@ -327,9 +326,6 @@ public class nuevoRegFactura extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("producto");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -344,14 +340,14 @@ public class nuevoRegFactura extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(NuevoBn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(32, 32, 32))))
+                                .addGap(42, 42, 42)
+                                .addComponent(AgregarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel2)))
+                        .addGap(33, 33, 33))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,12 +360,10 @@ public class nuevoRegFactura extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
+                        .addGap(101, 101, 101)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(NuevoBn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(AgregarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(26, 26, 26)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(17, 17, 17))
@@ -390,18 +384,6 @@ public class nuevoRegFactura extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Regresar_BnActionPerformed
 
-    private void Puesto_comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Puesto_comboBoxActionPerformed
-
-    }//GEN-LAST:event_Puesto_comboBoxActionPerformed
-
-    private void Puesto_comboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Puesto_comboBoxItemStateChanged
-
-    }//GEN-LAST:event_Puesto_comboBoxItemStateChanged
-
-    private void Destacado_checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Destacado_checkBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Destacado_checkBoxActionPerformed
-
     private void ID_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ID_textfieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ID_textfieldActionPerformed
@@ -418,9 +400,9 @@ public class nuevoRegFactura extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Direccion_textfieldActionPerformed
 
-    private void NuevoBnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NuevoBnMouseClicked
+    private void AgregarBnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarBnMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_NuevoBnMouseClicked
+    }//GEN-LAST:event_AgregarBnMouseClicked
 
     private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
         // TODO add your handling code here:
@@ -430,10 +412,22 @@ public class nuevoRegFactura extends javax.swing.JFrame {
 
     }//GEN-LAST:event_Guardar_buttonActionPerformed
 
+    private void Destacado_checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Destacado_checkBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Destacado_checkBoxActionPerformed
+
+    private void Proveedor_comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Proveedor_comboBoxActionPerformed
+
+    }//GEN-LAST:event_Proveedor_comboBoxActionPerformed
+
+    private void Proveedor_comboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Proveedor_comboBoxItemStateChanged
+
+    }//GEN-LAST:event_Proveedor_comboBoxItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Actualizar_Bn;
-    private javax.swing.JLabel ApellidoLabel;
+    private javax.swing.JButton AgregarBn;
     private javax.swing.JTextField Apellido_textfield;
     private javax.swing.JLabel CantidadComprasLabel;
     private javax.swing.JTextField Cantidadcompras_textfield;
@@ -442,17 +436,16 @@ public class nuevoRegFactura extends javax.swing.JFrame {
     private javax.swing.JCheckBox Destacado_checkBox;
     private javax.swing.JLabel DireccionLabel;
     private javax.swing.JTextField Direccion_textfield;
+    private javax.swing.JLabel FacturaLabel;
+    private javax.swing.JLabel FechaLabel;
     private javax.swing.JButton Guardar_button;
     private javax.swing.JTextField ID_textfield;
-    private javax.swing.JLabel IDlabel;
     private javax.swing.JButton Limpiar_button;
-    private javax.swing.JLabel NombreLabel;
-    private javax.swing.JButton NuevoBn;
-    private javax.swing.JComboBox<String> Puesto_comboBox;
+    private javax.swing.JLabel ProveedorLabel;
+    private javax.swing.JComboBox<String> Proveedor_comboBox;
     private javax.swing.JButton Regresar_Bn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
