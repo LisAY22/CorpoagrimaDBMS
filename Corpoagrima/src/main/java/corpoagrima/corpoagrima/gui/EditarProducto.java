@@ -8,12 +8,12 @@ package corpoagrima.corpoagrima.gui;
  *
  * @author lisaj
  */
-public class NuevoProducto extends javax.swing.JFrame {
+public class EditarProducto extends javax.swing.JFrame {
 
     /**
-     * Creates new form NuevoProducto
+     * Creates new form EditarProducto
      */
-    public NuevoProducto() {
+    public EditarProducto() {
         initComponents();
     }
 
@@ -54,7 +54,7 @@ public class NuevoProducto extends javax.swing.JFrame {
 
         EditarLabel.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         EditarLabel.setForeground(new java.awt.Color(255, 255, 255));
-        EditarLabel.setText("NUEVO PRODUCTO");
+        EditarLabel.setText("EDITAR PRODUCTO");
 
         Regresar_Bn.setBackground(new java.awt.Color(34, 85, 34));
         Regresar_Bn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -71,7 +71,7 @@ public class NuevoProducto extends javax.swing.JFrame {
                 .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(136, 136, 136)
                 .addComponent(EditarLabel)
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,13 +80,13 @@ public class NuevoProducto extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(EditarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                .addGap(218, 218, 218))
         );
 
-        Limpiar_button.setText("Limpiar");
+        Limpiar_button.setText("Reset");
         Limpiar_button.setEnabled(true);
 
-        Guardar_button.setText("Guardar");
+        Guardar_button.setText("Actualizar");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -256,15 +256,16 @@ public class NuevoProducto extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -302,6 +303,7 @@ public class NuevoProducto extends javax.swing.JFrame {
     private void cantidad_jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidad_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cantidad_jTextField4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel EditarLabel;

@@ -24,20 +24,21 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel1" max="32767" attributes="0"/>
-          <Component id="jPanel4" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel2" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Component id="jPanel4" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
+          <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" pref="70" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -60,7 +61,7 @@
                   <Component id="Regresar_Bn" min="-2" pref="67" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
                   <Component id="EditarLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="203" max="32767" attributes="0"/>
+                  <EmptySpace pref="198" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -72,7 +73,7 @@
                       <Component id="Regresar_Bn" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="EditarLabel" alignment="3" min="-2" pref="62" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="218" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -86,7 +87,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="NUEVO PRODUCTO"/>
+            <Property name="text" type="java.lang.String" value="EDITAR PRODUCTO"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="Regresar_Bn">
@@ -136,7 +137,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="Limpiar_button">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Limpiar"/>
+            <Property name="text" type="java.lang.String" value="Reset"/>
             <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="true" type="code"/>
             </Property>
@@ -144,7 +145,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="Guardar_button">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Guardar"/>
+            <Property name="text" type="java.lang.String" value="Actualizar"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -157,33 +158,33 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Component id="cantidad_jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Component id="cantidad_jTextField4" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="fechaV_jLabel2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="fechaV_jTextField3" min="-2" pref="100" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="precioV_jLabel4" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="nombre_jLabel1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="marca_jLabel2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="nombre_jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="marca_jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Component id="marca_jTextField2" min="-2" pref="100" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="unidadM_jLabel3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Component id="nombre_jTextField1" min="-2" pref="100" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
                                           <Component id="categoria_jLabel2" min="-2" max="-2" attributes="0"/>
@@ -193,9 +194,9 @@
                           </Group>
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="categoria_jTextField2" min="-2" pref="100" max="-2" attributes="0"/>
-                              <Component id="unidadM_jTextField3" min="-2" pref="100" max="-2" attributes="0"/>
-                              <Component id="precioV_jTextField4" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="categoria_jTextField2" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="unidadM_jTextField3" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="precioV_jTextField4" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -216,7 +217,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="unidadM_jTextField3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="marca_jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="marca_jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="unidadM_jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -224,8 +225,8 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="fechaV_jLabel2" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="fechaV_jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="fechaV_jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="precioV_jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="precioV_jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>

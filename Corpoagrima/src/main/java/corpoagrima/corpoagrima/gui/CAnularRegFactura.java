@@ -56,7 +56,7 @@ public class CAnularRegFactura extends javax.swing.JFrame {
 
         EditarLabel.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         EditarLabel.setForeground(new java.awt.Color(255, 255, 255));
-        EditarLabel.setText("ANULAR FACTURA");
+        EditarLabel.setText("ANULAR REGISTRO FACTURA");
 
         Regresar_Bn.setBackground(new java.awt.Color(34, 85, 34));
         Regresar_Bn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -71,7 +71,7 @@ public class CAnularRegFactura extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(136, 136, 136)
+                .addGap(75, 75, 75)
                 .addComponent(EditarLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
