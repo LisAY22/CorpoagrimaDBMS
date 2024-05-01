@@ -366,7 +366,7 @@ public class Proveedores extends javax.swing.JFrame {
 
     private void Nuevo_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Nuevo_BnMouseClicked
         // TODO add your handling code here:
-        Proveedores3 proveedores3_screen = new Proveedores3(conexion, credenciales);
+        NuevoProveedore proveedores3_screen = new NuevoProveedore(conexion, credenciales);
         proveedores3_screen.setVisible(true);
         proveedores3_screen.setLocationRelativeTo(null);
         

@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author lisaj
  */
-public class Empleado2 extends javax.swing.JFrame {
+public class CrearEmpleado extends javax.swing.JFrame {
     
     private Connection conexion;
     private ResultSet credenciales;
@@ -38,7 +38,7 @@ public class Empleado2 extends javax.swing.JFrame {
      * Creates new form Empleado2
      * @param conexion
      */
-    public Empleado2(Connection conexion, ResultSet credenciales) {
+    public CrearEmpleado(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
         Empleado = new ConexionEmpleado();
@@ -51,7 +51,7 @@ public class Empleado2 extends javax.swing.JFrame {
         try {
             sueldoBase(nombre);
         } catch (SQLException ex) {
-            Logger.getLogger(Empleado2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrearEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -506,7 +506,7 @@ public class Empleado2 extends javax.swing.JFrame {
                     String nombre = (String) Puesto_comboBox.getSelectedItem();
                     sueldoBase(nombre);
                 } catch (SQLException ex) {
-                    Logger.getLogger(Empleado2.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CrearEmpleado.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -586,7 +586,7 @@ public class Empleado2 extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Empleado2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrearEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Nuevo Empleado",
                     JOptionPane.ERROR_MESSAGE);
@@ -608,7 +608,7 @@ public class Empleado2 extends javax.swing.JFrame {
             RRHH rh_window = new RRHH(conexion, credenciales);
             rh_window.setVisible(true);
         } catch (SQLException ex) {
-            Logger.getLogger(Empleado2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrearEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();
     }//GEN-LAST:event_back_ButtonMouseClicked

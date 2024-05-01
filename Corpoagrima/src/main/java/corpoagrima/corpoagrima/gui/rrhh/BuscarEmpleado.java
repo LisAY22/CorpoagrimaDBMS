@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  * @author User
  * @author lisaj
  */
-public final class Empleado extends javax.swing.JFrame {
+public final class BuscarEmpleado extends javax.swing.JFrame {
 
     private Connection conexion;
     private ResultSet credenciales;
@@ -40,7 +40,7 @@ public final class Empleado extends javax.swing.JFrame {
      * /**
      * Creates new form Empleado
      */
-    public Empleado(Connection conexion, ResultSet credenciales) {
+    public BuscarEmpleado(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
         Empleado = new ConexionEmpleado();
@@ -53,7 +53,7 @@ public final class Empleado extends javax.swing.JFrame {
         try {
             sueldoBase(nombre);
         } catch (SQLException ex) {
-            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BuscarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -114,7 +114,7 @@ public final class Empleado extends javax.swing.JFrame {
         AjusteSueldo_textfield.setText("");
     }
 
-    private Empleado() {
+    private BuscarEmpleado() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -585,7 +585,7 @@ public final class Empleado extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BuscarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Eliminar empleado",
                     JOptionPane.ERROR_MESSAGE);
@@ -815,7 +815,7 @@ public final class Empleado extends javax.swing.JFrame {
                 reset();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BuscarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Guardar Emplrado",
                     JOptionPane.ERROR_MESSAGE);
@@ -829,7 +829,7 @@ public final class Empleado extends javax.swing.JFrame {
                     String nombre = (String) Puesto_comboBox.getSelectedItem();
                     sueldoBase(nombre);
                 } catch (SQLException ex) {
-                    Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(BuscarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -842,7 +842,7 @@ public final class Empleado extends javax.swing.JFrame {
             RRHH rh_window = new RRHH(conexion, credenciales);
             rh_window.setVisible(true);
         } catch (SQLException ex) {
-            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BuscarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();
     }//GEN-LAST:event_back_ButtonMouseClicked

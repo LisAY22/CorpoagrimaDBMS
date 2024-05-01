@@ -470,7 +470,7 @@ public class RRHH extends javax.swing.JFrame {
 
     private void jButtonEDEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEDEMouseClicked
         // TODO add your handling code here:
-        Empleado empleadoed_screen = new Empleado(conexion, credenciales);
+        BuscarEmpleado empleadoed_screen = new BuscarEmpleado(conexion, credenciales);
         empleadoed_screen.setVisible(true);
         empleadoed_screen.setLocationRelativeTo(null);
 
@@ -480,7 +480,7 @@ public class RRHH extends javax.swing.JFrame {
 
     private void jButtonNEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNEMouseClicked
         // TODO add your handling code here:
-        Empleado2 empleadon_screen = new Empleado2(conexion, credenciales);
+        CrearEmpleado empleadon_screen = new CrearEmpleado(conexion, credenciales);
         empleadon_screen.setVisible(true);
         empleadon_screen.setLocationRelativeTo(null);
 
