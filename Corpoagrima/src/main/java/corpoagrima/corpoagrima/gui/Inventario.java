@@ -66,7 +66,7 @@ public class Inventario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        nuevojButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inventario");
@@ -227,9 +227,19 @@ public class Inventario extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(136, 213, 133));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
         jButton1.setToolTipText("");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setBackground(new java.awt.Color(136, 213, 133));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
+        nuevojButton2.setBackground(new java.awt.Color(136, 213, 133));
+        nuevojButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
+        nuevojButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevojButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -244,7 +254,7 @@ public class Inventario extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(nuevojButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -265,7 +275,7 @@ public class Inventario extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(nuevojButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         pack();
@@ -352,6 +362,22 @@ public class Inventario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buscarJButtonMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        EditarProducto screen_edit_product = new EditarProducto(conexion, credenciales);
+        screen_edit_product.setVisible(true);
+        
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void nuevojButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevojButton2ActionPerformed
+        // TODO add your handling code here:
+        NuevoProducto screen_new_product = new NuevoProducto(conexion, credenciales);
+        screen_new_product.setVisible(true);
+        
+        dispose();
+    }//GEN-LAST:event_nuevojButton2ActionPerformed
+
 
     private void actualizarTabla() {
         try {
@@ -393,10 +419,10 @@ public class Inventario extends javax.swing.JFrame {
     private javax.swing.JTable datosJTable;
     private javax.swing.JLabel inventarioJLabel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton nuevojButton2;
     private javax.swing.JButton ordenarJButton;
     private javax.swing.JButton regresarJButton;
     // End of variables declaration//GEN-END:variables
