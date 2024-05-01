@@ -32,6 +32,7 @@ public class EditarProducto extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         Limpiar_button = new javax.swing.JButton();
         Guardar_button = new javax.swing.JButton();
+        Eliminar_button1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         nombre_jLabel1 = new javax.swing.JLabel();
         nombre_jTextField1 = new javax.swing.JTextField();
@@ -47,6 +48,9 @@ public class EditarProducto extends javax.swing.JFrame {
         precioV_jTextField4 = new javax.swing.JTextField();
         cantidad_jLabel3 = new javax.swing.JLabel();
         cantidad_jTextField4 = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        Buscar_textField = new javax.swing.JTextField();
+        Buscar_Button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,10 +87,24 @@ public class EditarProducto extends javax.swing.JFrame {
                 .addGap(218, 218, 218))
         );
 
-        Limpiar_button.setText("Reset");
-        Limpiar_button.setEnabled(true);
+        Limpiar_button.setText("Limpiar");
+        Limpiar_button.setEnabled(false);
+        Limpiar_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Limpiar_buttonActionPerformed(evt);
+            }
+        });
 
-        Guardar_button.setText("Actualizar");
+        Guardar_button.setText("Guardar");
+        Guardar_button.setEnabled(false);
+
+        Eliminar_button1.setText("Eliminar");
+        Eliminar_button1.setEnabled(false);
+        Eliminar_button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Eliminar_button1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -94,6 +112,8 @@ public class EditarProducto extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Eliminar_button1)
+                .addGap(18, 18, 18)
                 .addComponent(Limpiar_button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Guardar_button)
@@ -105,13 +125,15 @@ public class EditarProducto extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Guardar_button)
-                    .addComponent(Limpiar_button))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Limpiar_button)
+                    .addComponent(Eliminar_button1))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         nombre_jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         nombre_jLabel1.setText("Nombre");
 
+        nombre_jTextField1.setEditable(false);
         nombre_jTextField1.setToolTipText("");
         nombre_jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,6 +144,7 @@ public class EditarProducto extends javax.swing.JFrame {
         marca_jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         marca_jLabel2.setText("Marca");
 
+        marca_jTextField2.setEditable(false);
         marca_jTextField2.setToolTipText("");
         marca_jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,6 +155,7 @@ public class EditarProducto extends javax.swing.JFrame {
         fechaV_jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         fechaV_jLabel2.setText("Fecha de Vencimiento");
 
+        fechaV_jTextField3.setEditable(false);
         fechaV_jTextField3.setToolTipText("");
         fechaV_jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,6 +166,7 @@ public class EditarProducto extends javax.swing.JFrame {
         categoria_jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         categoria_jLabel2.setText("Categoria");
 
+        categoria_jTextField2.setEditable(false);
         categoria_jTextField2.setToolTipText("");
         categoria_jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,6 +177,7 @@ public class EditarProducto extends javax.swing.JFrame {
         unidadM_jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         unidadM_jLabel3.setText("Unidad de Medida");
 
+        unidadM_jTextField3.setEditable(false);
         unidadM_jTextField3.setToolTipText("");
         unidadM_jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,6 +188,7 @@ public class EditarProducto extends javax.swing.JFrame {
         precioV_jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         precioV_jLabel4.setText("Precio de Venta");
 
+        precioV_jTextField4.setEditable(false);
         precioV_jTextField4.setText("0");
         precioV_jTextField4.setToolTipText("");
         precioV_jTextField4.addActionListener(new java.awt.event.ActionListener() {
@@ -173,6 +200,7 @@ public class EditarProducto extends javax.swing.JFrame {
         cantidad_jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cantidad_jLabel3.setText("Cantidad");
 
+        cantidad_jTextField4.setEditable(false);
         cantidad_jTextField4.setText("0");
         cantidad_jTextField4.setToolTipText("");
         cantidad_jTextField4.addActionListener(new java.awt.event.ActionListener() {
@@ -251,6 +279,32 @@ public class EditarProducto extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
+        Buscar_textField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        Buscar_Button.setBackground(new java.awt.Color(136, 213, 133));
+        Buscar_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(Buscar_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Buscar_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -261,11 +315,14 @@ public class EditarProducto extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -304,9 +361,20 @@ public class EditarProducto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cantidad_jTextField4ActionPerformed
 
+    private void Eliminar_button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_button1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Eliminar_button1ActionPerformed
+
+    private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Limpiar_buttonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Buscar_Button;
+    private javax.swing.JTextField Buscar_textField;
     private javax.swing.JLabel EditarLabel;
+    private javax.swing.JButton Eliminar_button1;
     private javax.swing.JButton Guardar_button;
     private javax.swing.JButton Limpiar_button;
     private javax.swing.JButton Regresar_Bn;
@@ -318,6 +386,7 @@ public class EditarProducto extends javax.swing.JFrame {
     private javax.swing.JTextField fechaV_jTextField3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel marca_jLabel2;
     private javax.swing.JTextField marca_jTextField2;

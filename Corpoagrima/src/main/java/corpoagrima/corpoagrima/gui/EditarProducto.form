@@ -30,12 +30,15 @@
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+          <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel1" min="-2" pref="70" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -114,6 +117,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="Eliminar_button1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="Limpiar_button" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="Guardar_button" min="-2" max="-2" attributes="0"/>
@@ -128,8 +133,9 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Guardar_button" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="Limpiar_button" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Eliminar_button1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -137,16 +143,27 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="Limpiar_button">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Reset"/>
-            <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="true" type="code"/>
-            </Property>
+            <Property name="text" type="java.lang.String" value="Limpiar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Limpiar_buttonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="Guardar_button">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Actualizar"/>
+            <Property name="text" type="java.lang.String" value="Guardar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="Eliminar_button1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Eliminar"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Eliminar_button1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -253,6 +270,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="nombre_jTextField1">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
@@ -269,6 +287,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="marca_jTextField2">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
@@ -285,6 +304,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="fechaV_jTextField3">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
@@ -301,6 +321,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="categoria_jTextField2">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
@@ -320,6 +341,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="unidadM_jTextField3">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
@@ -339,6 +361,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="precioV_jTextField4">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="0"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
@@ -359,12 +382,60 @@
         </Component>
         <Component class="javax.swing.JTextField" name="cantidad_jTextField4">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="0"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cantidad_jTextField4ActionPerformed"/>
           </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel3">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                  <Component id="Buscar_Button" min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="Buscar_textField" min="-2" pref="187" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="Buscar_Button" alignment="0" pref="31" max="32767" attributes="0"/>
+                      <Component id="Buscar_textField" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JTextField" name="Buscar_textField">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="Buscar_Button">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="85" green="d5" red="88" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/lupa.png"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
