@@ -44,6 +44,7 @@ public class Clientes3 extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         EditarLabel = new javax.swing.JLabel();
+        Regresar_Bn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         NITLabel = new javax.swing.JLabel();
         ApellidoLabel = new javax.swing.JLabel();
@@ -61,12 +62,10 @@ public class Clientes3 extends javax.swing.JFrame {
         ID_textfield = new javax.swing.JTextField();
         Destacado_checkBox = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
-        Cancel_button = new javax.swing.JButton();
         Limpiar_button = new javax.swing.JButton();
         Guardar_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(833, 425));
 
         jPanel1.setBackground(new java.awt.Color(34, 85, 34));
 
@@ -74,20 +73,40 @@ public class Clientes3 extends javax.swing.JFrame {
         EditarLabel.setForeground(new java.awt.Color(255, 255, 255));
         EditarLabel.setText("NUEVO CLIENTE");
 
+        Regresar_Bn.setBackground(new java.awt.Color(34, 85, 34));
+        Regresar_Bn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        Regresar_Bn.setForeground(new java.awt.Color(255, 255, 255));
+        Regresar_Bn.setText("←");
+        Regresar_Bn.setBorderPainted(false);
+        Regresar_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Regresar_BnMouseClicked(evt);
+            }
+        });
+        Regresar_Bn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Regresar_BnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(270, 270, 270)
+                .addGap(49, 49, 49)
+                .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(154, 154, 154)
                 .addComponent(EditarLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(356, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(EditarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EditarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -253,13 +272,6 @@ public class Clientes3 extends javax.swing.JFrame {
                         .addContainerGap())))
         );
 
-        Cancel_button.setText("Cancelar");
-        Cancel_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cancel_buttonActionPerformed(evt);
-            }
-        });
-
         Limpiar_button.setText("Limpiar");
         Limpiar_button.setEnabled(true);
         Limpiar_button.addActionListener(new java.awt.event.ActionListener() {
@@ -283,11 +295,9 @@ public class Clientes3 extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Limpiar_button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(Guardar_button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Cancel_button)
-                .addGap(65, 65, 65))
+                .addGap(38, 38, 38))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,8 +305,7 @@ public class Clientes3 extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Limpiar_button)
-                    .addComponent(Guardar_button)
-                    .addComponent(Cancel_button))
+                    .addComponent(Guardar_button))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -360,14 +369,6 @@ public class Clientes3 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Destacado_checkBoxActionPerformed
 
-    private void Cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_buttonActionPerformed
-        // TODO add your handling code here:
-        Clientes clientes_screen = new Clientes(conexion, credenciales);
-        clientes_screen.setVisible(true);
-        clientes_screen.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_Cancel_buttonActionPerformed
-
     private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
         // TODO add your handling code here:
         limpiar();
@@ -408,10 +409,22 @@ public class Clientes3 extends javax.swing.JFrame {
             } 
     }//GEN-LAST:event_Guardar_buttonActionPerformed
 
+    private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
+        // TODO add your handling code here:
+        Clientes principal_screen = new Clientes(conexion, credenciales);
+        principal_screen.setVisible(true);
+        principal_screen.setLocationRelativeTo(null);
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_Regresar_BnMouseClicked
+
+    private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Regresar_BnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApellidoLabel;
     private javax.swing.JTextField Apellido_textfield;
-    private javax.swing.JButton Cancel_button;
     private javax.swing.JLabel CantidadComprasLabel;
     private javax.swing.JTextField Cantidadcompras_textfield;
     private javax.swing.JLabel CorreoLabel;
@@ -428,6 +441,7 @@ public class Clientes3 extends javax.swing.JFrame {
     private javax.swing.JTextField NIT_textfield;
     private javax.swing.JLabel NombreLabel;
     private javax.swing.JTextField Nombre_textfield;
+    private javax.swing.JButton Regresar_Bn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

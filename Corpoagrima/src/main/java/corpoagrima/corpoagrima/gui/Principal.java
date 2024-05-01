@@ -274,7 +274,6 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         Proveedores proveedores_screen = new Proveedores(conexion, credenciales);
         proveedores_screen.setVisible(true);
-        
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_proveedoresJButtonActionPerformed

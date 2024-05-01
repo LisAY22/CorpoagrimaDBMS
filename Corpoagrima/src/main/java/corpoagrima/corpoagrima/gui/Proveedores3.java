@@ -27,7 +27,7 @@ public class Proveedores3 extends javax.swing.JFrame {
     /**
      * Creates new form Proveedores3
      */
-    public Proveedores3(Connection conexion) {
+    public Proveedores3(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
         proveedores = new ConexionProveedores();
@@ -54,6 +54,7 @@ public class Proveedores3 extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         EditarLabel = new javax.swing.JLabel();
+        Regresar_Bn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         NITLabel = new javax.swing.JLabel();
         ApellidoLabel = new javax.swing.JLabel();
@@ -68,7 +69,6 @@ public class Proveedores3 extends javax.swing.JFrame {
         NombreLabel = new javax.swing.JLabel();
         ID_textfield = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        Cancel_button = new javax.swing.JButton();
         Limpiar_button = new javax.swing.JButton();
         Guardar_button = new javax.swing.JButton();
 
@@ -81,20 +81,35 @@ public class Proveedores3 extends javax.swing.JFrame {
         EditarLabel.setForeground(new java.awt.Color(255, 255, 255));
         EditarLabel.setText("NUEVO PROVEEDOR");
 
+        Regresar_Bn.setBackground(new java.awt.Color(34, 85, 34));
+        Regresar_Bn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        Regresar_Bn.setForeground(new java.awt.Color(255, 255, 255));
+        Regresar_Bn.setText("←");
+        Regresar_Bn.setBorderPainted(false);
+        Regresar_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Regresar_BnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(278, 278, 278)
+                .addGap(44, 44, 44)
+                .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(167, 167, 167)
                 .addComponent(EditarLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(331, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
-                .addComponent(EditarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EditarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
 
@@ -221,13 +236,6 @@ public class Proveedores3 extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        Cancel_button.setText("Cancelar");
-        Cancel_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cancel_buttonActionPerformed(evt);
-            }
-        });
-
         Limpiar_button.setText("Limpiar");
         Limpiar_button.setEnabled(true);
         Limpiar_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -251,21 +259,18 @@ public class Proveedores3 extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Limpiar_button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(Guardar_button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Cancel_button)
-                .addContainerGap())
+                .addGap(21, 21, 21))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Limpiar_button)
                     .addComponent(Guardar_button)
-                    .addComponent(Cancel_button))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Limpiar_button))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -310,14 +315,6 @@ public class Proveedores3 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ID_textfieldActionPerformed
 
-    private void Cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_buttonActionPerformed
-        // TODO add your handling code here:
-        Proveedores proveedores_screen = new Proveedores(conexion, credenciales);
-        proveedores_screen.setVisible(true);
-        proveedores_screen.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_Cancel_buttonActionPerformed
-
     private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
         try {
                 id = Integer.parseInt(ID_textfield.getText());
@@ -354,9 +351,16 @@ public class Proveedores3 extends javax.swing.JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_Limpiar_buttonMouseClicked
 
+    private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
+        Proveedores proveedores_screen = new Proveedores(conexion, credenciales);
+        proveedores_screen.setVisible(true);
+
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_Regresar_BnMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApellidoLabel;
-    private javax.swing.JButton Cancel_button;
     private javax.swing.JLabel CorreoLabel;
     private javax.swing.JTextField Correo_textfield;
     private javax.swing.JLabel DireccionLabel;
@@ -371,6 +375,7 @@ public class Proveedores3 extends javax.swing.JFrame {
     private javax.swing.JTextField NIT_textfield;
     private javax.swing.JLabel NombreLabel;
     private javax.swing.JTextField Nombre_textfield;
+    private javax.swing.JButton Regresar_Bn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;

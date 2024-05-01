@@ -79,6 +79,7 @@ public class Clientes2 extends javax.swing.JFrame{
         jLabel8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         EditarLabel = new javax.swing.JLabel();
+        Regresar_Bn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         Buscar_textField = new javax.swing.JTextField();
         Buscar_Button = new javax.swing.JButton();
@@ -99,7 +100,6 @@ public class Clientes2 extends javax.swing.JFrame{
         ID_textfield = new javax.swing.JTextField();
         Destacado_checkBox = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
-        Cancel_button = new javax.swing.JButton();
         Limpiar_button = new javax.swing.JButton();
         Guardar_button = new javax.swing.JButton();
         Eliminar_button = new javax.swing.JButton();
@@ -117,21 +117,41 @@ public class Clientes2 extends javax.swing.JFrame{
         EditarLabel.setForeground(new java.awt.Color(255, 255, 255));
         EditarLabel.setText("EDITAR CLIENTE");
 
+        Regresar_Bn.setBackground(new java.awt.Color(34, 85, 34));
+        Regresar_Bn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        Regresar_Bn.setForeground(new java.awt.Color(255, 255, 255));
+        Regresar_Bn.setText("←");
+        Regresar_Bn.setBorderPainted(false);
+        Regresar_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Regresar_BnMouseClicked(evt);
+            }
+        });
+        Regresar_Bn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Regresar_BnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(287, 287, 287)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(168, 168, 168)
                 .addComponent(EditarLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addComponent(EditarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EditarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
         );
 
         Buscar_textField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -331,13 +351,6 @@ public class Clientes2 extends javax.swing.JFrame{
                         .addContainerGap())))
         );
 
-        Cancel_button.setText("Cancelar");
-        Cancel_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cancel_buttonActionPerformed(evt);
-            }
-        });
-
         Limpiar_button.setText("Limpiar");
         Limpiar_button.setEnabled(false);
         Limpiar_button.addActionListener(new java.awt.event.ActionListener() {
@@ -370,24 +383,21 @@ public class Clientes2 extends javax.swing.JFrame{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Eliminar_button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Limpiar_button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Guardar_button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Cancel_button)
-                .addContainerGap())
+                .addGap(15, 15, 15))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Eliminar_button)
-                    .addComponent(Limpiar_button)
                     .addComponent(Guardar_button)
-                    .addComponent(Cancel_button))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Limpiar_button)
+                    .addComponent(Eliminar_button))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -452,14 +462,6 @@ public class Clientes2 extends javax.swing.JFrame{
         }
 
     }//GEN-LAST:event_Eliminar_buttonActionPerformed
-
-    private void Cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_buttonActionPerformed
-        // TODO add your handling code here:
-        Clientes clientes_screen = new Clientes(conexion, credenciales);
-        clientes_screen.setVisible(true);
-        clientes_screen.setLocationRelativeTo(null);
-          this.dispose();
-    }//GEN-LAST:event_Cancel_buttonActionPerformed
 
     private void Correo_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Correo_textfieldActionPerformed
         // TODO add your handling code here:
@@ -582,12 +584,24 @@ public class Clientes2 extends javax.swing.JFrame{
             }
     }//GEN-LAST:event_Guardar_buttonActionPerformed
 
+    private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
+        // TODO add your handling code here:
+        Clientes principal_screen = new Clientes(conexion, credenciales);
+        principal_screen.setVisible(true);
+        principal_screen.setLocationRelativeTo(null);
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_Regresar_BnMouseClicked
+
+    private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Regresar_BnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApellidoLabel;
     private javax.swing.JTextField Apellido_textfield;
     private javax.swing.JButton Buscar_Button;
     private javax.swing.JTextField Buscar_textField;
-    private javax.swing.JButton Cancel_button;
     private javax.swing.JLabel CantidadComprasLabel;
     private javax.swing.JTextField Cantidadcompras_textfield;
     private javax.swing.JLabel CorreoLabel;
@@ -605,6 +619,7 @@ public class Clientes2 extends javax.swing.JFrame{
     private javax.swing.JTextField NIT_textfield;
     private javax.swing.JLabel NombreLabel;
     private javax.swing.JTextField Nombre_textfield;
+    private javax.swing.JButton Regresar_Bn;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

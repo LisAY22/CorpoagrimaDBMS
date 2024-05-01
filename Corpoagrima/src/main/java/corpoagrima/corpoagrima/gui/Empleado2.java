@@ -106,6 +106,7 @@ public class Empleado2 extends javax.swing.JFrame {
 
         Encabezado_panel = new javax.swing.JPanel();
         Encabezad_panel2 = new javax.swing.JLabel();
+        back_Button = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -134,12 +135,10 @@ public class Empleado2 extends javax.swing.JFrame {
         Ajuste_label = new javax.swing.JLabel();
         AjusteSueldo_textfield = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        Cancel_button = new javax.swing.JButton();
         Save_button = new javax.swing.JButton();
         Clean_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1027, 450));
 
         Encabezado_panel.setBackground(new java.awt.Color(34, 85, 34));
 
@@ -147,21 +146,43 @@ public class Empleado2 extends javax.swing.JFrame {
         Encabezad_panel2.setForeground(new java.awt.Color(255, 255, 255));
         Encabezad_panel2.setText("Empleados");
 
+        back_Button.setBackground(new java.awt.Color(34, 85, 34));
+        back_Button.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        back_Button.setForeground(new java.awt.Color(255, 255, 255));
+        back_Button.setText("←");
+        back_Button.setBorderPainted(false);
+        back_Button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back_ButtonMouseClicked(evt);
+            }
+        });
+        back_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                back_ButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Encabezado_panelLayout = new javax.swing.GroupLayout(Encabezado_panel);
         Encabezado_panel.setLayout(Encabezado_panelLayout);
         Encabezado_panelLayout.setHorizontalGroup(
             Encabezado_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Encabezado_panelLayout.createSequentialGroup()
-                .addGap(377, 377, 377)
+                .addGap(48, 48, 48)
+                .addComponent(back_Button)
+                .addGap(303, 303, 303)
                 .addComponent(Encabezad_panel2, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                .addGap(368, 368, 368))
+                .addGap(339, 339, 339))
         );
         Encabezado_panelLayout.setVerticalGroup(
             Encabezado_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Encabezado_panelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(Encabezad_panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(29, 29, 29))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Encabezado_panelLayout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(Encabezado_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Encabezad_panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(Encabezado_panelLayout.createSequentialGroup()
+                        .addComponent(back_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(22, 22, 22))
         );
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -395,13 +416,6 @@ public class Empleado2 extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        Cancel_button.setText("Cancelar");
-        Cancel_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cancel_buttonActionPerformed(evt);
-            }
-        });
-
         Save_button.setText("Guardar");
         Save_button.setEnabled(true);
         Save_button.addActionListener(new java.awt.event.ActionListener() {
@@ -432,9 +446,7 @@ public class Empleado2 extends javax.swing.JFrame {
                 .addComponent(Clean_button)
                 .addGap(18, 18, 18)
                 .addComponent(Save_button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Cancel_button)
-                .addGap(12, 12, 12))
+                .addGap(21, 21, 21))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -442,8 +454,7 @@ public class Empleado2 extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Clean_button)
-                    .addComponent(Save_button)
-                    .addComponent(Cancel_button))
+                    .addComponent(Save_button))
                 .addGap(21, 21, 21))
         );
 
@@ -466,7 +477,7 @@ public class Empleado2 extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         pack();
@@ -524,16 +535,6 @@ public class Empleado2 extends javax.swing.JFrame {
     private void AjusteSueldo_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjusteSueldo_textfieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_AjusteSueldo_textfieldActionPerformed
-
-    private void Cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_buttonActionPerformed
-        try {
-            RRHH rh_window = new RRHH(conexion, credenciales);
-            rh_window.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.dispose();
-    }//GEN-LAST:event_Cancel_buttonActionPerformed
 
     private void Save_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_buttonActionPerformed
         try {
@@ -601,6 +602,21 @@ public class Empleado2 extends javax.swing.JFrame {
         Clean();
     }//GEN-LAST:event_Clean_buttonMouseClicked
 
+    private void back_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_ButtonMouseClicked
+        // TODO add your handling code here:
+        try {
+            RRHH rh_window = new RRHH(conexion, credenciales);
+            rh_window.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dispose();
+    }//GEN-LAST:event_back_ButtonMouseClicked
+
+    private void back_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_ButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_back_ButtonActionPerformed
+
     private void sueldoBase(String nombre) throws SQLException {
         ResultSet result = Puesto.puestoNombre(conexion, nombre);
         result.next();
@@ -613,7 +629,6 @@ public class Empleado2 extends javax.swing.JFrame {
     private javax.swing.JLabel Ajuste_label;
     private javax.swing.JTextField Apellido_textField;
     private javax.swing.JTextField Bonificaciones_textfield;
-    private javax.swing.JButton Cancel_button;
     private javax.swing.JButton Clean_button;
     private javax.swing.JTextField Correo_textfield;
     private javax.swing.JTextField Direccion_textfield;
@@ -627,6 +642,7 @@ public class Empleado2 extends javax.swing.JFrame {
     private javax.swing.JTextField Sueldobase_textfield;
     private javax.swing.JTextField Telefono_textfield;
     private javax.swing.JTextField Usuario_textfield;
+    private javax.swing.JButton back_Button;
     private javax.swing.JTextField contrasena_textfield1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

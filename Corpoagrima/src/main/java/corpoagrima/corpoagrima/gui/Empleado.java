@@ -130,6 +130,7 @@ public final class Empleado extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         Encabezado_panel = new javax.swing.JPanel();
         Encabezad_panel2 = new javax.swing.JLabel();
+        back_Button = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         Buscar_textField = new javax.swing.JTextField();
         Buscar_jButton = new javax.swing.JButton();
@@ -161,13 +162,11 @@ public final class Empleado extends javax.swing.JFrame {
         Ajuste_label = new javax.swing.JLabel();
         AjusteSueldo_textfield = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        Cancel_button = new javax.swing.JButton();
         Save_button = new javax.swing.JButton();
         Clean_button = new javax.swing.JButton();
         Delete_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1027, 540));
 
         Encabezado_panel.setBackground(new java.awt.Color(34, 85, 34));
 
@@ -175,21 +174,36 @@ public final class Empleado extends javax.swing.JFrame {
         Encabezad_panel2.setForeground(new java.awt.Color(255, 255, 255));
         Encabezad_panel2.setText("Empleados");
 
+        back_Button.setBackground(new java.awt.Color(34, 85, 34));
+        back_Button.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        back_Button.setForeground(new java.awt.Color(255, 255, 255));
+        back_Button.setText("←");
+        back_Button.setBorderPainted(false);
+        back_Button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back_ButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout Encabezado_panelLayout = new javax.swing.GroupLayout(Encabezado_panel);
         Encabezado_panel.setLayout(Encabezado_panelLayout);
         Encabezado_panelLayout.setHorizontalGroup(
             Encabezado_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Encabezado_panelLayout.createSequentialGroup()
-                .addGap(445, 445, 445)
-                .addComponent(Encabezad_panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(303, 303, 303))
+                .addGap(55, 55, 55)
+                .addComponent(back_Button)
+                .addGap(275, 275, 275)
+                .addComponent(Encabezad_panel2, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                .addGap(363, 363, 363))
         );
         Encabezado_panelLayout.setVerticalGroup(
             Encabezado_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Encabezado_panelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(Encabezad_panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(29, 29, 29))
+                .addGap(22, 22, 22)
+                .addGroup(Encabezado_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Encabezad_panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(back_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28))
         );
 
         Buscar_textField.setToolTipText("Ingrese el ID del usuario");
@@ -459,13 +473,6 @@ public final class Empleado extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        Cancel_button.setText("Cancelar");
-        Cancel_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cancel_buttonActionPerformed(evt);
-            }
-        });
-
         Save_button.setText("Guardar");
         Save_button.setEnabled(false);
         Save_button.addActionListener(new java.awt.event.ActionListener() {
@@ -496,15 +503,13 @@ public final class Empleado extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(648, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Delete_button)
                 .addGap(18, 18, 18)
                 .addComponent(Clean_button)
                 .addGap(18, 18, 18)
                 .addComponent(Save_button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Cancel_button)
-                .addGap(12, 12, 12))
+                .addGap(25, 25, 25))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -513,8 +518,7 @@ public final class Empleado extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Delete_button)
                     .addComponent(Clean_button)
-                    .addComponent(Save_button)
-                    .addComponent(Cancel_button))
+                    .addComponent(Save_button))
                 .addGap(21, 21, 21))
         );
 
@@ -613,16 +617,6 @@ public final class Empleado extends javax.swing.JFrame {
     private void Clean_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Clean_buttonActionPerformed
         reset();
     }//GEN-LAST:event_Clean_buttonActionPerformed
-
-    private void Cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_buttonActionPerformed
-        try {
-            RRHH rh_window = new RRHH(conexion, credenciales);
-            rh_window.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.dispose();
-    }//GEN-LAST:event_Cancel_buttonActionPerformed
 
     private void contrasena_textfield1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasena_textfield1ActionPerformed
         // TODO add your handling code here:
@@ -842,6 +836,17 @@ public final class Empleado extends javax.swing.JFrame {
 
     }//GEN-LAST:event_Puesto_comboBoxItemStateChanged
 
+    private void back_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_ButtonMouseClicked
+        // TODO add your handling code here:
+        try {
+            RRHH rh_window = new RRHH(conexion, credenciales);
+            rh_window.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dispose();
+    }//GEN-LAST:event_back_ButtonMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AjusteSueldo_textfield;
     private javax.swing.JLabel Ajuste_label;
@@ -849,7 +854,6 @@ public final class Empleado extends javax.swing.JFrame {
     private javax.swing.JTextField Bonificaciones_textfield;
     private javax.swing.JButton Buscar_jButton;
     private javax.swing.JTextField Buscar_textField;
-    private javax.swing.JButton Cancel_button;
     private javax.swing.JButton Clean_button;
     private javax.swing.JTextField Correo_textfield;
     private javax.swing.JButton Delete_button;
@@ -864,6 +868,7 @@ public final class Empleado extends javax.swing.JFrame {
     private javax.swing.JTextField Sueldobase_textfield;
     private javax.swing.JTextField Telefono_textfield;
     private javax.swing.JTextField Usuario_textfield;
+    private javax.swing.JButton back_Button;
     private javax.swing.JTextField contrasena_textfield1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

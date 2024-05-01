@@ -278,18 +278,18 @@ public class Proveedores extends javax.swing.JFrame {
     }//GEN-LAST:event_Actualizar_BnMouseClicked
 
     private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
-        // TODO add your handling code here:
-        Principal principal_screen = null;
         try {
-            principal_screen = new Principal(conexion, credenciales);
+            // TODO add your handling code here:
+            Principal principal_screen = new Principal(conexion, credenciales);
+            
+            principal_screen.setVisible(true);
+            principal_screen.setLocationRelativeTo(null);
+            
+            // Cerrar la ventana actual
+            dispose();
         } catch (SQLException ex) {
-            Logger.getLogger(Proveedores.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        principal_screen.setVisible(true);
-        principal_screen.setLocationRelativeTo(null);
-
-        // Cerrar la ventana actual
-        dispose();
     }//GEN-LAST:event_Regresar_BnMouseClicked
 
     private void Buscar_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_textFieldActionPerformed
@@ -366,7 +366,7 @@ public class Proveedores extends javax.swing.JFrame {
 
     private void Nuevo_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Nuevo_BnMouseClicked
         // TODO add your handling code here:
-        Proveedores3 proveedores3_screen = new Proveedores3(conexion);
+        Proveedores3 proveedores3_screen = new Proveedores3(conexion, credenciales);
         proveedores3_screen.setVisible(true);
         proveedores3_screen.setLocationRelativeTo(null);
         

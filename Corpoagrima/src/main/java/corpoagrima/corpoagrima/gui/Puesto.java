@@ -44,6 +44,7 @@ public class Puesto extends javax.swing.JFrame {
         jSpinner1 = new javax.swing.JSpinner();
         encabezadoJPanel = new javax.swing.JPanel();
         puestoJLabel = new javax.swing.JLabel();
+        back_Button = new javax.swing.JButton();
         opcionJPanel = new javax.swing.JPanel();
         buscarJButton = new javax.swing.JButton();
         buscarJTextField = new javax.swing.JTextField();
@@ -66,7 +67,6 @@ public class Puesto extends javax.swing.JFrame {
         moduloRHJCheckBox = new javax.swing.JCheckBox();
         PermisoJLabel = new javax.swing.JLabel();
         botonesJPanel = new javax.swing.JPanel();
-        cancelarJButton = new javax.swing.JButton();
         guardarJButton = new javax.swing.JButton();
         limpiarJButton = new javax.swing.JButton();
         eliminarJButton = new javax.swing.JButton();
@@ -79,12 +79,25 @@ public class Puesto extends javax.swing.JFrame {
         puestoJLabel.setForeground(new java.awt.Color(255, 255, 255));
         puestoJLabel.setText("PUESTO");
 
+        back_Button.setBackground(new java.awt.Color(34, 85, 34));
+        back_Button.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        back_Button.setForeground(new java.awt.Color(255, 255, 255));
+        back_Button.setText("←");
+        back_Button.setBorderPainted(false);
+        back_Button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back_ButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout encabezadoJPanelLayout = new javax.swing.GroupLayout(encabezadoJPanel);
         encabezadoJPanel.setLayout(encabezadoJPanelLayout);
         encabezadoJPanelLayout.setHorizontalGroup(
             encabezadoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(encabezadoJPanelLayout.createSequentialGroup()
-                .addGap(305, 305, 305)
+                .addGap(36, 36, 36)
+                .addComponent(back_Button)
+                .addGap(214, 214, 214)
                 .addComponent(puestoJLabel)
                 .addContainerGap(320, Short.MAX_VALUE))
         );
@@ -92,7 +105,9 @@ public class Puesto extends javax.swing.JFrame {
             encabezadoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, encabezadoJPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(puestoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(encabezadoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(puestoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(back_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -199,7 +214,7 @@ public class Puesto extends javax.swing.JFrame {
                                 .addComponent(moduloClienteJCheckBox)
                                 .addComponent(moduloCompraJCheckBox)
                                 .addComponent(moduloProveedoresJCheckBox))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                             .addGroup(informacionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(moduloRHJCheckBox)
                                 .addComponent(moduloFinancieroJCheckBox))
@@ -243,14 +258,6 @@ public class Puesto extends javax.swing.JFrame {
             .addComponent(jScrollPane2)
         );
 
-        cancelarJButton.setText("Cancelar");
-        cancelarJButton.setToolTipText("Cancela y cierra la ventana");
-        cancelarJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarJButtonActionPerformed(evt);
-            }
-        });
-
         guardarJButton.setText("Guardar");
         guardarJButton.setToolTipText("Guarda los datos actuales");
         guardarJButton.setEnabled(false);
@@ -286,20 +293,17 @@ public class Puesto extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonesJPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(eliminarJButton)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addComponent(limpiarJButton)
                 .addGap(18, 18, 18)
                 .addComponent(guardarJButton)
-                .addGap(18, 18, 18)
-                .addComponent(cancelarJButton)
-                .addContainerGap())
+                .addGap(26, 26, 26))
         );
         botonesJPanelLayout.setVerticalGroup(
             botonesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(botonesJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(botonesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelarJButton)
                     .addComponent(guardarJButton)
                     .addComponent(limpiarJButton)
                     .addComponent(eliminarJButton))
@@ -473,17 +477,6 @@ public class Puesto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_eliminarJButtonActionPerformed
 
-    private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
-        try {
-            RRHH rh_window = new RRHH(conexion, credenciales);
-            rh_window.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        this.dispose();
-    }//GEN-LAST:event_cancelarJButtonActionPerformed
-
     private void guardarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarJButtonActionPerformed
         try {
             String nombre = nombreJTextField.getText();
@@ -516,13 +509,24 @@ public class Puesto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_guardarJButtonActionPerformed
 
+    private void back_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_ButtonMouseClicked
+        // TODO add your handling code here:
+        try {
+            RRHH rh_window = new RRHH(conexion, credenciales);
+            rh_window.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dispose();
+    }//GEN-LAST:event_back_ButtonMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DescripciónJLabel;
     private javax.swing.JLabel PermisoJLabel;
+    private javax.swing.JButton back_Button;
     private javax.swing.JPanel botonesJPanel;
     private javax.swing.JButton buscarJButton;
     private javax.swing.JTextField buscarJTextField;
-    private javax.swing.JButton cancelarJButton;
     private javax.swing.JTextPane descripcionJTextPane;
     private javax.swing.JButton eliminarJButton;
     private javax.swing.JPanel encabezadoJPanel;
