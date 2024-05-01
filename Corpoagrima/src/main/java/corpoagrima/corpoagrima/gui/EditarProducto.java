@@ -4,8 +4,13 @@
  */
 package corpoagrima.corpoagrima.gui;
 
+import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +20,8 @@ public class EditarProducto extends javax.swing.JFrame {
     
     private Connection conexion;
     private ResultSet credenciales;
+    private ConexionProducto inventario;
+    private int id;
     
     /**
      * Creates new form EditarProducto
@@ -22,6 +29,7 @@ public class EditarProducto extends javax.swing.JFrame {
     public EditarProducto(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        inventario = new ConexionProducto();
         initComponents();
     }
 
@@ -317,6 +325,11 @@ public class EditarProducto extends javax.swing.JFrame {
 
         Buscar_Button.setBackground(new java.awt.Color(136, 213, 133));
         Buscar_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
+        Buscar_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Buscar_ButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -378,6 +391,38 @@ public class EditarProducto extends javax.swing.JFrame {
         descripcion_jTextField4.setText("");
     } 
     
+    private void habilitar(){
+        nombre_jTextField1.setEditable(true);
+        marca_jTextField2.setEditable(true);
+        fechaV_jTextField3.setEditable(true);
+        cantidad_jTextField4.setEditable(true);
+        categoria_jTextField2.setEditable(true);
+        unidadM_jTextField3.setEditable(true);
+        precioV_jTextField4.setEditable(true);
+        descripcion_jTextField4.setEditable(true);
+        Limpiar_button.setEnabled(true);
+        Guardar_button.setEnabled(true);
+        Buscar_Button.setEnabled(false);
+        Buscar_textField.setEnabled(false);
+        Eliminar_button1.setEnabled(true);
+    }
+    
+    private void desabilitar(){
+        nombre_jTextField1.setEditable(false);
+        marca_jTextField2.setEditable(false);
+        fechaV_jTextField3.setEditable(false);
+        cantidad_jTextField4.setEditable(false);
+        categoria_jTextField2.setEditable(false);
+        unidadM_jTextField3.setEditable(false);
+        precioV_jTextField4.setEditable(false);
+        descripcion_jTextField4.setEditable(false);
+        Limpiar_button.setEnabled(false);
+        Guardar_button.setEnabled(false);
+        Buscar_Button.setEnabled(true);
+        Buscar_textField.setEnabled(true);
+        Eliminar_button1.setEnabled(false);
+    }
+    
     private void nombre_jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombre_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombre_jTextField1ActionPerformed
@@ -412,6 +457,10 @@ public class EditarProducto extends javax.swing.JFrame {
 
     private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
         // TODO add your handling code here:
+        limpiar();
+        JOptionPane.showMessageDialog(this, "Se han limpiado los campos exitosamente.", "Limpieza",
+            JOptionPane.INFORMATION_MESSAGE);
+        desabilitar();
     }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
     private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
@@ -424,6 +473,53 @@ public class EditarProducto extends javax.swing.JFrame {
     private void descripcion_jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descripcion_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_descripcion_jTextField4ActionPerformed
+
+    private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+            String texto_busqueda = Buscar_textField.getText().trim();
+            
+            if (texto_busqueda != null && !texto_busqueda.isEmpty()) {
+                ResultSet ResultB = inventario.busqueda(conexion, texto_busqueda);
+                if (ResultB.next()) {
+                    id = ResultB.getInt("ID_Producto");
+                    String nombre = ResultB.getString("Nombre");
+                    String marca = ResultB.getString("Marca");
+                    String fechaVen = ResultB.getString("Fecha_Vencimiento");
+                    int cantidad = ResultB.getInt("Stock");
+                    String categoria =  ResultB.getString("Categoria");
+                    String unidad_Med = ResultB.getString("Unidad_Medida");
+                    float precioVen = ResultB.getFloat("Precio_Venta");
+                    String descripcion = ResultB.getString("Descripcion");
+                    
+                    nombre_jTextField1.setText(nombre);
+                    marca_jTextField2.setText(marca);
+                    fechaV_jTextField3.setText(fechaVen);
+                    cantidad_jTextField4.setText(String.valueOf(cantidad));
+                    categoria_jTextField2.setText(categoria);
+                    unidadM_jTextField3.setText(unidad_Med);
+                    precioV_jTextField4.setText(String.valueOf(precioVen));
+                    descripcion_jTextField4.setText(descripcion);
+                    
+                    JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
+                                "Busqueda", JOptionPane.INFORMATION_MESSAGE);
+                    habilitar();
+                } else {
+                        JOptionPane.showMessageDialog(this, "No se encontraron resultados",
+                                "Busqueda", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                    JOptionPane.showMessageDialog(this, "ERROR"
+                            + "compruebe el codigo ingresado", "Busqueda",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+        } catch (SQLException ex) {
+                Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Busqueda",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+    }//GEN-LAST:event_Buscar_ButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
