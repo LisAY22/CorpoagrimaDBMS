@@ -4,8 +4,13 @@
  */
 package corpoagrima.corpoagrima.gui;
 
+import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +20,7 @@ public class NuevoProducto extends javax.swing.JFrame {
     
     private Connection conexion;
     private ResultSet credenciales;
+    private ConexionProducto inventario;
     
     /**
      * Creates new form NuevoProducto
@@ -22,6 +28,7 @@ public class NuevoProducto extends javax.swing.JFrame {
     public NuevoProducto(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        inventario = new ConexionProducto();
         initComponents();
     }
 
@@ -100,8 +107,18 @@ public class NuevoProducto extends javax.swing.JFrame {
 
         Limpiar_button.setText("Limpiar");
         Limpiar_button.setEnabled(true);
+        Limpiar_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Limpiar_buttonActionPerformed(evt);
+            }
+        });
 
         Guardar_button.setText("Guardar");
+        Guardar_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Guardar_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -310,6 +327,17 @@ public class NuevoProducto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void limpiar(){
+        nombre_jTextField1.setText("");
+        marca_jTextField2.setText("");
+        fechaV_jTextField3.setText("");
+        cantidad_jTextField4.setText("");
+        categoria_jTextField2.setText("");
+        unidadM_jTextField3.setText("");
+        precioV_jTextField4.setText("");
+        descripcion_jTextField4.setText("");
+    } 
+    
     private void nombre_jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombre_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombre_jTextField1ActionPerformed
@@ -348,6 +376,44 @@ public class NuevoProducto extends javax.swing.JFrame {
     private void descripcion_jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descripcion_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_descripcion_jTextField4ActionPerformed
+
+    private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
+        // TODO add your handling code here:
+        try {
+            String nombre = nombre_jTextField1.getText();
+            String marca = marca_jTextField2.getText();
+            String fechaVen = fechaV_jTextField3.getText();
+            int cantidad = Integer.parseInt(cantidad_jTextField4.getText());
+            String categoria =  categoria_jTextField2.getText();
+            String unidad_Med = unidadM_jTextField3.getText();
+            float precioVen = Float.parseFloat(precioV_jTextField4.getText());
+            String descripcion = descripcion_jTextField4.getText();
+            
+            boolean rc = inventario.agregar(conexion, nombre, descripcion, marca, fechaVen, categoria, cantidad, unidad_Med, precioVen);
+            
+            if (rc) {
+                JOptionPane.showMessageDialog(this, "Se ha creado un nuevo producto exitosamente.", "Nuevo Producto",
+                        JOptionPane.INFORMATION_MESSAGE);
+                    limpiar();
+            } else {
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Nuevo Producto",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                    + "compruebe la información", "Nuevo Producto",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_Guardar_buttonActionPerformed
+
+    private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+        JOptionPane.showMessageDialog(this, "Se han limpiado los campos exitosamente.", "Limpieza",
+            JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel EditarLabel;

@@ -227,6 +227,7 @@ public class EditarProducto extends javax.swing.JFrame {
         nombre_jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         nombre_jLabel2.setText("Descripción");
 
+        descripcion_jTextField4.setEditable(false);
         descripcion_jTextField4.setToolTipText("");
         descripcion_jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,7 +366,18 @@ public class EditarProducto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void limpiar(){
+        nombre_jTextField1.setText("");
+        marca_jTextField2.setText("");
+        fechaV_jTextField3.setText("");
+        cantidad_jTextField4.setText("");
+        categoria_jTextField2.setText("");
+        unidadM_jTextField3.setText("");
+        precioV_jTextField4.setText("");
+        descripcion_jTextField4.setText("");
+    } 
+    
     private void nombre_jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombre_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombre_jTextField1ActionPerformed

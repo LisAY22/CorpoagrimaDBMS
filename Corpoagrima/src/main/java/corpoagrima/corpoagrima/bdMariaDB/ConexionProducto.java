@@ -32,4 +32,24 @@ public class ConexionProducto {
         
         return stmt.executeQuery();
     }
+    
+    public boolean agregar(Connection conexion, String nombre, String descripcion, String marca, 
+            String fecha_vencimiento, String categoria, int cantidad, String unidad_medida, 
+            float precio_venta) throws SQLException{
+        String sql = "INSERT INTO Producto "
+                + "(Nombre, Descripcion, Marca, Fecha_Vencimiento, Categoria, Stock, Unidad_Medida, Precio_Venta)"
+                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, nombre);
+        stmt.setString(2, descripcion);
+        stmt.setString(3, marca);
+        stmt.setString(4, fecha_vencimiento);
+        stmt.setString(5, categoria);
+        stmt.setInt(6, cantidad);
+        stmt.setString(7, unidad_medida);
+        stmt.setFloat(8, precio_venta);
+        
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
 }

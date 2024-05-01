@@ -189,7 +189,7 @@ public class Inventario extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Descripcion", "Costo", "Marca", "Fecha de Vencimiento", "Categoria", "Stock", "Unidad de Medida", "Precio"
+                "ID", "Nombre", "Descripcion", "Marca", "Fecha de Vencimiento", "Categoria", "Stock", "Unidad de Medida", "Precio", "Costo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
