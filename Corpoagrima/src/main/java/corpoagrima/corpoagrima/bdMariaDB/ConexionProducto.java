@@ -65,7 +65,7 @@ public class ConexionProducto {
     public boolean actualizar(Connection conexion, String nombre, String descripcion, String marca, 
             String fecha_vencimiento, String categoria, int cantidad, String unidad_medida, 
             float precio_venta, int id) throws SQLException {
-            String sql = "UPDATE PRODUCTO SET Nombre=?, Descripcion=?, Marca=?, Fecha_Vencimiento=?, "
+            String sql = "UPDATE Producto SET Nombre=?, Descripcion=?, Marca=?, Fecha_Vencimiento=?, "
                     + "Categoria=?, Stock=?, Unidad_Medida=?, Precio_Venta=? WHERE ID_Producto=?";
             
             PreparedStatement stmt = conexion.prepareStatement(sql);

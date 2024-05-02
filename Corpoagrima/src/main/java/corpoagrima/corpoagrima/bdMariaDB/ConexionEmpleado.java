@@ -43,26 +43,33 @@ public class ConexionEmpleado {
         stmt.setString(1, "%" + IDEmpleado + "%");
         return stmt.executeQuery();
     }
-    public boolean agregar(Connection conexion, int idEmpleado, String nombre, 
-            String apellido, String nit, String correoElectronico, 
-            String direccion, String ajusteSueldo, float bonificaciones, 
-            int idPuesto, int idUsuario) throws SQLException{
+    
+    public ResultSet idEmpleado(Connection conexion, String nombre)throws SQLException{
+        String sql = "SELECT ID_Empleado FROM Empleado WHERE Nombre = ?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, nombre);
+        return stmt.executeQuery();
+    }
+    
+    public boolean agregar(Connection conexion, String nombre, String apellido, 
+            String nit, String correoElectronico,String direccion, 
+            String ajusteSueldo, float bonificaciones, int idPuesto, 
+            int idUsuario) throws SQLException{
         String sql = "INSERT INTO Empleado "
-                + "(ID_Empleado, Nombre, Apellido, NIT, Correo_Electronico,"
+                + "(Nombre, Apellido, NIT, Correo_Electronico,"
                 + "Direccion, Ajuste_Sueldo, Bonificaciones, Puesto_ID_Puesto,"
                 + "Usuario_ID_Usuario) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conexion.prepareStatement(sql);
-        stmt.setInt(1, idEmpleado);
-        stmt.setString(2, nombre);
-        stmt.setString(3, apellido);
-        stmt.setString(4, nit);
-        stmt.setString(5, correoElectronico);
-        stmt.setString(6, direccion);
-        stmt.setString(7, ajusteSueldo);
-        stmt.setFloat(8, bonificaciones);
-        stmt.setInt(9, idPuesto);
-        stmt.setInt(10, idUsuario);
+        stmt.setString(1, nombre);
+        stmt.setString(2, apellido);
+        stmt.setString(3, nit);
+        stmt.setString(4, correoElectronico);
+        stmt.setString(5, direccion);
+        stmt.setString(6, ajusteSueldo);
+        stmt.setFloat(7, bonificaciones);
+        stmt.setInt(8, idPuesto);
+        stmt.setInt(9, idUsuario);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;

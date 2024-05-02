@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author User
  * @author lisaj
+ * @author WilderL
  */
 public final class BuscarEmpleado extends javax.swing.JFrame {
 
@@ -62,7 +63,6 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
         Bonificaciones_textfield.setEditable(true);
         Buscar_textField.setEditable(true);
         Correo_textfield.setEditable(true);
-        ID_textfield.setEditable(true);
         Direccion_textfield.setEditable(true);
         NIT_textfield.setEditable(true);
         Nombre_textField.setEditable(true);
@@ -362,6 +362,7 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
 
         ID_textfield.setEditable(false);
         ID_textfield.setToolTipText("ID del empleado");
+        ID_textfield.setEnabled(false);
 
         Ajuste_label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Ajuste_label.setText("Ajuste sueldo");
