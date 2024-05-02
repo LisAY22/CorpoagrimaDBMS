@@ -92,6 +92,11 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         Regresar_Bn.setForeground(new java.awt.Color(255, 255, 255));
         Regresar_Bn.setText("←");
         Regresar_Bn.setBorderPainted(false);
+        Regresar_Bn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Regresar_BnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
