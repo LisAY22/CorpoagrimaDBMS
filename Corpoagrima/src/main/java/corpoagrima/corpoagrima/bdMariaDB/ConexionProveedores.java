@@ -57,6 +57,14 @@ public class ConexionProveedores {
         return stmt.executeQuery();
     }
     
+    public ResultSet proveedor(Connection conexion, String nombre) throws SQLException{
+        String sql = "SELECT * FROM Proveedor WHERE Empresa = ?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, nombre);
+
+        return stmt.executeQuery();
+    }
+    
     public boolean agregar(Connection conexion, int idProveedor, String empresa, 
             String nombre, String direccion, String nit, String correo_electronico) 
             throws SQLException{
