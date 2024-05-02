@@ -11,9 +11,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -80,6 +83,11 @@ public class Compra extends javax.swing.JFrame {
         Refresh_button.setBackground(new java.awt.Color(34, 85, 34));
         Refresh_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizar.png"))); // NOI18N
         Refresh_button.setBorderPainted(false);
+        Refresh_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Refresh_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -121,6 +129,11 @@ public class Compra extends javax.swing.JFrame {
 
         Ordenar_Bn.setBackground(new java.awt.Color(136, 213, 133));
         Ordenar_Bn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ordenar.png"))); // NOI18N
+        Ordenar_Bn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Ordenar_BnActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -290,6 +303,33 @@ public class Compra extends javax.swing.JFrame {
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_Regresar_BnActionPerformed
+
+    private void Refresh_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Refresh_buttonActionPerformed
+        // TODO add your handling code here:
+        actualizarTabla();
+    }//GEN-LAST:event_Refresh_buttonActionPerformed
+
+    private void Ordenar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ordenar_BnActionPerformed
+        // TODO add your handling code here:
+        if (sorter == null) {
+            // Crear un objeto TableRowSorter basado en el modelo de la tabla
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            sorter = new TableRowSorter<>(model);
+            jTable1.setRowSorter(sorter);
+        }
+
+        // Crear un RowSorter para ordenar por la columna "Nombre"
+        ArrayList<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        int columnIndexToSort = 1;
+        sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING)); // Orden ascendente
+        sorter.setSortKeys(sortKeys);
+
+        // Ordenar la tabla
+        sorter.sort();
+
+        // Mostrar un mensaje indicando que la tabla ha sido ordenada
+        JOptionPane.showMessageDialog(this, "El ordenamiento de la tabla ha sido habilitado.", "Ordenar tabla", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_Ordenar_BnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Anular_jbutton;
