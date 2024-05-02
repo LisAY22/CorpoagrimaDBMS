@@ -289,7 +289,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_proveedoresJButtonActionPerformed
 
     private void comprasJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprasJButtonActionPerformed
-        Compra compra_screen = new Compra();
+        Compra compra_screen = new Compra(conexion, credenciales);
         compra_screen.setVisible(true);
         // Cerrar la ventana actual
         dispose();

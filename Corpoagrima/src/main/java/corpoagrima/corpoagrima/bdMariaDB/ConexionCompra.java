@@ -12,6 +12,16 @@ import java.sql.SQLException;
 public class ConexionCompra {
     //public ResultSet 
     
+    public ResultSet consulta(Connection conexion) throws SQLException {
+        String sql = "SELECT Registro_Compra.ID_Compra, Registro_Compra.NoFactura, Proveedor.Empresa, "
+                + "Registro_Compra.Fecha, Registro_Compra.Tipo_Compra, Registro_Compra.Total FROM Registro_Compra "
+                + "INNER JOIN Proveedor ON Registro_Compra.Proveedor_ID_Proveedor = Proveedor.ID_Proveedor";
+        
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        
+        return stmt.executeQuery();
+    }
+    
     public boolean agregar(Connection conexion, String noFactura, 
             boolean anulado, String fecha, String tipoCompra, 
             float total, int proveedor_id_proveedor, int empleado_id_empleado) throws SQLException{

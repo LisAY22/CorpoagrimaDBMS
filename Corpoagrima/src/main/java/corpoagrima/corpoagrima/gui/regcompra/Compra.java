@@ -4,17 +4,33 @@
  */
 package corpoagrima.corpoagrima.gui.regcompra;
 
+import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author alfaryus
  */
 public class Compra extends javax.swing.JFrame {
-
+    private Connection conexion;
+    private ResultSet credenciales;
+    private ConexionCompra compras;
+    private TableRowSorter<DefaultTableModel> sorter;
     /**
      * Creates new form Compra
      */
-    public Compra() {
+    public Compra(Connection conexion, ResultSet credenciales) {
+        this.conexion = conexion;
+        this.credenciales = credenciales;
+        compras = new ConexionCompra();
         initComponents();
+        actualizarTabla();
     }
 
     /**
@@ -204,7 +220,35 @@ public class Compra extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void actualizarTabla() {
+        try {
+            ResultSet rs = compras.consulta(conexion);
 
+            // Obtener el modelo de la tabla actual
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0); // Limpiar los datos existentes
+
+            // Agregar nuevas filas al modelo de tabla
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            
+            while (rs.next()) {
+                Object[] rowData = new Object[columnCount];
+                for (int i = 0; i < columnCount; i++) {
+                    rowData[i] = rs.getObject(i + 1);
+                }
+                model.addRow(rowData);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     private void EditarPuesto_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarPuesto_jbuttonActionPerformed
         EditarRegFactura EditarWindow = new EditarRegFactura();
         EditarWindow.setVisible(true);
@@ -220,41 +264,6 @@ public class Compra extends javax.swing.JFrame {
         AnularWindow.setVisible(true);
 
     }//GEN-LAST:event_Anular_jbuttonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Compra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Compra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Compra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Compra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Compra().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Anular_jbutton;
