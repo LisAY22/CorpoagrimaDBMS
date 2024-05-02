@@ -5,10 +5,14 @@
 package corpoagrima.corpoagrima.gui.regcompra;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
+import corpoagrima.corpoagrima.gui.Principal;
+import corpoagrima.corpoagrima.gui.inventario.Inventario;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -67,6 +71,11 @@ public class Compra extends javax.swing.JFrame {
         Regresar_Bn.setForeground(new java.awt.Color(255, 255, 255));
         Regresar_Bn.setText("←");
         Regresar_Bn.setBorderPainted(false);
+        Regresar_Bn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Regresar_BnActionPerformed(evt);
+            }
+        });
 
         Refresh_button.setBackground(new java.awt.Color(34, 85, 34));
         Refresh_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizar.png"))); // NOI18N
@@ -179,7 +188,7 @@ public class Compra extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 337, Short.MAX_VALUE)
+            .addGap(0, 341, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -250,20 +259,37 @@ public class Compra extends javax.swing.JFrame {
     }
     
     private void EditarPuesto_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarPuesto_jbuttonActionPerformed
-        EditarRegFactura EditarWindow = new EditarRegFactura();
+        EditarRegFactura EditarWindow = new EditarRegFactura(conexion, credenciales);
         EditarWindow.setVisible(true);
+        dispose();
     }//GEN-LAST:event_EditarPuesto_jbuttonActionPerformed
 
     private void NuevoPuesto_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoPuesto_jbuttonActionPerformed
-        NuevoRegFactura NuevoWindow = new NuevoRegFactura();
+        NuevoRegFactura NuevoWindow = new NuevoRegFactura(conexion, credenciales);
         NuevoWindow.setVisible(true);
+        dispose();
     }//GEN-LAST:event_NuevoPuesto_jbuttonActionPerformed
 
     private void Anular_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Anular_jbuttonActionPerformed
-        AnularRegFactura AnularWindow = new AnularRegFactura();
+        AnularRegFactura AnularWindow = new AnularRegFactura(conexion, credenciales);
         AnularWindow.setVisible(true);
-
+        dispose();
     }//GEN-LAST:event_Anular_jbuttonActionPerformed
+
+    private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
+        // TODO add your handling code here:
+        Principal principal_screen = null;
+        try {
+            principal_screen = new Principal(conexion, credenciales);
+        } catch (SQLException ex) {
+            Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        principal_screen.setVisible(true);
+        principal_screen.setLocationRelativeTo(null);
+        
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_Regresar_BnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Anular_jbutton;

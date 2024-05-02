@@ -4,16 +4,25 @@
  */
 package corpoagrima.corpoagrima.gui.regcompra;
 
+import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
+import java.sql.Connection;
+import java.sql.ResultSet;
+
 /**
  *
  * @author karol
  */
 public class AgregarPRegFactura extends javax.swing.JFrame {
-
+    private Connection conexion;
+    private ResultSet credenciales;
+    private ConexionCompra compras;
     /**
      * Creates new form AgregarPRegFactura
      */
-    public AgregarPRegFactura() {
+    public AgregarPRegFactura(Connection conexion, ResultSet credenciales) {
+        this.conexion = conexion;
+        this.credenciales = credenciales;
+        compras = new ConexionCompra();
         initComponents();
     }
 
@@ -312,6 +321,10 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
 
     private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
         // TODO add your handling code here:
+        Compra compra_screen = new Compra(conexion, credenciales);
+        compra_screen.setVisible(true);
+        // Cerrar la ventana actual
+        dispose();
     }//GEN-LAST:event_Regresar_BnActionPerformed
 
     private void Marca_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Marca_textfieldActionPerformed

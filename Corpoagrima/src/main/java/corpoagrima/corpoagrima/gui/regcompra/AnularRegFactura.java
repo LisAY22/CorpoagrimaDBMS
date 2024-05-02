@@ -4,16 +4,25 @@
  */
 package corpoagrima.corpoagrima.gui.regcompra;
 
+import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
+import java.sql.Connection;
+import java.sql.ResultSet;
+
 /**
  *
  * @author lisaj
  */
 public class AnularRegFactura extends javax.swing.JFrame {
-
+    private Connection conexion;
+    private ResultSet credenciales;
+    private ConexionCompra compras;
     /**
      * Creates new form CAnularRegFactura
      */
-    public AnularRegFactura() {
+    public AnularRegFactura(Connection conexion, ResultSet credenciales) {
+        this.conexion = conexion;
+        this.credenciales = credenciales;
+        compras = new ConexionCompra();
         initComponents();
     }
 
@@ -62,6 +71,11 @@ public class AnularRegFactura extends javax.swing.JFrame {
         Regresar_Bn.setForeground(new java.awt.Color(255, 255, 255));
         Regresar_Bn.setText("←");
         Regresar_Bn.setBorderPainted(false);
+        Regresar_Bn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Regresar_BnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -303,6 +317,15 @@ public class AnularRegFactura extends javax.swing.JFrame {
     private void Anular_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Anular_buttonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Anular_buttonActionPerformed
+
+    private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        Compra compra_screen = new Compra(conexion, credenciales);
+        compra_screen.setVisible(true);
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_Regresar_BnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
