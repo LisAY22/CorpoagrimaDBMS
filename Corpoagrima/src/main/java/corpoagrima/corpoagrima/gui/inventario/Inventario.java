@@ -6,6 +6,8 @@ package corpoagrima.corpoagrima.gui.inventario;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import corpoagrima.corpoagrima.gui.Principal;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -201,6 +203,11 @@ public class Inventario extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        datosJTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                datosJTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(datosJTable);
 
         javax.swing.GroupLayout JPanel3Layout = new javax.swing.GroupLayout(JPanel3);
@@ -283,7 +290,7 @@ public class Inventario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPanel1MouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_JPanel1MouseClicked
 
     private void regresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarJButtonMouseClicked
@@ -365,7 +372,7 @@ public class Inventario extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        EditarProducto screen_edit_product = new EditarProducto(conexion, credenciales);
+        EditarProducto screen_edit_product = new EditarProducto(conexion, credenciales, "");
         screen_edit_product.setVisible(true);
         
         dispose();
@@ -378,6 +385,27 @@ public class Inventario extends javax.swing.JFrame {
         
         dispose();
     }//GEN-LAST:event_nuevojButton2ActionPerformed
+
+    private void datosJTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datosJTableMouseClicked
+
+            datosJTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { 
+                    System.out.println("Hola");
+                    int fila = datosJTable.getSelectedRow();
+                    System.out.println(fila);
+                    if (fila >= 0) {
+                        long ID = (long) datosJTable.getValueAt(fila, 0);
+                        String numCadena= String.valueOf(ID);
+                        EditarProducto screen_edit_product = new EditarProducto(conexion, credenciales, numCadena);
+                        screen_edit_product.setVisible(true);      
+                        dispose();
+                    }
+                }
+            }
+        });
+    }//GEN-LAST:event_datosJTableMouseClicked
 
 
     private void actualizarTabla() {

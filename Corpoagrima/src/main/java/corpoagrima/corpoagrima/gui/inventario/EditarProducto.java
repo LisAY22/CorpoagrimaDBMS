@@ -4,7 +4,6 @@
  */
 package corpoagrima.corpoagrima.gui.inventario;
 
-import corpoagrima.corpoagrima.gui.inventario.Inventario;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,15 +22,68 @@ public class EditarProducto extends javax.swing.JFrame {
     private ResultSet credenciales;
     private ConexionProducto inventario;
     private int id;
+    private String productoid;
     
     /**
      * Creates new form EditarProducto
+     * @param conexion
+     * @param credenciales
+     * @param producto
      */
-    public EditarProducto(Connection conexion, ResultSet credenciales) {
+    public EditarProducto(Connection conexion, ResultSet credenciales, String producto) {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        this.productoid = producto;
         inventario = new ConexionProducto();
         initComponents();
+        if (productoid !=""){
+            buscar(producto);
+        }
+    }
+    
+    
+    public final void buscar(String texto_busqueda){
+        try {
+            if (texto_busqueda != null && !texto_busqueda.isEmpty()) {
+                ResultSet ResultB = inventario.busqueda(conexion, texto_busqueda);
+                if (ResultB.next()) {
+                    id = ResultB.getInt("ID_Producto");
+                    String nombre = ResultB.getString("Nombre");
+                    String marca = ResultB.getString("Marca");
+                    String fechaVen = ResultB.getString("Fecha_Vencimiento");
+                    int cantidad = ResultB.getInt("Stock");
+                    String categoria =  ResultB.getString("Categoria");
+                    String unidad_Med = ResultB.getString("Unidad_Medida");
+                    float precioVen = ResultB.getFloat("Precio_Venta");
+                    String descripcion = ResultB.getString("Descripcion");
+                    
+                    nombre_jTextField1.setText(nombre);
+                    marca_jTextField2.setText(marca);
+                    fechaV_jTextField3.setText(fechaVen);
+                    cantidad_jTextField4.setText(String.valueOf(cantidad));
+                    categoria_jTextField2.setText(categoria);
+                    unidadM_jTextField3.setText(unidad_Med);
+                    precioV_jTextField4.setText(String.valueOf(precioVen));
+                    descripcion_jTextField4.setText(descripcion);
+                    
+                    JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
+                                "Busqueda", JOptionPane.INFORMATION_MESSAGE);
+                    habilitar();
+                } else {
+                        JOptionPane.showMessageDialog(this, "No se encontraron resultados",
+                                "Busqueda", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                    JOptionPane.showMessageDialog(this, "ERROR"
+                            + "compruebe el codigo ingresado", "Busqueda",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+        } catch (SQLException ex) {
+                Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Busqueda",
+                        JOptionPane.ERROR_MESSAGE);
+            }
     }
 
     /**
@@ -500,50 +552,8 @@ public class EditarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_descripcion_jTextField4ActionPerformed
 
     private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
-        // TODO add your handling code here:
-        try {
-            String texto_busqueda = Buscar_textField.getText().trim();
-            
-            if (texto_busqueda != null && !texto_busqueda.isEmpty()) {
-                ResultSet ResultB = inventario.busqueda(conexion, texto_busqueda);
-                if (ResultB.next()) {
-                    id = ResultB.getInt("ID_Producto");
-                    String nombre = ResultB.getString("Nombre");
-                    String marca = ResultB.getString("Marca");
-                    String fechaVen = ResultB.getString("Fecha_Vencimiento");
-                    int cantidad = ResultB.getInt("Stock");
-                    String categoria =  ResultB.getString("Categoria");
-                    String unidad_Med = ResultB.getString("Unidad_Medida");
-                    float precioVen = ResultB.getFloat("Precio_Venta");
-                    String descripcion = ResultB.getString("Descripcion");
-                    
-                    nombre_jTextField1.setText(nombre);
-                    marca_jTextField2.setText(marca);
-                    fechaV_jTextField3.setText(fechaVen);
-                    cantidad_jTextField4.setText(String.valueOf(cantidad));
-                    categoria_jTextField2.setText(categoria);
-                    unidadM_jTextField3.setText(unidad_Med);
-                    precioV_jTextField4.setText(String.valueOf(precioVen));
-                    descripcion_jTextField4.setText(descripcion);
-                    
-                    JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
-                                "Busqueda", JOptionPane.INFORMATION_MESSAGE);
-                    habilitar();
-                } else {
-                        JOptionPane.showMessageDialog(this, "No se encontraron resultados",
-                                "Busqueda", JOptionPane.WARNING_MESSAGE);
-                }
-            } else {
-                    JOptionPane.showMessageDialog(this, "ERROR"
-                            + "compruebe el codigo ingresado", "Busqueda",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-        } catch (SQLException ex) {
-                Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Ha habido un error "
-                        + "compruebe la información", "Busqueda",
-                        JOptionPane.ERROR_MESSAGE);
-            }
+        String texto_busqueda = Buscar_textField.getText().trim();
+        buscar(texto_busqueda);
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
 
     private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
