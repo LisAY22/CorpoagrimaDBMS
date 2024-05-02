@@ -5,6 +5,7 @@
 package corpoagrima.corpoagrima.gui.cliente;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCliente;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionTelefono;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +24,9 @@ public class EditarCliente extends javax.swing.JFrame{
     private Connection conexion;
     private ResultSet credenciales;
     private ConexionCliente clientes;
+    private ConexionTelefono Telefono;
     private int id;
+    private int idTelefono;
     
     /**
      * Creates new form clientes2
@@ -32,6 +35,7 @@ public class EditarCliente extends javax.swing.JFrame{
         this.conexion = conexion;
         this.credenciales = credenciales;
         clientes = new ConexionCliente();
+        Telefono = new ConexionTelefono();
         
         initComponents();
     }
@@ -444,6 +448,7 @@ public class EditarCliente extends javax.swing.JFrame{
         Direccion_textfield.setText("");
         Cantidadcompras_textfield.setText("");
         Correo_textfield.setText("");
+        telefono_textfield1.setText("");
     }      
     private void Buscar_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_textFieldActionPerformed
         // TODO add your handling code here:
@@ -458,6 +463,7 @@ public class EditarCliente extends javax.swing.JFrame{
             // Comprobar la opción seleccionada
             if (opcion == JOptionPane.YES_OPTION) {
                 boolean resultSet = clientes.eliminar(conexion, id);
+                boolean resultTelefono = Telefono.eliminar(conexion, idTelefono);
                 if (resultSet) {
                     JOptionPane.showMessageDialog(this,
                             "Se ha eliminado exitosamente el cliente.",
@@ -537,19 +543,34 @@ public class EditarCliente extends javax.swing.JFrame{
                             Destacado_checkBox.setSelected(false);
                         }
 
-                        ID_textfield.setText(String.valueOf(id));
-                        Nombre_textfield.setText(nombre);
-                        Apellido_textfield.setText(apellido);
-                        NIT_textfield.setText(nit);
-                        Correo_textfield.setText(correoElectronico);
-                        Direccion_textfield.setText(direccion);
-                        Cantidadcompras_textfield.setText(String.valueOf(cantCompras));
-                        
+                        // Cuarta consulta para obtener el numero de telefono
+                        ResultSet resultadoTelefono = Telefono.telefono(conexion, id, "Cliente");
 
-                        JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
-                                "Busqueda", JOptionPane.INFORMATION_MESSAGE);
-                        habilitar();
-                        Eliminar_button.setEnabled(true);
+                        if (resultadoTelefono.next()) { // Verificar si hay resultados antes de acceder a ellos
+                            idTelefono = resultadoTelefono.getInt("ID_Telefono");
+                            String telefono = resultadoTelefono.getString("Numero");
+
+                            // Insertar en los textfield la informacion y habilitarlos
+                            ID_textfield.setText(String.valueOf(id));
+                            Nombre_textfield.setText(nombre);
+                            Apellido_textfield.setText(apellido);
+                            NIT_textfield.setText(nit);
+                            Correo_textfield.setText(correoElectronico);
+                            Direccion_textfield.setText(direccion);
+                            Cantidadcompras_textfield.setText(String.valueOf(cantCompras));
+                            telefono_textfield1.setText(telefono);
+
+
+                            JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
+                                    "Busqueda", JOptionPane.INFORMATION_MESSAGE);
+                            habilitar();
+                            Eliminar_button.setEnabled(true);
+
+                          
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el número de teléfono.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        
                     } else {
                         JOptionPane.showMessageDialog(this, "No se encontraron resultados",
                                 "Busqueda", JOptionPane.WARNING_MESSAGE);
@@ -577,12 +598,14 @@ public class EditarCliente extends javax.swing.JFrame{
                 String correoELectronico = Correo_textfield.getText();
                 String direccion = Direccion_textfield.getText();
                 int cantCompras = Integer.parseInt(Cantidadcompras_textfield.getText());
+                String telefono = telefono_textfield1.getText();
                 boolean destacado;
                 destacado = Destacado_checkBox.isSelected();
                 
+                boolean resultTelefono = Telefono.actualizar(conexion, telefono, idTelefono);
                 boolean rs = clientes.actualizar(conexion, id, nombre, apellido, nit, correoELectronico, 
                         direccion, destacado, cantCompras);
-                if (rs) {
+                if (rs && resultTelefono) {
                     JOptionPane.showMessageDialog(this,
                             "Se ha guardado exitosamente el cliente.",
                             "Guardar Cliente", JOptionPane.INFORMATION_MESSAGE);

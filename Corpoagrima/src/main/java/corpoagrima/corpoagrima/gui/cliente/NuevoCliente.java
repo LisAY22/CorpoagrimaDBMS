@@ -5,6 +5,7 @@
 package corpoagrima.corpoagrima.gui.cliente;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCliente;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionTelefono;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +22,9 @@ public class NuevoCliente extends javax.swing.JFrame {
     private Connection conexion;
     private ResultSet credenciales;
     private ConexionCliente clientes;
+    private ConexionTelefono Telefono;
     private int id;
+    private int idTelefono;
     
     /**
      * Creates new form Clientes3
@@ -30,6 +33,7 @@ public class NuevoCliente extends javax.swing.JFrame {
         this.conexion = conexion;
         this.credenciales = credenciales;
         clientes = new ConexionCliente();
+        Telefono = new ConexionTelefono();
         initComponents();
     }
 
@@ -347,6 +351,7 @@ public class NuevoCliente extends javax.swing.JFrame {
         Direccion_textfield.setText("");
         Cantidadcompras_textfield.setText("");
         Correo_textfield.setText("");
+        telefono_textfield1.setText("");
     }      
     
     private void Nombre_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nombre_textfieldActionPerformed
@@ -388,12 +393,20 @@ public class NuevoCliente extends javax.swing.JFrame {
                 String nit = NIT_textfield.getText();
                 String correoELectronico = Correo_textfield.getText();
                 String direccion = Direccion_textfield.getText();
+                String telefono = telefono_textfield1.getText();
                 int cantCompras = 0;
                 boolean destacado;
                 destacado = Destacado_checkBox.isSelected();
+                
+                
 
                 boolean rs = clientes.agregar(conexion, nombre, apellido, nit, correoELectronico,
                     direccion, destacado, cantCompras);
+                
+                ResultSet resultCliente = clientes.idCliente(conexion, nombre ,apellido);
+                resultCliente.next();
+                id = resultCliente.getInt("ID_Cliente");
+                boolean resultTelefono = Telefono.agregar(conexion, telefono, "Cliente", id);
 
                 if (rs) {
                     JOptionPane.showMessageDialog(this, "Se ha creado un nuevo cliente exitosamente.", "Nuevo Cliente",

@@ -89,5 +89,12 @@ public class ConexionCliente {
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
     }
+    public ResultSet idCliente(Connection conexion, String nombre, String apellido)throws SQLException{
+        String sql = "SELECT ID_Cliente FROM Cliente WHERE Nombre = ? AND Apellido = ?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, nombre);
+        stmt.setString(2, apellido);
+        return stmt.executeQuery();
+    }
 }
 
