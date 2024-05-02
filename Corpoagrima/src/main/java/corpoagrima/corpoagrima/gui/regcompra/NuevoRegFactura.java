@@ -5,6 +5,7 @@
 package corpoagrima.corpoagrima.gui.regcompra;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import java.awt.event.ItemEvent;
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,6 +24,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
     private Connection conexion;
     private ResultSet credenciales;
     private ConexionCompra compras;
+    private ConexionProducto producto;
     /**
      * Creates new form nuevoRegFactura
      */
@@ -29,6 +32,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         try {
             this.conexion = conexion;
             this.credenciales = credenciales;
+            producto = new ConexionProducto();
             initComponents();
             ConexionProveedores proveedor = new ConexionProveedores();
             ResultSet listaProveedor = proveedor.consulta(conexion);
@@ -245,17 +249,14 @@ public class NuevoRegFactura extends javax.swing.JFrame {
 
         listaProductoJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Nombre", "Detalle", "Marca", "Fecha de vencimiento", "Cantidad", "Precio por unidad", "Precio total"
+                "Nombre", "Descripcion", "Marca", "Fecha de vencimiento", "Cantidad", "Precio por unidad", "Precio total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, true, true, true, true
+                false, false, false, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -380,9 +381,23 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_Proveedor_comboBoxItemStateChanged
+    public void agregarProducto(int id) throws SQLException {
+            ResultSet resultado = producto.busqueda2(conexion, id);
 
+            // Obtener el modelo de la tabla actual
+            DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
+
+            resultado.next();
+            String nombre = resultado.getString("Nombre");
+            String descripcion = resultado.getString("Descripcion");
+            String marca = resultado.getString("Marca");
+            
+            // Agregar a la tabla
+            model.addRow(new Object[]{nombre, descripcion, marca, null, null, null, null});
+            
+    }
     private void AgregarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBnActionPerformed
-        AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales);
+        AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales, this);
         AgregarWindow.setVisible(true);
     }//GEN-LAST:event_AgregarBnActionPerformed
     
