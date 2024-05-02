@@ -44,10 +44,11 @@ public class ConexionEmpleado {
         return stmt.executeQuery();
     }
     
-    public ResultSet idEmpleado(Connection conexion, String nombre)throws SQLException{
-        String sql = "SELECT ID_Empleado FROM Empleado WHERE Nombre = ?";
+    public ResultSet idEmpleado(Connection conexion, String nombre, String apellido)throws SQLException{
+        String sql = "SELECT ID_Empleado FROM Empleado WHERE Nombre = ? AND Apellido = ?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
+        stmt.setString(2, apellido);
         return stmt.executeQuery();
     }
     
@@ -59,7 +60,7 @@ public class ConexionEmpleado {
                 + "(Nombre, Apellido, NIT, Correo_Electronico,"
                 + "Direccion, Ajuste_Sueldo, Bonificaciones, Puesto_ID_Puesto,"
                 + "Usuario_ID_Usuario) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
         stmt.setString(2, apellido);

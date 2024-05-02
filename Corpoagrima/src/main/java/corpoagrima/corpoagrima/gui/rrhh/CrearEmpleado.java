@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author lisaj
+ * @author WilderL
  */
 public class CrearEmpleado extends javax.swing.JFrame {
     
@@ -55,7 +56,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         }
     }
     
-    public void comboboxfull() {
+    private void comboboxfull() {
         try {
             ResultSet puestos = Puesto.puestos(conexion);
 
@@ -153,11 +154,6 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 back_ButtonMouseClicked(evt);
             }
         });
-        back_Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                back_ButtonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout Encabezado_panelLayout = new javax.swing.GroupLayout(Encabezado_panel);
         Encabezado_panel.setLayout(Encabezado_panelLayout);
@@ -196,11 +192,6 @@ public class CrearEmpleado extends javax.swing.JFrame {
 
         Nombre_textField.setEditable(true);
         Nombre_textField.setToolTipText("Ingrese Nombre");
-        Nombre_textField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Nombre_textFieldActionPerformed(evt);
-            }
-        });
 
         Apellido_textField.setEditable(true);
         Apellido_textField.setToolTipText("Ingrese Apellido");
@@ -210,33 +201,18 @@ public class CrearEmpleado extends javax.swing.JFrame {
 
         Correo_textfield.setEditable(true);
         Correo_textfield.setToolTipText("Ingrese correo electrónico");
-        Correo_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Correo_textfieldActionPerformed(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("Dirección");
 
         Direccion_textfield.setEditable(true);
         Direccion_textfield.setToolTipText("Ingrese dirección");
-        Direccion_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Direccion_textfieldActionPerformed(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("Bonificaciones ");
 
         Bonificaciones_textfield.setEditable(true);
         Bonificaciones_textfield.setToolTipText("Ingrese bonificaciones");
-        Bonificaciones_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Bonificaciones_textfieldActionPerformed(evt);
-            }
-        });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel11.setText("Correo electrónico");
@@ -247,66 +223,36 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 Puesto_comboBoxItemStateChanged(evt);
             }
         });
-        Puesto_comboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Puesto_comboBoxActionPerformed(evt);
-            }
-        });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setText("Puesto");
 
-        Sueldobase_textfield.setEditable(true);
+        Sueldobase_textfield.setEditable(false);
         Sueldobase_textfield.setToolTipText("Sueldo en Quetzales");
-        Sueldobase_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Sueldobase_textfieldActionPerformed(evt);
-            }
-        });
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel13.setText("Contraseña");
 
         Usuario_textfield.setEditable(true);
         Usuario_textfield.setToolTipText("Ingrese Usuario");
-        Usuario_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Usuario_textfieldActionPerformed(evt);
-            }
-        });
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel15.setText("Teléfono");
 
         Telefono_textfield.setEditable(true);
         Telefono_textfield.setToolTipText("Ingrese Teléfono");
-        Telefono_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Telefono_textfieldActionPerformed(evt);
-            }
-        });
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel16.setText("Usuario");
 
         contrasena_textfield1.setEditable(true);
         contrasena_textfield1.setToolTipText("Ingrese contraseña");
-        contrasena_textfield1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contrasena_textfield1ActionPerformed(evt);
-            }
-        });
 
         Ajuste_label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Ajuste_label.setText("Ajuste sueldo");
 
         AjusteSueldo_textfield.setEditable(true);
         AjusteSueldo_textfield.setToolTipText("Ajuste de sueldo en Quetzales");
-        AjusteSueldo_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AjusteSueldo_textfieldActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -347,9 +293,9 @@ public class CrearEmpleado extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Sueldobase_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(Sueldobase_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                             .addComponent(contrasena_textfield1)
-                            .addComponent(Puesto_comboBox, 0, 120, Short.MAX_VALUE)))
+                            .addComponent(Puesto_comboBox, 0, 129, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(AjusteSueldo_textfield)))
@@ -417,11 +363,6 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 Clean_buttonMouseClicked(evt);
             }
         });
-        Clean_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Clean_buttonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -470,22 +411,6 @@ public class CrearEmpleado extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Nombre_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nombre_textFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Nombre_textFieldActionPerformed
-
-    private void Correo_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Correo_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Correo_textfieldActionPerformed
-
-    private void Direccion_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Direccion_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Direccion_textfieldActionPerformed
-
-    private void Bonificaciones_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bonificaciones_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Bonificaciones_textfieldActionPerformed
-
     private void Puesto_comboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Puesto_comboBoxItemStateChanged
         Puesto_comboBox.addItemListener((ItemEvent e) -> {
             if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -498,30 +423,6 @@ public class CrearEmpleado extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_Puesto_comboBoxItemStateChanged
-
-    private void Puesto_comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Puesto_comboBoxActionPerformed
-
-    }//GEN-LAST:event_Puesto_comboBoxActionPerformed
-
-    private void Sueldobase_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Sueldobase_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Sueldobase_textfieldActionPerformed
-
-    private void Usuario_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Usuario_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Usuario_textfieldActionPerformed
-
-    private void Telefono_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Telefono_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Telefono_textfieldActionPerformed
-
-    private void contrasena_textfield1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasena_textfield1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_contrasena_textfield1ActionPerformed
-
-    private void AjusteSueldo_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjusteSueldo_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AjusteSueldo_textfieldActionPerformed
 
     private void Save_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_buttonActionPerformed
         try {
@@ -557,7 +458,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
                     nit, correoElectronico, direccion, ajusteSueldo,
                     bonificaciones, idPuesto, idUsuario);
             
-            ResultSet resultEmpleado = Empleado.idEmpleado(conexion, nombre);
+            ResultSet resultEmpleado = Empleado.idEmpleado(conexion, nombre,apellido);
             resultEmpleado.next();
             int idEmpleado = resultEmpleado.getInt("ID_Empleado");
 
@@ -584,9 +485,6 @@ public class CrearEmpleado extends javax.swing.JFrame {
 
     }//GEN-LAST:event_Save_buttonActionPerformed
 
-    private void Clean_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Clean_buttonActionPerformed
-    }//GEN-LAST:event_Clean_buttonActionPerformed
-
     private void Clean_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Clean_buttonMouseClicked
         // TODO add your handling code here:
         Clean();
@@ -602,10 +500,6 @@ public class CrearEmpleado extends javax.swing.JFrame {
         }
         dispose();
     }//GEN-LAST:event_back_ButtonMouseClicked
-
-    private void back_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_ButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_back_ButtonActionPerformed
 
     private void sueldoBase(String nombre) throws SQLException {
         ResultSet result = Puesto.puestoNombre(conexion, nombre);

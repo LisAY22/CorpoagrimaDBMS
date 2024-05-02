@@ -111,7 +111,6 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="back_ButtonMouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="back_ButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -161,9 +160,9 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="Sueldobase_textfield" alignment="0" pref="120" max="32767" attributes="0"/>
+                              <Component id="Sueldobase_textfield" alignment="0" pref="129" max="32767" attributes="0"/>
                               <Component id="contrasena_textfield1" alignment="0" max="32767" attributes="0"/>
-                              <Component id="Puesto_comboBox" alignment="0" pref="120" max="32767" attributes="0"/>
+                              <Component id="Puesto_comboBox" alignment="0" pref="129" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -275,9 +274,6 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Ingrese Nombre"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Nombre_textFieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="Apellido_textField">
           <Properties>
@@ -302,9 +298,6 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Ingrese correo electr&#xf3;nico"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Correo_textfieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
@@ -321,9 +314,6 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Ingrese direcci&#xf3;n"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Direccion_textfieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
@@ -340,9 +330,6 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Ingrese bonificaciones"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Bonificaciones_textfieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
           <Properties>
@@ -363,7 +350,6 @@
           </Properties>
           <Events>
             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="Puesto_comboBoxItemStateChanged"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Puesto_comboBoxActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -379,14 +365,9 @@
         </Component>
         <Component class="javax.swing.JTextField" name="Sueldobase_textfield">
           <Properties>
-            <Property name="editable" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="true" type="code"/>
-            </Property>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="toolTipText" type="java.lang.String" value="Sueldo en Quetzales"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Sueldobase_textfieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
@@ -403,9 +384,6 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Ingrese Usuario"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Usuario_textfieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
@@ -422,9 +400,6 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Ingrese Tel&#xe9;fono"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Telefono_textfieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel16">
           <Properties>
@@ -441,9 +416,6 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Ingrese contrase&#xf1;a"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="contrasena_textfield1ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="Ajuste_label">
           <Properties>
@@ -460,9 +432,6 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Ajuste de sueldo en Quetzales"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjusteSueldo_textfieldActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -514,7 +483,6 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Clean_buttonMouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Clean_buttonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
