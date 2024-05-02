@@ -21,13 +21,24 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
     private Connection conexion;
     private ResultSet credenciales;
     private ConexionProducto producto;
+    private NuevoRegFactura nuevaFactura;
+    private EditarRegFactura editarFactura;
     private int id;
     /**
      * Creates new form AgregarPRegFactura
      */
-    public AgregarPRegFactura(Connection conexion, ResultSet credenciales) {
+    public AgregarPRegFactura(Connection conexion, ResultSet credenciales, NuevoRegFactura nuevaFactura) {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        this.nuevaFactura = nuevaFactura;
+        producto = new ConexionProducto();
+        initComponents();
+    }
+    
+    public AgregarPRegFactura(Connection conexion, ResultSet credenciales, EditarRegFactura editarFactura) {
+        this.conexion = conexion;
+        this.credenciales = credenciales;
+        this.editarFactura = editarFactura;
         producto = new ConexionProducto();
         initComponents();
     }
@@ -274,6 +285,11 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
 
         Seleccionar_button.setText("Seleccionar");
         Seleccionar_button.setEnabled(true);
+        Seleccionar_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Seleccionar_buttonMouseClicked(evt);
+            }
+        });
         Seleccionar_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Seleccionar_buttonActionPerformed(evt);
@@ -365,6 +381,7 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
                 if (textoBusqueda != null && !textoBusqueda.isEmpty()) {
                     ResultSet rs = producto.busqueda(conexion, textoBusqueda);
                     if (rs.next()) {
+                        id = rs.getInt("ID_Producto");
                         String nombre = rs.getString("Nombre");
                         String marca = rs.getString("Marca");
                         String fecha_v = rs.getString("Fecha_Vencimiento");
@@ -403,6 +420,7 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
 
+    
     private void Seleccionar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Seleccionar_buttonActionPerformed
 
     }//GEN-LAST:event_Seleccionar_buttonActionPerformed
@@ -410,6 +428,19 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
     private void Buscar_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Buscar_ButtonMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_Buscar_ButtonMouseClicked
+
+    private void Seleccionar_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Seleccionar_buttonMouseClicked
+        try {
+            if (nuevaFactura != null) { 
+                nuevaFactura.agregarProducto(id);
+            } else {
+                editarFactura.agregarProducto(id);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarPRegFactura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dispose();
+    }//GEN-LAST:event_Seleccionar_buttonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

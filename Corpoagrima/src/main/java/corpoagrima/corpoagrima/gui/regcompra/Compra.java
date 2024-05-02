@@ -352,7 +352,6 @@ public class Compra extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Anular_jbutton;
     private javax.swing.JButton EditarPuesto_jbutton;
-    private javax.swing.JButton EliminarBn;
     private javax.swing.JButton NuevoPuesto_jbutton;
     private javax.swing.JButton Ordenar_Bn;
     private javax.swing.JButton Refresh_button;

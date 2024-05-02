@@ -5,8 +5,11 @@
 package corpoagrima.corpoagrima.gui.regcompra;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,6 +19,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
     private Connection conexion;
     private ResultSet credenciales;
     private ConexionCompra compras;
+    private ConexionProducto producto;
 
     /**
      * Creates new form editarRegFactura
@@ -24,6 +28,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
         this.conexion = conexion;
         this.credenciales = credenciales;
         compras = new ConexionCompra();
+        producto = new ConexionProducto();
         initComponents();
     }
 
@@ -126,17 +131,14 @@ public class EditarRegFactura extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "Detalle", "Marca", "Fecha de vencimiento", "Cantidad", "Precio unidad", "Precio total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -401,7 +403,21 @@ public class EditarRegFactura extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void agregarProducto(int id) throws SQLException {
+            ResultSet resultado = producto.busqueda2(conexion, id);
 
+            // Obtener el modelo de la tabla actual
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+            resultado.next();
+            String nombre = resultado.getString("Nombre");
+            String descripcion = resultado.getString("Descripcion");
+            String marca = resultado.getString("Marca");
+            
+            // Agregar a la tabla
+            model.addRow(new Object[]{nombre, descripcion, marca, null, null, null, null});
+            
+    }
     private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
 
     }//GEN-LAST:event_Regresar_BnMouseClicked
@@ -415,7 +431,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
     }//GEN-LAST:event_Regresar_BnActionPerformed
 
     private void AgregarBnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarBnMouseClicked
-        AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales);
+        AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales, this);
         AgregarWindow.setVisible(true);
     }//GEN-LAST:event_AgregarBnMouseClicked
 

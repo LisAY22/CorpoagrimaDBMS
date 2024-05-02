@@ -24,6 +24,15 @@ public class ConexionProducto {
         return stmt.executeQuery();
 
     }
+    public ResultSet busqueda2(Connection conexion, int id) throws SQLException{
+
+        String sql = "SELECT * FROM Producto WHERE ID_Producto = ?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setInt(1, id);
+
+        return stmt.executeQuery();
+
+    }
     
     public ResultSet consulta(Connection conexion) throws SQLException{
         // Crear una sentencia SQL
