@@ -5,7 +5,7 @@
 package corpoagrima.corpoagrima.gui.proveedor;
 
 import corpoagrima.corpoagrima.gui.proveedor.EditarProveedor;
-import corpoagrima.corpoagrima.gui.proveedor.NuevoProveedore;
+import corpoagrima.corpoagrima.gui.proveedor.NuevoProveedor;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import corpoagrima.corpoagrima.gui.cliente.Cliente;
 import corpoagrima.corpoagrima.gui.Principal;
@@ -370,7 +370,7 @@ public class Proveedor extends javax.swing.JFrame {
 
     private void Nuevo_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Nuevo_BnMouseClicked
         // TODO add your handling code here:
-        NuevoProveedore proveedores3_screen = new NuevoProveedore(conexion, credenciales);
+        NuevoProveedor proveedores3_screen = new NuevoProveedor(conexion, credenciales);
         proveedores3_screen.setVisible(true);
         proveedores3_screen.setLocationRelativeTo(null);
         

@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author lisaj
  */
-public class NuevoProveedore extends javax.swing.JFrame {
+public class NuevoProveedor extends javax.swing.JFrame {
 
     private Connection conexion;
     private ResultSet credenciales;
@@ -27,7 +27,7 @@ public class NuevoProveedore extends javax.swing.JFrame {
     /**
      * Creates new form Proveedores3
      */
-    public NuevoProveedore(Connection conexion, ResultSet credenciales) {
+    public NuevoProveedor(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
         proveedores = new ConexionProveedores();
@@ -337,7 +337,7 @@ public class NuevoProveedore extends javax.swing.JFrame {
                             JOptionPane.ERROR_MESSAGE);
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(NuevoProveedore.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NuevoProveedor.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Ha habido un error "
                         + "compruebe la información", "Nuevo Proveedor",
                         JOptionPane.ERROR_MESSAGE);
