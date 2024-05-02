@@ -58,7 +58,9 @@ public class ConexionProveedores {
     }
     
     public ResultSet proveedor(Connection conexion, String nombre) throws SQLException{
-        String sql = "SELECT * FROM Proveedor WHERE Empresa = ?";
+        String sql = "SELECT p.*, t.numero FROM Proveedor p "
+                + "INNER JOIN Telefono t ON ID_Proveedor=Proveedor_ID_Proveedor "
+                + "WHERE Empresa = ?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
 
