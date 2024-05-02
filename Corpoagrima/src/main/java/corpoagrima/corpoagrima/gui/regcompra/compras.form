@@ -22,9 +22,9 @@
               <Component id="jScrollPane1" min="-2" pref="638" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="Anular_button" max="32767" attributes="0"/>
-                  <Component id="jButtonNP" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jButtonEDP" alignment="0" max="32767" attributes="0"/>
+                  <Component id="Anular_jbutton" max="32767" attributes="0"/>
+                  <Component id="NuevoPuesto_jbutton" alignment="0" max="32767" attributes="0"/>
+                  <Component id="EditarPuesto_jbutton" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -45,11 +45,11 @@
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jButtonEDP" min="-2" max="-2" attributes="0"/>
+                      <Component id="EditarPuesto_jbutton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButtonNP" min="-2" max="-2" attributes="0"/>
+                      <Component id="NuevoPuesto_jbutton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="Anular_button" min="-2" max="-2" attributes="0"/>
+                      <Component id="Anular_jbutton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="186" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
@@ -222,7 +222,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Ordenar_BnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonEDP">
+    <Component class="javax.swing.JButton" name="EditarPuesto_jbutton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="85" green="d5" red="88" type="rgb"/>
@@ -237,11 +237,11 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonEDPMouseClicked"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEDPActionPerformed"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EditarPuesto_jbuttonMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EditarPuesto_jbuttonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonNP">
+    <Component class="javax.swing.JButton" name="NuevoPuesto_jbutton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="85" green="d5" red="88" type="rgb"/>
@@ -255,10 +255,11 @@
         <Property name="text" type="java.lang.String" value="NUEVO PUESTO"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonNPMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="NuevoPuesto_jbuttonMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NuevoPuesto_jbuttonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="Anular_button">
+    <Component class="javax.swing.JButton" name="Anular_jbutton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -275,7 +276,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Anular_buttonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Anular_jbuttonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

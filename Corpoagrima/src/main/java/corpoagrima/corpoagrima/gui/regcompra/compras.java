@@ -39,9 +39,9 @@ public class compras extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         Ordenar_Bn = new javax.swing.JButton();
-        jButtonEDP = new javax.swing.JButton();
-        jButtonNP = new javax.swing.JButton();
-        Anular_button = new javax.swing.JButton();
+        EditarPuesto_jbutton = new javax.swing.JButton();
+        NuevoPuesto_jbutton = new javax.swing.JButton();
+        Anular_jbutton = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(34, 85, 34));
 
@@ -144,40 +144,45 @@ public class compras extends javax.swing.JPanel {
             }
         });
 
-        jButtonEDP.setBackground(new java.awt.Color(136, 213, 133));
-        jButtonEDP.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButtonEDP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
-        jButtonEDP.setText("EDITAR PUESTO");
-        jButtonEDP.setToolTipText("");
-        jButtonEDP.addMouseListener(new java.awt.event.MouseAdapter() {
+        EditarPuesto_jbutton.setBackground(new java.awt.Color(136, 213, 133));
+        EditarPuesto_jbutton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        EditarPuesto_jbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
+        EditarPuesto_jbutton.setText("EDITAR PUESTO");
+        EditarPuesto_jbutton.setToolTipText("");
+        EditarPuesto_jbutton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonEDPMouseClicked(evt);
+                EditarPuesto_jbuttonMouseClicked(evt);
             }
         });
-        jButtonEDP.addActionListener(new java.awt.event.ActionListener() {
+        EditarPuesto_jbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEDPActionPerformed(evt);
+                EditarPuesto_jbuttonActionPerformed(evt);
             }
         });
 
-        jButtonNP.setBackground(new java.awt.Color(136, 213, 133));
-        jButtonNP.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButtonNP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
-        jButtonNP.setText("NUEVO PUESTO");
-        jButtonNP.addMouseListener(new java.awt.event.MouseAdapter() {
+        NuevoPuesto_jbutton.setBackground(new java.awt.Color(136, 213, 133));
+        NuevoPuesto_jbutton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        NuevoPuesto_jbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
+        NuevoPuesto_jbutton.setText("NUEVO PUESTO");
+        NuevoPuesto_jbutton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonNPMouseClicked(evt);
+                NuevoPuesto_jbuttonMouseClicked(evt);
+            }
+        });
+        NuevoPuesto_jbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NuevoPuesto_jbuttonActionPerformed(evt);
             }
         });
 
-        Anular_button.setBackground(new java.awt.Color(255, 0, 0));
-        Anular_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Anular_button.setForeground(new java.awt.Color(255, 255, 255));
-        Anular_button.setText("ANULAR REGISTRO COMPRA");
-        Anular_button.setEnabled(true);
-        Anular_button.addActionListener(new java.awt.event.ActionListener() {
+        Anular_jbutton.setBackground(new java.awt.Color(255, 0, 0));
+        Anular_jbutton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Anular_jbutton.setForeground(new java.awt.Color(255, 255, 255));
+        Anular_jbutton.setText("ANULAR REGISTRO COMPRA");
+        Anular_jbutton.setEnabled(true);
+        Anular_jbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Anular_buttonActionPerformed(evt);
+                Anular_jbuttonActionPerformed(evt);
             }
         });
 
@@ -191,9 +196,9 @@ public class compras extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Anular_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonNP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonEDP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Anular_jbutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(NuevoPuesto_jbutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(EditarPuesto_jbutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
@@ -210,11 +215,11 @@ public class compras extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonEDP)
+                        .addComponent(EditarPuesto_jbutton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonNP)
+                        .addComponent(NuevoPuesto_jbutton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Anular_button)
+                        .addComponent(Anular_jbutton)
                         .addContainerGap(186, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
@@ -225,7 +230,7 @@ public class compras extends javax.swing.JPanel {
     }//GEN-LAST:event_Regresar_BnMouseClicked
 
     private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_Regresar_BnActionPerformed
 
     private void Refresh_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Refresh_buttonActionPerformed
@@ -240,33 +245,42 @@ public class compras extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_Ordenar_BnActionPerformed
 
-    private void jButtonEDPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEDPMouseClicked
+    private void EditarPuesto_jbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditarPuesto_jbuttonMouseClicked
        
-    }//GEN-LAST:event_jButtonEDPMouseClicked
+    }//GEN-LAST:event_EditarPuesto_jbuttonMouseClicked
 
-    private void jButtonEDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEDPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonEDPActionPerformed
+    private void EditarPuesto_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarPuesto_jbuttonActionPerformed
+        EditarRegFactura EditarWindow = new EditarRegFactura();
+        EditarWindow.setVisible(true);
+    }//GEN-LAST:event_EditarPuesto_jbuttonActionPerformed
 
-    private void jButtonNPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNPMouseClicked
+    private void NuevoPuesto_jbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NuevoPuesto_jbuttonMouseClicked
 
-    }//GEN-LAST:event_jButtonNPMouseClicked
+    }//GEN-LAST:event_NuevoPuesto_jbuttonMouseClicked
 
-    private void Anular_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Anular_buttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Anular_buttonActionPerformed
+    private void Anular_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Anular_jbuttonActionPerformed
+        AnularRegFactura AnularWindow = new AnularRegFactura();
+        AnularWindow.setVisible(true);
+        
+    }//GEN-LAST:event_Anular_jbuttonActionPerformed
+
+    private void NuevoPuesto_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoPuesto_jbuttonActionPerformed
+        NuevoRegFactura NuevoWindow = new NuevoRegFactura();
+        NuevoWindow.setVisible(true);
+    }//GEN-LAST:event_NuevoPuesto_jbuttonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Anular_button;
+    private javax.swing.JButton Anular_jbutton;
+    private javax.swing.JButton EditarPuesto_jbutton;
+    private javax.swing.JButton NuevoPuesto_jbutton;
     private javax.swing.JButton Ordenar_Bn;
     private javax.swing.JButton Refresh_button;
     private javax.swing.JButton Regresar_Bn;
-    private javax.swing.JButton jButtonEDP;
-    private javax.swing.JButton jButtonNP;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
 }
