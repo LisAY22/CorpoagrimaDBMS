@@ -382,7 +382,6 @@ public class NuevoRegFactura extends javax.swing.JFrame {
     private void AgregarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBnActionPerformed
         AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales);
         AgregarWindow.setVisible(true);
-        dispose();
     }//GEN-LAST:event_AgregarBnActionPerformed
     
     private void datoProveedor(String nombre) throws SQLException{

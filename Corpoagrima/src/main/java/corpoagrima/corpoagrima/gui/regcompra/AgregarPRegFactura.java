@@ -330,9 +330,6 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
     }//GEN-LAST:event_Regresar_BnMouseClicked
 
     private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
-        // TODO add your handling code here:
-        Compra compra_screen = new Compra(conexion, credenciales);
-        compra_screen.setVisible(true);
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_Regresar_BnActionPerformed

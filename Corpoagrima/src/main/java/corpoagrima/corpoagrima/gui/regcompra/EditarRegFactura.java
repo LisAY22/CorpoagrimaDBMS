@@ -118,6 +118,11 @@ public class EditarRegFactura extends javax.swing.JFrame {
                 AgregarBnMouseClicked(evt);
             }
         });
+        AgregarBn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarBnActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -412,7 +417,6 @@ public class EditarRegFactura extends javax.swing.JFrame {
     private void AgregarBnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarBnMouseClicked
         AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales);
         AgregarWindow.setVisible(true);
-        dispose();
     }//GEN-LAST:event_AgregarBnMouseClicked
 
     private void Limpiar_button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_button4ActionPerformed
@@ -458,6 +462,10 @@ public class EditarRegFactura extends javax.swing.JFrame {
     private void Proveedor_comboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Proveedor_comboBox1ActionPerformed
 
     }//GEN-LAST:event_Proveedor_comboBox1ActionPerformed
+
+    private void AgregarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AgregarBnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
