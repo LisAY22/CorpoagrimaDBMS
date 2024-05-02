@@ -7,6 +7,7 @@ package corpoagrima.corpoagrima.gui;
 import corpoagrima.corpoagrima.gui.inventario.Inventario;
 import corpoagrima.corpoagrima.gui.cliente.Cliente;
 import corpoagrima.corpoagrima.gui.proveedor.Proveedor;
+import corpoagrima.corpoagrima.gui.regcompra.Compra;
 import corpoagrima.corpoagrima.gui.rrhh.RRHH;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -143,6 +144,11 @@ public class Principal extends javax.swing.JFrame {
         comprasJButton.setText("COMPRAS");
         comprasJButton.setToolTipText("");
         comprasJButton.setPreferredSize(new java.awt.Dimension(100, 100));
+        comprasJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comprasJButtonActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(34, 85, 34));
 
@@ -281,6 +287,13 @@ public class Principal extends javax.swing.JFrame {
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_proveedoresJButtonActionPerformed
+
+    private void comprasJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprasJButtonActionPerformed
+        Compra compra_screen = new Compra();
+        compra_screen.setVisible(true);
+        // Cerrar la ventana actual
+        dispose();
+    }//GEN-LAST:event_comprasJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clientesJButton;
