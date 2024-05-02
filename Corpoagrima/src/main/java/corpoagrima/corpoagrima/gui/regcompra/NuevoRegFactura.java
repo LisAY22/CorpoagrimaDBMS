@@ -37,9 +37,11 @@ public class NuevoRegFactura extends javax.swing.JFrame {
                 nombreProveedor = listaProveedor.getString("Empresa");
                 Proveedor_comboBox.addItem(nombreProveedor);
             }
+            String nombre = (String) Proveedor_comboBox.getSelectedItem();
+            datoProveedor(nombre);
             String nombreEmpleado = credenciales.getString("Nombre");
             String apellidoEmpleado = credenciales.getString("Apellido");
-            empleado_textfield.setText(nombreEmpleado + apellidoEmpleado);
+            empleado_textfield.setText(nombreEmpleado + " " + apellidoEmpleado);
             
         } catch (SQLException ex) {
             Logger.getLogger(NuevoRegFactura.class.getName()).log(Level.SEVERE, null, ex);
@@ -385,10 +387,12 @@ public class NuevoRegFactura extends javax.swing.JFrame {
     }//GEN-LAST:event_AgregarBnActionPerformed
     
     private void datoProveedor(String nombre) throws SQLException{
-        ResultSet proveedores = new ConexionProveedores().proveedor(conexion, nombre);
-        proveedores.next();
-        String nit = proveedores.getString("NIT");
-        
+        ResultSet proveedor = new ConexionProveedores().proveedor(conexion, nombre);
+        proveedor.next();
+        String numero = proveedor.getString("Numero");
+        String nit = proveedor.getString("NIT");
+        telefono_textfield.setText(numero);
+        nit_textfield.setText(nit);
     }
 
 
