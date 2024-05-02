@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 /**
  *
  * @author karol
+ * @author WilderL
  */
 public class NuevoRegFactura extends javax.swing.JFrame {
     private Connection conexion;
@@ -36,7 +37,9 @@ public class NuevoRegFactura extends javax.swing.JFrame {
                 nombreProveedor = listaProveedor.getString("Empresa");
                 Proveedor_comboBox.addItem(nombreProveedor);
             }
-            empleado_textfield.setText("");
+            String nombreEmpleado = credenciales.getString("Nombre");
+            String apellidoEmpleado = credenciales.getString("Apellido");
+            empleado_textfield.setText(nombreEmpleado + apellidoEmpleado);
             
         } catch (SQLException ex) {
             Logger.getLogger(NuevoRegFactura.class.getName()).log(Level.SEVERE, null, ex);

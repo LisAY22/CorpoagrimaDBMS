@@ -38,7 +38,7 @@ public class ConexionUsuario {
 
     public ResultSet consulta(Connection conexion, String usuario, String contrasenia) throws SQLException {
         String sql = """
-                    SELECT Empleado.Nombre, Empleado.Apellido,Puesto.Nombre, 
+                    SELECT Empleado.Nombre, Empleado.Apellido, 
                     Puesto.Modulo_Cliente, Puesto.Modulo_RH, Puesto.Modulo_Proveedores, 
                     Puesto.Modulo_Reg_Compra, Puesto.Modulo_Reg_Venta, 
                     Puesto.Modulo_Financiero, Puesto.Modulo_Inventario FROM Usuario
