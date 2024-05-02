@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package corpoagrima.corpoagrima.gui;
+package corpoagrima.corpoagrima.gui.inventario;
 
+import corpoagrima.corpoagrima.gui.inventario.Inventario;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import java.sql.Connection;
 import java.sql.ResultSet;

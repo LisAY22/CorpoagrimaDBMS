@@ -4,6 +4,7 @@
  */
 package corpoagrima.corpoagrima.gui;
 
+import corpoagrima.corpoagrima.gui.inventario.Inventario;
 import corpoagrima.corpoagrima.gui.cliente.Cliente;
 import corpoagrima.corpoagrima.gui.proveedor.Proveedor;
 import corpoagrima.corpoagrima.gui.rrhh.RRHH;

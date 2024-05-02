@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package corpoagrima.corpoagrima.gui;
+package corpoagrima.corpoagrima.gui.regcompra;
 
 /**
  *
  * @author karol
  */
-public class editarRegFactura extends javax.swing.JFrame {
+public class EditarRegFactura extends javax.swing.JFrame {
 
     /**
      * Creates new form editarRegFactura
      */
-    public editarRegFactura() {
+    public EditarRegFactura() {
         initComponents();
     }
 
@@ -313,11 +313,12 @@ public class editarRegFactura extends javax.swing.JFrame {
                 .addGap(40, 83, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FacturaLabel1)
-                    .addComponent(CorreoLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Correo_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ID_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ID_textfield1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(FacturaLabel1)
+                        .addComponent(CorreoLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Correo_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Destacado_checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -445,41 +446,27 @@ public class editarRegFactura extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarBn;
-    private javax.swing.JTextField Apellido_textfield;
     private javax.swing.JTextField Apellido_textfield1;
-    private javax.swing.JLabel CantidadComprasLabel;
     private javax.swing.JLabel CantidadComprasLabel1;
-    private javax.swing.JTextField Cantidadcompras_textfield;
     private javax.swing.JTextField Cantidadcompras_textfield1;
-    private javax.swing.JLabel CorreoLabel;
     private javax.swing.JLabel CorreoLabel1;
-    private javax.swing.JTextField Correo_textfield;
     private javax.swing.JTextField Correo_textfield1;
-    private javax.swing.JCheckBox Destacado_checkBox;
     private javax.swing.JCheckBox Destacado_checkBox1;
-    private javax.swing.JLabel DireccionLabel;
     private javax.swing.JLabel DireccionLabel1;
-    private javax.swing.JTextField Direccion_textfield;
     private javax.swing.JTextField Direccion_textfield1;
     private javax.swing.JButton EliminarBn;
-    private javax.swing.JLabel FacturaLabel;
     private javax.swing.JLabel FacturaLabel1;
-    private javax.swing.JLabel FechaLabel;
     private javax.swing.JLabel FechaLabel1;
     private javax.swing.JButton Guardar_button4;
-    private javax.swing.JTextField ID_textfield;
     private javax.swing.JTextField ID_textfield1;
     private javax.swing.JButton Limpiar_button4;
-    private javax.swing.JLabel ProveedorLabel;
     private javax.swing.JLabel ProveedorLabel1;
-    private javax.swing.JComboBox<String> Proveedor_comboBox;
     private javax.swing.JComboBox<String> Proveedor_comboBox1;
     private javax.swing.JButton Regresar_Bn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane2;

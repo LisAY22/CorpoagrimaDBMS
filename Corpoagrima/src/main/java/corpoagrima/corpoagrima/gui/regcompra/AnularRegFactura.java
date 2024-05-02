@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package corpoagrima.corpoagrima.gui;
+package corpoagrima.corpoagrima.gui.regcompra;
 
 /**
  *
  * @author lisaj
  */
-public class CAnularRegFactura extends javax.swing.JFrame {
+public class AnularRegFactura extends javax.swing.JFrame {
 
     /**
      * Creates new form CAnularRegFactura
      */
-    public CAnularRegFactura() {
+    public AnularRegFactura() {
         initComponents();
     }
 
@@ -49,7 +49,6 @@ public class CAnularRegFactura extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(732, 650));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(34, 85, 34));
