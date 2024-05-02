@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package corpoagrima.corpoagrima.gui;
+package corpoagrima.corpoagrima.gui.proveedor;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import java.sql.Connection;
@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author lisaj
  */
-public class Proveedores2 extends javax.swing.JFrame {
+public class EditarProveedor extends javax.swing.JFrame {
 
     private Connection conexion;
     private ResultSet credenciales;
@@ -26,7 +26,7 @@ public class Proveedores2 extends javax.swing.JFrame {
     /**
      * Creates new form Proveedores2
      */
-    public Proveedores2(Connection conexion, ResultSet credenciales) {
+    public EditarProveedor(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
         proveedores = new ConexionProveedores();
@@ -416,7 +416,7 @@ public class Proveedores2 extends javax.swing.JFrame {
                 }
 
             } catch (SQLException ex) {
-                Logger.getLogger(Proveedores2.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EditarProveedor.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Ha habido un error "
                         + "compruebe la información", "Busqueda",
                         JOptionPane.ERROR_MESSAGE);
@@ -469,7 +469,7 @@ public class Proveedores2 extends javax.swing.JFrame {
                     limpiar();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(Proveedores2.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EditarProveedor.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Ha habido un error "
                         + "compruebe la información", "Guardar Proveedor",
                         JOptionPane.ERROR_MESSAGE);
@@ -495,7 +495,7 @@ public class Proveedores2 extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(Proveedores2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditarProveedor.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "ERROR "
                     + "compruebe la información", "Eliminar Proveedor",
                     JOptionPane.ERROR_MESSAGE);
@@ -504,7 +504,7 @@ public class Proveedores2 extends javax.swing.JFrame {
     }//GEN-LAST:event_Eliminar_button1ActionPerformed
 
     private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
-        Proveedores proveedores_screen = new Proveedores(conexion, credenciales);
+        Proveedor proveedores_screen = new Proveedor(conexion, credenciales);
         proveedores_screen.setVisible(true);
         
         // Cerrar la ventana actual

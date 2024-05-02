@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package corpoagrima.corpoagrima.gui;
+package corpoagrima.corpoagrima.gui.cliente;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCliente;
 import java.sql.Connection;
@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author lisaj
  */
-public class Clientes3 extends javax.swing.JFrame {
+public class NuevoCliente extends javax.swing.JFrame {
 
     private Connection conexion;
     private ResultSet credenciales;
@@ -26,7 +26,7 @@ public class Clientes3 extends javax.swing.JFrame {
     /**
      * Creates new form Clientes3
      */
-    public Clientes3(Connection conexion, ResultSet credenciales) {
+    public NuevoCliente(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
         clientes = new ConexionCliente();
@@ -314,7 +314,7 @@ public class Clientes3 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 857, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -402,7 +402,7 @@ public class Clientes3 extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(Clientes3.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NuevoCliente.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Nuevo Cliente",
                     JOptionPane.ERROR_MESSAGE);
@@ -411,7 +411,7 @@ public class Clientes3 extends javax.swing.JFrame {
 
     private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
         // TODO add your handling code here:
-        Clientes principal_screen = new Clientes(conexion, credenciales);
+        Cliente principal_screen = new Cliente(conexion, credenciales);
         principal_screen.setVisible(true);
         principal_screen.setLocationRelativeTo(null);
         // Cerrar la ventana actual

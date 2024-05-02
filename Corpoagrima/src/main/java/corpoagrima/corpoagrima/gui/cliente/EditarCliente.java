@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package corpoagrima.corpoagrima.gui;
+package corpoagrima.corpoagrima.gui.cliente;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCliente;
 import java.sql.Connection;
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * @author Diana
  * 
  */
-public class Clientes2 extends javax.swing.JFrame{
+public class EditarCliente extends javax.swing.JFrame{
 
     private Connection conexion;
     private ResultSet credenciales;
@@ -28,7 +28,7 @@ public class Clientes2 extends javax.swing.JFrame{
     /**
      * Creates new form clientes2
      */
-    public Clientes2(Connection conexion, ResultSet credenciales) {
+    public EditarCliente(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
         clientes = new ConexionCliente();
@@ -455,7 +455,7 @@ public class Clientes2 extends javax.swing.JFrame{
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(Clientes2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditarCliente.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "ERROR "
                     + "compruebe la información", "Eliminar Cliente",
                     JOptionPane.ERROR_MESSAGE);
@@ -548,7 +548,7 @@ public class Clientes2 extends javax.swing.JFrame{
                 }
 
             } catch (SQLException ex) {
-                Logger.getLogger(Clientes2.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EditarCliente.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Ha habido un error "
                         + "compruebe la información", "Busqueda",
                         JOptionPane.ERROR_MESSAGE);
@@ -577,7 +577,7 @@ public class Clientes2 extends javax.swing.JFrame{
                     limpiar();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(Clientes2.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EditarCliente.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Ha habido un error "
                         + "compruebe la información", "Guardar Cliente",
                         JOptionPane.ERROR_MESSAGE);
@@ -586,7 +586,7 @@ public class Clientes2 extends javax.swing.JFrame{
 
     private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
         // TODO add your handling code here:
-        Clientes principal_screen = new Clientes(conexion, credenciales);
+        Cliente principal_screen = new Cliente(conexion, credenciales);
         principal_screen.setVisible(true);
         principal_screen.setLocationRelativeTo(null);
         // Cerrar la ventana actual

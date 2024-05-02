@@ -4,6 +4,8 @@
  */
 package corpoagrima.corpoagrima.gui;
 
+import corpoagrima.corpoagrima.gui.cliente.Cliente;
+import corpoagrima.corpoagrima.gui.proveedor.Proveedor;
 import corpoagrima.corpoagrima.gui.rrhh.RRHH;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -265,7 +267,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void clientesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesJButtonActionPerformed
         // TODO add your handling code here:
-        Clientes clientes_screen = new Clientes(conexion, credenciales);
+        Cliente clientes_screen = new Cliente(conexion, credenciales);
         clientes_screen.setVisible(true);        
         // Cerrar la ventana actual
         dispose();
@@ -273,7 +275,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void proveedoresJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proveedoresJButtonActionPerformed
         // TODO add your handling code here:
-        Proveedores proveedores_screen = new Proveedores(conexion, credenciales);
+        Proveedor proveedores_screen = new Proveedor(conexion, credenciales);
         proveedores_screen.setVisible(true);
         // Cerrar la ventana actual
         dispose();

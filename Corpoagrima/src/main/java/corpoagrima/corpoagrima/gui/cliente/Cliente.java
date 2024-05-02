@@ -2,9 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package corpoagrima.corpoagrima.gui;
+package corpoagrima.corpoagrima.gui.cliente;
 
+import corpoagrima.corpoagrima.gui.cliente.EditarCliente;
+import corpoagrima.corpoagrima.gui.cliente.NuevoCliente;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCliente;
+import corpoagrima.corpoagrima.gui.Principal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +23,7 @@ import java.util.logging.Logger;
  *
  * @author karol
  */
-public class Clientes extends javax.swing.JFrame {
+public class Cliente extends javax.swing.JFrame {
 
     /**
      * Creates new form clientes
@@ -30,7 +33,7 @@ public class Clientes extends javax.swing.JFrame {
     private ConexionCliente clientes;
     private TableRowSorter<DefaultTableModel> sorter; // Variable miembro para mantener el TableRowSorter
     
-    public Clientes(Connection conexion, ResultSet credenciales) {
+    public Cliente(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
         clientes = new ConexionCliente();
@@ -342,7 +345,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void Editar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Editar_BnMouseClicked
         // TODO add your handling code here:
-        Clientes2 clientes2_screen = new Clientes2(conexion, credenciales);
+        EditarCliente clientes2_screen = new EditarCliente(conexion, credenciales);
         clientes2_screen.setVisible(true);
         clientes2_screen.setLocationRelativeTo(null);
         
@@ -351,7 +354,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void NuevoBnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NuevoBnMouseClicked
         // TODO add your handling code here:
-        Clientes3 clientes3_screen = new Clientes3(conexion, credenciales);
+        NuevoCliente clientes3_screen = new NuevoCliente(conexion, credenciales);
         clientes3_screen.setVisible(true);
         clientes3_screen.setLocationRelativeTo(null);
         
@@ -373,7 +376,7 @@ public class Clientes extends javax.swing.JFrame {
             // Cerrar la ventana actual
             dispose();
         } catch (SQLException ex) {
-            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_Regresar_BnMouseClicked
 

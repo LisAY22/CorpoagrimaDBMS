@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package corpoagrima.corpoagrima.gui;
+package corpoagrima.corpoagrima.gui.proveedor;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import java.sql.Connection;
@@ -352,7 +352,7 @@ public class NuevoProveedore extends javax.swing.JFrame {
     }//GEN-LAST:event_Limpiar_buttonMouseClicked
 
     private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
-        Proveedores proveedores_screen = new Proveedores(conexion, credenciales);
+        Proveedor proveedores_screen = new Proveedor(conexion, credenciales);
         proveedores_screen.setVisible(true);
 
         // Cerrar la ventana actual

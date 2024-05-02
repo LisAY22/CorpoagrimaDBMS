@@ -2,9 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package corpoagrima.corpoagrima.gui;
+package corpoagrima.corpoagrima.gui.proveedor;
 
+import corpoagrima.corpoagrima.gui.proveedor.EditarProveedor;
+import corpoagrima.corpoagrima.gui.proveedor.NuevoProveedore;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
+import corpoagrima.corpoagrima.gui.cliente.Cliente;
+import corpoagrima.corpoagrima.gui.Principal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +24,7 @@ import java.util.logging.Logger;
  *
  * @author lisaj
  */
-public class Proveedores extends javax.swing.JFrame {
+public class Proveedor extends javax.swing.JFrame {
 
     
     private Connection conexion;
@@ -31,7 +35,7 @@ public class Proveedores extends javax.swing.JFrame {
     /**
      * Creates new form Proveedores
      */
-    public Proveedores(Connection conexion, ResultSet credenciales) {
+    public Proveedor(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
         proveedores = new ConexionProveedores();
@@ -288,7 +292,7 @@ public class Proveedores extends javax.swing.JFrame {
             // Cerrar la ventana actual
             dispose();
         } catch (SQLException ex) {
-            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_Regresar_BnMouseClicked
 
@@ -356,7 +360,7 @@ public class Proveedores extends javax.swing.JFrame {
 
     private void Editar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Editar_BnMouseClicked
         // TODO add your handling code here:
-        Proveedores2 proveedores2_screen = new Proveedores2(conexion, credenciales);
+        EditarProveedor proveedores2_screen = new EditarProveedor(conexion, credenciales);
         proveedores2_screen.setVisible(true);
         proveedores2_screen.setLocationRelativeTo(null);
         
