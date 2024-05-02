@@ -5,6 +5,7 @@
 package corpoagrima.corpoagrima.gui.proveedor;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionTelefono;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +22,9 @@ public class NuevoProveedor extends javax.swing.JFrame {
     private Connection conexion;
     private ResultSet credenciales;
     private ConexionProveedores proveedores;
+    private ConexionTelefono Telefono;
     private int id;
+    private int idTelefono;
 
     
     /**
@@ -31,16 +34,17 @@ public class NuevoProveedor extends javax.swing.JFrame {
         this.conexion = conexion;
         this.credenciales = credenciales;
         proveedores = new ConexionProveedores();
+        Telefono = new ConexionTelefono();
         initComponents();
     }
 
     private void limpiar(){
-        ID_textfield.setText("");
         Empresa_textfield.setText("");
         Nombre_textfield.setText("");
         NIT_textfield.setText("");
         Direccion_textfield.setText("");
         Correo_textfield.setText("");
+        telefono_textfield1.setText("");
     }      
     
     /**
@@ -58,7 +62,6 @@ public class NuevoProveedor extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         NITLabel = new javax.swing.JLabel();
         ApellidoLabel = new javax.swing.JLabel();
-        IDlabel = new javax.swing.JLabel();
         Empresa_textfield = new javax.swing.JTextField();
         Nombre_textfield = new javax.swing.JTextField();
         NIT_textfield = new javax.swing.JTextField();
@@ -67,7 +70,8 @@ public class NuevoProveedor extends javax.swing.JFrame {
         Correo_textfield = new javax.swing.JTextField();
         DireccionLabel = new javax.swing.JLabel();
         NombreLabel = new javax.swing.JLabel();
-        ID_textfield = new javax.swing.JTextField();
+        CorreoLabel1 = new javax.swing.JLabel();
+        telefono_textfield1 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         Limpiar_button = new javax.swing.JButton();
         Guardar_button = new javax.swing.JButton();
@@ -119,9 +123,6 @@ public class NuevoProveedor extends javax.swing.JFrame {
         ApellidoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         ApellidoLabel.setText("Nombre");
 
-        IDlabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        IDlabel.setText("ID");
-
         Empresa_textfield.setEditable(true);
         Empresa_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Empresa_textfield.addActionListener(new java.awt.event.ActionListener() {
@@ -167,11 +168,13 @@ public class NuevoProveedor extends javax.swing.JFrame {
         NombreLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         NombreLabel.setText("Empresa");
 
-        ID_textfield.setEditable(true);
-        ID_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ID_textfield.addActionListener(new java.awt.event.ActionListener() {
+        CorreoLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        CorreoLabel1.setText("Telefono");
+
+        telefono_textfield1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        telefono_textfield1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ID_textfieldActionPerformed(evt);
+                telefono_textfield1ActionPerformed(evt);
             }
         });
 
@@ -182,56 +185,58 @@ public class NuevoProveedor extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(IDlabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(CorreoLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
                     .addComponent(ApellidoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(NombreLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Empresa_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                    .addComponent(Nombre_textfield)
-                    .addComponent(ID_textfield))
-                .addGap(88, 88, 88)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NITLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DireccionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CorreoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(NombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Empresa_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                            .addComponent(Nombre_textfield)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(telefono_textfield1)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(NIT_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Direccion_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(NITLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DireccionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(61, 61, 61))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Correo_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(CorreoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(NIT_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Correo_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Direccion_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(Direccion_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DireccionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Empresa_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Direccion_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(NITLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(NIT_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(DireccionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(IDlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ID_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(NombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Empresa_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(NITLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(6, 6, 6)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CorreoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Nombre_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ApellidoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ApellidoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CorreoLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(telefono_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CorreoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Correo_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -270,7 +275,7 @@ public class NuevoProveedor extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Guardar_button)
                     .addComponent(Limpiar_button))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -311,22 +316,23 @@ public class NuevoProveedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Correo_textfieldActionPerformed
 
-    private void ID_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ID_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ID_textfieldActionPerformed
-
     private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
         try {
-                id = Integer.parseInt(ID_textfield.getText());
                 String empresa = Empresa_textfield.getText();
                 String nombre = Nombre_textfield.getText();
                 String direccion = Direccion_textfield.getText();
                 String nit = NIT_textfield.getText();
                 String correoELectronico = Correo_textfield.getText();
+                String telefono = telefono_textfield1.getText();
                 
 
                 boolean rs = proveedores.agregar(conexion, id, empresa, nombre, direccion, nit, correoELectronico);
 
+                ResultSet resultProveedor = proveedores.idProveedor(conexion, empresa ,nombre);
+                resultProveedor.next();
+                
+                id = resultProveedor.getInt("ID_Proveedor");
+                boolean resultTelefono = Telefono.agregar(conexion, telefono, "Proveedor", id);
                 if (rs) {
                     JOptionPane.showMessageDialog(this, "Se ha creado un nuevo proveedor exitosamente.", "Nuevo Proveedor",
                             JOptionPane.INFORMATION_MESSAGE);
@@ -359,17 +365,20 @@ public class NuevoProveedor extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_Regresar_BnMouseClicked
 
+    private void telefono_textfield1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefono_textfield1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_telefono_textfield1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApellidoLabel;
     private javax.swing.JLabel CorreoLabel;
+    private javax.swing.JLabel CorreoLabel1;
     private javax.swing.JTextField Correo_textfield;
     private javax.swing.JLabel DireccionLabel;
     private javax.swing.JTextField Direccion_textfield;
     private javax.swing.JLabel EditarLabel;
     private javax.swing.JTextField Empresa_textfield;
     private javax.swing.JButton Guardar_button;
-    private javax.swing.JTextField ID_textfield;
-    private javax.swing.JLabel IDlabel;
     private javax.swing.JButton Limpiar_button;
     private javax.swing.JLabel NITLabel;
     private javax.swing.JTextField NIT_textfield;
@@ -379,5 +388,6 @@ public class NuevoProveedor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JTextField telefono_textfield1;
     // End of variables declaration//GEN-END:variables
 }
