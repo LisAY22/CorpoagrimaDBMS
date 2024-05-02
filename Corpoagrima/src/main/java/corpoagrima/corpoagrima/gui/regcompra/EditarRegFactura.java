@@ -410,7 +410,9 @@ public class EditarRegFactura extends javax.swing.JFrame {
     }//GEN-LAST:event_Regresar_BnActionPerformed
 
     private void AgregarBnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarBnMouseClicked
-        // TODO add your handling code here:
+        AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales);
+        AgregarWindow.setVisible(true);
+        dispose();
     }//GEN-LAST:event_AgregarBnMouseClicked
 
     private void Limpiar_button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_button4ActionPerformed

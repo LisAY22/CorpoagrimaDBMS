@@ -267,6 +267,11 @@ public class NuevoRegFactura extends javax.swing.JFrame {
 
         AgregarBn.setBackground(new java.awt.Color(136, 213, 133));
         AgregarBn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agregar.png"))); // NOI18N
+        AgregarBn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarBnActionPerformed(evt);
+            }
+        });
 
         Limpiar_button.setText("Limpiar");
         Limpiar_button.setEnabled(true);
@@ -373,6 +378,12 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_Proveedor_comboBoxItemStateChanged
+
+    private void AgregarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBnActionPerformed
+        AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales);
+        AgregarWindow.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_AgregarBnActionPerformed
     
     private void datoProveedor(String nombre) throws SQLException{
         ResultSet proveedores = new ConexionProveedores().proveedor(conexion, nombre);

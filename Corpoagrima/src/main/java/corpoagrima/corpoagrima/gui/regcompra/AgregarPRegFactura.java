@@ -4,9 +4,14 @@
  */
 package corpoagrima.corpoagrima.gui.regcompra;
 
-import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
+import corpoagrima.corpoagrima.gui.cliente.EditarCliente;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,14 +20,15 @@ import java.sql.ResultSet;
 public class AgregarPRegFactura extends javax.swing.JFrame {
     private Connection conexion;
     private ResultSet credenciales;
-    private ConexionCompra compras;
+    private ConexionProducto producto;
+    private int id;
     /**
      * Creates new form AgregarPRegFactura
      */
     public AgregarPRegFactura(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
-        compras = new ConexionCompra();
+        producto = new ConexionProducto();
         initComponents();
     }
 
@@ -234,6 +240,11 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
 
         Buscar_Button.setBackground(new java.awt.Color(136, 213, 133));
         Buscar_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
+        Buscar_Button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Buscar_ButtonMouseClicked(evt);
+            }
+        });
         Buscar_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Buscar_ButtonActionPerformed(evt);
@@ -351,12 +362,57 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
     }//GEN-LAST:event_Buscar_textFieldActionPerformed
 
     private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
+        try {
+                String textoBusqueda = Buscar_textField.getText().trim();
 
+                if (textoBusqueda != null && !textoBusqueda.isEmpty()) {
+                    ResultSet rs = producto.busqueda(conexion, textoBusqueda);
+                    if (rs.next()) {
+                        String nombre = rs.getString("Nombre");
+                        String marca = rs.getString("Marca");
+                        String fecha_v = rs.getString("Fecha_Vencimiento");
+                        String categoria = rs.getString("Categoria");
+                        String unidad_medida = rs.getString("Unidad_Medida");
+                        int stock = rs.getInt("Stock");
+
+
+                        Nombre_textfield.setText(nombre);
+                        Marca_textfield.setText(marca);
+                        Fecha_textfield.setText(fecha_v);
+                        Categoria_textfield.setText(categoria);
+                        UMedida_textfield.setText(unidad_medida);
+                        Cantidad_textfield.setText(String.valueOf(stock));
+
+
+                        JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
+                                "Busqueda", JOptionPane.INFORMATION_MESSAGE);
+
+                        
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se encontraron resultados",
+                                "Busqueda", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "ERROR"
+                            + "compruebe el codigo ingresado", "Busqueda",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(EditarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Busqueda",
+                        JOptionPane.ERROR_MESSAGE);
+            }
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
 
     private void Seleccionar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Seleccionar_buttonActionPerformed
 
     }//GEN-LAST:event_Seleccionar_buttonActionPerformed
+
+    private void Buscar_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Buscar_ButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Buscar_ButtonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
