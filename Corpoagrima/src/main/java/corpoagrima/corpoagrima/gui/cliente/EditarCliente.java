@@ -462,8 +462,8 @@ public class EditarCliente extends javax.swing.JFrame{
 
             // Comprobar la opción seleccionada
             if (opcion == JOptionPane.YES_OPTION) {
-                boolean resultSet = clientes.eliminar(conexion, id);
                 boolean resultTelefono = Telefono.eliminar(conexion, idTelefono);
+                boolean resultSet = clientes.eliminar(conexion, id);
                 if (resultSet) {
                     JOptionPane.showMessageDialog(this,
                             "Se ha eliminado exitosamente el cliente.",

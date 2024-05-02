@@ -514,8 +514,8 @@ public class EditarProveedor extends javax.swing.JFrame {
 
             // Comprobar la opción seleccionada
             if (opcion == JOptionPane.YES_OPTION) {
-                boolean resultSet = proveedores.eliminar(conexion, id);
                 boolean resultTelefono = Telefono.eliminar(conexion, idTelefono);
+                boolean resultSet = proveedores.eliminar(conexion, id);
                 if (resultSet) {
                     JOptionPane.showMessageDialog(this,
                             "Se ha eliminado exitosamente el Proveedor.",
