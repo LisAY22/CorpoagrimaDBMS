@@ -371,11 +371,19 @@ public class Inventario extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarJButtonMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        EditarProducto screen_edit_product = new EditarProducto(conexion, credenciales, "");
-        screen_edit_product.setVisible(true);
-        
-        dispose();
+        int fila = datosJTable.getSelectedRow();
+        if (fila !=-1){
+            long ID = (long) datosJTable.getValueAt(fila, 0);
+            String numCadena= String.valueOf(ID);
+            EditarProducto screen_edit_product = new EditarProducto(conexion, credenciales, numCadena);
+            screen_edit_product.setVisible(true);      
+            dispose();
+        }
+        else{
+            EditarProducto screen_edit_product = new EditarProducto(conexion, credenciales, "");
+            screen_edit_product.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void nuevojButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevojButton2ActionPerformed
