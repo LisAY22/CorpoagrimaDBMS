@@ -326,7 +326,7 @@ public class NuevoProveedor extends javax.swing.JFrame {
                 String telefono = telefono_textfield1.getText();
                 
 
-                boolean rs = proveedores.agregar(conexion, id, empresa, nombre, direccion, nit, correoELectronico);
+                boolean rs = proveedores.agregar(conexion, empresa, nombre, direccion, nit, correoELectronico);
 
                 ResultSet resultProveedor = proveedores.idProveedor(conexion, empresa ,nombre);
                 resultProveedor.next();
