@@ -345,10 +345,6 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
-        
-    }//GEN-LAST:event_Regresar_BnMouseClicked
-
     private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
         // TODO add your handling code here:
         Compra compra_screen = new Compra(conexion, credenciales);
@@ -356,38 +352,6 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_Regresar_BnActionPerformed
-
-    private void ID_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ID_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ID_textfieldActionPerformed
-
-    private void Correo_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Correo_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Correo_textfieldActionPerformed
-
-    private void Cantidadcompras_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cantidadcompras_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Cantidadcompras_textfieldActionPerformed
-
-    private void Direccion_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Direccion_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Direccion_textfieldActionPerformed
-
-    private void AgregarBnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarBnMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AgregarBnMouseClicked
-
-    private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Limpiar_buttonActionPerformed
-
-    private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
-
-    }//GEN-LAST:event_Guardar_buttonActionPerformed
-
-    private void Destacado_checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Destacado_checkBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Destacado_checkBoxActionPerformed
 
     private void Proveedor_comboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Proveedor_comboBoxItemStateChanged
         Proveedor_comboBox.addItemListener((ItemEvent e) -> {
@@ -408,14 +372,6 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         String nit = proveedores.getString("NIT");
         
     }
-    
-    private void EliminarBnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarBnMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EliminarBnMouseClicked
-
-    private void EliminarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EliminarBnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
