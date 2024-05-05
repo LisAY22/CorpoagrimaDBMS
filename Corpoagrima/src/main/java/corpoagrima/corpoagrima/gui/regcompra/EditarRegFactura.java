@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package corpoagrima.corpoagrima.gui.regcompra;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
@@ -14,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author karol
+ * @author WilderL
  */
 public class EditarRegFactura extends javax.swing.JFrame {
     private Connection conexion;
@@ -30,6 +28,11 @@ public class EditarRegFactura extends javax.swing.JFrame {
         compras = new ConexionCompra();
         producto = new ConexionProducto();
         initComponents();
+        initFactura();
+    }
+    
+    private void initFactura(){
+        
     }
 
     /**
@@ -44,29 +47,29 @@ public class EditarRegFactura extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Regresar_Bn = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        agregarJLabel = new javax.swing.JLabel();
         AgregarBn = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        listProductoJScrollPane = new javax.swing.JScrollPane();
+        listProductoJTable = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
-        Limpiar_button4 = new javax.swing.JButton();
-        Guardar_button4 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        Limpiar_button = new javax.swing.JButton();
+        Guardar_button = new javax.swing.JButton();
+        eliminarJLabel = new javax.swing.JLabel();
         EliminarBn = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        FechaLabel1 = new javax.swing.JLabel();
-        FacturaLabel1 = new javax.swing.JLabel();
-        Apellido_textfield1 = new javax.swing.JTextField();
-        Direccion_textfield1 = new javax.swing.JTextField();
-        CantidadComprasLabel1 = new javax.swing.JLabel();
-        Cantidadcompras_textfield1 = new javax.swing.JTextField();
-        CorreoLabel1 = new javax.swing.JLabel();
-        Correo_textfield1 = new javax.swing.JTextField();
-        DireccionLabel1 = new javax.swing.JLabel();
-        ProveedorLabel1 = new javax.swing.JLabel();
-        ID_textfield1 = new javax.swing.JTextField();
-        Destacado_checkBox1 = new javax.swing.JCheckBox();
-        Proveedor_comboBox1 = new javax.swing.JComboBox<>();
+        FechaLabel = new javax.swing.JLabel();
+        noFacturaLabel = new javax.swing.JLabel();
+        fechaTextfield = new javax.swing.JTextField();
+        Telefonotextfield = new javax.swing.JTextField();
+        empleadoLabel = new javax.swing.JLabel();
+        EmpleadoTextfield = new javax.swing.JTextField();
+        nitLabel = new javax.swing.JLabel();
+        nitTextfield = new javax.swing.JTextField();
+        telefonoLabel = new javax.swing.JLabel();
+        ProveedorLabel = new javax.swing.JLabel();
+        numeroFacturaTextfield = new javax.swing.JTextField();
+        creditoCheckBox = new javax.swing.JCheckBox();
+        Proveedor_comboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,8 +116,8 @@ public class EditarRegFactura extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("AGREGAR");
+        agregarJLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        agregarJLabel.setText("AGREGAR");
 
         AgregarBn.setBackground(new java.awt.Color(136, 213, 133));
         AgregarBn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agregar.png"))); // NOI18N
@@ -129,7 +132,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        listProductoJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -145,21 +148,21 @@ public class EditarRegFactura extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        listProductoJScrollPane.setViewportView(listProductoJTable);
 
-        Limpiar_button4.setText("Limpiar");
-        Limpiar_button4.setEnabled(true);
-        Limpiar_button4.addActionListener(new java.awt.event.ActionListener() {
+        Limpiar_button.setText("Limpiar");
+        Limpiar_button.setEnabled(true);
+        Limpiar_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Limpiar_button4ActionPerformed(evt);
+                Limpiar_buttonActionPerformed(evt);
             }
         });
 
-        Guardar_button4.setText("Guardar");
-        Guardar_button4.setEnabled(true);
-        Guardar_button4.addActionListener(new java.awt.event.ActionListener() {
+        Guardar_button.setText("Guardar");
+        Guardar_button.setEnabled(true);
+        Guardar_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Guardar_button4ActionPerformed(evt);
+                Guardar_buttonActionPerformed(evt);
             }
         });
 
@@ -169,9 +172,9 @@ public class EditarRegFactura extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Guardar_button4)
+                .addComponent(Guardar_button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Limpiar_button4)
+                .addComponent(Limpiar_button)
                 .addGap(52, 52, 52))
         );
         jPanel8Layout.setVerticalGroup(
@@ -179,13 +182,13 @@ public class EditarRegFactura extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Limpiar_button4)
-                    .addComponent(Guardar_button4))
+                    .addComponent(Limpiar_button)
+                    .addComponent(Guardar_button))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("ELIMINAR");
+        eliminarJLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        eliminarJLabel.setText("ELIMINAR");
 
         EliminarBn.setBackground(new java.awt.Color(136, 213, 133));
         EliminarBn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eliminar.png"))); // NOI18N
@@ -200,78 +203,78 @@ public class EditarRegFactura extends javax.swing.JFrame {
             }
         });
 
-        FechaLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        FechaLabel1.setText("Fecha");
+        FechaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FechaLabel.setText("Fecha");
 
-        FacturaLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        FacturaLabel1.setText("No. Factura");
+        noFacturaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        noFacturaLabel.setText("No. Factura");
 
-        Apellido_textfield1.setEditable(true);
-        Apellido_textfield1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        fechaTextfield.setEditable(true);
+        fechaTextfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        Direccion_textfield1.setEditable(true);
-        Direccion_textfield1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Direccion_textfield1.addActionListener(new java.awt.event.ActionListener() {
+        Telefonotextfield.setEditable(true);
+        Telefonotextfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Telefonotextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Direccion_textfield1ActionPerformed(evt);
+                TelefonotextfieldActionPerformed(evt);
             }
         });
 
-        CantidadComprasLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        CantidadComprasLabel1.setText("Empleado");
+        empleadoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        empleadoLabel.setText("Empleado");
 
-        Cantidadcompras_textfield1.setEditable(false);
-        Cantidadcompras_textfield1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Cantidadcompras_textfield1.addActionListener(new java.awt.event.ActionListener() {
+        EmpleadoTextfield.setEditable(false);
+        EmpleadoTextfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        EmpleadoTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cantidadcompras_textfield1ActionPerformed(evt);
+                EmpleadoTextfieldActionPerformed(evt);
             }
         });
 
-        CorreoLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        CorreoLabel1.setText("NIT");
+        nitLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        nitLabel.setText("NIT");
 
-        Correo_textfield1.setEditable(true);
-        Correo_textfield1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Correo_textfield1.addActionListener(new java.awt.event.ActionListener() {
+        nitTextfield.setEditable(true);
+        nitTextfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        nitTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Correo_textfield1ActionPerformed(evt);
+                nitTextfieldActionPerformed(evt);
             }
         });
 
-        DireccionLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        DireccionLabel1.setText("Teléfono");
+        telefonoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        telefonoLabel.setText("Teléfono");
 
-        ProveedorLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ProveedorLabel1.setText("Proveedor");
+        ProveedorLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        ProveedorLabel.setText("Proveedor");
 
-        ID_textfield1.setEditable(true
+        numeroFacturaTextfield.setEditable(true
         );
-        ID_textfield1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ID_textfield1.addActionListener(new java.awt.event.ActionListener() {
+        numeroFacturaTextfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        numeroFacturaTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ID_textfield1ActionPerformed(evt);
+                numeroFacturaTextfieldActionPerformed(evt);
             }
         });
 
-        Destacado_checkBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Destacado_checkBox1.setText("Credito");
-        Destacado_checkBox1.setEnabled(true);
-        Destacado_checkBox1.addActionListener(new java.awt.event.ActionListener() {
+        creditoCheckBox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        creditoCheckBox.setText("Credito");
+        creditoCheckBox.setEnabled(true);
+        creditoCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Destacado_checkBox1ActionPerformed(evt);
+                creditoCheckBoxActionPerformed(evt);
             }
         });
 
-        Proveedor_comboBox1.setEnabled(true);
-        Proveedor_comboBox1.addItemListener(new java.awt.event.ItemListener() {
+        Proveedor_comboBox.setEnabled(true);
+        Proveedor_comboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                Proveedor_comboBox1ItemStateChanged(evt);
+                Proveedor_comboBoxItemStateChanged(evt);
             }
         });
-        Proveedor_comboBox1.addActionListener(new java.awt.event.ActionListener() {
+        Proveedor_comboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Proveedor_comboBox1ActionPerformed(evt);
+                Proveedor_comboBoxActionPerformed(evt);
             }
         });
 
@@ -284,36 +287,36 @@ public class EditarRegFactura extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(ProveedorLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(FechaLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ProveedorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FechaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(Proveedor_comboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Proveedor_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(Apellido_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fechaTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Destacado_checkBox1)
+                                .addComponent(creditoCheckBox)
                                 .addGap(149, 149, 149))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(FacturaLabel1)
+                        .addComponent(noFacturaLabel)
                         .addGap(18, 18, 18)
-                        .addComponent(ID_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(numeroFacturaTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(CantidadComprasLabel1)
+                                .addComponent(empleadoLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Cantidadcompras_textfield1))
+                                .addComponent(EmpleadoTextfield))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(DireccionLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(telefonoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Direccion_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(Telefonotextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(117, 117, 117)
-                        .addComponent(CorreoLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Correo_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nitTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(95, 95, 95))))
         );
         jPanel4Layout.setVerticalGroup(
@@ -321,31 +324,31 @@ public class EditarRegFactura extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Direccion_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DireccionLabel1))
+                    .addComponent(Telefonotextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(telefonoLabel))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Cantidadcompras_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CantidadComprasLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EmpleadoTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(empleadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 83, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ID_textfield1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numeroFacturaTextfield, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(FacturaLabel1)
-                        .addComponent(CorreoLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Correo_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(noFacturaLabel)
+                        .addComponent(nitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nitTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Destacado_checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(creditoCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Apellido_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(FechaLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(fechaTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(FechaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ProveedorLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Proveedor_comboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ProveedorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Proveedor_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -361,7 +364,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
                         .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(listProductoJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(44, 44, 44)
@@ -371,8 +374,8 @@ public class EditarRegFactura extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(34, 34, 34)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))))
+                                    .addComponent(agregarJLabel)
+                                    .addComponent(eliminarJLabel))))
                         .addGap(0, 31, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -386,14 +389,14 @@ public class EditarRegFactura extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(listProductoJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(agregarJLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(AgregarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
-                        .addComponent(jLabel3)
+                        .addComponent(eliminarJLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(EliminarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(67, 67, 67)))
@@ -407,7 +410,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
             ResultSet resultado = producto.busqueda2(conexion, id);
 
             // Obtener el modelo de la tabla actual
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            DefaultTableModel model = (DefaultTableModel) listProductoJTable.getModel();
 
             resultado.next();
             String nombre = resultado.getString("Nombre");
@@ -435,13 +438,13 @@ public class EditarRegFactura extends javax.swing.JFrame {
         AgregarWindow.setVisible(true);
     }//GEN-LAST:event_AgregarBnMouseClicked
 
-    private void Limpiar_button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_button4ActionPerformed
+    private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Limpiar_button4ActionPerformed
+    }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
-    private void Guardar_button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_button4ActionPerformed
+    private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
 
-    }//GEN-LAST:event_Guardar_button4ActionPerformed
+    }//GEN-LAST:event_Guardar_buttonActionPerformed
 
     private void EliminarBnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarBnMouseClicked
         // TODO add your handling code here:
@@ -451,33 +454,33 @@ public class EditarRegFactura extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_EliminarBnActionPerformed
 
-    private void Direccion_textfield1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Direccion_textfield1ActionPerformed
+    private void TelefonotextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelefonotextfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Direccion_textfield1ActionPerformed
+    }//GEN-LAST:event_TelefonotextfieldActionPerformed
 
-    private void Cantidadcompras_textfield1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cantidadcompras_textfield1ActionPerformed
+    private void EmpleadoTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmpleadoTextfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Cantidadcompras_textfield1ActionPerformed
+    }//GEN-LAST:event_EmpleadoTextfieldActionPerformed
 
-    private void Correo_textfield1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Correo_textfield1ActionPerformed
+    private void nitTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nitTextfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Correo_textfield1ActionPerformed
+    }//GEN-LAST:event_nitTextfieldActionPerformed
 
-    private void ID_textfield1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ID_textfield1ActionPerformed
+    private void numeroFacturaTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroFacturaTextfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ID_textfield1ActionPerformed
+    }//GEN-LAST:event_numeroFacturaTextfieldActionPerformed
 
-    private void Destacado_checkBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Destacado_checkBox1ActionPerformed
+    private void creditoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditoCheckBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Destacado_checkBox1ActionPerformed
+    }//GEN-LAST:event_creditoCheckBoxActionPerformed
 
-    private void Proveedor_comboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Proveedor_comboBox1ItemStateChanged
+    private void Proveedor_comboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Proveedor_comboBoxItemStateChanged
 
-    }//GEN-LAST:event_Proveedor_comboBox1ItemStateChanged
+    }//GEN-LAST:event_Proveedor_comboBoxItemStateChanged
 
-    private void Proveedor_comboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Proveedor_comboBox1ActionPerformed
+    private void Proveedor_comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Proveedor_comboBoxActionPerformed
 
-    }//GEN-LAST:event_Proveedor_comboBox1ActionPerformed
+    }//GEN-LAST:event_Proveedor_comboBoxActionPerformed
 
     private void AgregarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBnActionPerformed
         // TODO add your handling code here:
@@ -486,30 +489,30 @@ public class EditarRegFactura extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarBn;
-    private javax.swing.JTextField Apellido_textfield1;
-    private javax.swing.JLabel CantidadComprasLabel1;
-    private javax.swing.JTextField Cantidadcompras_textfield1;
-    private javax.swing.JLabel CorreoLabel1;
-    private javax.swing.JTextField Correo_textfield1;
-    private javax.swing.JCheckBox Destacado_checkBox1;
-    private javax.swing.JLabel DireccionLabel1;
-    private javax.swing.JTextField Direccion_textfield1;
     private javax.swing.JButton EliminarBn;
-    private javax.swing.JLabel FacturaLabel1;
-    private javax.swing.JLabel FechaLabel1;
-    private javax.swing.JButton Guardar_button4;
-    private javax.swing.JTextField ID_textfield1;
-    private javax.swing.JButton Limpiar_button4;
-    private javax.swing.JLabel ProveedorLabel1;
-    private javax.swing.JComboBox<String> Proveedor_comboBox1;
+    private javax.swing.JTextField EmpleadoTextfield;
+    private javax.swing.JLabel FechaLabel;
+    private javax.swing.JButton Guardar_button;
+    private javax.swing.JButton Limpiar_button;
+    private javax.swing.JLabel ProveedorLabel;
+    private javax.swing.JComboBox<String> Proveedor_comboBox;
     private javax.swing.JButton Regresar_Bn;
+    private javax.swing.JTextField Telefonotextfield;
+    private javax.swing.JLabel agregarJLabel;
+    private javax.swing.JCheckBox creditoCheckBox;
+    private javax.swing.JLabel eliminarJLabel;
+    private javax.swing.JLabel empleadoLabel;
+    private javax.swing.JTextField fechaTextfield;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane listProductoJScrollPane;
+    private javax.swing.JTable listProductoJTable;
+    private javax.swing.JLabel nitLabel;
+    private javax.swing.JTextField nitTextfield;
+    private javax.swing.JLabel noFacturaLabel;
+    private javax.swing.JTextField numeroFacturaTextfield;
+    private javax.swing.JLabel telefonoLabel;
     // End of variables declaration//GEN-END:variables
 }
