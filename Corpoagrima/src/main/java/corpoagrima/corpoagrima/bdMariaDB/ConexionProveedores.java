@@ -78,7 +78,7 @@ public class ConexionProveedores {
             String nombre, String direccion, String nit, String correo_electronico) 
             throws SQLException{
         String sql = "INSERT INTO Proveedor "
-                + "(Empresa, Nombre, Direccion, NIT, Correo_Electronico) "
+                + "(Empresa, Nombre, Direccion, NIT, Correo_Electronico, Eliminado = false) "
                 + "VALUES (?, ?, ?, ?, ?)";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, empresa);

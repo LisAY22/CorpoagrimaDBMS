@@ -45,8 +45,8 @@ public class ConexionCliente {
             throws SQLException{
         String sql = "INSERT INTO Cliente "
                 + "(Nombre, Apellido, NIT, CorreoElectronico,"
-                + "Direccion, Cliente_destacado, Cantidad_compras) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                + "Direccion, Cliente_destacado, Cantidad_compras, Eliminado) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
         stmt.setString(2, apellido);
@@ -55,6 +55,7 @@ public class ConexionCliente {
         stmt.setString(5, direccion);
         stmt.setBoolean(6, clienteDestacado);
         stmt.setInt(7, cantidadCompra);
+        stmt.setBoolean(8, false);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
@@ -65,7 +66,8 @@ public class ConexionCliente {
             String direccion, boolean clienteDestacado, int cantidadCompra)
             throws SQLException{
         String sql = "UPDATE Cliente SET Nombre=?, Apellido=?, "
-                + "NIT=?, CorreoElectronico=?, Direccion=?, Cliente_destacado=?, Cantidad_compras=? WHERE ID_Cliente=?";
+                + "NIT=?, CorreoElectronico=?, Direccion=?, Cliente_destacado=?, Cantidad_compras=?, "
+                + "Eliminado = ? WHERE ID_Cliente=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
         stmt.setString(2, apellido);
@@ -74,7 +76,8 @@ public class ConexionCliente {
         stmt.setString(5, direccion);
         stmt.setBoolean(6, clienteDestacado);
         stmt.setInt(7, cantidadCompra);
-        stmt.setInt(8, idCliente);
+        stmt.setBoolean(8, false);
+        stmt.setInt(9, idCliente);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;

@@ -13,42 +13,52 @@ import java.sql.SQLException;
 public class ConexionEmpleado {
     
     public ResultSet ordenarNombre(Connection conexion) throws SQLException{
-        String sql = "SELECT * FROM Empleado ORDER BY Nombre ASC, Apellido ASC";
+        String sql = "SELECT * FROM Empleado"
+                + "WHERE Eliminado=? "
+                + "ORDER BY Nombre ASC, Apellido ASC";
         PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setBoolean(1, false);
         return stmt.executeQuery();
     }
     
     public ResultSet ordenarApellido(Connection conexion) throws SQLException{
-        String sql = "SELECT * FROM Empleado ORDER BY Apellido ASC, Nombre ASC";
+        String sql = "SELECT * FROM Empleado "
+                + "WHERE Eliminado=?"
+                + "ORDER BY Apellido ASC, Nombre ASC";
         PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setBoolean(1, false);
         return stmt.executeQuery();
     }
     
     public ResultSet consulta(Connection conexion) throws SQLException{
-        String sql = "SELECT * FROM Empleado";
+        String sql = "SELECT * FROM Empleado WHERE Eliminado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setBoolean(1, false);
         return stmt.executeQuery();
     }
     
     public ResultSet empleados(Connection conexion, String nombre) throws SQLException{
-        String sql = "SELECT * FROM Empleado WHERE Nombre LIKE ?";
+        String sql = "SELECT * FROM Empleado WHERE Nombre LIKE ? AND Eliminado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, "%" + nombre + "%");
+        stmt.setBoolean(2, false);
         return stmt.executeQuery();
     }
     
     public ResultSet empleadosID(Connection conexion, int IDEmpleado) throws SQLException{
-        String sql = "SELECT * FROM Empleado WHERE ID_Empleado LIKE ?";
+        String sql = "SELECT * FROM Empleado WHERE ID_Empleado LIKE ? AND Eliminado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, "%" + IDEmpleado + "%");
+        stmt.setBoolean(2, false);
         return stmt.executeQuery();
     }
     
     public ResultSet idEmpleado(Connection conexion, String nombre, String apellido)throws SQLException{
-        String sql = "SELECT ID_Empleado FROM Empleado WHERE Nombre = ? AND Apellido = ?";
+        String sql = "SELECT ID_Empleado FROM Empleado WHERE Nombre = ? AND Apellido = ? AND Eliminado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
         stmt.setString(2, apellido);
+        stmt.setBoolean(3, false);
         return stmt.executeQuery();
     }
     
@@ -58,9 +68,9 @@ public class ConexionEmpleado {
             int idUsuario) throws SQLException{
         String sql = "INSERT INTO Empleado "
                 + "(Nombre, Apellido, NIT, Correo_Electronico,"
-                + "Direccion, Ajuste_Sueldo, Bonificaciones, Puesto_ID_Puesto,"
+                + "Direccion, Ajuste_Sueldo, Bonificaciones, Eliminado, Puesto_ID_Puesto,"
                 + "Usuario_ID_Usuario) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
         stmt.setString(2, apellido);
@@ -69,8 +79,9 @@ public class ConexionEmpleado {
         stmt.setString(5, direccion);
         stmt.setString(6, ajusteSueldo);
         stmt.setFloat(7, bonificaciones);
-        stmt.setInt(8, idPuesto);
-        stmt.setInt(9, idUsuario);
+        stmt.setBoolean(8, false);
+        stmt.setInt(9, idPuesto);
+        stmt.setInt(10, idUsuario);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
@@ -82,7 +93,7 @@ public class ConexionEmpleado {
             int idPuesto, int idUsuario)throws SQLException{
         String sql = "UPDATE Empleado SET ID_Empleado=?, Nombre=?, Apellido=?, "
                 + "NIT=?, Correo_Electronico=?, Direccion=?, Ajuste_Sueldo=?, "
-                + "Bonificaciones=?, Puesto_ID_Puesto=?, Usuario_ID_Usuario=? "
+                + "Bonificaciones=?, Eliminado=?, Puesto_ID_Puesto=?, Usuario_ID_Usuario=? "
                 + "WHERE ID_Empleado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setInt(1, idEmpleado);
@@ -93,9 +104,10 @@ public class ConexionEmpleado {
         stmt.setString(6, direccion);
         stmt.setString(7, ajusteSueldo);
         stmt.setFloat(8, bonificaciones);
-        stmt.setInt(9, idPuesto);
-        stmt.setInt(10, idUsuario);
-        stmt.setInt(11, idEmpleado);
+        stmt.setBoolean(9, false);
+        stmt.setInt(10, idPuesto);
+        stmt.setInt(11, idUsuario);
+        stmt.setInt(12, idEmpleado);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;

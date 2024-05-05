@@ -15,7 +15,8 @@ public class ConexionCompra {
     public ResultSet consulta(Connection conexion) throws SQLException {
         String sql = "SELECT Registro_Compra.ID_Compra, Registro_Compra.NoFactura, Proveedor.Empresa, "
                 + "Registro_Compra.Fecha, Registro_Compra.Tipo_Compra, Registro_Compra.Total FROM Registro_Compra "
-                + "INNER JOIN Proveedor ON Registro_Compra.Proveedor_ID_Proveedor = Proveedor.ID_Proveedor";
+                + "INNER JOIN Proveedor ON Registro_Compra.Proveedor_ID_Proveedor = Proveedor.ID_Proveedor"
+                + "WHERE Anulado=False";
         
         PreparedStatement stmt = conexion.prepareStatement(sql);
         
@@ -63,7 +64,7 @@ public class ConexionCompra {
     }
     
     public boolean eliminar(Connection conexion, int id) throws SQLException{
-        String sql = "UPDATE Registro_Compra SET Eliminado=true WHERE ID_Compra=?";
+        String sql = "UPDATE Registro_Compra SET Anulado=true WHERE ID_Compra=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setInt(1, id);
         // ejecutar la consulta

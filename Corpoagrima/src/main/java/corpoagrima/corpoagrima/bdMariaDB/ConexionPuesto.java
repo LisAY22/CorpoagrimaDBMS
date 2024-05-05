@@ -63,8 +63,8 @@ public class ConexionPuesto {
         String sql = "INSERT INTO Puesto "
                 + "(Nombre, Horario, Descripcion, Salario_Base, Modulo_Cliente,"
                 + "Modulo_RH, Modulo_Proveedores, Modulo_Reg_Compra, "
-                + "Modulo_Reg_Venta, Modulo_Financiero, Modulo_Inventario) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "Modulo_Reg_Venta, Modulo_Financiero, Modulo_Inventario, Eliminado) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
         stmt.setString(2, horario);
@@ -77,7 +77,7 @@ public class ConexionPuesto {
         stmt.setBoolean(9, moduloRegVenta);
         stmt.setBoolean(10, moduloFinanciero);
         stmt.setBoolean(11, moduloInventario);
-        // ejecutar la consulta
+        stmt.setBoolean(12, false);
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
     }
@@ -90,7 +90,7 @@ public class ConexionPuesto {
         String sql = "UPDATE Puesto SET Nombre=?, Horario=?, Descripcion=?,"
                 + " Salario_Base=?, Modulo_Cliente=?, Modulo_RH=?, "
                 + "Modulo_Proveedores=?, Modulo_Reg_Compra=?, "
-                + "Modulo_Reg_Venta=?, Modulo_Financiero=?, Modulo_Inventario=? "
+                + "Modulo_Reg_Venta=?, Modulo_Financiero=?, Modulo_Inventario=?, Eliminado=? "
                 + "WHERE ID_Puesto=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
@@ -104,7 +104,8 @@ public class ConexionPuesto {
         stmt.setBoolean(9, moduloRegVenta);
         stmt.setBoolean(10, moduloFinanciero);
         stmt.setBoolean(11, moduloInventario);
-        stmt.setInt(12, id);
+        stmt.setBoolean(12, false);
+        stmt.setInt(13, id);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;

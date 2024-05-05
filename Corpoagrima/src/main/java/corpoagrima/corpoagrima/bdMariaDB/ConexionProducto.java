@@ -15,7 +15,7 @@ public class ConexionProducto {
     public ResultSet busqueda(Connection conexion, String textoBusqueda) throws SQLException{
 
         String sql = "SELECT * FROM Producto "
-                + "WHERE Nombre LIKE ? OR ID_Producto = ? AND Eliminado=?";
+                + "WHERE (Nombre LIKE ? OR ID_Producto = ?) AND Eliminado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, "%" + textoBusqueda + "%");
         stmt.setString(2, textoBusqueda);
@@ -48,8 +48,8 @@ public class ConexionProducto {
             String fecha_vencimiento, String categoria, int cantidad, String unidad_medida, 
             float precio_venta) throws SQLException{
         String sql = "INSERT INTO Producto "
-                + "(Nombre, Descripcion, Marca, Fecha_Vencimiento, Categoria, Stock, Unidad_Medida, Precio_Venta)"
-                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+                + "(Nombre, Descripcion, Marca, Fecha_Vencimiento, Categoria, Stock, Unidad_Medida, Precio_Venta, Eliminado)"
+                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
         stmt.setString(2, descripcion);
@@ -59,6 +59,7 @@ public class ConexionProducto {
         stmt.setInt(6, cantidad);
         stmt.setString(7, unidad_medida);
         stmt.setFloat(8, precio_venta);
+        stmt.setBoolean(9, false);
         
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
@@ -78,7 +79,7 @@ public class ConexionProducto {
             String fecha_vencimiento, String categoria, int cantidad, String unidad_medida, 
             float precio_venta, int id) throws SQLException {
             String sql = "UPDATE Producto SET Nombre=?, Descripcion=?, Marca=?, Fecha_Vencimiento=?, "
-                    + "Categoria=?, Stock=?, Unidad_Medida=?, Precio_Venta=? WHERE ID_Producto=?";
+                    + "Categoria=?, Stock=?, Unidad_Medida=?, Precio_Venta=?, Eliminado=? WHERE ID_Producto=?";
             
             PreparedStatement stmt = conexion.prepareStatement(sql);
             stmt.setString(1, nombre);
@@ -89,7 +90,8 @@ public class ConexionProducto {
             stmt.setInt(6, cantidad);
             stmt.setString(7, unidad_medida);
             stmt.setFloat(8, precio_venta);
-            stmt.setInt(9, id);
+            stmt.setBoolean(9, false);
+            stmt.setInt(10, id);
             
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
