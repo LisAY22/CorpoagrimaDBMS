@@ -209,7 +209,6 @@ public class Login extends javax.swing.JFrame {
         String usuario = usuarioJTextField.getText();
         String contraseña = new String(contraseñaJPasswordField.getPassword());
         String contraseniaEncriptada = encriptar.encriptarContrasenia(contraseña);
-        System.out.print(contraseniaEncriptada);
         
         ConexionUsuario login = new ConexionUsuario();
         ResultSet credenciales = login.consulta(conexion, usuario, contraseniaEncriptada);

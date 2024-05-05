@@ -35,6 +35,18 @@ public class ConexionProducto {
 
     }
     
+    public ResultSet busqueda3(Connection conexion, String textoBusqueda) throws SQLException {
+        String sql = "SELECT Producto.ID_Producto, Producto.Nombre, Producto.Descripcion, Producto.Marca, Producto.Categoria, "
+                + "Producto.Unidad_Medida FROM Producto "
+                + "WHERE (Producto.Nombre LIKE ? OR Producto.ID_Producto=?) AND Producto.Eliminado=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, "%" + textoBusqueda + "%");
+        stmt.setString(2, textoBusqueda);
+        stmt.setBoolean(3, false);
+
+        return stmt.executeQuery();
+    }
+    
     public ResultSet consulta(Connection conexion) throws SQLException{
         // Crear una sentencia SQL
         String sql = "SELECT * FROM Producto WHERE Eliminado=?";

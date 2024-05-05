@@ -8,14 +8,17 @@ import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import corpoagrima.corpoagrima.gui.cliente.EditarCliente;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author karol
+ * @author lisaj
  */
 public class AgregarPRegFactura extends javax.swing.JFrame {
     private Connection conexion;
@@ -56,18 +59,8 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
         EditarLabel = new javax.swing.JLabel();
         Regresar_Bn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        CantidadLabel = new javax.swing.JLabel();
-        FechaLabel = new javax.swing.JLabel();
-        Nombrelabel = new javax.swing.JLabel();
-        Marca_textfield = new javax.swing.JTextField();
-        Fecha_textfield = new javax.swing.JTextField();
-        Cantidad_textfield = new javax.swing.JTextField();
-        Categoria_textfield = new javax.swing.JTextField();
-        UMedidaComprasLabel = new javax.swing.JLabel();
-        UMedida_textfield = new javax.swing.JTextField();
-        CategoriaLabel = new javax.swing.JLabel();
-        MarcaLabel = new javax.swing.JLabel();
-        Nombre_textfield = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         Buscar_textField = new javax.swing.JTextField();
         Buscar_Button = new javax.swing.JButton();
@@ -119,127 +112,31 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        CantidadLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        CantidadLabel.setText("Cantidad");
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        FechaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        FechaLabel.setText("Fecha de vencimiento");
-
-        Nombrelabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Nombrelabel.setText("Nombre");
-
-        Marca_textfield.setEditable(true);
-        Marca_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Marca_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Marca_textfieldActionPerformed(evt);
+            },
+            new String [] {
+                "ID_Producto", "Nombre", "Descripción", "Marca", "Categoria", "Unidad Medida"
             }
-        });
-
-        Fecha_textfield.setEditable(true);
-        Fecha_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        Cantidad_textfield.setEditable(true);
-        Cantidad_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Cantidad_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cantidad_textfieldActionPerformed(evt);
-            }
-        });
-
-        Categoria_textfield.setEditable(true);
-        Categoria_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Categoria_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Categoria_textfieldActionPerformed(evt);
-            }
-        });
-
-        UMedidaComprasLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        UMedidaComprasLabel.setText("Unidad de medida");
-
-        UMedida_textfield.setEditable(false);
-        UMedida_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        UMedida_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UMedida_textfieldActionPerformed(evt);
-            }
-        });
-
-        CategoriaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        CategoriaLabel.setText("Categoria");
-
-        MarcaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        MarcaLabel.setText("Marca");
-
-        Nombre_textfield.setEditable(true
-        );
-        Nombre_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Nombre_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Nombre_textfieldActionPerformed(evt);
-            }
-        });
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Nombrelabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(FechaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MarcaLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(CantidadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Marca_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                    .addComponent(Fecha_textfield)
-                    .addComponent(Cantidad_textfield)
-                    .addComponent(Nombre_textfield))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(CategoriaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Categoria_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(UMedidaComprasLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(UMedida_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 839, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(Categoria_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(UMedida_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CategoriaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Nombrelabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Nombre_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(MarcaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Marca_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(UMedidaComprasLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(6, 6, 6)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Fecha_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FechaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Cantidad_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CantidadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         Buscar_textField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -350,74 +247,68 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_Regresar_BnActionPerformed
 
-    private void Marca_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Marca_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Marca_textfieldActionPerformed
-
-    private void Cantidad_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cantidad_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Cantidad_textfieldActionPerformed
-
-    private void Categoria_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Categoria_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Categoria_textfieldActionPerformed
-
-    private void UMedida_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UMedida_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UMedida_textfieldActionPerformed
-
-    private void Nombre_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nombre_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Nombre_textfieldActionPerformed
-
     private void Buscar_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_textFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Buscar_textFieldActionPerformed
 
     private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
         try {
-                String textoBusqueda = Buscar_textField.getText().trim();
+            String textoBusqueda = Buscar_textField.getText().trim();
 
-                if (textoBusqueda != null && !textoBusqueda.isEmpty()) {
-                    ResultSet rs = producto.busqueda(conexion, textoBusqueda);
-                    if (rs.next()) {
-                        id = rs.getInt("ID_Producto");
-                        String nombre = rs.getString("Nombre");
-                        String marca = rs.getString("Marca");
-                        String fecha_v = rs.getString("Fecha_Vencimiento");
-                        String categoria = rs.getString("Categoria");
-                        String unidad_medida = rs.getString("Unidad_Medida");
-                        int stock = rs.getInt("Stock");
+            if (!textoBusqueda.isEmpty()) {
+                ResultSet rs = producto.busqueda3(conexion, textoBusqueda);
 
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.setRowCount(0); // Limpiar los datos existentes
 
-                        Nombre_textfield.setText(nombre);
-                        Marca_textfield.setText(marca);
-                        Fecha_textfield.setText(fecha_v);
-                        Categoria_textfield.setText(categoria);
-                        UMedida_textfield.setText(unidad_medida);
-                        Cantidad_textfield.setText(String.valueOf(stock));
+                ResultSetMetaData metaData = rs.getMetaData();
+                int columnCount = metaData.getColumnCount();
 
-
-                        JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
-                                "Busqueda", JOptionPane.INFORMATION_MESSAGE);
-
-                        
-                    } else {
-                        JOptionPane.showMessageDialog(this, "No se encontraron resultados",
-                                "Busqueda", JOptionPane.WARNING_MESSAGE);
+                while (rs.next()) {
+                    Object[] rowData = new Object[columnCount];
+                    for (int i = 0; i < columnCount - 1; i++) { // Ajuste en el límite del bucle
+                        // Obtener el valor de la columna
+                        Object value = rs.getObject(i + 1);
+                        if (i == 5) {  // Verificar si es la columna específica para el cambio
+                            if (value instanceof Integer) {
+                                int intValue = (int) value;
+                                switch (intValue) {
+                                    case 0:
+                                        rowData[i] = "-";
+                                        break;
+                                    case 1:
+                                        rowData[i] = "\u2605"; // Código Unicode para una estrella
+                                        break;
+                                    default:
+                                        rowData[i] = value;
+                                        break;
+                                }
+                            } else {
+                                rowData[i] = value == null ? "-" : value; // Si el valor es null, colocamos un guion "-"
+                            }
+                        } else {
+                            rowData[i] = value == null ? "-" : value; // Si el valor es null, colocamos un guion "-"
+                        }
                     }
-                } else {
-                    JOptionPane.showMessageDialog(this, "ERROR"
-                            + "compruebe el codigo ingresado", "Busqueda",
-                            JOptionPane.ERROR_MESSAGE);
+                    model.addRow(rowData);
                 }
 
-            } catch (SQLException ex) {
-                Logger.getLogger(EditarCliente.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Ha habido un error "
-                        + "compruebe la información", "Busqueda",
-                        JOptionPane.ERROR_MESSAGE);
+                if (model.getRowCount() > 0) {
+                    JOptionPane.showMessageDialog(this, "La búsqueda ha sido exitosa",
+                            "Búsqueda", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontraron resultados",
+                            "Búsqueda", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Ingrese un texto para buscar",
+                        "Búsqueda", JOptionPane.ERROR_MESSAGE);
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(EditarCliente.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Ha habido un error durante la búsqueda",
+                    "Búsqueda", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
 
     
@@ -432,10 +323,24 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
     private void Seleccionar_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Seleccionar_buttonMouseClicked
         try {
             if (nuevaFactura != null) { 
-                nuevaFactura.agregarProducto(id);
+                int fila = jTable1.getSelectedRow();
+                if (fila !=-1){
+                    long ID = (long) jTable1.getValueAt(fila, 0);
+                    int id = (int) ID; // Convertir long a int
+                    try {
+                        nuevaFactura.agregarProducto(id);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AgregarPRegFactura.class.getName()).log(Level.SEVERE, null, ex);
+                    }
             } else {
-                editarFactura.agregarProducto(id);
+                    int fila1 = jTable1.getSelectedRow();
+                    if (fila1 !=-1) {
+                        long ID = (long) jTable1.getValueAt(fila1, 0);
+                        int id = (int) ID;
+                        editarFactura.agregarProducto(id);
+                    }
             }
+        }
         } catch (SQLException ex) {
             Logger.getLogger(AgregarPRegFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -446,24 +351,14 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Buscar_Button;
     private javax.swing.JTextField Buscar_textField;
-    private javax.swing.JLabel CantidadLabel;
-    private javax.swing.JTextField Cantidad_textfield;
-    private javax.swing.JLabel CategoriaLabel;
-    private javax.swing.JTextField Categoria_textfield;
     private javax.swing.JLabel EditarLabel;
-    private javax.swing.JLabel FechaLabel;
-    private javax.swing.JTextField Fecha_textfield;
-    private javax.swing.JLabel MarcaLabel;
-    private javax.swing.JTextField Marca_textfield;
-    private javax.swing.JTextField Nombre_textfield;
-    private javax.swing.JLabel Nombrelabel;
     private javax.swing.JButton Regresar_Bn;
     private javax.swing.JButton Seleccionar_button;
-    private javax.swing.JLabel UMedidaComprasLabel;
-    private javax.swing.JTextField UMedida_textfield;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
