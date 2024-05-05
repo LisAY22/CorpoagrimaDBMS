@@ -14,19 +14,18 @@ import java.sql.SQLException;
  * @author karol
  */
 public class ConexionCliente {
-    public ResultSet busqueda(Connection conexion, String textoBusqueda) throws SQLException{
-
-        String sql = "SELECT * FROM Cliente WHERE Nombre LIKE ? OR ID_Cliente = ?";
+    public ResultSet busqueda(Connection conexion, String textoBusqueda) throws SQLException {
+        String sql = "SELECT * FROM Cliente WHERE (Nombre LIKE ? OR ID_Cliente = ?) AND Eliminado = False";
         PreparedStatement stmt = conexion.prepareStatement(sql);
-        stmt.setString(1, "%" + textoBusqueda + "%");
+        stmt.setString(1, "%" + textoBusqueda + "%"); // Agregar comodines para la búsqueda parcial
         stmt.setString(2, textoBusqueda);
 
         return stmt.executeQuery();
-
     }
+
     public ResultSet busqueda2(Connection conexion, String textoBusqueda) throws SQLException{
 
-        String sql = "SELECT * FROM Cliente WHERE ID_Cliente = ? OR NIT = ?";
+        String sql = "SELECT * FROM Cliente WHERE (ID_Cliente = ? OR NIT = ?) AND Eliminado=False";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, textoBusqueda);
         stmt.setString(2, textoBusqueda);
@@ -35,7 +34,7 @@ public class ConexionCliente {
 
     }
     public ResultSet consulta(Connection conexion) throws SQLException{
-        String sql = "SELECT * FROM Cliente";
+        String sql = "SELECT * FROM Cliente WHERE Eliminado=False";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         
         return stmt.executeQuery();
@@ -82,15 +81,16 @@ public class ConexionCliente {
     }
     
     public boolean eliminar(Connection conexion, int id) throws SQLException{
-        String sql = "DELETE FROM Cliente WHERE ID_Cliente=?";
+        String sql = "UPDATE Cliente SET Eliminado=true WHERE ID_Cliente=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setInt(1, id);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
     }
+    
     public ResultSet idCliente(Connection conexion, String nombre, String apellido)throws SQLException{
-        String sql = "SELECT ID_Cliente FROM Cliente WHERE Nombre = ? AND Apellido = ?";
+        String sql = "SELECT ID_Cliente FROM Cliente WHERE Nombre = ? AND Apellido = ? AND Eliminado=False";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
         stmt.setString(2, apellido);

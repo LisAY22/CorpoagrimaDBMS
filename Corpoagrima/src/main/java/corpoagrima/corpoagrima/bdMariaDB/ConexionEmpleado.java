@@ -102,7 +102,7 @@ public class ConexionEmpleado {
     }
     
     public boolean eliminar(Connection conexion, int id) throws SQLException{
-        String sql = "DELETE FROM Empleado WHERE ID_Empleado=?";
+        String sql = "UPDATE Empleado SET Eliminado=true WHERE ID_Empleado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setInt(1, id);
         // ejecutar la consulta
