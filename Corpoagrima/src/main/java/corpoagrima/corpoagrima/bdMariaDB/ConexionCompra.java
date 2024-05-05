@@ -14,11 +14,13 @@ public class ConexionCompra {
     
     public ResultSet consulta(Connection conexion) throws SQLException {
         String sql = "SELECT Registro_Compra.ID_Compra, Registro_Compra.NoFactura, Proveedor.Empresa, "
-                + "Registro_Compra.Fecha, Registro_Compra.Tipo_Compra, Registro_Compra.Total FROM Registro_Compra "
-                + "INNER JOIN Proveedor ON Registro_Compra.Proveedor_ID_Proveedor = Proveedor.ID_Proveedor"
-                + "WHERE Anulado=False";
+            + "Registro_Compra.Fecha, Registro_Compra.Tipo_Compra, Registro_Compra.Total FROM Registro_Compra "
+            + "WHERE Anulado=? "   // Se agregó un espacio antes de INNER JOIN
+            + "INNER JOIN Proveedor ON Registro_Compra.Proveedor_ID_Proveedor = Proveedor.ID_Proveedor";
+
         
         PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setBoolean(1, false);
         
         return stmt.executeQuery();
     }
@@ -64,9 +66,10 @@ public class ConexionCompra {
     }
     
     public boolean eliminar(Connection conexion, int id) throws SQLException{
-        String sql = "UPDATE Registro_Compra SET Anulado=true WHERE ID_Compra=?";
+        String sql = "UPDATE Registro_Compra SET Anulado=? WHERE ID_Compra=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
-        stmt.setInt(1, id);
+        stmt.setBoolean(1, true);
+        stmt.setInt(2, id);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
