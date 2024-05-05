@@ -292,6 +292,11 @@ public class NuevoRegFactura extends javax.swing.JFrame {
 
         Limpiar_button.setText("Limpiar");
         Limpiar_button.setEnabled(true);
+        Limpiar_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Limpiar_buttonActionPerformed(evt);
+            }
+        });
 
         Guardar_button.setText("Guardar");
         Guardar_button.setEnabled(true);
@@ -380,6 +385,15 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void limpiar() {
+        noFactura_textfield.setText("");
+        fecha_textfield.setText("");
+        detalle_textfield1.setText("");
+        credito_checkBox.setSelected(false);
+        DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
+        model.setRowCount(0); // Elimina todas las filas
+    }
+    
     private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
         // TODO add your handling code here:
         Compra compra_screen = new Compra(conexion, credenciales);
@@ -428,6 +442,11 @@ public class NuevoRegFactura extends javax.swing.JFrame {
                     model.removeRow(fila);
                 }
     }//GEN-LAST:event_EliminarBnActionPerformed
+
+    private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_Limpiar_buttonActionPerformed
     
     private void datoProveedor(String nombre) throws SQLException{
         ResultSet proveedor = new ConexionProveedores().proveedor(conexion, nombre);
