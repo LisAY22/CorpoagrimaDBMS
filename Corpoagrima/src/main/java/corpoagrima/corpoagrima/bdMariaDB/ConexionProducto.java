@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package corpoagrima.corpoagrima.bdMariaDB;
 
 import java.sql.Connection;
@@ -12,23 +9,27 @@ import java.sql.SQLException;
 /**
  *
  * @author karol
+ * @author WilderL
  */
 public class ConexionProducto {
     public ResultSet busqueda(Connection conexion, String textoBusqueda) throws SQLException{
 
-        String sql = "SELECT * FROM Producto WHERE Nombre LIKE ? OR ID_Producto = ?";
+        String sql = "SELECT * FROM Producto "
+                + "WHERE Nombre LIKE ? OR ID_Producto = ? AND Eliminado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, "%" + textoBusqueda + "%");
         stmt.setString(2, textoBusqueda);
+        stmt.setBoolean(3, false);
 
         return stmt.executeQuery();
 
     }
     public ResultSet busqueda2(Connection conexion, int id) throws SQLException{
 
-        String sql = "SELECT * FROM Producto WHERE ID_Producto = ?";
+        String sql = "SELECT * FROM Producto WHERE ID_Producto = ? AND Eliminado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setInt(1, id);
+        stmt.setBoolean(2, false);
 
         return stmt.executeQuery();
 
@@ -36,8 +37,9 @@ public class ConexionProducto {
     
     public ResultSet consulta(Connection conexion) throws SQLException{
         // Crear una sentencia SQL
-        String sql = "SELECT * FROM Producto";
+        String sql = "SELECT * FROM Producto WHERE Eliminado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setBoolean(1, false);
         
         return stmt.executeQuery();
     }
@@ -63,9 +65,10 @@ public class ConexionProducto {
     }
     
     public boolean eliminar(Connection conexion, int id) throws SQLException{
-        String sql = "DELETE FROM Producto WHERE ID_Producto=?";
+        String sql = "UPDATE Producto SET Eliminado=? WHERE ID_Producto=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
-        stmt.setInt(1, id);
+        stmt.setBoolean(1, true);
+        stmt.setInt(2, id);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;

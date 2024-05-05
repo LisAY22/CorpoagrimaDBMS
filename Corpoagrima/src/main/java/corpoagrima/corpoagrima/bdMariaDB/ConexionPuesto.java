@@ -12,35 +12,46 @@ import java.sql.SQLException;
  */
 public class ConexionPuesto {
     public ResultSet consulta(Connection conexion) throws SQLException{
-        String sql = "SELECT * FROM Puesto";
+        String sql = "SELECT * FROM Puesto Eliminado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setBoolean(1,false);
+        
         return stmt.executeQuery();
     }
     
     public ResultSet puestos(Connection conexion) throws SQLException{
-        String sql = "SELECT Nombre FROM Puesto";
+        String sql = "SELECT Nombre FROM Puesto WHERE Eliminado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setBoolean(1, false);
+        
         return stmt.executeQuery();
     }
     
     public ResultSet puestoNombre(Connection conexion, String nombre) throws SQLException{
-        String sql = "SELECT * FROM Puesto WHERE Nombre = ?";
+        String sql = "SELECT * FROM Puesto WHERE Nombre = ? AND Eliminado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
+        stmt.setBoolean(2, false);
+        
         return stmt.executeQuery();
     }
     
     public ResultSet puestoID(Connection conexion, String nombre) throws SQLException{
-        String sql = "SELECT ID_Puesto FROM Puesto WHERE Nombre = ?";
+        String sql = "SELECT ID_Puesto FROM Puesto WHERE Nombre = ? AND Eliminado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
+        stmt.setBoolean(2, false);
+        
         return stmt.executeQuery();
     }
     
     public ResultSet puestoId(Connection conexion, int idPuesto) throws SQLException{
-        String sql = "SELECT Nombre, Salario_Base FROM Puesto WHERE ID_Puesto = ?";
+        String sql = "SELECT Nombre, Salario_Base FROM Puesto "
+                + "WHERE ID_Puesto = ? AND Eliminado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setInt(1, idPuesto);
+        stmt.setBoolean(2, false);
+        
         return stmt.executeQuery();
     }
     
@@ -100,9 +111,10 @@ public class ConexionPuesto {
     }
     
     public boolean eliminar(Connection conexion, int id) throws SQLException{
-        String sql = "DELETE FROM Puesto WHERE ID_Puesto=?";
+        String sql = "UPDATE Puesto SET Eliminado=? WHERE ID_Puesto=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
-        stmt.setInt(1, id);
+        stmt.setBoolean(1,true);
+        stmt.setInt(2, id);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
