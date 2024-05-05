@@ -13,11 +13,9 @@ public class ConexionCompra {
     //public ResultSet 
     
     public ResultSet consulta(Connection conexion) throws SQLException {
-        String sql = "SELECT Registro_Compra.ID_Compra, Registro_Compra.NoFactura, Proveedor.Empresa, "
-            + "Registro_Compra.Fecha, Registro_Compra.Tipo_Compra, Registro_Compra.Total FROM Registro_Compra "
-            + "WHERE Anulado=? "   // Se agregó un espacio antes de INNER JOIN
-            + "INNER JOIN Proveedor ON Registro_Compra.Proveedor_ID_Proveedor = Proveedor.ID_Proveedor";
-
+        String sql = "SELECT ID_Compra, NoFactura, Fecha, Tipo_Compra, Total, Proveedor.Empresa FROM Registro_Compra "
+            + "JOIN Proveedor ON Registro_Compra.Proveedor_ID_Proveedor = Proveedor.ID_Proveedor "
+            + "WHERE Anulado=?";
         
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setBoolean(1, false);
