@@ -1,8 +1,9 @@
 package corpoagrima.corpoagrima.gui.rrhh;
 
-import java.sql.Connection;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import corpoagrima.corpoagrima.gui.Principal;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -19,6 +20,7 @@ public class BuscarPuesto extends javax.swing.JFrame {
     private Connection conexion;
     private ResultSet credenciales;
     private ConexionPuesto puesto;
+    private ConexionEmpleado empleado;
     private int id;
 
     /**
@@ -30,6 +32,7 @@ public class BuscarPuesto extends javax.swing.JFrame {
         this.conexion = conexion;
         this.credenciales = credenciales;
         puesto = new ConexionPuesto();
+        empleado = new ConexionEmpleado();
         initComponents();
     }
 
@@ -395,7 +398,8 @@ public class BuscarPuesto extends javax.swing.JFrame {
         try {
             String nombre = buscarJTextField.getText().trim();
 
-            if (nombre != null && !nombre.isEmpty()) {
+            if (nombre != null && !nombre.isEmpty() 
+                    && nombre.equals("Selecione un puesto")) {
                 ResultSet resultSet = puesto.puestoNombre(conexion, nombre);
                 if (resultSet.next()) {
                     id = resultSet.getInt("ID_Puesto");
@@ -461,7 +465,8 @@ public class BuscarPuesto extends javax.swing.JFrame {
             // Comprobar la opción seleccionada
             if (opcion == JOptionPane.YES_OPTION) {
                 boolean resultSet = puesto.eliminar(conexion, id);
-                if (resultSet) {
+                boolean sinPuestoResultSet = empleado.sinPuesto(conexion, id);
+                if (resultSet && sinPuestoResultSet) {
                     JOptionPane.showMessageDialog(this,
                             "Se ha eliminado exitosamente el puesto.",
                             "Eliminar Puesto", JOptionPane.INFORMATION_MESSAGE);

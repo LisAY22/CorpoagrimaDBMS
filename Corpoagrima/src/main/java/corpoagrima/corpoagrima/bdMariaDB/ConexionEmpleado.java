@@ -113,6 +113,17 @@ public class ConexionEmpleado {
         return filasAfectadas > 0;
     }
     
+    public boolean sinPuesto(Connection conexion, int idPuesto) throws SQLException{
+        String sql = "UPDATE Empleado set Puesto_ID_Puesto=? "
+                + "WHERE Puesto_ID_Puesto=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setInt(1, 0); // Se le asigna el puesto por defecto y sin privilegios.
+        stmt.setInt(2, idPuesto);
+        
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
+    
     public boolean eliminar(Connection conexion, int id) throws SQLException{
         String sql = "UPDATE Empleado SET Eliminado=true WHERE ID_Empleado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
