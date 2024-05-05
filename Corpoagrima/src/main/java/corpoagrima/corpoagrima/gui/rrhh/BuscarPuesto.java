@@ -399,7 +399,7 @@ public class BuscarPuesto extends javax.swing.JFrame {
             String nombre = buscarJTextField.getText().trim();
 
             if (nombre != null && !nombre.isEmpty() 
-                    && nombre.equals("Selecione un puesto")) {
+                    && !nombre.equals("Selecione un puesto")) {
                 ResultSet resultSet = puesto.puestoNombre(conexion, nombre);
                 if (resultSet.next()) {
                     id = resultSet.getInt("ID_Puesto");

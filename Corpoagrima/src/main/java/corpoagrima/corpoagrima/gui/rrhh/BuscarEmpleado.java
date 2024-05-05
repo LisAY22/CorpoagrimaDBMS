@@ -574,10 +574,9 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
 
             // Comprobar la opción seleccionada
             if (opcion == JOptionPane.YES_OPTION) {
-                boolean resultTelefono = Telefono.eliminar(conexion, idTelefono);
                 boolean resultSet = Empleado.eliminar(conexion, IdInt);
                 boolean resultUsuario = Usuario.eliminar(conexion, idUsuario);
-                if (resultSet && resultTelefono && resultUsuario) {
+                if (resultSet && resultUsuario) {
                     JOptionPane.showMessageDialog(this,
                             "Se ha eliminado exitosamente el empleado.",
                             "Eliminar Empleado", JOptionPane.INFORMATION_MESSAGE);
