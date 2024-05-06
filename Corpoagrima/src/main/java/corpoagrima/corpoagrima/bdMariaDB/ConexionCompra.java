@@ -13,7 +13,7 @@ public class ConexionCompra {
     //public ResultSet 
     
     public ResultSet consulta(Connection conexion) throws SQLException {
-        String sql = "SELECT ID_Compra, NoFactura, Fecha, Tipo_Compra, Total, Proveedor.Empresa FROM Registro_Compra "
+        String sql = "SELECT NoFactura, Proveedor.Empresa,  Fecha, Tipo_Compra, Total FROM Registro_Compra "
             + "JOIN Proveedor ON Registro_Compra.Proveedor_ID_Proveedor = Proveedor.ID_Proveedor "
             + "WHERE Anulado=?";
         
@@ -22,7 +22,17 @@ public class ConexionCompra {
         
         return stmt.executeQuery();
     }
-    
+    public ResultSet busqueda(Connection conexion, String factura) throws SQLException {
+        String sql = "SELECT ID_Compra, NoFactura, Fecha, Tipo_Compra, Total, Proveedor.Empresa, Proveedor.NIT, Empleado.Nombre, Empleado.Apellido FROM Registro_Compra "
+            + "JOIN Proveedor ON Registro_Compra.Proveedor_ID_Proveedor = Proveedor.ID_Proveedor "
+            + "JOIN Empleado ON Registro_Compra.Empleado_ID_Empleado = Empleado.ID_Empleado "
+            + "WHERE NoFactura=?";
+        
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, factura);
+        
+        return stmt.executeQuery();
+    }
     public boolean agregar(Connection conexion, String noFactura, 
             boolean anulado, String fecha, String tipoCompra, 
             float total, int proveedor_id_proveedor, int empleado_id_empleado) throws SQLException{

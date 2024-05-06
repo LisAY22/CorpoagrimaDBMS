@@ -135,17 +135,17 @@ public class Compra extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "No.Factura", "Empresa", "Fecha Compra", "Tipo compra", "Total"
+                "No.Factura", "Empresa", "Fecha Compra", "Tipo compra", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -307,7 +307,7 @@ public class Compra extends javax.swing.JFrame {
         }
 
         // Obtener el número de factura de la fila seleccionada
-        Object facturaObject = jTable1.getValueAt(selectedRow, 1); // Se asume que el número de factura está en la segunda columna (índice 1)
+        Object facturaObject = jTable1.getValueAt(selectedRow, 0); // Se asume que el número de factura está en la primera columna
         if(facturaObject == null) {
             JOptionPane.showMessageDialog(this, "No se puede obtener el número de factura.", "Error", JOptionPane.ERROR_MESSAGE);
             return; // Salir del método si el número de factura es nulo
