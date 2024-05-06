@@ -297,7 +297,27 @@ public class Compra extends javax.swing.JFrame {
     }//GEN-LAST:event_NuevoPuesto_jbuttonActionPerformed
 
     private void Anular_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Anular_jbuttonActionPerformed
-        AnularRegFactura AnularWindow = new AnularRegFactura(conexion, credenciales);
+        // Obtener la fila seleccionada
+        int selectedRow = jTable1.getSelectedRow();
+
+        // Verificar si se ha seleccionado una fila
+        if(selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila para anular.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si no hay fila seleccionada
+        }
+
+        // Obtener el número de factura de la fila seleccionada
+        Object facturaObject = jTable1.getValueAt(selectedRow, 1); // Se asume que el número de factura está en la segunda columna (índice 1)
+        if(facturaObject == null) {
+            JOptionPane.showMessageDialog(this, "No se puede obtener el número de factura.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si el número de factura es nulo
+        }
+
+        // Convertir el objeto a un String (el número de factura)
+        String numeroFactura = facturaObject.toString();
+
+        // Ahora puedes usar el número de factura como desees, por ejemplo, pasarlo a la ventana de anulación
+        AnularRegFactura AnularWindow = new AnularRegFactura(conexion, credenciales, numeroFactura);
         AnularWindow.setVisible(true);
         dispose();
     }//GEN-LAST:event_Anular_jbuttonActionPerformed
