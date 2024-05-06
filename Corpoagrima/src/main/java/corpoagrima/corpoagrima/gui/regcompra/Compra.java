@@ -25,10 +25,12 @@ import javax.swing.table.TableRowSorter;
  * @author alfaryus
  */
 public class Compra extends javax.swing.JFrame {
+
     private Connection conexion;
     private ResultSet credenciales;
     private ConexionCompra compras;
     private TableRowSorter<DefaultTableModel> sorter;
+
     /**
      * Creates new form Compra
      */
@@ -255,7 +257,7 @@ public class Compra extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void actualizarTabla() {
         try {
             ResultSet rs = compras.consulta(conexion);
@@ -267,7 +269,7 @@ public class Compra extends javax.swing.JFrame {
             // Agregar nuevas filas al modelo de tabla
             ResultSetMetaData metaData = rs.getMetaData();
             int columnCount = metaData.getColumnCount();
-            
+
             while (rs.next()) {
                 Object[] rowData = new Object[columnCount];
                 for (int i = 0; i < columnCount; i++) {
@@ -283,9 +285,33 @@ public class Compra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private void EditarPuesto_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarPuesto_jbuttonActionPerformed
-        EditarRegFactura EditarWindow = new EditarRegFactura(conexion, credenciales);
+        // Obtener la fila seleccionada
+        int selectedRow = jTable1.getSelectedRow();
+
+        // Verificar si se ha seleccionado una fila
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura para editar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si no hay fila seleccionada
+        }
+
+        // Obtener el número de factura de la fila seleccionada
+        Object facturaObject = jTable1.getValueAt(selectedRow, 0); // Se asume que el número de factura está en la primera columna
+        if (facturaObject == null) {
+            JOptionPane.showMessageDialog(this, "No se puede obtener el número de factura.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si el número de factura es nulo
+        }
+
+        // Convertir el objeto a un String (el número de factura)
+        String numeroFactura = facturaObject.toString();
+
+        EditarRegFactura EditarWindow = null;
+        try {
+            EditarWindow = new EditarRegFactura(conexion, credenciales, numeroFactura);
+        } catch (SQLException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
         EditarWindow.setVisible(true);
         dispose();
     }//GEN-LAST:event_EditarPuesto_jbuttonActionPerformed
@@ -301,14 +327,14 @@ public class Compra extends javax.swing.JFrame {
         int selectedRow = jTable1.getSelectedRow();
 
         // Verificar si se ha seleccionado una fila
-        if(selectedRow == -1) {
+        if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura para anular.", "Error", JOptionPane.ERROR_MESSAGE);
             return; // Salir del método si no hay fila seleccionada
         }
 
         // Obtener el número de factura de la fila seleccionada
         Object facturaObject = jTable1.getValueAt(selectedRow, 0); // Se asume que el número de factura está en la primera columna
-        if(facturaObject == null) {
+        if (facturaObject == null) {
             JOptionPane.showMessageDialog(this, "No se puede obtener el número de factura.", "Error", JOptionPane.ERROR_MESSAGE);
             return; // Salir del método si el número de factura es nulo
         }
@@ -337,7 +363,7 @@ public class Compra extends javax.swing.JFrame {
         }
         principal_screen.setVisible(true);
         principal_screen.setLocationRelativeTo(null);
-        
+
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_Regresar_BnActionPerformed

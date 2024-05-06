@@ -7,9 +7,11 @@ import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import java.awt.event.ItemEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,43 +24,84 @@ public class EditarRegFactura extends javax.swing.JFrame {
     private ResultSet credenciales;
     private ConexionCompra compras;
     private ConexionProducto producto;
+    private String factura;
+    private int id;
 
     /**
      * Creates new form editarRegFactura
      */
-    public EditarRegFactura(Connection conexion, ResultSet credenciales) {
-        try {
+    public EditarRegFactura(Connection conexion, ResultSet credenciales, String numeroFactura) throws SQLException{
             this.conexion = conexion;
             this.credenciales = credenciales;
+            this.factura = numeroFactura;
             producto = new ConexionProducto();
+            compras = new ConexionCompra();
             initComponents();
+            mostrarInformacion();
+    }
+    
+    public final void mostrarInformacion() throws SQLException{
+        ResultSet rs = compras.busqueda(conexion, factura);
+        if (rs.next()) {
+            id = rs.getInt("ID_Compra");
+            String NoFactura = factura;
+            String fecha = rs.getString("Fecha");
+            String nit = rs.getString("NIT");
+            String tipoCompra = rs.getString("Tipo_Compra");
+            String nombreUsuario = rs.getString("Nombre");
+            String apellidoUsuario = rs.getString("Apellido");
+            String nombreCompletoUsuario = nombreUsuario + " " + apellidoUsuario;
+            String detalle = rs.getString("Detalle");
+            double total = rs.getDouble("Total");
+            
+            if ("Credito".equals(tipoCompra)) {
+                creditoCheckBox.setSelected(true);
+            } else {
+                creditoCheckBox.setSelected(false);
+            }
             ConexionProveedores proveedor = new ConexionProveedores();
             ResultSet listaProveedor = proveedor.consulta(conexion);
             String nombreProveedor;
+            Object items = Proveedor_comboBox.getSelectedItem();
+            if(items!=null) {
+                Proveedor_comboBox.removeAllItems();
+            }
             while (listaProveedor.next()) {
                 nombreProveedor = listaProveedor.getString("Empresa");
                 Proveedor_comboBox.addItem(nombreProveedor);
             }
             String nombre = (String) Proveedor_comboBox.getSelectedItem();
             datoProveedor(nombre);
-            String nombreEmpleado = credenciales.getString("Nombre");
-            String apellidoEmpleado = credenciales.getString("Apellido");
-            EmpleadoTextfield.setText(nombreEmpleado + " " + apellidoEmpleado);
+            numeroFacturaTextfield.setText(NoFactura);
+            fechaTextfield.setText(fecha);
+            EmpleadoTextfield.setText(nombreCompletoUsuario);
+            detalle_textfield1.setText(detalle);
+            totalFinalJTextField.setText(String.valueOf(total));
             
-        } catch (SQLException ex) {
-            Logger.getLogger(NuevoRegFactura.class.getName()).log(Level.SEVERE, null, ex);
+            // Obtener el modelo de la tabla actual
+            try (ResultSet productos = compras.busqueda2(conexion, factura)) {
+                // Obtener el modelo de la tabla actual
+                DefaultTableModel model = (DefaultTableModel) listProductoJTable.getModel();
+                model.setRowCount(0); // Limpiar los datos existentes
+                
+                // Agregar nuevas filas al modelo de tabla
+                ResultSetMetaData metaData = productos.getMetaData();
+                int columnCount = metaData.getColumnCount();
+                
+                while (productos.next()) {
+                    Object[] rowData = new Object[columnCount];
+                    for (int i = 0; i < columnCount; i++) {
+                        rowData[i] = productos.getObject(i + 1);
+                    }
+                    model.addRow(rowData);
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontraron resultados",
+                    "Busqueda", JOptionPane.WARNING_MESSAGE);
         }
     }
-        
-    private void limpiar() {
-        numeroFacturaTextfield.setText("");
-        fechaTextfield.setText("");
-        detalle_textfield1.setText("");
-        creditoCheckBox.setSelected(false);
-        DefaultTableModel model = (DefaultTableModel) listProductoJTable.getModel();
-        model.setRowCount(0); // Elimina todas las filas
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,7 +119,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
         listProductoJScrollPane = new javax.swing.JScrollPane();
         listProductoJTable = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
-        Limpiar_button = new javax.swing.JButton();
+        Reestablecer_button = new javax.swing.JButton();
         Guardar_button = new javax.swing.JButton();
         eliminarJLabel = new javax.swing.JLabel();
         EliminarBn = new javax.swing.JButton();
@@ -96,6 +139,10 @@ public class EditarRegFactura extends javax.swing.JFrame {
         Proveedor_comboBox = new javax.swing.JComboBox<>();
         CantidadComprasLabel1 = new javax.swing.JLabel();
         detalle_textfield1 = new javax.swing.JTextField();
+        totalProductoLabel = new javax.swing.JLabel();
+        totalProductoJTextField = new javax.swing.JTextField();
+        totalFinalLabel = new javax.swing.JLabel();
+        totalFinalJTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -153,11 +200,11 @@ public class EditarRegFactura extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Detalle", "Marca", "Fecha de vencimiento", "Cantidad", "Precio unidad", "Precio total"
+                "Nombre", "Detalle", "Marca", "Cantidad", "Costo por unidad", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true, true
+                false, false, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -166,31 +213,26 @@ public class EditarRegFactura extends javax.swing.JFrame {
         });
         listProductoJScrollPane.setViewportView(listProductoJTable);
 
-        Limpiar_button.setText("Limpiar");
-        Limpiar_button.setEnabled(true);
-        Limpiar_button.addActionListener(new java.awt.event.ActionListener() {
+        Reestablecer_button.setText("Reestablecer");
+        Reestablecer_button.setEnabled(true);
+        Reestablecer_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Limpiar_buttonActionPerformed(evt);
+                Reestablecer_buttonActionPerformed(evt);
             }
         });
 
         Guardar_button.setText("Guardar");
         Guardar_button.setEnabled(true);
-        Guardar_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Guardar_buttonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(889, Short.MAX_VALUE)
                 .addComponent(Guardar_button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Limpiar_button)
+                .addComponent(Reestablecer_button)
                 .addGap(52, 52, 52))
         );
         jPanel8Layout.setVerticalGroup(
@@ -198,9 +240,9 @@ public class EditarRegFactura extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Limpiar_button)
+                    .addComponent(Reestablecer_button)
                     .addComponent(Guardar_button))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         eliminarJLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -225,33 +267,18 @@ public class EditarRegFactura extends javax.swing.JFrame {
 
         Telefonotextfield.setEditable(false);
         Telefonotextfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Telefonotextfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TelefonotextfieldActionPerformed(evt);
-            }
-        });
 
         empleadoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         empleadoLabel.setText("Empleado");
 
         EmpleadoTextfield.setEditable(false);
         EmpleadoTextfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        EmpleadoTextfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmpleadoTextfieldActionPerformed(evt);
-            }
-        });
 
         nitLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         nitLabel.setText("NIT");
 
         nitTextfield.setEditable(false);
         nitTextfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        nitTextfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nitTextfieldActionPerformed(evt);
-            }
-        });
 
         telefonoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         telefonoLabel.setText("Teléfono");
@@ -262,30 +289,15 @@ public class EditarRegFactura extends javax.swing.JFrame {
         numeroFacturaTextfield.setEditable(true
         );
         numeroFacturaTextfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        numeroFacturaTextfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numeroFacturaTextfieldActionPerformed(evt);
-            }
-        });
 
         creditoCheckBox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         creditoCheckBox.setText("Credito");
         creditoCheckBox.setEnabled(true);
-        creditoCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                creditoCheckBoxActionPerformed(evt);
-            }
-        });
 
         Proveedor_comboBox.setEnabled(true);
         Proveedor_comboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 Proveedor_comboBoxItemStateChanged(evt);
-            }
-        });
-        Proveedor_comboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Proveedor_comboBoxActionPerformed(evt);
             }
         });
 
@@ -378,33 +390,51 @@ public class EditarRegFactura extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        totalProductoLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        totalProductoLabel.setText("Total de productos:");
+
+        totalProductoJTextField.setEditable(false);
+        totalProductoJTextField.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+
+        totalFinalLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        totalFinalLabel.setForeground(new java.awt.Color(159, 46, 46));
+        totalFinalLabel.setText("Total:");
+
+        totalFinalJTextField.setEditable(false);
+        totalFinalJTextField.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(totalProductoLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(totalProductoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(totalFinalLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(totalFinalJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addComponent(listProductoJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(listProductoJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(EliminarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(AgregarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(agregarJLabel)
-                                    .addComponent(eliminarJLabel))))
-                        .addGap(0, 31, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(EliminarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AgregarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(agregarJLabel)
+                            .addComponent(eliminarJLabel))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,8 +456,16 @@ public class EditarRegFactura extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(EliminarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(67, 67, 67)))
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(25, 25, 25))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(totalProductoLabel)
+                            .addComponent(totalProductoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(totalFinalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalFinalJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -457,14 +495,13 @@ public class EditarRegFactura extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_Regresar_BnActionPerformed
 
-    private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
-        // TODO add your handling code here:
-        limpiar();
-    }//GEN-LAST:event_Limpiar_buttonActionPerformed
-
-    private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
-
-    }//GEN-LAST:event_Guardar_buttonActionPerformed
+    private void Reestablecer_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Reestablecer_buttonActionPerformed
+        try {
+            mostrarInformacion();
+        } catch (SQLException ex) {
+            Logger.getLogger(EditarRegFactura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_Reestablecer_buttonActionPerformed
 
     private void EliminarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBnActionPerformed
         // TODO add your handling code here:
@@ -474,26 +511,6 @@ public class EditarRegFactura extends javax.swing.JFrame {
                     model.removeRow(fila);
                 }
     }//GEN-LAST:event_EliminarBnActionPerformed
-
-    private void TelefonotextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelefonotextfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TelefonotextfieldActionPerformed
-
-    private void EmpleadoTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmpleadoTextfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EmpleadoTextfieldActionPerformed
-
-    private void nitTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nitTextfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nitTextfieldActionPerformed
-
-    private void numeroFacturaTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroFacturaTextfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numeroFacturaTextfieldActionPerformed
-
-    private void creditoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditoCheckBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_creditoCheckBoxActionPerformed
 
     private void Proveedor_comboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Proveedor_comboBoxItemStateChanged
         Proveedor_comboBox.addItemListener((ItemEvent e) -> {
@@ -508,24 +525,26 @@ public class EditarRegFactura extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_Proveedor_comboBoxItemStateChanged
 
-    private void Proveedor_comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Proveedor_comboBoxActionPerformed
-
-    }//GEN-LAST:event_Proveedor_comboBoxActionPerformed
-
     private void AgregarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBnActionPerformed
         // TODO add your handling code here:
         AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales, this);
         AgregarWindow.setVisible(true);
     }//GEN-LAST:event_AgregarBnActionPerformed
 
-    private void datoProveedor(String nombre) throws SQLException{
-        ResultSet proveedor = new ConexionProveedores().proveedor(conexion, nombre);
-        proveedor.next();
-        String numero = proveedor.getString("Numero");
-        String nit = proveedor.getString("NIT");
-        Telefonotextfield.setText(numero);
-        nitTextfield.setText(nit);
+    private void datoProveedor(String nombre) throws SQLException {
+        ResultSet proveedor = new ConexionProveedores().proveedor2(conexion, nombre);
+        if (proveedor.next()) { // Verifica si hay al menos una fila en el ResultSet
+            String numero = proveedor.getString("Numero");
+            String nit = proveedor.getString("NIT");
+            Telefonotextfield.setText(numero);
+            nitTextfield.setText(nit);
+        } else {
+            // Maneja el caso en el que no se encontraron resultados
+            Telefonotextfield.setText("");
+            nitTextfield.setText("");
+        }
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarBn;
@@ -534,9 +553,9 @@ public class EditarRegFactura extends javax.swing.JFrame {
     private javax.swing.JTextField EmpleadoTextfield;
     private javax.swing.JLabel FechaLabel;
     private javax.swing.JButton Guardar_button;
-    private javax.swing.JButton Limpiar_button;
     private javax.swing.JLabel ProveedorLabel;
     private javax.swing.JComboBox<String> Proveedor_comboBox;
+    private javax.swing.JButton Reestablecer_button;
     private javax.swing.JButton Regresar_Bn;
     private javax.swing.JTextField Telefonotextfield;
     private javax.swing.JLabel agregarJLabel;
@@ -556,5 +575,9 @@ public class EditarRegFactura extends javax.swing.JFrame {
     private javax.swing.JLabel noFacturaLabel;
     private javax.swing.JTextField numeroFacturaTextfield;
     private javax.swing.JLabel telefonoLabel;
+    private javax.swing.JTextField totalFinalJTextField;
+    private javax.swing.JLabel totalFinalLabel;
+    private javax.swing.JTextField totalProductoJTextField;
+    private javax.swing.JLabel totalProductoLabel;
     // End of variables declaration//GEN-END:variables
 }
