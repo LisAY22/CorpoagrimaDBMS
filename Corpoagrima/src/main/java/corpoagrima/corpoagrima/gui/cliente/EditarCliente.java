@@ -21,23 +21,30 @@ import java.util.logging.Logger;
  */
 public class EditarCliente extends javax.swing.JFrame{
 
-    private Connection conexion;
-    private ResultSet credenciales;
-    private ConexionCliente clientes;
-    private ConexionTelefono Telefono;
+    private final Connection conexion;
+    private final ResultSet credenciales;
+    private final ConexionCliente clientes;
+    private final ConexionTelefono Telefono;
     private int id;
     private int idTelefono;
+    private final String idCliente;
     
     /**
      * Creates new form clientes2
+     * @param conexion
+     * @param credenciales
+     * @param IDCliente
      */
-    public EditarCliente(Connection conexion, ResultSet credenciales) {
+    public EditarCliente(Connection conexion, ResultSet credenciales, String IDCliente) {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        this.idCliente = IDCliente;
         clientes = new ConexionCliente();
         Telefono = new ConexionTelefono();
-        
         initComponents();
+        if (idCliente !=""){
+            buscar(idCliente);
+        }
     }
 
     /**
@@ -76,6 +83,74 @@ public class EditarCliente extends javax.swing.JFrame{
         Buscar_Button.setEnabled(true);
         Buscar_textField.setEnabled(true);
         
+    }
+    
+    public final void buscar(String textoBusqueda){
+        try {
+                if (textoBusqueda != null && !textoBusqueda.isEmpty()) {
+                    ResultSet rs = clientes.busqueda2(conexion, textoBusqueda);
+                    if (rs.next()) {
+                        id = rs.getInt("ID_Cliente");
+                        String nombre = rs.getString("Nombre");
+                        String apellido = rs.getString("Apellido");
+                        String nit = rs.getString("NIT");
+                        String correoElectronico = rs.getString("CorreoElectronico");
+                        String direccion = rs.getString("Direccion");
+                        int destacado = rs.getInt("Cliente_destacado");
+                        int cantCompras = rs.getInt("Cantidad_compras");
+                        
+                        if (destacado == 1) {
+                            // Si el número es 1, marcamos el checkbox como seleccionado
+                            Destacado_checkBox.setSelected(true);
+                        } else {
+                            // Si el número no es 1, no marcamos el checkbox
+                            Destacado_checkBox.setSelected(false);
+                        }
+
+                        // Cuarta consulta para obtener el numero de telefono
+                        ResultSet resultadoTelefono = Telefono.telefono(conexion, id, "Cliente");
+
+                        if (resultadoTelefono.next()) { // Verificar si hay resultados antes de acceder a ellos
+                            idTelefono = resultadoTelefono.getInt("ID_Telefono");
+                            String telefono = resultadoTelefono.getString("Numero");
+
+                            // Insertar en los textfield la informacion y habilitarlos
+                            ID_textfield.setText(String.valueOf(id));
+                            Nombre_textfield.setText(nombre);
+                            Apellido_textfield.setText(apellido);
+                            NIT_textfield.setText(nit);
+                            Correo_textfield.setText(correoElectronico);
+                            Direccion_textfield.setText(direccion);
+                            Cantidadcompras_textfield.setText(String.valueOf(cantCompras));
+                            telefono_textfield1.setText(telefono);
+
+
+                            JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
+                                    "Busqueda", JOptionPane.INFORMATION_MESSAGE);
+                            habilitar();
+                            Eliminar_button.setEnabled(true);
+
+                          
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el número de teléfono.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se encontraron resultados",
+                                "Busqueda", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "ERROR"
+                            + "compruebe el codigo ingresado", "Busqueda",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(EditarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Busqueda",
+                        JOptionPane.ERROR_MESSAGE);
+            }
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -520,73 +595,8 @@ public class EditarCliente extends javax.swing.JFrame{
     }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
     private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
-        try {
-                String textoBusqueda = Buscar_textField.getText().trim();
-
-                if (textoBusqueda != null && !textoBusqueda.isEmpty()) {
-                    ResultSet rs = clientes.busqueda2(conexion, textoBusqueda);
-                    if (rs.next()) {
-                        id = rs.getInt("ID_Cliente");
-                        String nombre = rs.getString("Nombre");
-                        String apellido = rs.getString("Apellido");
-                        String nit = rs.getString("NIT");
-                        String correoElectronico = rs.getString("CorreoElectronico");
-                        String direccion = rs.getString("Direccion");
-                        int destacado = rs.getInt("Cliente_destacado");
-                        int cantCompras = rs.getInt("Cantidad_compras");
-                        
-                        if (destacado == 1) {
-                            // Si el número es 1, marcamos el checkbox como seleccionado
-                            Destacado_checkBox.setSelected(true);
-                        } else {
-                            // Si el número no es 1, no marcamos el checkbox
-                            Destacado_checkBox.setSelected(false);
-                        }
-
-                        // Cuarta consulta para obtener el numero de telefono
-                        ResultSet resultadoTelefono = Telefono.telefono(conexion, id, "Cliente");
-
-                        if (resultadoTelefono.next()) { // Verificar si hay resultados antes de acceder a ellos
-                            idTelefono = resultadoTelefono.getInt("ID_Telefono");
-                            String telefono = resultadoTelefono.getString("Numero");
-
-                            // Insertar en los textfield la informacion y habilitarlos
-                            ID_textfield.setText(String.valueOf(id));
-                            Nombre_textfield.setText(nombre);
-                            Apellido_textfield.setText(apellido);
-                            NIT_textfield.setText(nit);
-                            Correo_textfield.setText(correoElectronico);
-                            Direccion_textfield.setText(direccion);
-                            Cantidadcompras_textfield.setText(String.valueOf(cantCompras));
-                            telefono_textfield1.setText(telefono);
-
-
-                            JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
-                                    "Busqueda", JOptionPane.INFORMATION_MESSAGE);
-                            habilitar();
-                            Eliminar_button.setEnabled(true);
-
-                          
-                        } else {
-                            JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el número de teléfono.", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                        
-                    } else {
-                        JOptionPane.showMessageDialog(this, "No se encontraron resultados",
-                                "Busqueda", JOptionPane.WARNING_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "ERROR"
-                            + "compruebe el codigo ingresado", "Busqueda",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(EditarCliente.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Ha habido un error "
-                        + "compruebe la información", "Busqueda",
-                        JOptionPane.ERROR_MESSAGE);
-            }
+    String textoBusqueda = Buscar_textField.getText().trim();
+    buscar(textoBusqueda);
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
 
     private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed

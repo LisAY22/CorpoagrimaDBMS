@@ -4,10 +4,11 @@
  */
 package corpoagrima.corpoagrima.gui.cliente;
 
-import corpoagrima.corpoagrima.gui.cliente.EditarCliente;
-import corpoagrima.corpoagrima.gui.cliente.NuevoCliente;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCliente;
 import corpoagrima.corpoagrima.gui.Principal;
+import corpoagrima.corpoagrima.gui.inventario.EditarProducto;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -175,6 +176,12 @@ public class Cliente extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
+        jScrollPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane2MouseClicked(evt);
+            }
+        });
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -192,6 +199,11 @@ public class Cliente extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(jTable1);
@@ -246,10 +258,10 @@ public class Cliente extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(NuevoBn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(92, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -273,8 +285,8 @@ public class Cliente extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
 
@@ -344,12 +356,19 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_Ordenar_BnMouseClicked
 
     private void Editar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Editar_BnMouseClicked
-        // TODO add your handling code here:
-        EditarCliente clientes2_screen = new EditarCliente(conexion, credenciales);
-        clientes2_screen.setVisible(true);
-        clientes2_screen.setLocationRelativeTo(null);
-        
-        this.dispose();
+        int fila = jTable1.getSelectedRow();
+        if (fila !=-1){
+            long ID = (long) jTable1.getValueAt(fila, 0);
+            String numCadena= String.valueOf(ID);
+            EditarProducto screen_edit_product = new EditarProducto(conexion, credenciales, numCadena);
+            screen_edit_product.setVisible(true);      
+            dispose();
+        }
+        else{
+            EditarProducto screen_edit_product = new EditarProducto(conexion, credenciales, "");
+            screen_edit_product.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_Editar_BnMouseClicked
 
     private void NuevoBnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NuevoBnMouseClicked
@@ -384,6 +403,28 @@ public class Cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         actualizarTabla();
     }//GEN-LAST:event_Actualizar_BnMouseClicked
+
+    private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane2MouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        jTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { 
+                    int fila = jTable1.getSelectedRow();
+                    if (fila >= 0) {
+                        long ID = (long) jTable1.getValueAt(fila, 0);
+                        String numCadena= String.valueOf(ID);
+                        EditarCliente screen_edit_product = new EditarCliente(conexion, credenciales, numCadena);
+                        screen_edit_product.setVisible(true);      
+                        dispose();
+                    }
+                }
+            }
+        });
+    }//GEN-LAST:event_jTable1MouseClicked
 
     private void actualizarTabla() {
         try {
