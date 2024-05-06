@@ -270,11 +270,6 @@ public class RRHH extends javax.swing.JFrame {
                 jButtonEDPMouseClicked(evt);
             }
         });
-        jButtonEDP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEDPActionPerformed(evt);
-            }
-        });
 
         jButtonNP.setBackground(new java.awt.Color(136, 213, 133));
         jButtonNP.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -290,11 +285,6 @@ public class RRHH extends javax.swing.JFrame {
         jButtonEDE.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButtonEDE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
         jButtonEDE.setText("EDITAR EMPLEADO");
-        jButtonEDE.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonEDEMouseClicked(evt);
-            }
-        });
         jButtonEDE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEDEActionPerformed(evt);
@@ -353,11 +343,6 @@ public class RRHH extends javax.swing.JFrame {
         Ordenar_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Ordenar_BnMouseClicked(evt);
-            }
-        });
-        Ordenar_Bn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Ordenar_BnActionPerformed(evt);
             }
         });
 
@@ -453,14 +438,6 @@ public class RRHH extends javax.swing.JFrame {
 
     }//GEN-LAST:event_Ordenar_BnMouseClicked
 
-    private void jButtonEDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEDPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonEDPActionPerformed
-
-    private void Ordenar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ordenar_BnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Ordenar_BnActionPerformed
-
     private void jButtonEDPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEDPMouseClicked
         // TODO add your handling code here:
         BuscarPuesto puestoed_screen = new BuscarPuesto(conexion, credenciales);
@@ -480,10 +457,6 @@ public class RRHH extends javax.swing.JFrame {
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_jButtonNPMouseClicked
-
-    private void jButtonEDEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEDEMouseClicked
-
-    }//GEN-LAST:event_jButtonEDEMouseClicked
 
     private void jButtonNEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNEMouseClicked
         // TODO add your handling code here:

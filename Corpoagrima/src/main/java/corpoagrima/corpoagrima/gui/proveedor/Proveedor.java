@@ -122,11 +122,6 @@ public class Proveedor extends javax.swing.JFrame {
         );
 
         Buscar_textField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Buscar_textField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Buscar_textFieldActionPerformed(evt);
-            }
-        });
 
         Buscar_Bn.setBackground(new java.awt.Color(136, 213, 133));
         Buscar_Bn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
@@ -295,10 +290,6 @@ public class Proveedor extends javax.swing.JFrame {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_Regresar_BnMouseClicked
-
-    private void Buscar_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_textFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Buscar_textFieldActionPerformed
 
     private void Buscar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Buscar_BnMouseClicked
         // TODO add your handling code here:

@@ -212,44 +212,24 @@ public class EditarProducto extends javax.swing.JFrame {
 
         nombre_jTextField1.setEditable(false);
         nombre_jTextField1.setToolTipText("");
-        nombre_jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombre_jTextField1ActionPerformed(evt);
-            }
-        });
 
         marca_jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         marca_jLabel2.setText("Marca");
 
         marca_jTextField2.setEditable(false);
         marca_jTextField2.setToolTipText("");
-        marca_jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                marca_jTextField2ActionPerformed(evt);
-            }
-        });
 
         categoria_jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         categoria_jLabel2.setText("Categoria");
 
         categoria_jTextField2.setEditable(false);
         categoria_jTextField2.setToolTipText("");
-        categoria_jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                categoria_jTextField2ActionPerformed(evt);
-            }
-        });
 
         unidadM_jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         unidadM_jLabel3.setText("Unidad de Medida");
 
         unidadM_jTextField3.setEditable(false);
         unidadM_jTextField3.setToolTipText("");
-        unidadM_jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                unidadM_jTextField3ActionPerformed(evt);
-            }
-        });
 
         precioV_jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         precioV_jLabel4.setText("Precio de Venta");
@@ -257,11 +237,6 @@ public class EditarProducto extends javax.swing.JFrame {
         precioV_jTextField4.setEditable(false);
         precioV_jTextField4.setText("0");
         precioV_jTextField4.setToolTipText("");
-        precioV_jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                precioV_jTextField4ActionPerformed(evt);
-            }
-        });
 
         cantidad_jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cantidad_jLabel3.setText("Cantidad");
@@ -269,22 +244,12 @@ public class EditarProducto extends javax.swing.JFrame {
         cantidad_jTextField4.setEditable(false);
         cantidad_jTextField4.setText("0");
         cantidad_jTextField4.setToolTipText("");
-        cantidad_jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cantidad_jTextField4ActionPerformed(evt);
-            }
-        });
 
         nombre_jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         nombre_jLabel2.setText("Descripción");
 
         descripcion_jTextField4.setEditable(false);
         descripcion_jTextField4.setToolTipText("");
-        descripcion_jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                descripcion_jTextField4ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -308,15 +273,14 @@ public class EditarProducto extends javax.swing.JFrame {
                                 .addComponent(cantidad_jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(precioV_jLabel4))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(marca_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(unidadM_jLabel3))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(nombre_jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(195, 195, 195)
-                                    .addComponent(categoria_jLabel2))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(marca_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(unidadM_jLabel3))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(nombre_jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(195, 195, 195)
+                                .addComponent(categoria_jLabel2)))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(categoria_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -460,30 +424,6 @@ public class EditarProducto extends javax.swing.JFrame {
         Eliminar_button1.setEnabled(false);
     }
     
-    private void nombre_jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombre_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombre_jTextField1ActionPerformed
-
-    private void marca_jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marca_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_marca_jTextField2ActionPerformed
-
-    private void categoria_jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoria_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_categoria_jTextField2ActionPerformed
-
-    private void unidadM_jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unidadM_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_unidadM_jTextField3ActionPerformed
-
-    private void precioV_jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioV_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_precioV_jTextField4ActionPerformed
-
-    private void cantidad_jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidad_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cantidad_jTextField4ActionPerformed
-
     private void Eliminar_button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_button1ActionPerformed
         // TODO add your handling code here:
         int opcion = JOptionPane.showConfirmDialog(null,
@@ -521,10 +461,6 @@ public class EditarProducto extends javax.swing.JFrame {
         inventario_screen.setVisible(true);
         dispose();
     }//GEN-LAST:event_Regresar_BnActionPerformed
-
-    private void descripcion_jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descripcion_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_descripcion_jTextField4ActionPerformed
 
     private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
         String texto_busqueda = Buscar_textField.getText().trim();

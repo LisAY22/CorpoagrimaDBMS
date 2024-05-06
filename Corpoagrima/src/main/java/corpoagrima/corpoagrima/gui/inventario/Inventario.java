@@ -75,11 +75,6 @@ public class Inventario extends javax.swing.JFrame {
         setTitle("Inventario");
 
         JPanel1.setBackground(new java.awt.Color(34, 85, 34));
-        JPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                JPanel1MouseClicked(evt);
-            }
-        });
 
         inventarioJLabel.setBackground(new java.awt.Color(34, 85, 34));
         inventarioJLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -289,10 +284,6 @@ public class Inventario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void JPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPanel1MouseClicked
-
-    }//GEN-LAST:event_JPanel1MouseClicked
-
     private void regresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarJButtonMouseClicked
         // TODO add your handling code here:
         Principal principal_screen = null;
@@ -400,7 +391,6 @@ public class Inventario extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { 
-                    System.out.println("Hola");
                     int fila = datosJTable.getSelectedRow();
                     System.out.println(fila);
                     if (fila >= 0) {

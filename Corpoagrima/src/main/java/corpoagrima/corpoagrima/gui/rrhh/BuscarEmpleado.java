@@ -324,11 +324,6 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
         );
 
         Buscar_textField.setToolTipText("Ingrese el ID del usuario");
-        Buscar_textField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Buscar_textFieldActionPerformed(evt);
-            }
-        });
 
         Buscar_jButton.setBackground(new java.awt.Color(136, 213, 133));
         Buscar_jButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
@@ -373,11 +368,6 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
 
         Nombre_textField.setEditable(false);
         Nombre_textField.setToolTipText("Ingrese Nombre");
-        Nombre_textField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Nombre_textFieldActionPerformed(evt);
-            }
-        });
 
         Apellido_textField.setEditable(false);
         Apellido_textField.setToolTipText("Ingrese Apellido");
@@ -387,33 +377,18 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
 
         Correo_textfield.setEditable(false);
         Correo_textfield.setToolTipText("Ingrese correo electrónico");
-        Correo_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Correo_textfieldActionPerformed(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("Dirección");
 
         Direccion_textfield.setEditable(false);
         Direccion_textfield.setToolTipText("Ingrese dirección");
-        Direccion_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Direccion_textfieldActionPerformed(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("Bonificaciones ");
 
         Bonificaciones_textfield.setEditable(false);
         Bonificaciones_textfield.setToolTipText("Ingrese bonificaciones");
-        Bonificaciones_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Bonificaciones_textfieldActionPerformed(evt);
-            }
-        });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel11.setText("Correo electrónico");
@@ -424,55 +399,30 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
                 Puesto_comboBoxItemStateChanged(evt);
             }
         });
-        Puesto_comboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Puesto_comboBoxActionPerformed(evt);
-            }
-        });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setText("Puesto");
 
         Sueldobase_textfield.setEditable(false);
         Sueldobase_textfield.setToolTipText("Sueldo en Quetzales");
-        Sueldobase_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Sueldobase_textfieldActionPerformed(evt);
-            }
-        });
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel13.setText("Contraseña");
 
         Usuario_textfield.setEditable(false);
         Usuario_textfield.setToolTipText("Ingrese Usuario");
-        Usuario_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Usuario_textfieldActionPerformed(evt);
-            }
-        });
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel15.setText("Teléfono");
 
         Telefono_textfield.setEditable(false);
         Telefono_textfield.setToolTipText("Ingrese Teléfono");
-        Telefono_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Telefono_textfieldActionPerformed(evt);
-            }
-        });
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel16.setText("Usuario");
 
         contrasena_textfield1.setEditable(false);
         contrasena_textfield1.setToolTipText("Ingrese contraseña");
-        contrasena_textfield1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contrasena_textfield1ActionPerformed(evt);
-            }
-        });
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel14.setText("ID");
@@ -486,11 +436,6 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
 
         AjusteSueldo_textfield.setEditable(false);
         AjusteSueldo_textfield.setToolTipText("Ajuste de sueldo en Quetzales");
-        AjusteSueldo_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AjusteSueldo_textfieldActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -676,10 +621,6 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Buscar_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_textFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Buscar_textFieldActionPerformed
-
     private void Delete_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete_buttonActionPerformed
         String id = ID_textfield.getText();
         int IdInt = Integer.parseInt(id);
@@ -735,42 +676,6 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
         reset();
     }//GEN-LAST:event_Clean_buttonActionPerformed
 
-    private void contrasena_textfield1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasena_textfield1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_contrasena_textfield1ActionPerformed
-
-    private void Telefono_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Telefono_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Telefono_textfieldActionPerformed
-
-    private void Usuario_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Usuario_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Usuario_textfieldActionPerformed
-
-    private void Sueldobase_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Sueldobase_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Sueldobase_textfieldActionPerformed
-
-    private void Puesto_comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Puesto_comboBoxActionPerformed
-
-    }//GEN-LAST:event_Puesto_comboBoxActionPerformed
-
-    private void Bonificaciones_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bonificaciones_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Bonificaciones_textfieldActionPerformed
-
-    private void Direccion_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Direccion_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Direccion_textfieldActionPerformed
-
-    private void Correo_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Correo_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Correo_textfieldActionPerformed
-
-    private void Nombre_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nombre_textFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Nombre_textFieldActionPerformed
-
     private void sueldoBase(String nombre) throws SQLException {
         ResultSet result = Puesto.puestoNombre(conexion, nombre);
         result.next();
@@ -782,10 +687,6 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
         String IDString = Buscar_textField.getText();
         buscar(IDString);
     }//GEN-LAST:event_Buscar_jButtonActionPerformed
-
-    private void AjusteSueldo_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjusteSueldo_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AjusteSueldo_textfieldActionPerformed
 
     private void Save_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_buttonActionPerformed
         try {

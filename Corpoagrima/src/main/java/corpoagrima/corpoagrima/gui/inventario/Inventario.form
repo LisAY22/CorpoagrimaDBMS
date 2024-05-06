@@ -72,9 +72,6 @@
           <Color blue="22" green="55" red="22" type="rgb"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="JPanel1MouseClicked"/>
-      </Events>
 
       <Layout>
         <DimensionLayout dim="0">
