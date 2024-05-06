@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -37,6 +39,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
             producto = new ConexionProducto();
             compras = new ConexionCompra();
             initComponents();
+            datosTotales();
             mostrarInformacion();
     }
     
@@ -101,6 +104,27 @@ public class EditarRegFactura extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se encontraron resultados",
                     "Busqueda", JOptionPane.WARNING_MESSAGE);
         }
+    }
+    private void datosTotales() {
+        DefaultTableModel model = (DefaultTableModel) listProductoJTable.getModel();
+
+        model.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE || e.getType() == TableModelEvent.INSERT || e.getType() == TableModelEvent.DELETE) {
+                    int totalProductos = 0;
+                    double total = 0;
+                    int numFilas = model.getRowCount();
+                    for (int fila = 0; fila < numFilas; fila++) {
+                        totalProductos += Integer.parseInt(model.getValueAt(fila, 3).toString());
+                        total += Double.parseDouble(model.getValueAt(fila, 5).toString());
+                    }
+
+                    totalProductoJTextField.setText(String.valueOf(totalProductos));
+                    totalFinalJTextField.setText(String.valueOf(total));
+                }
+            }
+        });
     }
     /**
      * This method is called from within the constructor to initialize the form.

@@ -575,11 +575,11 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             public void tableChanged(TableModelEvent e) {
                 if (e.getType() == TableModelEvent.UPDATE || e.getType() == TableModelEvent.INSERT || e.getType() == TableModelEvent.DELETE) {
                     int totalProductos = 0;
-                    int total = 0;
+                    double total = 0;
                     int numFilas = model.getRowCount();
                     for (int fila = 0; fila < numFilas; fila++) {
                         totalProductos += Integer.parseInt(model.getValueAt(fila, 3).toString());
-                        total += Integer.parseInt(model.getValueAt(fila, 5).toString());
+                        total += Double.parseDouble(model.getValueAt(fila, 5).toString());
                     }
 
                     totalProductoJTextField.setText(String.valueOf(totalProductos));
