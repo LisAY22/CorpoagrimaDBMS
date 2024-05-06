@@ -9,10 +9,12 @@ import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import corpoagrima.corpoagrima.gui.cliente.EditarCliente;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -47,6 +49,7 @@ public class AnularRegFactura extends javax.swing.JFrame {
             String nombreUsuario = rs.getString("Nombre");
             String apellidoUsuario = rs.getString("Apellido");
             String nombreCompletoUsuario = nombreUsuario + " " + apellidoUsuario;
+            String detalle = rs.getString("Detalle");
             
             if ("Credito".equals(tipoCompra)) {
                 credito_checkBox.setSelected(true);
@@ -63,8 +66,26 @@ public class AnularRegFactura extends javax.swing.JFrame {
             proveedor_textfield.setText(empresa);
             nit_textfield.setText(nit);
             empleado_textfield.setText(nombreCompletoUsuario);
+            Detalle_textfield.setText(detalle);
             
-            
+            // Obtener el modelo de la tabla actual
+            try (ResultSet productos = compras.busqueda2(conexion, factura)) {
+                // Obtener el modelo de la tabla actual
+                DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
+                model.setRowCount(0); // Limpiar los datos existentes
+                
+                // Agregar nuevas filas al modelo de tabla
+                ResultSetMetaData metaData = productos.getMetaData();
+                int columnCount = metaData.getColumnCount();
+                
+                while (productos.next()) {
+                    Object[] rowData = new Object[columnCount];
+                    for (int i = 0; i < columnCount; i++) {
+                        rowData[i] = productos.getObject(i + 1);
+                    }
+                    model.addRow(rowData);
+                }
+            }
 
         } else {
             JOptionPane.showMessageDialog(this, "No se encontraron resultados",
@@ -291,7 +312,7 @@ public class AnularRegFactura extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

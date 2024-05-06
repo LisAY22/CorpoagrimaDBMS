@@ -23,10 +23,24 @@ public class ConexionCompra {
         return stmt.executeQuery();
     }
     public ResultSet busqueda(Connection conexion, String factura) throws SQLException {
-        String sql = "SELECT ID_Compra, NoFactura, Fecha, Tipo_Compra, Total, Proveedor.Empresa, Proveedor.NIT, Empleado.Nombre, Empleado.Apellido FROM Registro_Compra "
-            + "JOIN Proveedor ON Registro_Compra.Proveedor_ID_Proveedor = Proveedor.ID_Proveedor "
-            + "JOIN Empleado ON Registro_Compra.Empleado_ID_Empleado = Empleado.ID_Empleado "
-            + "WHERE NoFactura=?";
+        String sql = "SELECT rc.ID_Compra, rc.NoFactura, rc.Fecha, rc.Tipo_Compra, rc.Total, p.Empresa, p.NIT, e.Nombre, e.Apellido, rcp.Detalle "
+            + "FROM Registro_Compra rc "
+            + "JOIN Proveedor p ON rc.Proveedor_ID_Proveedor = p.ID_Proveedor "
+            + "JOIN Empleado e ON rc.Empleado_ID_Empleado = e.ID_Empleado "
+            + "LEFT JOIN Registro_Compra_has_Producto rcp ON rcp.Registro_Compra_ID_Compra = rc.ID_Compra "
+            + "WHERE rc.NoFactura=? LIMIT 1 ";
+        
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, factura);
+        
+        return stmt.executeQuery();
+    }
+    public ResultSet busqueda2(Connection conexion, String factura) throws SQLException {
+        String sql = "SELECT Producto.Nombre, Producto.Descripcion, Producto.Marca, rcp.Cantidad_compra, rcp.Costo_Unidad, rcp.Costo_Total "
+            + "FROM Registro_Compra rc "
+            + "INNER JOIN Registro_Compra_has_Producto rcp ON rcp.Registro_Compra_ID_Compra = rc.ID_Compra "
+            + "INNER JOIN Producto ON rcp.Producto_ID_Producto = Producto.ID_Producto "  
+            + "WHERE rc.NoFactura=?";
         
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, factura);
