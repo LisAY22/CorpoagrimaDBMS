@@ -50,7 +50,6 @@ public class EditarProducto extends javax.swing.JFrame {
                     id = ResultB.getInt("ID_Producto");
                     String nombre = ResultB.getString("Nombre");
                     String marca = ResultB.getString("Marca");
-                    String fechaVen = ResultB.getString("Fecha_Vencimiento");
                     int cantidad = ResultB.getInt("Stock");
                     String categoria =  ResultB.getString("Categoria");
                     String unidad_Med = ResultB.getString("Unidad_Medida");
@@ -59,7 +58,6 @@ public class EditarProducto extends javax.swing.JFrame {
                     
                     nombre_jTextField1.setText(nombre);
                     marca_jTextField2.setText(marca);
-                    fechaV_jTextField3.setText(fechaVen);
                     cantidad_jTextField4.setText(String.valueOf(cantidad));
                     categoria_jTextField2.setText(categoria);
                     unidadM_jTextField3.setText(unidad_Med);
@@ -107,8 +105,6 @@ public class EditarProducto extends javax.swing.JFrame {
         nombre_jTextField1 = new javax.swing.JTextField();
         marca_jLabel2 = new javax.swing.JLabel();
         marca_jTextField2 = new javax.swing.JTextField();
-        fechaV_jLabel2 = new javax.swing.JLabel();
-        fechaV_jTextField3 = new javax.swing.JTextField();
         categoria_jLabel2 = new javax.swing.JLabel();
         categoria_jTextField2 = new javax.swing.JTextField();
         unidadM_jLabel3 = new javax.swing.JLabel();
@@ -233,17 +229,6 @@ public class EditarProducto extends javax.swing.JFrame {
             }
         });
 
-        fechaV_jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        fechaV_jLabel2.setText("Fecha de Vencimiento");
-
-        fechaV_jTextField3.setEditable(false);
-        fechaV_jTextField3.setToolTipText("");
-        fechaV_jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechaV_jTextField3ActionPerformed(evt);
-            }
-        });
-
         categoria_jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         categoria_jLabel2.setText("Categoria");
 
@@ -311,39 +296,33 @@ public class EditarProducto extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(nombre_jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(descripcion_jTextField4))
+                        .addComponent(descripcion_jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(cantidad_jLabel3)
-                        .addGap(27, 27, 27)
-                        .addComponent(cantidad_jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nombre_jLabel1)
+                            .addComponent(marca_jLabel2)
+                            .addComponent(cantidad_jLabel3))
+                        .addGap(24, 24, 24)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(fechaV_jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(fechaV_jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cantidad_jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(precioV_jLabel4))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nombre_jLabel1)
-                                    .addComponent(marca_jLabel2))
-                                .addGap(29, 29, 29)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(marca_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(unidadM_jLabel3))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(nombre_jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(195, 195, 195)
-                                        .addComponent(categoria_jLabel2)))))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(marca_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(unidadM_jLabel3))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(nombre_jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(195, 195, 195)
+                                    .addComponent(categoria_jLabel2))))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(categoria_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(unidadM_jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(precioV_jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,21 +340,24 @@ public class EditarProducto extends javax.swing.JFrame {
                         .addComponent(marca_jLabel2)
                         .addComponent(marca_jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(unidadM_jLabel3)))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fechaV_jLabel2)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(fechaV_jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(precioV_jLabel4)
-                        .addComponent(precioV_jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cantidad_jLabel3)
-                    .addComponent(cantidad_jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(precioV_jLabel4)
+                            .addComponent(precioV_jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cantidad_jLabel3)
+                            .addComponent(cantidad_jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nombre_jLabel2)
-                    .addComponent(descripcion_jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(nombre_jLabel2))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(descripcion_jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -441,7 +423,6 @@ public class EditarProducto extends javax.swing.JFrame {
     private void limpiar(){
         nombre_jTextField1.setText("");
         marca_jTextField2.setText("");
-        fechaV_jTextField3.setText("");
         cantidad_jTextField4.setText("");
         categoria_jTextField2.setText("");
         unidadM_jTextField3.setText("");
@@ -452,7 +433,6 @@ public class EditarProducto extends javax.swing.JFrame {
     private void habilitar(){
         nombre_jTextField1.setEditable(true);
         marca_jTextField2.setEditable(true);
-        fechaV_jTextField3.setEditable(true);
         cantidad_jTextField4.setEditable(true);
         categoria_jTextField2.setEditable(true);
         unidadM_jTextField3.setEditable(true);
@@ -468,7 +448,6 @@ public class EditarProducto extends javax.swing.JFrame {
     private void desabilitar(){
         nombre_jTextField1.setEditable(false);
         marca_jTextField2.setEditable(false);
-        fechaV_jTextField3.setEditable(false);
         cantidad_jTextField4.setEditable(false);
         categoria_jTextField2.setEditable(false);
         unidadM_jTextField3.setEditable(false);
@@ -488,10 +467,6 @@ public class EditarProducto extends javax.swing.JFrame {
     private void marca_jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marca_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_marca_jTextField2ActionPerformed
-
-    private void fechaV_jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaV_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechaV_jTextField3ActionPerformed
 
     private void categoria_jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoria_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -561,14 +536,13 @@ public class EditarProducto extends javax.swing.JFrame {
             // TODO add your handling code here:
             String nombre = nombre_jTextField1.getText();
             String marca = marca_jTextField2.getText();
-            String fechaVen = fechaV_jTextField3.getText();
             int cantidad = Integer.parseInt(cantidad_jTextField4.getText());
             String categoria =  categoria_jTextField2.getText();
             String unidad_Med = unidadM_jTextField3.getText();
             float precioVen = Float.parseFloat(precioV_jTextField4.getText());
             String descripcion = descripcion_jTextField4.getText();
             
-            boolean resultSet = inventario.actualizar(conexion, nombre, descripcion, marca, fechaVen, categoria, cantidad, unidad_Med, precioVen, id);
+            boolean resultSet = inventario.actualizar(conexion, nombre, descripcion, marca, categoria, cantidad, unidad_Med, precioVen, id);
             if (resultSet) {
                 JOptionPane.showMessageDialog(this,
                         "Se ha actualizado exitosamente el producto.",
@@ -596,8 +570,6 @@ public class EditarProducto extends javax.swing.JFrame {
     private javax.swing.JLabel categoria_jLabel2;
     javax.swing.JTextField categoria_jTextField2;
     private javax.swing.JTextField descripcion_jTextField4;
-    private javax.swing.JLabel fechaV_jLabel2;
-    private javax.swing.JTextField fechaV_jTextField3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

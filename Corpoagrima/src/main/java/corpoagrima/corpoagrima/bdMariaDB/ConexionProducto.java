@@ -57,21 +57,20 @@ public class ConexionProducto {
     }
     
     public boolean agregar(Connection conexion, String nombre, String descripcion, String marca, 
-            String fecha_vencimiento, String categoria, int cantidad, String unidad_medida, 
+            String categoria, int cantidad, String unidad_medida, 
             float precio_venta) throws SQLException{
         String sql = "INSERT INTO Producto "
-                + "(Nombre, Descripcion, Marca, Fecha_Vencimiento, Categoria, Stock, Unidad_Medida, Precio_Venta, Eliminado)"
-                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "(Nombre, Descripcion, Marca, Categoria, Stock, Unidad_Medida, Precio_Venta, Eliminado)"
+                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
         stmt.setString(2, descripcion);
         stmt.setString(3, marca);
-        stmt.setString(4, fecha_vencimiento);
-        stmt.setString(5, categoria);
-        stmt.setInt(6, cantidad);
-        stmt.setString(7, unidad_medida);
-        stmt.setFloat(8, precio_venta);
-        stmt.setBoolean(9, false);
+        stmt.setString(4, categoria);
+        stmt.setInt(5, cantidad);
+        stmt.setString(6, unidad_medida);
+        stmt.setFloat(7, precio_venta);
+        stmt.setBoolean(8, false);
         
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
@@ -88,22 +87,21 @@ public class ConexionProducto {
     }
     
     public boolean actualizar(Connection conexion, String nombre, String descripcion, String marca, 
-            String fecha_vencimiento, String categoria, int cantidad, String unidad_medida, 
+            String categoria, int cantidad, String unidad_medida, 
             float precio_venta, int id) throws SQLException {
-            String sql = "UPDATE Producto SET Nombre=?, Descripcion=?, Marca=?, Fecha_Vencimiento=?, "
+            String sql = "UPDATE Producto SET Nombre=?, Descripcion=?, Marca=?, "
                     + "Categoria=?, Stock=?, Unidad_Medida=?, Precio_Venta=?, Eliminado=? WHERE ID_Producto=?";
             
             PreparedStatement stmt = conexion.prepareStatement(sql);
             stmt.setString(1, nombre);
             stmt.setString(2, descripcion);
             stmt.setString(3, marca);
-            stmt.setString(4, fecha_vencimiento);
-            stmt.setString(5, categoria);
-            stmt.setInt(6, cantidad);
-            stmt.setString(7, unidad_medida);
-            stmt.setFloat(8, precio_venta);
-            stmt.setBoolean(9, false);
-            stmt.setInt(10, id);
+            stmt.setString(4, categoria);
+            stmt.setInt(5, cantidad);
+            stmt.setString(6, unidad_medida);
+            stmt.setFloat(7, precio_venta);
+            stmt.setBoolean(8, false);
+            stmt.setInt(9, id);
             
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
