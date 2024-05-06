@@ -21,12 +21,14 @@ import javax.swing.table.DefaultTableModel;
  * @author lisaj
  */
 public class AgregarPRegFactura extends javax.swing.JFrame {
+
     private Connection conexion;
     private ResultSet credenciales;
     private ConexionProducto producto;
-    private NuevoRegFactura nuevaFactura;
-    private EditarRegFactura editarFactura;
+    private NuevoRegFactura nuevaFactura = null;
+    private EditarRegFactura editarFactura = null;
     private int id;
+
     /**
      * Creates new form AgregarPRegFactura
      */
@@ -37,7 +39,7 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
         producto = new ConexionProducto();
         initComponents();
     }
-    
+
     public AgregarPRegFactura(Connection conexion, ResultSet credenciales, EditarRegFactura editarFactura) {
         this.conexion = conexion;
         this.credenciales = credenciales;
@@ -80,11 +82,6 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
         Regresar_Bn.setForeground(new java.awt.Color(255, 255, 255));
         Regresar_Bn.setText("←");
         Regresar_Bn.setBorderPainted(false);
-        Regresar_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Regresar_BnMouseClicked(evt);
-            }
-        });
         Regresar_Bn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Regresar_BnActionPerformed(evt);
@@ -140,19 +137,9 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
         );
 
         Buscar_textField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Buscar_textField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Buscar_textFieldActionPerformed(evt);
-            }
-        });
 
         Buscar_Button.setBackground(new java.awt.Color(136, 213, 133));
         Buscar_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
-        Buscar_Button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Buscar_ButtonMouseClicked(evt);
-            }
-        });
         Buscar_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Buscar_ButtonActionPerformed(evt);
@@ -182,11 +169,6 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
 
         Seleccionar_button.setText("Seleccionar");
         Seleccionar_button.setEnabled(true);
-        Seleccionar_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Seleccionar_buttonMouseClicked(evt);
-            }
-        });
         Seleccionar_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Seleccionar_buttonActionPerformed(evt);
@@ -238,18 +220,10 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
-
-    }//GEN-LAST:event_Regresar_BnMouseClicked
-
     private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_Regresar_BnActionPerformed
-
-    private void Buscar_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_textFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Buscar_textFieldActionPerformed
 
     private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
         try {
@@ -311,41 +285,29 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
 
-    
+
     private void Seleccionar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Seleccionar_buttonActionPerformed
-
-    }//GEN-LAST:event_Seleccionar_buttonActionPerformed
-
-    private void Buscar_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Buscar_ButtonMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Buscar_ButtonMouseClicked
-
-    private void Seleccionar_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Seleccionar_buttonMouseClicked
         try {
-            if (nuevaFactura != null) { 
+            if (editarFactura == null) {
                 int fila = jTable1.getSelectedRow();
-                if (fila !=-1){
+                if (fila != -1) {
                     long ID = (long) jTable1.getValueAt(fila, 0);
                     int id = (int) ID; // Convertir long a int
-                    try {
-                        nuevaFactura.agregarProducto(id);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(AgregarPRegFactura.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    nuevaFactura.agregarProducto(id);
+                }
             } else {
-                    int fila1 = jTable1.getSelectedRow();
-                    if (fila1 !=-1) {
-                        long ID = (long) jTable1.getValueAt(fila1, 0);
-                        int id = (int) ID;
-                        editarFactura.agregarProducto(id);
-                    }
+                int fila1 = jTable1.getSelectedRow();
+                if (fila1 != -1) {
+                    long ID = (long) jTable1.getValueAt(fila1, 0);
+                    int id = (int) ID;
+                    editarFactura.agregarProducto(id);
+                }
             }
-        }
+            dispose();
         } catch (SQLException ex) {
             Logger.getLogger(AgregarPRegFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
-        dispose();
-    }//GEN-LAST:event_Seleccionar_buttonMouseClicked
+    }//GEN-LAST:event_Seleccionar_buttonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

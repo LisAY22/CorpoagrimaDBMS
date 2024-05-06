@@ -3,9 +3,13 @@ package corpoagrima.corpoagrima.gui.regcompra;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
+import java.awt.event.ItemEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,18 +27,38 @@ public class EditarRegFactura extends javax.swing.JFrame {
      * Creates new form editarRegFactura
      */
     public EditarRegFactura(Connection conexion, ResultSet credenciales) {
-        this.conexion = conexion;
-        this.credenciales = credenciales;
-        compras = new ConexionCompra();
-        producto = new ConexionProducto();
-        initComponents();
-        initFactura();
+        try {
+            this.conexion = conexion;
+            this.credenciales = credenciales;
+            producto = new ConexionProducto();
+            initComponents();
+            ConexionProveedores proveedor = new ConexionProveedores();
+            ResultSet listaProveedor = proveedor.consulta(conexion);
+            String nombreProveedor;
+            while (listaProveedor.next()) {
+                nombreProveedor = listaProveedor.getString("Empresa");
+                Proveedor_comboBox.addItem(nombreProveedor);
+            }
+            String nombre = (String) Proveedor_comboBox.getSelectedItem();
+            datoProveedor(nombre);
+            String nombreEmpleado = credenciales.getString("Nombre");
+            String apellidoEmpleado = credenciales.getString("Apellido");
+            EmpleadoTextfield.setText(nombreEmpleado + " " + apellidoEmpleado);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoRegFactura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        
+    private void limpiar() {
+        numeroFacturaTextfield.setText("");
+        fechaTextfield.setText("");
+        detalle_textfield1.setText("");
+        creditoCheckBox.setSelected(false);
+        DefaultTableModel model = (DefaultTableModel) listProductoJTable.getModel();
+        model.setRowCount(0); // Elimina todas las filas
     }
     
-    private void initFactura(){
-        
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,6 +94,8 @@ public class EditarRegFactura extends javax.swing.JFrame {
         numeroFacturaTextfield = new javax.swing.JTextField();
         creditoCheckBox = new javax.swing.JCheckBox();
         Proveedor_comboBox = new javax.swing.JComboBox<>();
+        CantidadComprasLabel1 = new javax.swing.JLabel();
+        detalle_textfield1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,11 +110,6 @@ public class EditarRegFactura extends javax.swing.JFrame {
         Regresar_Bn.setForeground(new java.awt.Color(255, 255, 255));
         Regresar_Bn.setText("←");
         Regresar_Bn.setBorderPainted(false);
-        Regresar_Bn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Regresar_BnMouseClicked(evt);
-            }
-        });
         Regresar_Bn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Regresar_BnActionPerformed(evt);
@@ -121,11 +142,6 @@ public class EditarRegFactura extends javax.swing.JFrame {
 
         AgregarBn.setBackground(new java.awt.Color(136, 213, 133));
         AgregarBn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agregar.png"))); // NOI18N
-        AgregarBn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AgregarBnMouseClicked(evt);
-            }
-        });
         AgregarBn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AgregarBnActionPerformed(evt);
@@ -192,11 +208,6 @@ public class EditarRegFactura extends javax.swing.JFrame {
 
         EliminarBn.setBackground(new java.awt.Color(136, 213, 133));
         EliminarBn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eliminar.png"))); // NOI18N
-        EliminarBn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EliminarBnMouseClicked(evt);
-            }
-        });
         EliminarBn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EliminarBnActionPerformed(evt);
@@ -212,7 +223,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
         fechaTextfield.setEditable(true);
         fechaTextfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        Telefonotextfield.setEditable(true);
+        Telefonotextfield.setEditable(false);
         Telefonotextfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Telefonotextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,7 +245,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
         nitLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         nitLabel.setText("NIT");
 
-        nitTextfield.setEditable(true);
+        nitTextfield.setEditable(false);
         nitTextfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         nitTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,6 +289,11 @@ public class EditarRegFactura extends javax.swing.JFrame {
             }
         });
 
+        CantidadComprasLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        CantidadComprasLabel1.setText("Detalle");
+
+        detalle_textfield1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -299,56 +315,66 @@ public class EditarRegFactura extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(creditoCheckBox)
                                 .addGap(149, 149, 149))))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(noFacturaLabel)
                         .addGap(18, 18, 18)
                         .addComponent(numeroFacturaTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(empleadoLabel)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(empleadoLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(EmpleadoTextfield))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(telefonoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Telefonotextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(117, 117, 117)
+                                .addComponent(nitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(EmpleadoTextfield))
+                                .addComponent(nitTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(telefonoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Telefonotextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(117, 117, 117)
-                        .addComponent(nitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nitTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(CantidadComprasLabel1)
+                                .addGap(38, 38, 38)
+                                .addComponent(detalle_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(95, 95, 95))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Telefonotextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(telefonoLabel))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(EmpleadoTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(empleadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 83, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(numeroFacturaTextfield, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(noFacturaLabel)
-                        .addComponent(nitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(nitTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Telefonotextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(telefonoLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(EmpleadoTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(empleadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(numeroFacturaTextfield, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(noFacturaLabel)
+                                .addComponent(nitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(nitTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(creditoCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(fechaTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(FechaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(creditoCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CantidadComprasLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(fechaTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(FechaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ProveedorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Proveedor_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ProveedorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Proveedor_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(detalle_textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -406,6 +432,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
     public void agregarProducto(int id) throws SQLException {
             ResultSet resultado = producto.busqueda2(conexion, id);
 
@@ -421,10 +448,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
             model.addRow(new Object[]{nombre, descripcion, marca, null, null, null, null});
             
     }
-    private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
-
-    }//GEN-LAST:event_Regresar_BnMouseClicked
-
+    
     private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
         // TODO add your handling code here:
         Compra compra_screen = new Compra(conexion, credenciales);
@@ -433,25 +457,22 @@ public class EditarRegFactura extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_Regresar_BnActionPerformed
 
-    private void AgregarBnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarBnMouseClicked
-        AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales, this);
-        AgregarWindow.setVisible(true);
-    }//GEN-LAST:event_AgregarBnMouseClicked
-
     private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
         // TODO add your handling code here:
+        limpiar();
     }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
     private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
 
     }//GEN-LAST:event_Guardar_buttonActionPerformed
 
-    private void EliminarBnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarBnMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EliminarBnMouseClicked
-
     private void EliminarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBnActionPerformed
         // TODO add your handling code here:
+        int fila = listProductoJTable.getSelectedRow();
+                if (fila !=-1){
+                    DefaultTableModel model = (DefaultTableModel) listProductoJTable.getModel();
+                    model.removeRow(fila);
+                }
     }//GEN-LAST:event_EliminarBnActionPerformed
 
     private void TelefonotextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelefonotextfieldActionPerformed
@@ -475,7 +496,16 @@ public class EditarRegFactura extends javax.swing.JFrame {
     }//GEN-LAST:event_creditoCheckBoxActionPerformed
 
     private void Proveedor_comboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Proveedor_comboBoxItemStateChanged
-
+        Proveedor_comboBox.addItemListener((ItemEvent e) -> {
+            if (evt.getStateChange() == ItemEvent.SELECTED) {
+                try {
+                    String nombre = (String) Proveedor_comboBox.getSelectedItem();
+                    datoProveedor(nombre);
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevoRegFactura.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }//GEN-LAST:event_Proveedor_comboBoxItemStateChanged
 
     private void Proveedor_comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Proveedor_comboBoxActionPerformed
@@ -484,11 +514,22 @@ public class EditarRegFactura extends javax.swing.JFrame {
 
     private void AgregarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBnActionPerformed
         // TODO add your handling code here:
+        AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales, this);
+        AgregarWindow.setVisible(true);
     }//GEN-LAST:event_AgregarBnActionPerformed
 
+    private void datoProveedor(String nombre) throws SQLException{
+        ResultSet proveedor = new ConexionProveedores().proveedor(conexion, nombre);
+        proveedor.next();
+        String numero = proveedor.getString("Numero");
+        String nit = proveedor.getString("NIT");
+        Telefonotextfield.setText(numero);
+        nitTextfield.setText(nit);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarBn;
+    private javax.swing.JLabel CantidadComprasLabel1;
     private javax.swing.JButton EliminarBn;
     private javax.swing.JTextField EmpleadoTextfield;
     private javax.swing.JLabel FechaLabel;
@@ -500,6 +541,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
     private javax.swing.JTextField Telefonotextfield;
     private javax.swing.JLabel agregarJLabel;
     private javax.swing.JCheckBox creditoCheckBox;
+    private javax.swing.JTextField detalle_textfield1;
     private javax.swing.JLabel eliminarJLabel;
     private javax.swing.JLabel empleadoLabel;
     private javax.swing.JTextField fechaTextfield;
