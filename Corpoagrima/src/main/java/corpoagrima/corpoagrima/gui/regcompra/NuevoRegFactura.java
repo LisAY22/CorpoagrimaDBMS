@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package corpoagrima.corpoagrima.gui.regcompra;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
@@ -15,6 +11,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -42,6 +40,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             this.credenciales = credenciales;
             producto = new ConexionProducto();
             initComponents();
+            datosTotales();
             proveedor = new ConexionProveedores();
             compra = new ConexionCompra();
             compraProducto = new ConexionRegCompraProducto();
@@ -341,11 +340,11 @@ public class NuevoRegFactura extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Descripcion", "Marca", "Fecha de vencimiento", "Cantidad", "Costo por unidad", "Subtotal"
+                "Nombre", "Descripcion", "Marca", "Cantidad", "Costo por unidad", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true, true
+                false, false, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -462,6 +461,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_Proveedor_comboBoxItemStateChanged
+
     public void agregarProducto(int id) throws SQLException {
         ResultSet resultado = producto.busqueda2(conexion, id);
 
@@ -474,9 +474,9 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         String marca = resultado.getString("Marca");
 
         // Agregar a la tabla
-        model.addRow(new Object[]{nombre, descripcion, marca, null, null, null, null});
-
+        model.addRow(new Object[]{nombre, descripcion, marca, 0, 0, 0, 0});
     }
+
     private void AgregarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBnActionPerformed
         AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales, this);
         AgregarWindow.setVisible(true);
@@ -514,7 +514,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             // guardado factura compra y obtener la id
             boolean compraResultSet = compra.agregar(conexion, noFactura, false,
                     fecha, credito, total, idProveedor, idEmpleado);
-            if (compraResultSet){
+            if (compraResultSet) {
                 throw new SQLException("Error al agregar un registro de compra");
             }
             ResultSet compraResult = compra.idCompra(conexion, noFactura);
@@ -553,8 +553,8 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(NuevoRegFactura.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this,
-                        "Se ha producido un error.",
-                        "Error", JOptionPane.INFORMATION_MESSAGE);
+                    "Se ha producido un error.",
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_Guardar_buttonActionPerformed
 
@@ -567,6 +567,27 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         nit_textfield.setText(nit);
     }
 
+    private void datosTotales() {
+        DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
+
+        model.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE || e.getType() == TableModelEvent.INSERT || e.getType() == TableModelEvent.DELETE) {
+                    int totalProductos = 0;
+                    int total = 0;
+                    int numFilas = model.getRowCount();
+                    for (int fila = 0; fila < numFilas; fila++) {
+                        totalProductos += Integer.parseInt(model.getValueAt(fila, 3).toString());
+                        total += Integer.parseInt(model.getValueAt(fila, 5).toString());
+                    }
+
+                    totalProductoJTextField.setText(String.valueOf(totalProductos));
+                    totalJTextField.setText(String.valueOf(total));
+                }
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarBn;
