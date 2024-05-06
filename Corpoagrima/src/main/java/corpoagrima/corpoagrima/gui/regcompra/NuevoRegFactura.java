@@ -514,7 +514,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             // guardado factura compra y obtener la id
             boolean compraResultSet = compra.agregar(conexion, noFactura, false,
                     fecha, credito, total, idProveedor, idEmpleado);
-            if (compraResultSet) {
+            if (!compraResultSet) {
                 throw new SQLException("Error al agregar un registro de compra");
             }
             ResultSet compraResult = compra.idCompra(conexion, noFactura);
@@ -535,6 +535,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
 
                 // actualizar datos producto
                 ResultSet productoResult = producto.cantidad(conexion, nombreProducto);
+                productoResult.next();
                 int idProducto = productoResult.getInt("ID_Producto");
                 int stock = productoResult.getInt("Stock");
                 stock -= cantidad;
@@ -548,6 +549,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,
                         "Se ha guardado exitosamente.",
                         "Guardando", JOptionPane.INFORMATION_MESSAGE);
+                limpiar();
             }
 
         } catch (SQLException ex) {
