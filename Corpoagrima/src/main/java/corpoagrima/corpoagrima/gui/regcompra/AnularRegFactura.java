@@ -36,6 +36,7 @@ public class AnularRegFactura extends javax.swing.JFrame {
         compras = new ConexionCompra();
         initComponents();
         mostrarInformacion();
+        sumarColumnaProductos();
     }
     
     public final void mostrarInformacion() throws SQLException{
@@ -50,6 +51,7 @@ public class AnularRegFactura extends javax.swing.JFrame {
             String apellidoUsuario = rs.getString("Apellido");
             String nombreCompletoUsuario = nombreUsuario + " " + apellidoUsuario;
             String detalle = rs.getString("Detalle");
+            double total = rs.getDouble("Total");
             
             if ("Credito".equals(tipoCompra)) {
                 credito_checkBox.setSelected(true);
@@ -57,7 +59,7 @@ public class AnularRegFactura extends javax.swing.JFrame {
                 credito_checkBox.setSelected(false);
             }
             
-            ResultSet proveedor = new ConexionProveedores().proveedor(conexion, empresa);
+            ResultSet proveedor = new ConexionProveedores().proveedor2(conexion, empresa);
             proveedor.next();
             String numero = proveedor.getString("Numero");
             telefono_textfield.setText(numero);
@@ -67,6 +69,7 @@ public class AnularRegFactura extends javax.swing.JFrame {
             nit_textfield.setText(nit);
             empleado_textfield.setText(nombreCompletoUsuario);
             Detalle_textfield.setText(detalle);
+            totalJTextField1.setText(String.valueOf(total));
             
             // Obtener el modelo de la tabla actual
             try (ResultSet productos = compras.busqueda2(conexion, factura)) {
@@ -92,6 +95,20 @@ public class AnularRegFactura extends javax.swing.JFrame {
                     "Busqueda", JOptionPane.WARNING_MESSAGE);
         }
     }
+    private void sumarColumnaProductos() {
+        DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
+        int rowCount = model.getRowCount();
+        int total = 0;
+
+        for (int i = 0; i < rowCount; i++) {
+            int cantidad = Integer.parseInt(model.getValueAt(i, 3).toString());
+            // Sumar al total
+            total += cantidad;
+        }
+
+        totalProductoJTextField.setText(String.valueOf(total));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -308,7 +325,7 @@ public class AnularRegFactura extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Descripcion", "Marca", "Cantidad", "Costo por unidad", "Costo total"
+                "Nombre", "Descripcion", "Marca", "Cantidad", "Costo por unidad", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -333,14 +350,14 @@ public class AnularRegFactura extends javax.swing.JFrame {
         });
 
         totalProductoLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        totalProductoLabel.setText("Total de producto:");
+        totalProductoLabel.setText("Total de productos:");
 
         totalProductoJTextField.setEditable(false);
         totalProductoJTextField.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
 
         totalLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         totalLabel.setForeground(new java.awt.Color(159, 46, 46));
-        totalLabel.setText("Total");
+        totalLabel.setText("Total:");
 
         totalJTextField.setEditable(false);
         totalJTextField.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N

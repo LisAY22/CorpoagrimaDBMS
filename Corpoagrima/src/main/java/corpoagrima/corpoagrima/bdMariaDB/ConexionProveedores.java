@@ -73,6 +73,15 @@ public class ConexionProveedores {
         
         return stmt.executeQuery();
     }
+    public ResultSet proveedor2(Connection conexion, String nombre) throws SQLException{
+        String sql = "SELECT p.*, t.numero FROM Proveedor p "
+                + "INNER JOIN Telefono t ON ID_Proveedor=Proveedor_ID_Proveedor "
+                + "WHERE Empresa = ?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, nombre);
+        
+        return stmt.executeQuery();
+    }
     
     public boolean agregar(Connection conexion, String empresa, 
             String nombre, String direccion, String nit, String correo_electronico) 

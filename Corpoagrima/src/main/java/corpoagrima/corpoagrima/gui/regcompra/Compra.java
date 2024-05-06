@@ -302,7 +302,7 @@ public class Compra extends javax.swing.JFrame {
 
         // Verificar si se ha seleccionado una fila
         if(selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila para anular.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura para anular.", "Error", JOptionPane.ERROR_MESSAGE);
             return; // Salir del método si no hay fila seleccionada
         }
 
