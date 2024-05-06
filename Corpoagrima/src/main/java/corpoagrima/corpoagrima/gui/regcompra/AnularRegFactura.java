@@ -6,7 +6,7 @@ package corpoagrima.corpoagrima.gui.regcompra;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
-import corpoagrima.corpoagrima.gui.cliente.EditarCliente;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -24,7 +24,9 @@ public class AnularRegFactura extends javax.swing.JFrame {
     private Connection conexion;
     private ResultSet credenciales;
     private ConexionCompra compras;
+    private ConexionProducto productos;
     private String factura;
+    private int id;
     
     /**
      * Creates new form CAnularRegFactura
@@ -34,6 +36,7 @@ public class AnularRegFactura extends javax.swing.JFrame {
         this.credenciales = credenciales;
         this.factura = numeroFactura;
         compras = new ConexionCompra();
+        productos = new ConexionProducto();
         initComponents();
         mostrarInformacion();
         sumarColumnaProductos();
@@ -42,6 +45,7 @@ public class AnularRegFactura extends javax.swing.JFrame {
     public final void mostrarInformacion() throws SQLException{
         ResultSet rs = compras.busqueda(conexion, factura);
         if (rs.next()) {
+            id = rs.getInt("ID_Compra");
             String NoFactura = factura;
             String fecha = rs.getString("Fecha");
             String empresa = rs.getString("Empresa");
@@ -425,7 +429,60 @@ public class AnularRegFactura extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Anular_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Anular_buttonActionPerformed
-        // TODO add your handling code here:
+        try {
+            int opcion = JOptionPane.showConfirmDialog(null,
+                    "¿Quieres continuar?\nSe anulara el registro permanentemente",
+                    "Anular registro factura", JOptionPane.YES_NO_OPTION);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                // Obtener el modelo de la tabla de productos
+                DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
+                int rowCount = model.getRowCount();
+
+                // Iterar sobre cada fila para obtener el nombre y cantidad de cada producto
+                for (int i = 0; i < rowCount; i++) {
+                    String nombreProducto = (String) model.getValueAt(i, 0);
+                    int cantidadProducto = (int) model.getValueAt(i, 3);
+
+                    ResultSet rsCantidad = productos.cantidad(conexion, nombreProducto);
+                    if (rsCantidad.next()) {
+                        int idProducto = rsCantidad.getInt("ID_Producto");
+                        int stockActual = rsCantidad.getInt("Stock");
+
+                        int nuevoStock = stockActual - cantidadProducto;
+
+                        boolean actualizacionExitosa = productos.actualizar(conexion, idProducto, nuevoStock);
+                        if (!actualizacionExitosa) {
+                            JOptionPane.showMessageDialog(this, "Error al actualizar el stock del producto: " + nombreProducto,
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se encontró el producto en la base de datos: " + nombreProducto,
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
+
+                // Anular la factura después de actualizar todos los stocks
+                boolean resultAnular = compras.anular(conexion, id);
+                if (resultAnular) {
+                    JOptionPane.showMessageDialog(this,
+                            "Se ha anulado exitosamente el registro factura.",
+                            "Anular registro factura", JOptionPane.INFORMATION_MESSAGE);
+                }
+                Compra compra_screen = new Compra(conexion, credenciales);
+                compra_screen.setVisible(true);
+                // Cerrar la ventana actual
+                dispose();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AnularRegFactura.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "ERROR, "
+                    + "No se ha podido anular el registro.", "Anular registro factura",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_Anular_buttonActionPerformed
 
     private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
