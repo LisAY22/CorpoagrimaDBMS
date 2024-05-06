@@ -41,13 +41,14 @@ public class ConexionUsuario {
 
     public ResultSet consulta(Connection conexion, String usuario, String contrasenia) throws SQLException {
         String sql = """
-                    SELECT Empleado.Nombre, Empleado.Apellido, 
+                    SELECT Empleado.ID_Empleado, Empleado.Nombre, Empleado.Apellido, 
                     Puesto.Modulo_Cliente, Puesto.Modulo_RH, Puesto.Modulo_Proveedores, 
                     Puesto.Modulo_Reg_Compra, Puesto.Modulo_Reg_Venta, 
                     Puesto.Modulo_Financiero, Puesto.Modulo_Inventario FROM Usuario
                     INNER JOIN Empleado ON Empleado.Usuario_ID_Usuario = Usuario.ID_Usuario
-                    INNER JOIN Puesto ON Empleado.Puesto_ID_Puesto = Puesto.ID_Puesto WHERE Usuario.Nombre = ? AND Usuario.Contraseña = ?
-                     AND Usuario.Eliminado=?""";
+                    INNER JOIN Puesto ON Empleado.Puesto_ID_Puesto = Puesto.ID_Puesto 
+                    WHERE Usuario.Nombre = ? AND Usuario.Contraseña = ?
+                    AND Usuario.Eliminado=?""";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, usuario);
         stmt.setString(2, contrasenia);

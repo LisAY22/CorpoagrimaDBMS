@@ -102,11 +102,19 @@ public class ConexionProveedores {
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
     }
+    
     public ResultSet idProveedor(Connection conexion, String empresa, String nombre)throws SQLException{
         String sql = "SELECT ID_Proveedor FROM Proveedor WHERE Empresa = ? AND Nombre = ?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, empresa);
         stmt.setString(2, nombre);
+        return stmt.executeQuery();
+    }
+    
+    public ResultSet idProveedor(Connection conexion, String empresa)throws SQLException{
+        String sql = "SELECT ID_Proveedor FROM Proveedor WHERE Empresa = ?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, empresa);
         return stmt.executeQuery();
     }
 }
