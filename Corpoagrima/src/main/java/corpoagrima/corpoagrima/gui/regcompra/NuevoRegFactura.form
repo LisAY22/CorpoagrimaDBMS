@@ -80,7 +80,6 @@
                       <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="totalProductoJTextField" min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="totalLabel" alignment="1" min="-2" pref="29" max="-2" attributes="0"/>
@@ -511,7 +510,7 @@
                 <Column editable="true" title="Fecha de vencimiento" type="java.lang.Object"/>
                 <Column editable="true" title="Cantidad" type="java.lang.Object"/>
                 <Column editable="true" title="Costo por unidad" type="java.lang.Object"/>
-                <Column editable="true" title="Costo total" type="java.lang.Object"/>
+                <Column editable="true" title="Subtotal" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

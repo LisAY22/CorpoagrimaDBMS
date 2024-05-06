@@ -7,12 +7,14 @@ package corpoagrima.corpoagrima.gui.regcompra;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionRegCompraProducto;
 import java.awt.event.ItemEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,13 +23,15 @@ import javax.swing.table.DefaultTableModel;
  * @author WilderL
  */
 public class NuevoRegFactura extends javax.swing.JFrame {
+
     private Connection conexion;
     private ResultSet credenciales;
-    private ConexionCompra compras;
+    private ConexionCompra compra;
     private ConexionProducto producto;
     private ConexionProveedores proveedor;
+    private ConexionRegCompraProducto compraProducto;
     private int idEmpleado;
-    
+
     /**
      * Creates new form nuevoRegFactura
      */
@@ -39,6 +43,8 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             producto = new ConexionProducto();
             initComponents();
             proveedor = new ConexionProveedores();
+            compra = new ConexionCompra();
+            compraProducto = new ConexionRegCompraProducto();
             ResultSet listaProveedor = proveedor.consulta(conexion);
             String nombreProveedor;
             while (listaProveedor.next()) {
@@ -50,7 +56,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             String nombreEmpleado = credenciales.getString("Nombre");
             String apellidoEmpleado = credenciales.getString("Apellido");
             empleado_textfield.setText(nombreEmpleado + " " + apellidoEmpleado);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(NuevoRegFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -335,7 +341,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Descripcion", "Marca", "Fecha de vencimiento", "Cantidad", "Costo por unidad", "Costo total"
+                "Nombre", "Descripcion", "Marca", "Fecha de vencimiento", "Cantidad", "Costo por unidad", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -414,7 +420,6 @@ public class NuevoRegFactura extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(EliminarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(73, 73, 73)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(totalProductoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -436,7 +441,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
         model.setRowCount(0); // Elimina todas las filas
     }
-    
+
     private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
         // TODO add your handling code here:
         Compra compra_screen = new Compra(conexion, credenciales);
@@ -458,19 +463,19 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_Proveedor_comboBoxItemStateChanged
     public void agregarProducto(int id) throws SQLException {
-            ResultSet resultado = producto.busqueda2(conexion, id);
+        ResultSet resultado = producto.busqueda2(conexion, id);
 
-            // Obtener el modelo de la tabla actual
-            DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
+        // Obtener el modelo de la tabla actual
+        DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
 
-            resultado.next();
-            String nombre = resultado.getString("Nombre");
-            String descripcion = resultado.getString("Descripcion");
-            String marca = resultado.getString("Marca");
-            
-            // Agregar a la tabla
-            model.addRow(new Object[]{nombre, descripcion, marca, null, null, null, null});
-            
+        resultado.next();
+        String nombre = resultado.getString("Nombre");
+        String descripcion = resultado.getString("Descripcion");
+        String marca = resultado.getString("Marca");
+
+        // Agregar a la tabla
+        model.addRow(new Object[]{nombre, descripcion, marca, null, null, null, null});
+
     }
     private void AgregarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBnActionPerformed
         AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales, this);
@@ -480,10 +485,10 @@ public class NuevoRegFactura extends javax.swing.JFrame {
     private void EliminarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBnActionPerformed
         // TODO add your handling code here:
         int fila = listaProductoJTable.getSelectedRow();
-                if (fila !=-1){
-                    DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
-                    model.removeRow(fila);
-                }
+        if (fila != -1) {
+            DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
+            model.removeRow(fila);
+        }
     }//GEN-LAST:event_EliminarBnActionPerformed
 
     private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
@@ -496,22 +501,64 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             // datos del proveedor
             String nombreProveedor = (String) Proveedor_comboBox.getSelectedItem();
             ResultSet proveedorResultSet = this.proveedor.idProveedor(conexion, nombreProveedor);
+            proveedorResultSet.next();
             int idProveedor = proveedorResultSet.getInt("ID_Proveedor");
             // datos de la factura
             String noFactura = noFactura_textfield.getText();
             String fecha = fecha_textfield.getText();
-            boolean credito = credito_checkBox.isSelected();
+            boolean esCredito = credito_checkBox.isSelected();
+            String credito = (esCredito) ? "Credito" : "Contado";
+            float total = Float.parseFloat(totalJTextField.getText());
+            // datos registro compra has producto
             String detalle = detalle_textfield1.getText();
-            // datos producto
+            // guardado factura compra y obtener la id
+            boolean compraResultSet = compra.agregar(conexion, noFactura, false,
+                    fecha, credito, total, idProveedor, idEmpleado);
+            if (compraResultSet){
+                throw new SQLException("Error al agregar un registro de compra");
+            }
+            ResultSet compraResult = compra.idCompra(conexion, noFactura);
+            compraResult.next();
+            int idCompra = compraResult.getInt("ID_Compra");
+            // recolecion de datos de la tabla
+            String nombreProducto;
+            int cantidad;
+            float costoUnidad;
+            float costoTotal;
+            DefaultTableModel modelo = (DefaultTableModel) listaProductoJTable.getModel();
+            int numFilas = modelo.getRowCount();
+            for (int fila = 0; fila < numFilas; fila++) {
+                nombreProducto = modelo.getValueAt(fila, 0).toString();
+                cantidad = Integer.parseInt(modelo.getValueAt(fila, 3).toString());
+                costoUnidad = Integer.parseInt(modelo.getValueAt(fila, 4).toString());
+                costoTotal = Integer.parseInt(modelo.getValueAt(fila, 5).toString());
+
+                // actualizar datos producto
+                ResultSet productoResult = producto.cantidad(conexion, nombreProducto);
+                int idProducto = productoResult.getInt("ID_Producto");
+                int stock = productoResult.getInt("Stock");
+                stock -= cantidad;
+                producto.actualizar(conexion, idProducto, stock);
+                // guardado registro compra has producto
+                compraProducto.agregar(conexion, idCompra, idProducto, detalle,
+                        cantidad, costoUnidad, costoTotal);
+            }
+
+            if (compraResultSet) {
+                JOptionPane.showMessageDialog(this,
+                        "Se ha guardado exitosamente.",
+                        "Guardando", JOptionPane.INFORMATION_MESSAGE);
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(NuevoRegFactura.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this,
+                        "Se ha producido un error.",
+                        "Error", JOptionPane.INFORMATION_MESSAGE);
         }
-       
-
-       
     }//GEN-LAST:event_Guardar_buttonActionPerformed
-    
-    private void datoProveedor(String nombre) throws SQLException{
+
+    private void datoProveedor(String nombre) throws SQLException {
         ResultSet proveedor = new ConexionProveedores().proveedor(conexion, nombre);
         proveedor.next();
         String numero = proveedor.getString("Numero");
