@@ -131,7 +131,6 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Regresar_BnMouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Regresar_BnActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -180,9 +179,6 @@
               <Font name="Segoe UI" size="18" style="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Buscar_textFieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="Buscar_Bn">
           <Properties>
@@ -254,9 +250,6 @@
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jScrollPane2MouseClicked"/>
-          </Events>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>

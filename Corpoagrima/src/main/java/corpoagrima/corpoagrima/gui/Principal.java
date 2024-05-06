@@ -160,11 +160,6 @@ public class Principal extends javax.swing.JFrame {
         regresarJButton.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         regresarJButton.setForeground(new java.awt.Color(248, 244, 227));
         regresarJButton.setText("←");
-        regresarJButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                regresarJButtonMouseClicked(evt);
-            }
-        });
         regresarJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 regresarJButtonActionPerformed(evt);
@@ -241,16 +236,6 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void regresarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarJButtonMouseClicked
-        // TODO add your handling code here:
-        Login login_screen = new Login();
-        login_screen.setVisible(true);
-        login_screen.setLocationRelativeTo(null);
-        
-        // Cerrar la ventana actual
-        dispose();
-    }//GEN-LAST:event_regresarJButtonMouseClicked
-
     private void rhJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rhJButtonActionPerformed
         try {
             RRHH rh_window = new RRHH(conexion, credenciales);
@@ -263,6 +248,13 @@ public class Principal extends javax.swing.JFrame {
 
     private void regresarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarJButtonActionPerformed
         // TODO add your handling code here:
+        // TODO add your handling code here:
+        Login login_screen = new Login();
+        login_screen.setVisible(true);
+        login_screen.setLocationRelativeTo(null);
+        
+        // Cerrar la ventana actual
+        dispose();
     }//GEN-LAST:event_regresarJButtonActionPerformed
 
     private void inventarioJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventarioJButtonActionPerformed

@@ -212,11 +212,6 @@ public class EditarProveedor extends javax.swing.JFrame {
         );
 
         Buscar_textField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Buscar_textField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Buscar_textFieldActionPerformed(evt);
-            }
-        });
 
         Buscar_Button.setBackground(new java.awt.Color(136, 213, 133));
         Buscar_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
@@ -258,41 +253,21 @@ public class EditarProveedor extends javax.swing.JFrame {
 
         Empresa_textfield.setEditable(false);
         Empresa_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Empresa_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Empresa_textfieldActionPerformed(evt);
-            }
-        });
 
         Nombre_textfield.setEditable(false);
         Nombre_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         NIT_textfield.setEditable(false);
         NIT_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        NIT_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NIT_textfieldActionPerformed(evt);
-            }
-        });
 
         Direccion_textfield.setEditable(false);
         Direccion_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Direccion_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Direccion_textfieldActionPerformed(evt);
-            }
-        });
 
         CorreoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         CorreoLabel.setText("Correo Electronico");
 
         Correo_textfield.setEditable(false);
         Correo_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Correo_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Correo_textfieldActionPerformed(evt);
-            }
-        });
 
         DireccionLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         DireccionLabel.setText("Dirección");
@@ -302,22 +277,12 @@ public class EditarProveedor extends javax.swing.JFrame {
 
         ID_textfield.setEditable(false);
         ID_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ID_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ID_textfieldActionPerformed(evt);
-            }
-        });
 
         CorreoLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         CorreoLabel3.setText("Telefono");
 
         telefono_textfield1.setEditable(false);
         telefono_textfield1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        telefono_textfield1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telefono_textfield1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -453,34 +418,10 @@ public class EditarProveedor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Buscar_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_textFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Buscar_textFieldActionPerformed
-
     private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
     String textoBusqueda = Buscar_textField.getText().trim();
     buscar(textoBusqueda);
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
-
-    private void Empresa_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Empresa_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Empresa_textfieldActionPerformed
-
-    private void NIT_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NIT_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NIT_textfieldActionPerformed
-
-    private void Direccion_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Direccion_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Direccion_textfieldActionPerformed
-
-    private void Correo_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Correo_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Correo_textfieldActionPerformed
-
-    private void ID_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ID_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ID_textfieldActionPerformed
 
     private void Limpiar_button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_button1ActionPerformed
         // TODO add your handling code here:
@@ -552,10 +493,6 @@ public class EditarProveedor extends javax.swing.JFrame {
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_Regresar_BnMouseClicked
-
-    private void telefono_textfield1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefono_textfield1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefono_textfield1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApellidoLabel;

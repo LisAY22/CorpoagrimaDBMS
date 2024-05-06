@@ -275,7 +275,6 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonEDPMouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEDPActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonNP">
@@ -309,7 +308,6 @@
             <Property name="text" type="java.lang.String" value="EDITAR EMPLEADO"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonEDEMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEDEActionPerformed"/>
           </Events>
         </Component>
@@ -366,7 +364,6 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Ordenar_BnMouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Ordenar_BnActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

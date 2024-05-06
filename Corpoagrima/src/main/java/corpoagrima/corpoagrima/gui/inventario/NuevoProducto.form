@@ -184,17 +184,15 @@
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="precioV_jLabel4" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="marca_jTextField2" min="-2" pref="100" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="unidadM_jLabel3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="nombre_jTextField1" min="-2" pref="100" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
-                                      <Component id="categoria_jLabel2" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="marca_jTextField2" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="unidadM_jLabel3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="nombre_jTextField1" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
+                                  <Component id="categoria_jLabel2" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
@@ -267,9 +265,6 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nombre_jTextField1ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="marca_jLabel2">
           <Properties>
@@ -283,9 +278,6 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="marca_jTextField2ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="categoria_jLabel2">
           <Properties>
@@ -299,9 +291,6 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="categoria_jTextField2ActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
           </AuxValues>
@@ -318,9 +307,6 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="unidadM_jTextField3ActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
           </AuxValues>
@@ -338,9 +324,6 @@
             <Property name="text" type="java.lang.String" value="0"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="precioV_jTextField4ActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
           </AuxValues>
@@ -358,9 +341,6 @@
             <Property name="text" type="java.lang.String" value="0"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cantidad_jTextField4ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="nombre_jLabel2">
           <Properties>
@@ -374,9 +354,6 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="descripcion_jTextField4ActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -95,11 +95,6 @@ public class Cliente extends javax.swing.JFrame {
                 Regresar_BnMouseClicked(evt);
             }
         });
-        Regresar_Bn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Regresar_BnActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,11 +121,6 @@ public class Cliente extends javax.swing.JFrame {
         );
 
         Buscar_textField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Buscar_textField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Buscar_textFieldActionPerformed(evt);
-            }
-        });
 
         Buscar_Bn.setBackground(new java.awt.Color(136, 213, 133));
         Buscar_Bn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
@@ -175,12 +165,6 @@ public class Cliente extends javax.swing.JFrame {
                             .addComponent(Ordenar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
-
-        jScrollPane2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jScrollPane2MouseClicked(evt);
-            }
-        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -293,10 +277,6 @@ public class Cliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Buscar_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_textFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Buscar_textFieldActionPerformed
-
     private void Buscar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Buscar_BnMouseClicked
         String textoBusqueda = Buscar_textField.getText().trim();
 
@@ -380,10 +360,6 @@ public class Cliente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_NuevoBnMouseClicked
 
-    private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Regresar_BnActionPerformed
-
     private void Regresar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Regresar_BnMouseClicked
         try {
             // TODO add your handling code here:
@@ -403,10 +379,6 @@ public class Cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         actualizarTabla();
     }//GEN-LAST:event_Actualizar_BnMouseClicked
-
-    private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jScrollPane2MouseClicked
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         jTable1.addMouseListener(new MouseAdapter() {

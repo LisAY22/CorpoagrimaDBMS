@@ -87,11 +87,6 @@ public class NuevoCliente extends javax.swing.JFrame {
                 Regresar_BnMouseClicked(evt);
             }
         });
-        Regresar_Bn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Regresar_BnActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -122,57 +117,27 @@ public class NuevoCliente extends javax.swing.JFrame {
 
         Nombre_textfield.setEditable(true);
         Nombre_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Nombre_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Nombre_textfieldActionPerformed(evt);
-            }
-        });
 
         Apellido_textfield.setEditable(true);
         Apellido_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Apellido_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Apellido_textfieldActionPerformed(evt);
-            }
-        });
 
         NIT_textfield.setEditable(true);
         NIT_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        NIT_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NIT_textfieldActionPerformed(evt);
-            }
-        });
 
         Direccion_textfield.setEditable(true);
         Direccion_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Direccion_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Direccion_textfieldActionPerformed(evt);
-            }
-        });
 
         CantidadComprasLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         CantidadComprasLabel.setText("Cantidad de compras ");
 
         Cantidadcompras_textfield.setEditable(false);
         Cantidadcompras_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Cantidadcompras_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cantidadcompras_textfieldActionPerformed(evt);
-            }
-        });
 
         CorreoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         CorreoLabel.setText("Correo Electronico");
 
         Correo_textfield.setEditable(true);
         Correo_textfield.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Correo_textfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Correo_textfieldActionPerformed(evt);
-            }
-        });
 
         DireccionLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         DireccionLabel.setText("Dirección");
@@ -183,21 +148,11 @@ public class NuevoCliente extends javax.swing.JFrame {
         Destacado_checkBox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Destacado_checkBox.setText("Destacado");
         Destacado_checkBox.setEnabled(true);
-        Destacado_checkBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Destacado_checkBoxActionPerformed(evt);
-            }
-        });
 
         CorreoLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         CorreoLabel1.setText("Telefono");
 
         telefono_textfield1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        telefono_textfield1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telefono_textfield1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -220,7 +175,6 @@ public class NuevoCliente extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Destacado_checkBox)
                         .addGap(112, 112, 112))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -354,30 +308,6 @@ public class NuevoCliente extends javax.swing.JFrame {
         telefono_textfield1.setText("");
     }      
     
-    private void Nombre_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nombre_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Nombre_textfieldActionPerformed
-
-    private void NIT_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NIT_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NIT_textfieldActionPerformed
-
-    private void Direccion_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Direccion_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Direccion_textfieldActionPerformed
-
-    private void Cantidadcompras_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cantidadcompras_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Cantidadcompras_textfieldActionPerformed
-
-    private void Correo_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Correo_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Correo_textfieldActionPerformed
-
-    private void Destacado_checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Destacado_checkBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Destacado_checkBoxActionPerformed
-
     private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
         // TODO add your handling code here:
         limpiar();
@@ -433,18 +363,6 @@ public class NuevoCliente extends javax.swing.JFrame {
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_Regresar_BnMouseClicked
-
-    private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Regresar_BnActionPerformed
-
-    private void Apellido_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Apellido_textfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Apellido_textfieldActionPerformed
-
-    private void telefono_textfield1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefono_textfield1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefono_textfield1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ApellidoLabel;

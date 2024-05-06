@@ -296,7 +296,6 @@
             <Property name="text" type="java.lang.String" value="&#x2190;"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="regresarJButtonMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="regresarJButtonActionPerformed"/>
           </Events>
         </Component>
