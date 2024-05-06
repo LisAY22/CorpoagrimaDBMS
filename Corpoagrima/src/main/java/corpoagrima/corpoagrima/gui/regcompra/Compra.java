@@ -317,7 +317,12 @@ public class Compra extends javax.swing.JFrame {
         String numeroFactura = facturaObject.toString();
 
         // Ahora puedes usar el número de factura como desees, por ejemplo, pasarlo a la ventana de anulación
-        AnularRegFactura AnularWindow = new AnularRegFactura(conexion, credenciales, numeroFactura);
+        AnularRegFactura AnularWindow = null;
+        try {
+            AnularWindow = new AnularRegFactura(conexion, credenciales, numeroFactura);
+        } catch (SQLException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
         AnularWindow.setVisible(true);
         dispose();
     }//GEN-LAST:event_Anular_jbuttonActionPerformed
