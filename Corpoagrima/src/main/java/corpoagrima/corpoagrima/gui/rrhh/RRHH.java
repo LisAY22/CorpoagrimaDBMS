@@ -7,6 +7,9 @@ import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
 import corpoagrima.corpoagrima.gui.Principal;
+import corpoagrima.corpoagrima.gui.inventario.EditarProducto;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -250,6 +253,11 @@ public class RRHH extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        TablaEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaEmpleadoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TablaEmpleado);
 
         jButtonEDP.setBackground(new java.awt.Color(136, 213, 133));
@@ -285,6 +293,11 @@ public class RRHH extends javax.swing.JFrame {
         jButtonEDE.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonEDEMouseClicked(evt);
+            }
+        });
+        jButtonEDE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEDEActionPerformed(evt);
             }
         });
 
@@ -469,13 +482,7 @@ public class RRHH extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNPMouseClicked
 
     private void jButtonEDEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEDEMouseClicked
-        // TODO add your handling code here:
-        BuscarEmpleado empleadoed_screen = new BuscarEmpleado(conexion, credenciales);
-        empleadoed_screen.setVisible(true);
-        empleadoed_screen.setLocationRelativeTo(null);
 
-        // Cerrar la ventana actual
-        dispose();
     }//GEN-LAST:event_jButtonEDEMouseClicked
 
     private void jButtonNEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNEMouseClicked
@@ -487,6 +494,42 @@ public class RRHH extends javax.swing.JFrame {
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_jButtonNEMouseClicked
+
+    private void TablaEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaEmpleadoMouseClicked
+        TablaEmpleado.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { 
+                    System.out.println("Hola");
+                    int fila = TablaEmpleado.getSelectedRow();
+                    System.out.println(fila);
+                    if (fila >= 0) {
+                        Integer ID = (Integer) TablaEmpleado.getValueAt(fila, 0);
+                        String numCadena = String.valueOf(ID);
+                        BuscarEmpleado screen_edit_product = new BuscarEmpleado(conexion, credenciales, numCadena);
+                        screen_edit_product.setVisible(true);      
+                        dispose();
+                    }
+                }
+            }
+        });
+    }//GEN-LAST:event_TablaEmpleadoMouseClicked
+
+    private void jButtonEDEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEDEActionPerformed
+        int fila = TablaEmpleado.getSelectedRow();
+        if (fila !=-1){
+            Integer ID = (Integer) TablaEmpleado.getValueAt(fila, 0);
+            String numCadena = String.valueOf(ID);
+            BuscarEmpleado screen_edit_product = new BuscarEmpleado(conexion, credenciales, numCadena);
+            screen_edit_product.setVisible(true);      
+            dispose();
+        }
+        else{
+            BuscarEmpleado screen_edit_product = new BuscarEmpleado(conexion, credenciales, "");
+            screen_edit_product.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_jButtonEDEActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Ordenar_Bn;

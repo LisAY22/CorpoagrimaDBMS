@@ -36,28 +36,145 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
     private int idUsuario;
     private int idTelefono;
     private String contrasenia;
+    private String idEmpleado;
 
     /**
      * /**
      * Creates new form Empleado
+     * @param conexion
+     * @param credenciales
+     * @param IDEmpleado
      */
-    public BuscarEmpleado(Connection conexion, ResultSet credenciales) {
+    public BuscarEmpleado(Connection conexion, ResultSet credenciales, String IDEmpleado) {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        this.idEmpleado = IDEmpleado;
         Empleado = new ConexionEmpleado();
         Puesto = new ConexionPuesto();
         Usuario = new ConexionUsuario();
         Telefono = new ConexionTelefono();
         initComponents();
         comboboxfull();
+        if (idEmpleado !=""){
+            buscar(idEmpleado);
+        }
+        else{
         String nombre = (String) Puesto_comboBox.getSelectedItem();
+            try {
+                sueldoBase(nombre);
+            } catch (SQLException ex) {
+                Logger.getLogger(BuscarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+    }
+    
+    public final void buscar(String IDString){
         try {
-            sueldoBase(nombre);
+            int IdInt = Integer.parseInt(IDString);
+            ResultSet resultado = Empleado.empleadosID(conexion, IdInt);
+
+            if (resultado.next()) { // Verificar si hay resultados antes de acceder a ellos
+                int ID = resultado.getInt("ID_Empleado");
+                String Nombre = resultado.getString("Nombre");
+                String Apellido = resultado.getString("Apellido");
+                String NIT = resultado.getString("NIT");
+                String Correo = resultado.getString("Correo_electronico");
+                String Direccion = resultado.getString("Direccion");
+                String Bonificaciones = resultado.getString("Bonificaciones");
+                int id_puesto = resultado.getInt("Puesto_ID_Puesto");
+                int id_usuario = resultado.getInt("Usuario_ID_Usuario");
+                String ajusteSueldo = resultado.getString("Ajuste_Sueldo");
+
+                //Consulta de puesto y sueldo
+                ResultSet resultadoPuesto = Puesto.puestoId(conexion, id_puesto);
+
+                if (resultadoPuesto.next()) { // Verificar si hay resultados antes de acceder a ellos
+                    idPuesto = id_puesto;
+                    String puesto = resultadoPuesto.getString("Nombre");
+                    Float salario = resultadoPuesto.getFloat("Salario_Base");
+
+                    // Tercera consulta para obtener el nombre de usuario 
+                    ResultSet resultadoUsuario = Usuario.usuario(conexion, id_usuario);
+
+                    if (resultadoUsuario.next()) { // Verificar si hay resultados antes de acceder a ellos
+                        idUsuario = resultadoUsuario.getInt("ID_Usuario");
+                        String Nombre_usuario = resultadoUsuario.getString("Nombre");
+                        String contrasenia = resultadoUsuario.getString("Contraseña");
+                        this.contrasenia = contrasenia;
+
+                        // Cuarta consulta para obtener el numero de telefono
+                        ResultSet resultadoTelefono = Telefono.telefono(conexion, ID, "Empleado");
+
+                        if (resultadoTelefono.next()) { // Verificar si hay resultados antes de acceder a ellos
+                            idTelefono = resultadoTelefono.getInt("ID_Telefono");
+                            String telefono = resultadoTelefono.getString("Numero");
+
+                            // Insertar en los textfield la informacion y habilitarlos
+                            ID_textfield.setText(String.valueOf(ID));
+                            Nombre_textField.setText(Nombre);
+                            Apellido_textField.setText(Apellido);
+                            NIT_textfield.setText(NIT);
+                            Correo_textfield.setText(Correo);
+                            Direccion_textfield.setText(Direccion);
+                            Bonificaciones_textfield.setText(Bonificaciones);
+                            Telefono_textfield.setText(telefono);
+                            AjusteSueldo_textfield.setText(ajusteSueldo);
+
+                            //Autoajustar el combobox para que aparezca por defecto el que tiene en puesto
+                            String[] itemsArray = getComboBoxItems(Puesto_comboBox);
+
+                            int indice = -1;
+
+                            for (int i = 0; i < itemsArray.length; i++) {
+                                if (itemsArray[i].equals(puesto)) {
+                                    indice = i;
+                                    break;
+                                }
+                            }
+
+                            // Si se encontró una coincidencia, establecer ese índice como la selección predeterminada
+                            if (indice != -1) {
+                                Puesto_comboBox.setSelectedIndex(indice);
+                            } else {
+                                // Si no se encontró ninguna coincidencia, mostrar un mensaje de error
+                                JOptionPane.showMessageDialog(null, "No se encontró ninguna coincidencia para el texto en las opciones del ComboBox.", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+
+                            Sueldobase_textfield.setText(String.valueOf(salario));
+                            Usuario_textfield.setText(Nombre_usuario);
+                            contrasena_textfield1.setText(contrasenia);
+
+                            Buscar_jButton.setEnabled(false);
+                            Buscar_textField.setEnabled(false);
+
+                            //Habilitar botones de guardado, borrar y limpiar
+                            Delete_button.setEnabled(true);
+                            Save_button.setEnabled(true);
+                            Clean_button.setEnabled(true);
+
+                            Enable();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el número de teléfono.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el puesto y salario.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el ID especificado.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al consultar los datos", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Ingrese correctamente el Id",
+                    "Busqueda", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
+    
     public void Enable() {
         Apellido_textField.setEditable(true);
         Bonificaciones_textfield.setEditable(true);
@@ -663,111 +780,7 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
 
     private void Buscar_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_jButtonActionPerformed
         String IDString = Buscar_textField.getText();
-
-        try {
-            int IdInt = Integer.parseInt(IDString);
-            ResultSet resultado = Empleado.empleadosID(conexion, IdInt);
-
-            if (resultado.next()) { // Verificar si hay resultados antes de acceder a ellos
-                int ID = resultado.getInt("ID_Empleado");
-                String Nombre = resultado.getString("Nombre");
-                String Apellido = resultado.getString("Apellido");
-                String NIT = resultado.getString("NIT");
-                String Correo = resultado.getString("Correo_electronico");
-                String Direccion = resultado.getString("Direccion");
-                String Bonificaciones = resultado.getString("Bonificaciones");
-                int id_puesto = resultado.getInt("Puesto_ID_Puesto");
-                int id_usuario = resultado.getInt("Usuario_ID_Usuario");
-                String ajusteSueldo = resultado.getString("Ajuste_Sueldo");
-
-                //Consulta de puesto y sueldo
-                ResultSet resultadoPuesto = Puesto.puestoId(conexion, id_puesto);
-
-                if (resultadoPuesto.next()) { // Verificar si hay resultados antes de acceder a ellos
-                    idPuesto = id_puesto;
-                    String puesto = resultadoPuesto.getString("Nombre");
-                    Float salario = resultadoPuesto.getFloat("Salario_Base");
-
-                    // Tercera consulta para obtener el nombre de usuario 
-                    ResultSet resultadoUsuario = Usuario.usuario(conexion, id_usuario);
-
-                    if (resultadoUsuario.next()) { // Verificar si hay resultados antes de acceder a ellos
-                        idUsuario = resultadoUsuario.getInt("ID_Usuario");
-                        String Nombre_usuario = resultadoUsuario.getString("Nombre");
-                        String contrasenia = resultadoUsuario.getString("Contraseña");
-                        this.contrasenia = contrasenia;
-
-                        // Cuarta consulta para obtener el numero de telefono
-                        ResultSet resultadoTelefono = Telefono.telefono(conexion, ID, "Empleado");
-
-                        if (resultadoTelefono.next()) { // Verificar si hay resultados antes de acceder a ellos
-                            idTelefono = resultadoTelefono.getInt("ID_Telefono");
-                            String telefono = resultadoTelefono.getString("Numero");
-
-                            // Insertar en los textfield la informacion y habilitarlos
-                            ID_textfield.setText(String.valueOf(ID));
-                            Nombre_textField.setText(Nombre);
-                            Apellido_textField.setText(Apellido);
-                            NIT_textfield.setText(NIT);
-                            Correo_textfield.setText(Correo);
-                            Direccion_textfield.setText(Direccion);
-                            Bonificaciones_textfield.setText(Bonificaciones);
-                            Telefono_textfield.setText(telefono);
-                            AjusteSueldo_textfield.setText(ajusteSueldo);
-
-                            //Autoajustar el combobox para que aparezca por defecto el que tiene en puesto
-                            String[] itemsArray = getComboBoxItems(Puesto_comboBox);
-
-                            int indice = -1;
-
-                            for (int i = 0; i < itemsArray.length; i++) {
-                                if (itemsArray[i].equals(puesto)) {
-                                    indice = i;
-                                    break;
-                                }
-                            }
-
-                            // Si se encontró una coincidencia, establecer ese índice como la selección predeterminada
-                            if (indice != -1) {
-                                Puesto_comboBox.setSelectedIndex(indice);
-                            } else {
-                                // Si no se encontró ninguna coincidencia, mostrar un mensaje de error
-                                JOptionPane.showMessageDialog(null, "No se encontró ninguna coincidencia para el texto en las opciones del ComboBox.", "Error", JOptionPane.ERROR_MESSAGE);
-                            }
-
-                            Sueldobase_textfield.setText(String.valueOf(salario));
-                            Usuario_textfield.setText(Nombre_usuario);
-                            contrasena_textfield1.setText(contrasenia);
-
-                            Buscar_jButton.setEnabled(false);
-                            Buscar_textField.setEnabled(false);
-
-                            //Habilitar botones de guardado, borrar y limpiar
-                            Delete_button.setEnabled(true);
-                            Save_button.setEnabled(true);
-                            Clean_button.setEnabled(true);
-
-                            Enable();
-                        } else {
-                            JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el número de teléfono.", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el puesto y salario.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el ID especificado.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al consultar los datos", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Ingrese correctamente el Id",
-                    "Busqueda", JOptionPane.ERROR_MESSAGE);
-        }
-
+        buscar(IDString);
     }//GEN-LAST:event_Buscar_jButtonActionPerformed
 
     private void AjusteSueldo_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjusteSueldo_textfieldActionPerformed

@@ -360,12 +360,12 @@ public class Cliente extends javax.swing.JFrame {
         if (fila !=-1){
             long ID = (long) jTable1.getValueAt(fila, 0);
             String numCadena= String.valueOf(ID);
-            EditarProducto screen_edit_product = new EditarProducto(conexion, credenciales, numCadena);
+            EditarCliente screen_edit_product = new EditarCliente(conexion, credenciales, numCadena);
             screen_edit_product.setVisible(true);      
             dispose();
         }
         else{
-            EditarProducto screen_edit_product = new EditarProducto(conexion, credenciales, "");
+            EditarCliente screen_edit_product = new EditarCliente(conexion, credenciales, "");
             screen_edit_product.setVisible(true);
             dispose();
         }

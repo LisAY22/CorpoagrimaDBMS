@@ -18,11 +18,11 @@ import javax.swing.JOptionPane;
  */
 public class EditarProducto extends javax.swing.JFrame {
     
-    private Connection conexion;
-    private ResultSet credenciales;
-    private ConexionProducto inventario;
+    private final Connection conexion;
+    private final ResultSet credenciales;
+    private final ConexionProducto inventario;
     private int id;
-    private String productoid;
+    private final String productoid;
     
     /**
      * Creates new form EditarProducto
