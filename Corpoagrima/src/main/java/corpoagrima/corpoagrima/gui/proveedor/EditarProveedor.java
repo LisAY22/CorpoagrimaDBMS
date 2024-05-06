@@ -19,22 +19,30 @@ import javax.swing.JOptionPane;
  */
 public class EditarProveedor extends javax.swing.JFrame {
 
-    private Connection conexion;
-    private ResultSet credenciales;
-    private ConexionProveedores proveedores;
-    private ConexionTelefono Telefono;
+    private final Connection conexion;
+    private final ResultSet credenciales;
+    private final ConexionProveedores proveedores;
+    private final ConexionTelefono Telefono;
     private int id;
     private int idTelefono;
+    private String idProveedor;
 
     /**
      * Creates new form Proveedores2
+     * @param conexion
+     * @param credenciales
+     * @param IDProveedor
      */
-    public EditarProveedor(Connection conexion, ResultSet credenciales) {
+    public EditarProveedor(Connection conexion, ResultSet credenciales, String IDProveedor) {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        this.idProveedor = IDProveedor;
         proveedores = new ConexionProveedores();
         Telefono = new ConexionTelefono();
         initComponents();
+        if (idProveedor !=""){
+            buscar(idProveedor);
+        }
     }
 
     private void habilitar(){
@@ -74,6 +82,58 @@ public class EditarProveedor extends javax.swing.JFrame {
         Correo_textfield.setText("");
         telefono_textfield1.setText("");
     }      
+    
+    private void buscar(String textoBusqueda){
+        try {
+            if (textoBusqueda != null && !textoBusqueda.isEmpty()) {
+                    ResultSet rs = proveedores.busqueda2(conexion, textoBusqueda);
+                    if (rs.next()) {
+                        id = rs.getInt("ID_Proveedor");
+                        String empresa = rs.getString("Empresa");
+                        String nombre = rs.getString("Nombre");
+                        String direccion = rs.getString("Direccion");
+                        String nit = rs.getString("Nit");
+                        String correoElectronico = rs.getString("Correo_Electronico");
+
+                        ResultSet resultadoTelefono = Telefono.telefono(conexion, id, "Proveedor");
+
+                        if (resultadoTelefono.next()) {
+                            idTelefono = resultadoTelefono.getInt("ID_Telefono");
+                            String telefono = resultadoTelefono.getString("Numero");
+                            
+                            ID_textfield.setText(String.valueOf(id));
+                            Empresa_textfield.setText(empresa);
+                            Nombre_textfield.setText(nombre);
+                            NIT_textfield.setText(nit);
+                            Correo_textfield.setText(correoElectronico);
+                            Direccion_textfield.setText(direccion);
+                            telefono_textfield1.setText(telefono);
+
+                            JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
+                                    "Busqueda", JOptionPane.INFORMATION_MESSAGE);
+                            habilitar();
+                            Eliminar_button1.setEnabled(true);
+                            
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el número de teléfono.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se encontraron resultados",
+                                "Busqueda", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "ERROR"
+                            + "compruebe el codigo ingresado", "Busqueda",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(EditarProveedor.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Busqueda",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -359,57 +419,8 @@ public class EditarProveedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
-        try {
-                String textoBusqueda = Buscar_textField.getText().trim();
-
-                if (textoBusqueda != null && !textoBusqueda.isEmpty()) {
-                    ResultSet rs = proveedores.busqueda2(conexion, textoBusqueda);
-                    if (rs.next()) {
-                        id = rs.getInt("ID_Proveedor");
-                        String empresa = rs.getString("Empresa");
-                        String nombre = rs.getString("Nombre");
-                        String direccion = rs.getString("Direccion");
-                        String nit = rs.getString("Nit");
-                        String correoElectronico = rs.getString("Correo_Electronico");
-
-                        ResultSet resultadoTelefono = Telefono.telefono(conexion, id, "Proveedor");
-
-                        if (resultadoTelefono.next()) {
-                            idTelefono = resultadoTelefono.getInt("ID_Telefono");
-                            String telefono = resultadoTelefono.getString("Numero");
-                            
-                            ID_textfield.setText(String.valueOf(id));
-                            Empresa_textfield.setText(empresa);
-                            Nombre_textfield.setText(nombre);
-                            NIT_textfield.setText(nit);
-                            Correo_textfield.setText(correoElectronico);
-                            Direccion_textfield.setText(direccion);
-                            telefono_textfield1.setText(telefono);
-
-                            JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
-                                    "Busqueda", JOptionPane.INFORMATION_MESSAGE);
-                            habilitar();
-                            Eliminar_button1.setEnabled(true);
-                            
-                        } else {
-                            JOptionPane.showMessageDialog(null, "No se encontró ningún resultado para el número de teléfono.", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "No se encontraron resultados",
-                                "Busqueda", JOptionPane.WARNING_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "ERROR"
-                            + "compruebe el codigo ingresado", "Busqueda",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(EditarProveedor.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Ha habido un error "
-                        + "compruebe la información", "Busqueda",
-                        JOptionPane.ERROR_MESSAGE);
-            }
+    String textoBusqueda = Buscar_textField.getText().trim();
+    buscar(textoBusqueda);
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
 
     private void Limpiar_button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_button1ActionPerformed

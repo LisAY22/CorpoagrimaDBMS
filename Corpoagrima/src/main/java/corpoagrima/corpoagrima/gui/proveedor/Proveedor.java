@@ -9,6 +9,9 @@ import corpoagrima.corpoagrima.gui.proveedor.NuevoProveedor;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import corpoagrima.corpoagrima.gui.cliente.Cliente;
 import corpoagrima.corpoagrima.gui.Principal;
+import corpoagrima.corpoagrima.gui.inventario.EditarProducto;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -167,6 +170,12 @@ public class Proveedor extends javax.swing.JFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
+        jScrollPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane2MouseClicked(evt);
+            }
+        });
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -184,6 +193,11 @@ public class Proveedor extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(jTable1);
@@ -218,15 +232,15 @@ public class Proveedor extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 935, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Editar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(Nuevo_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,10 +254,7 @@ public class Proveedor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Nuevo_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(98, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -350,13 +361,19 @@ public class Proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_Ordenar_BnMouseClicked
 
     private void Editar_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Editar_BnMouseClicked
-        // TODO add your handling code here:
-        EditarProveedor proveedores2_screen = new EditarProveedor(conexion, credenciales);
-        proveedores2_screen.setVisible(true);
-        proveedores2_screen.setLocationRelativeTo(null);
-        
-        // Cerrar la ventana actual
-        dispose();
+        int fila = jTable1.getSelectedRow();
+        if (fila !=-1){
+            long ID = (long) jTable1.getValueAt(fila, 0);
+            String numCadena= String.valueOf(ID);
+            EditarProveedor screen_edit_product = new EditarProveedor(conexion, credenciales, numCadena);
+            screen_edit_product.setVisible(true);      
+            dispose();
+        }
+        else{
+            EditarProveedor screen_edit_product = new EditarProveedor(conexion, credenciales, "");
+            screen_edit_product.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_Editar_BnMouseClicked
 
     private void Nuevo_BnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Nuevo_BnMouseClicked
@@ -368,6 +385,28 @@ public class Proveedor extends javax.swing.JFrame {
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_Nuevo_BnMouseClicked
+
+    private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane2MouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        jTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) { 
+                    int fila = jTable1.getSelectedRow();
+                    if (fila >= 0) {
+                        long ID = (long) jTable1.getValueAt(fila, 0);
+                        String numCadena= String.valueOf(ID);
+                        EditarProveedor screen_edit_product = new EditarProveedor(conexion, credenciales, numCadena);
+                        screen_edit_product.setVisible(true);      
+                        dispose();
+                    }
+                }
+            }
+        });
+    }//GEN-LAST:event_jTable1MouseClicked
 
     private void actualizarTabla() {
         try {
