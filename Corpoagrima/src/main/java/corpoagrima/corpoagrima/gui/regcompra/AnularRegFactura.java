@@ -148,7 +148,6 @@ public class AnularRegFactura extends javax.swing.JFrame {
         totalProductoLabel = new javax.swing.JLabel();
         totalProductoJTextField = new javax.swing.JTextField();
         totalLabel = new javax.swing.JLabel();
-        totalJTextField = new javax.swing.JTextField();
         totalJTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -321,7 +320,7 @@ public class AnularRegFactura extends javax.swing.JFrame {
                         .addComponent(proveedor_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(DetalleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Detalle_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
+                .addGap(13, 13, 13))
         );
 
         listaProductoJTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -363,9 +362,6 @@ public class AnularRegFactura extends javax.swing.JFrame {
         totalLabel.setForeground(new java.awt.Color(159, 46, 46));
         totalLabel.setText("Total:");
 
-        totalJTextField.setEditable(false);
-        totalJTextField.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-
         totalJTextField1.setEditable(false);
         totalJTextField1.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
 
@@ -391,11 +387,6 @@ public class AnularRegFactura extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(56, 56, 56)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(422, 422, 422)
-                    .addComponent(totalJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(423, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,21 +399,16 @@ public class AnularRegFactura extends javax.swing.JFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(totalProductoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(totalProductoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(totalJTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Anular_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(344, 344, 344)
-                    .addComponent(totalJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(379, Short.MAX_VALUE)))
+                .addGap(14, 14, 14))
         );
 
         pack();
@@ -517,7 +503,6 @@ public class AnularRegFactura extends javax.swing.JFrame {
     private javax.swing.JTextField noFactura_textfield;
     private javax.swing.JTextField proveedor_textfield;
     private javax.swing.JTextField telefono_textfield;
-    private javax.swing.JTextField totalJTextField;
     private javax.swing.JTextField totalJTextField1;
     private javax.swing.JLabel totalLabel;
     private javax.swing.JTextField totalProductoJTextField;
