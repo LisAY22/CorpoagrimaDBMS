@@ -3,6 +3,7 @@ package corpoagrima.corpoagrima.bdMariaDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -27,5 +28,23 @@ public class ConexionRegCompraProducto {
 
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
+    }
+    
+    public boolean eliminarRelacion(Connection conexion, int idFactura) throws SQLException{
+        String sql = "DELETE Registro_Compra_has_Producto WHERE Registro_Compra_ID_Compra";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
+    
+    public ResultSet producto(Connection conexion, int idFactura) throws SQLException{
+        String sql = "SELECT Producto_ID_Producto AS idProducto, Cantidad_compra AS cantidad "
+                + "FROM Registro_Compra_has_Producto WHERE Registro_Compra_ID_Compra=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        
+        stmt.setInt(1, idFactura);
+        
+        return stmt.executeQuery();
     }
 }

@@ -22,7 +22,6 @@ public class ConexionProducto {
         stmt.setBoolean(3, false);
 
         return stmt.executeQuery();
-
     }
 
     public ResultSet busqueda2(Connection conexion, int id) throws SQLException {
@@ -61,6 +60,14 @@ public class ConexionProducto {
         String sql = "SELECT ID_Producto, Stock FROM Producto WHERE Nombre=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, nombre);
+        
+        return stmt.executeQuery();
+    }
+    
+    public ResultSet cantidad(Connection conexion, int idProducto) throws SQLException {
+        String sql = "SELECT Stock FROM Producto WHERE ID_Producto=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setInt(1, idProducto);
         
         return stmt.executeQuery();
     }

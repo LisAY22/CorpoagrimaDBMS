@@ -10,7 +10,6 @@ import java.sql.SQLException;
  * @author WilderL
  */
 public class ConexionCompra {
-    //public ResultSet 
 
     public ResultSet consulta(Connection conexion) throws SQLException {
         String sql = "SELECT NoFactura, Proveedor.Empresa,  Fecha, Tipo_Compra, Total FROM Registro_Compra "
@@ -20,6 +19,15 @@ public class ConexionCompra {
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setBoolean(1, false);
 
+        return stmt.executeQuery();
+    }
+    
+    public ResultSet esAnulado(Connection conexion, int idCompra) throws SQLException{
+        String sql = "SELECT Anulado FROM Registro_Compra WHERE ID_Compra=?";
+        
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setInt(1, idCompra);
+        
         return stmt.executeQuery();
     }
 
@@ -80,9 +88,9 @@ public class ConexionCompra {
 
     public boolean actualizar(Connection conexion, int id_Compra, String noFactura,
             boolean anulado, String fecha, String tipoCompra,
-            float total, int proveedor_id_proveedor, int empleado_id_empleado) throws SQLException {
-        String sql = "UPDATE Registro_Compra SET NoFactura=?, Anulado=?, Fecha=?, Tipo_Compra=?,"
-                + "Total=?, Proveedor_ID_Proveedor=?, Empleado_ID_Empleado=?"
+            float total, int proveedor_id_proveedor) throws SQLException {
+        String sql = "UPDATE Registro_Compra SET NoFactura=?, Anulado=?, "
+                + "Fecha=?, Tipo_Compra=?, Total=?, Proveedor_ID_Proveedor=?, "
                 + "WHERE ID_Compra=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, noFactura);
@@ -91,8 +99,7 @@ public class ConexionCompra {
         stmt.setString(4, tipoCompra);
         stmt.setFloat(5, total);
         stmt.setInt(6, proveedor_id_proveedor);
-        stmt.setInt(7, empleado_id_empleado);
-        stmt.setInt(8, id_Compra);
+        stmt.setInt(7, id_Compra);
         // ejecutar la consulta
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;

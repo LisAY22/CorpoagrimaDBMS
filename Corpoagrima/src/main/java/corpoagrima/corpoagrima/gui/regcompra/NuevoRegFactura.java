@@ -538,7 +538,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
                 productoResult.next();
                 int idProducto = productoResult.getInt("ID_Producto");
                 int stock = productoResult.getInt("Stock");
-                stock -= cantidad;
+                stock += cantidad;
                 producto.actualizar(conexion, idProducto, stock);
                 // guardado registro compra has producto
                 compraProducto.agregar(conexion, idCompra, idProducto, detalle,
