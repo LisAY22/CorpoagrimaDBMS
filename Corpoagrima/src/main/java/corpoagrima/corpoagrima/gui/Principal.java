@@ -6,6 +6,7 @@ package corpoagrima.corpoagrima.gui;
 
 import corpoagrima.corpoagrima.gui.inventario.Inventario;
 import corpoagrima.corpoagrima.gui.cliente.Cliente;
+import corpoagrima.corpoagrima.gui.finanzas.EstadoFinanciero;
 import corpoagrima.corpoagrima.gui.proveedor.Proveedor;
 import corpoagrima.corpoagrima.gui.regcompra.Compra;
 import corpoagrima.corpoagrima.gui.rrhh.RRHH;
@@ -106,6 +107,11 @@ public class Principal extends javax.swing.JFrame {
         finanzasJButton.setText("FINANZAS");
         finanzasJButton.setToolTipText("");
         finanzasJButton.setPreferredSize(new java.awt.Dimension(100, 100));
+        finanzasJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finanzasJButtonActionPerformed(evt);
+            }
+        });
 
         clientesJButton.setBackground(new java.awt.Color(136, 213, 133));
         clientesJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -286,6 +292,13 @@ public class Principal extends javax.swing.JFrame {
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_comprasJButtonActionPerformed
+
+    private void finanzasJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finanzasJButtonActionPerformed
+        // TODO add your handling code here:
+        EstadoFinanciero estfin_screen = new EstadoFinanciero(conexion, credenciales);
+        estfin_screen.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_finanzasJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clientesJButton;
