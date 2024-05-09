@@ -4,16 +4,28 @@
  */
 package corpoagrima.corpoagrima.gui.regventa;
 
+import corpoagrima.corpoagrima.gui.Principal;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author melis
  */
 public class Venta extends javax.swing.JFrame {
 
+    private Connection conexion;
+    private ResultSet credenciales;
+    
     /**
      * Creates new form Venta
      */
-    public Venta() {
+    public Venta(Connection conexion, ResultSet credenciales) {
+        this.conexion = conexion;
+        this.credenciales = credenciales;
         initComponents();
     }
 
@@ -26,6 +38,7 @@ public class Venta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Regresar_Bn = new javax.swing.JButton();
@@ -39,6 +52,8 @@ public class Venta extends javax.swing.JFrame {
         Anular_jbutton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+
+        jCheckBox1.setText("jCheckBox1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,7 +90,7 @@ public class Venta extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(259, 259, 259)
+                .addGap(274, 274, 274)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Refresh_button, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -85,30 +100,21 @@ public class Venta extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Refresh_button, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(Refresh_button, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
         NuevoPuesto_jbutton1.setBackground(new java.awt.Color(136, 213, 133));
         NuevoPuesto_jbutton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         NuevoPuesto_jbutton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
-        NuevoPuesto_jbutton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NuevoPuesto_jbutton1ActionPerformed(evt);
-            }
-        });
 
         Ordenar_Bn1.setBackground(new java.awt.Color(136, 213, 133));
         Ordenar_Bn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ordenar.png"))); // NOI18N
-        Ordenar_Bn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Ordenar_Bn1ActionPerformed(evt);
-            }
-        });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -135,22 +141,12 @@ public class Venta extends javax.swing.JFrame {
         EditarPuesto_jbutton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         EditarPuesto_jbutton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
         EditarPuesto_jbutton1.setToolTipText("");
-        EditarPuesto_jbutton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarPuesto_jbutton1ActionPerformed(evt);
-            }
-        });
 
         Anular_jbutton1.setBackground(new java.awt.Color(255, 0, 0));
         Anular_jbutton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Anular_jbutton1.setForeground(new java.awt.Color(255, 255, 255));
         Anular_jbutton1.setText("ANULAR");
         Anular_jbutton1.setEnabled(true);
-        Anular_jbutton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Anular_jbutton1ActionPerformed(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("EDITAR");
@@ -163,37 +159,30 @@ public class Venta extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 688, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(Anular_jbutton1)
-                                .addGap(40, 40, 40))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(EditarPuesto_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(NuevoPuesto_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel4)))
-                                .addGap(51, 51, 51))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(Ordenar_Bn1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(4, 4, 4)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(164, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(Anular_jbutton1)
+                        .addGap(40, 40, 40))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(EditarPuesto_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(NuevoPuesto_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4)))
+                        .addGap(51, 51, 51))))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(Ordenar_Bn1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Ordenar_Bn1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addContainerGap(116, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EditarPuesto_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -201,14 +190,15 @@ public class Venta extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NuevoPuesto_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addGap(30, 30, 30)
                 .addComponent(Anular_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(71, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                .addGap(55, 55, 55))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Ordenar_Bn1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -233,11 +223,11 @@ public class Venta extends javax.swing.JFrame {
 
     private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
         // TODO add your handling code here:
-        Principal principal_screen = null;
+        Principal principal_screen = null;   
         try {
             principal_screen = new Principal(conexion, credenciales);
         } catch (SQLException ex) {
-            Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
         }
         principal_screen.setVisible(true);
         principal_screen.setLocationRelativeTo(null);
@@ -248,155 +238,24 @@ public class Venta extends javax.swing.JFrame {
 
     private void Refresh_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Refresh_buttonActionPerformed
         // TODO add your handling code here:
-        actualizarTabla();
     }//GEN-LAST:event_Refresh_buttonActionPerformed
 
-    private void NuevoPuesto_jbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoPuesto_jbutton1ActionPerformed
-        NuevoRegFactura NuevoWindow = new NuevoRegFactura(conexion, credenciales);
-        NuevoWindow.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_NuevoPuesto_jbutton1ActionPerformed
-
-    private void Ordenar_Bn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ordenar_Bn1ActionPerformed
-        // TODO add your handling code here:
-        if (sorter == null) {
-            // Crear un objeto TableRowSorter basado en el modelo de la tabla
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            sorter = new TableRowSorter<>(model);
-            jTable1.setRowSorter(sorter);
-        }
-
-        // Crear un RowSorter para ordenar por la columna "Nombre"
-        ArrayList<RowSorter.SortKey> sortKeys = new ArrayList<>();
-        int columnIndexToSort = 1;
-        sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING)); // Orden ascendente
-        sorter.setSortKeys(sortKeys);
-
-        // Ordenar la tabla
-        sorter.sort();
-
-        // Mostrar un mensaje indicando que la tabla ha sido ordenada
-        JOptionPane.showMessageDialog(this, "El ordenamiento de la tabla ha sido habilitado.", "Ordenar tabla", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_Ordenar_Bn1ActionPerformed
-
-    private void EditarPuesto_jbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarPuesto_jbutton1ActionPerformed
-        // Obtener la fila seleccionada
-        int selectedRow = jTable1.getSelectedRow();
-
-        // Verificar si se ha seleccionado una fila
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura para editar.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Salir del método si no hay fila seleccionada
-        }
-
-        // Obtener el número de factura de la fila seleccionada
-        Object facturaObject = jTable1.getValueAt(selectedRow, 0); // Se asume que el número de factura está en la primera columna
-        if (facturaObject == null) {
-            JOptionPane.showMessageDialog(this, "No se puede obtener el número de factura.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Salir del método si el número de factura es nulo
-        }
-
-        // Convertir el objeto a un String (el número de factura)
-        String numeroFactura = facturaObject.toString();
-
-        EditarRegFactura EditarWindow = null;
-        try {
-            EditarWindow = new EditarRegFactura(conexion, credenciales, numeroFactura);
-        } catch (SQLException ex) {
-            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        EditarWindow.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_EditarPuesto_jbutton1ActionPerformed
-
-    private void Anular_jbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Anular_jbutton1ActionPerformed
-        // Obtener la fila seleccionada
-        int selectedRow = jTable1.getSelectedRow();
-
-        // Verificar si se ha seleccionado una fila
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura para anular.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Salir del método si no hay fila seleccionada
-        }
-
-        // Obtener el número de factura de la fila seleccionada
-        Object facturaObject = jTable1.getValueAt(selectedRow, 0); // Se asume que el número de factura está en la primera columna
-        if (facturaObject == null) {
-            JOptionPane.showMessageDialog(this, "No se puede obtener el número de factura.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Salir del método si el número de factura es nulo
-        }
-
-        // Convertir el objeto a un String (el número de factura)
-        String numeroFactura = facturaObject.toString();
-
-        // Ahora puedes usar el número de factura como desees, por ejemplo, pasarlo a la ventana de anulación
-        AnularRegFactura AnularWindow = null;
-        try {
-            AnularWindow = new AnularRegFactura(conexion, credenciales, numeroFactura);
-        } catch (SQLException ex) {
-            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        AnularWindow.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_Anular_jbutton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Venta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Venta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Venta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Venta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Venta().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Anular_jbutton;
     private javax.swing.JButton Anular_jbutton1;
-    private javax.swing.JButton EditarPuesto_jbutton;
     private javax.swing.JButton EditarPuesto_jbutton1;
-    private javax.swing.JButton NuevoPuesto_jbutton;
     private javax.swing.JButton NuevoPuesto_jbutton1;
-    private javax.swing.JButton Ordenar_Bn;
     private javax.swing.JButton Ordenar_Bn1;
     private javax.swing.JButton Refresh_button;
     private javax.swing.JButton Regresar_Bn;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

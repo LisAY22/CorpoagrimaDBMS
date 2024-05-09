@@ -4,6 +4,8 @@
  */
 package corpoagrima.corpoagrima.gui.regventa;
 
+import java.awt.event.ItemEvent;
+
 /**
  *
  * @author melis
@@ -437,88 +439,29 @@ public class NuevaFacturaVenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Proveedor_comboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Proveedor_comboBoxItemStateChanged
-        Proveedor_comboBox.addItemListener((ItemEvent e) -> {
-            if (evt.getStateChange() == ItemEvent.SELECTED) {
-                try {
-                    String nombre = (String) Proveedor_comboBox.getSelectedItem();
-                    datoProveedor(nombre);
-                } catch (SQLException ex) {
-                    Logger.getLogger(NuevoRegFactura.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+
     }//GEN-LAST:event_Proveedor_comboBoxItemStateChanged
 
     private void Regresar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Regresar_BnActionPerformed
-        // TODO add your handling code here:
-        Compra compra_screen = new Compra(conexion, credenciales);
-        compra_screen.setVisible(true);
-        // Cerrar la ventana actual
-        dispose();
+
     }//GEN-LAST:event_Regresar_BnActionPerformed
 
     private void EliminarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBnActionPerformed
-        // TODO add your handling code here:
-        int fila = listaProductoJTable.getSelectedRow();
-        if (fila != -1) {
-            DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
-            model.removeRow(fila);
-        }
+
     }//GEN-LAST:event_EliminarBnActionPerformed
 
     private void AgregarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBnActionPerformed
-        AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales, this);
-        AgregarWindow.setVisible(true);
+
     }//GEN-LAST:event_AgregarBnActionPerformed
 
     private void EliminarBn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBn1ActionPerformed
-        // TODO add your handling code here:
-        int fila = listaProductoJTable.getSelectedRow();
-        if (fila != -1) {
-            DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
-            model.removeRow(fila);
-        }
+
     }//GEN-LAST:event_EliminarBn1ActionPerformed
 
     private void AgregarBn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBn1ActionPerformed
-        AgregarPRegFactura AgregarWindow = new AgregarPRegFactura(conexion, credenciales, this);
-        AgregarWindow.setVisible(true);
+
     }//GEN-LAST:event_AgregarBn1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NuevaFacturaVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NuevaFacturaVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NuevaFacturaVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NuevaFacturaVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NuevaFacturaVenta().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarBn;

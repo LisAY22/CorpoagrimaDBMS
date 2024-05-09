@@ -9,6 +9,7 @@ import corpoagrima.corpoagrima.gui.cliente.Cliente;
 import corpoagrima.corpoagrima.gui.finanzas.EstadoFinanciero;
 import corpoagrima.corpoagrima.gui.proveedor.Proveedor;
 import corpoagrima.corpoagrima.gui.regcompra.Compra;
+import corpoagrima.corpoagrima.gui.regventa.Venta;
 import corpoagrima.corpoagrima.gui.rrhh.RRHH;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -131,6 +132,11 @@ public class Principal extends javax.swing.JFrame {
         ventasJButton.setText("VENTAS");
         ventasJButton.setToolTipText("");
         ventasJButton.setPreferredSize(new java.awt.Dimension(100, 100));
+        ventasJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ventasJButtonActionPerformed(evt);
+            }
+        });
 
         rhJButton.setBackground(new java.awt.Color(136, 213, 133));
         rhJButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -299,6 +305,13 @@ public class Principal extends javax.swing.JFrame {
         estfin_screen.setVisible(true);
         dispose();
     }//GEN-LAST:event_finanzasJButtonActionPerformed
+
+    private void ventasJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventasJButtonActionPerformed
+        // TODO add your handling code here:
+        Venta venta_screen = new Venta(conexion, credenciales);
+        venta_screen.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ventasJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clientesJButton;
