@@ -31,9 +31,10 @@ public class ConexionRegCompraProducto {
     }
     
     public boolean eliminarRelacion(Connection conexion, int idFactura) throws SQLException{
-        String sql = "DELETE Registro_Compra_has_Producto WHERE Registro_Compra_ID_Compra";
+        String sql = "DELETE FROM Registro_Compra_has_Producto WHERE Registro_Compra_ID_Compra = ?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         
+        stmt.setInt(1, idFactura);
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
     }
