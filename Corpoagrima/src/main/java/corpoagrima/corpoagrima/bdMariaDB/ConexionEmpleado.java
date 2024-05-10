@@ -135,4 +135,14 @@ public class ConexionEmpleado {
         return filasAfectadas > 0;
     }
     
+    public ResultSet total(Connection conexion) throws SQLException {
+        String sql = "SELECT Empleado.Ajuste_Sueldo AS Ajuste_Sueldo, Empleado.Bonificaciones AS Bonificaciones, "
+                + "Puesto.Salario_Base AS Salario_Base FROM Empleado "
+                + "INNER JOIN Puesto ON Empleado.Puesto_ID_Puesto = Puesto.ID_Puesto "
+                + "WHERE Eliminado=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setBoolean(1, false);
+        return stmt.executeQuery();
+    }
+    
 }

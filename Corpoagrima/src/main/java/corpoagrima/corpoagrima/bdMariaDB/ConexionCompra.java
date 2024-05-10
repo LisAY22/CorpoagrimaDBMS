@@ -124,4 +124,15 @@ public class ConexionCompra {
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
     }
+    
+    public ResultSet total(Connection conexion, int mes, int año) throws SQLException {
+        String sql = "SELECT SUM(Registro_Compra.Total) AS compraT FROM Registro_Compra "
+                + "WHERE (MONTH(Registro_Compra.Fecha) = ? AND YEAR(Registro_Compra.Fecha) = ?) AND "
+                + "Anulado=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setInt(1, mes);
+        stmt.setInt(2, año);
+        stmt.setBoolean(3, false);
+        return stmt.executeQuery();
+    }
 }
