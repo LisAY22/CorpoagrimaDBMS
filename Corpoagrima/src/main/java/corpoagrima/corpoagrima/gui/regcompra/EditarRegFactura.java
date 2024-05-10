@@ -34,6 +34,10 @@ public class EditarRegFactura extends javax.swing.JFrame {
 
     /**
      * Creates new form editarRegFactura
+     * @param conexion
+     * @param credenciales
+     * @param numeroFactura
+     * @throws java.sql.SQLException
      */
     public EditarRegFactura(Connection conexion, ResultSet credenciales, String numeroFactura) throws SQLException {
         this.conexion = conexion;
@@ -519,7 +523,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
         String marca = resultado.getString("Marca");
 
         // Agregar a la tabla
-        model.addRow(new Object[]{nombre, descripcion, marca, null, null, null, null});
+        model.addRow(new Object[]{nombre, descripcion, marca, 0, 0, 0, 0});
 
     }
 

@@ -90,7 +90,7 @@ public class ConexionCompra {
             boolean anulado, String fecha, String tipoCompra,
             float total, int proveedor_id_proveedor) throws SQLException {
         String sql = "UPDATE Registro_Compra SET NoFactura=?, Anulado=?, "
-                + "Fecha=?, Tipo_Compra=?, Total=?, Proveedor_ID_Proveedor=?, "
+                + "Fecha=?, Tipo_Compra=?, Total=?, Proveedor_ID_Proveedor=? "
                 + "WHERE ID_Compra=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setString(1, noFactura);
