@@ -6,21 +6,32 @@ package corpoagrima.corpoagrima.gui.finanzas;
 
 import corpoagrima.corpoagrima.gui.Principal;
 import corpoagrima.corpoagrima.gui.inventario.Inventario;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author lisaj
  */
 public class EstadoFinanciero extends javax.swing.JFrame {
-    
+
+    private final String ANIOINICIAL = "2024";
+    private String añoSeleccionado;
     private Connection conexion;
     private ResultSet credenciales;
+    private TableRowSorter<DefaultTableModel> sorter; // Variable miembro para mantener el TableRowSorter
 
     /**
      * Creates new form EstadoFinanciero
@@ -29,6 +40,8 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         this.conexion = conexion;
         this.credenciales = credenciales;
         initComponents();
+        actualizarTabla();
+        anios();
     }
 
     /**
@@ -52,6 +65,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
         graficajButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -90,7 +104,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
                 .addComponent(regresarJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(114, 114, 114)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
                 .addComponent(actualizarJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -120,13 +134,6 @@ public class EstadoFinanciero extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("AÑO");
-
-        añojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2024" }));
-        añojComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                añojComboBoxActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -160,11 +167,11 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Ventas", ""},
+                {"Ventas", null},
                 {"Costos de Ventas", null},
                 {"Utilidad Bruta", null},
                 {"Gastos Administrativos", null},
-                {"Gastos Operacionales", null},
+                {"Gastos Operacionales", 0},
                 {"Utilidad antes de los Ingresos", null},
                 {"Ingresos", null},
                 {"Utilidad antes del ISR", null},
@@ -174,9 +181,34 @@ public class EstadoFinanciero extends javax.swing.JFrame {
             new String [] {
                 "Descripcion", "Cantidad"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex] && rowIndex == 4;
+            }
+        });
         jTable1.setAutoscrolls(false);
         jScrollPane1.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(130, 130, 130))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         graficajButton.setText("GRAFICA");
         graficajButton.addActionListener(new java.awt.event.ActionListener() {
@@ -185,28 +217,21 @@ public class EstadoFinanciero extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(68, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(graficajButton)
-                        .addGap(44, 44, 44))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59))))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(graficajButton)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(9, Short.MAX_VALUE)
+                .addComponent(graficajButton)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -216,6 +241,9 @@ public class EstadoFinanciero extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,11 +252,21 @@ public class EstadoFinanciero extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void actualizarTabla() {
+
+        float ventas = 0;
+        float costos_ventas = 0;
+
+    }
 
     private void regresarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarJButtonActionPerformed
         // TODO add your handling code here:
@@ -241,7 +279,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         }
         principal_screen.setVisible(true);
         principal_screen.setLocationRelativeTo(null);
-        
+
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_regresarJButtonActionPerformed
@@ -251,22 +289,32 @@ public class EstadoFinanciero extends javax.swing.JFrame {
     }//GEN-LAST:event_actualizarJButtonMouseClicked
 
     private void mesjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mesjComboBoxActionPerformed
-        // TODO add your handling code here:
         // Obtener el mes seleccionado
         String mesSeleccionado = (String) mesjComboBox.getSelectedItem();
+        int mesIndex = mesjComboBox.getSelectedIndex() + 1; // Obtener el índice del mes (1-12)
 
         // Mostrar un mensaje de ejemplo con el mes seleccionado
         JOptionPane.showMessageDialog(this, "Has seleccionado el mes: " + mesSeleccionado);
+
+        // Llamar al método meses para actualizar la edición de la tabla
+        meses(mesIndex);
     }//GEN-LAST:event_mesjComboBoxActionPerformed
 
-    private void añojComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añojComboBoxActionPerformed
-        // TODO add your handling code here:
-        // Obtener el año seleccionado
-        String añoSeleccionado = (String) añojComboBox.getSelectedItem();
+    private void meses(int mes) {
+        int mesactual = LocalDate.now().getMonthValue();
+        // boolean isMesActual = (mes == mesactual);
 
-        // Mostrar un mensaje de ejemplo con el año seleccionado
-        JOptionPane.showMessageDialog(this, "Has seleccionado el año: " + añoSeleccionado);
-    }//GEN-LAST:event_añojComboBoxActionPerformed
+        // Establecer la editabilidad de la tabla completa basada en el mes actual
+        // jTable1.setEnabled(isMesActual);
+        int row = 4; // Fila de la celda específica
+                int column = 1; // Columna de la celda específica
+                boolean editable = (mes == mesactual);
+
+                // Cambiar la capacidad de edición de la celda específica
+                jTable1.setValueAt(String.valueOf(editable), 4, 2);
+                jTable1.getColumnModel().getColumn(column).setCellEditor(editable ? new DefaultCellEditor(new JTextField()) : null);
+    }
+
 
     private void graficajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficajButtonActionPerformed
         // TODO add your handling code here:
@@ -275,6 +323,31 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_graficajButtonActionPerformed
 
+    private void anios() {
+        int anioinicial = Integer.parseInt(ANIOINICIAL);
+        int anioactual = LocalDate.now().getYear();
+        int anios = anioactual - anioinicial;
+        int anio;
+        for (int i = 0; i < anios; i++) {
+            anio = anioinicial + i;
+            añojComboBox.addItem(String.valueOf(anio));
+        }
+        if (anios == 0) {
+            añojComboBox.addItem(ANIOINICIAL);
+        }
+
+        // Agregar el ItemListener después de haber agregado los años al combo box
+        añojComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    añoSeleccionado = (String) añojComboBox.getSelectedItem();
+                    // Mostrar un mensaje de ejemplo con el año seleccionado
+                    JOptionPane.showMessageDialog(EstadoFinanciero.this, "Has seleccionado el año: " + añoSeleccionado);
+                }
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actualizarJButton;
@@ -286,6 +359,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> mesjComboBox;
