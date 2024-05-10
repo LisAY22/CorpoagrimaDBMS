@@ -29,6 +29,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
 
     private final String ANIOINICIAL = "2024";
     private String añoSeleccionado;
+    private String mesSeleccionado;
     private Connection conexion;
     private ResultSet credenciales;
     private TableRowSorter<DefaultTableModel> sorter; // Variable miembro para mantener el TableRowSorter
@@ -42,6 +43,9 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         initComponents();
         actualizarTabla();
         anios();
+        informacionInicial();
+        meses(LocalDate.now().getMonthValue());
+        mes();
     }
 
     /**
@@ -126,11 +130,6 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         jLabel2.setText("MES");
 
         mesjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Agosto", "Novimiebre", "Diciembre" }));
-        mesjComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mesjComboBoxActionPerformed(evt);
-            }
-        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("AÑO");
@@ -261,6 +260,19 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void informacionInicial() {
+        // Obtener el mes y año actual
+        int mesActual = LocalDate.now().getMonthValue(); // Mes actual (1-12)
+        int añoActual = LocalDate.now().getYear();       // Año actual
+
+        // Establecer el índice seleccionado en el combo box del mes
+        mesjComboBox.setSelectedIndex(mesActual - 1);  // Los índices comienzan desde 0, por lo que restamos 1
+
+        // Establecer el índice seleccionado en el combo box del año
+        // Para encontrar el índice del año actual, restamos el año inicial (2024) del año actual y agregamos 1
+        añojComboBox.setSelectedIndex(añoActual - Integer.parseInt(ANIOINICIAL));
+    }
+
     private void actualizarTabla() {
 
         float ventas = 0;
@@ -288,40 +300,36 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_actualizarJButtonMouseClicked
 
-    private void mesjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mesjComboBoxActionPerformed
-        // Obtener el mes seleccionado
-        String mesSeleccionado = (String) mesjComboBox.getSelectedItem();
-        int mesIndex = mesjComboBox.getSelectedIndex() + 1; // Obtener el índice del mes (1-12)
-
-        // Mostrar un mensaje de ejemplo con el mes seleccionado
-        JOptionPane.showMessageDialog(this, "Has seleccionado el mes: " + mesSeleccionado);
-
-        // Llamar al método meses para actualizar la edición de la tabla
-        meses(mesIndex);
-    }//GEN-LAST:event_mesjComboBoxActionPerformed
-
-    private void meses(int mes) {
-        int mesactual = LocalDate.now().getMonthValue();
-        // boolean isMesActual = (mes == mesactual);
-
-        // Establecer la editabilidad de la tabla completa basada en el mes actual
-        // jTable1.setEnabled(isMesActual);
-        int row = 4; // Fila de la celda específica
-                int column = 1; // Columna de la celda específica
-                boolean editable = (mes == mesactual);
-
-                // Cambiar la capacidad de edición de la celda específica
-                jTable1.setValueAt(String.valueOf(editable), 4, 2);
-                jTable1.getColumnModel().getColumn(column).setCellEditor(editable ? new DefaultCellEditor(new JTextField()) : null);
-    }
-
-
     private void graficajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficajButtonActionPerformed
         // TODO add your handling code here:
         Grafica grafica_screen = new Grafica(conexion, credenciales);
         grafica_screen.setVisible(true);
         dispose();
     }//GEN-LAST:event_graficajButtonActionPerformed
+
+    private void meses(int mes) {
+        int mesactual = LocalDate.now().getMonthValue();
+        boolean isMesActual = (mes == mesactual);
+
+        // Establecer la editabilidad de la tabla completa basada en el mes actual
+        jTable1.setEnabled(isMesActual);
+    }
+    
+    private void mes() {
+        // Agregar el ItemListener después de haber agregado los años al combo box
+        mesjComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    mesSeleccionado = (String) mesjComboBox.getSelectedItem();
+                    int mesIndex = mesjComboBox.getSelectedIndex();
+                    meses(mesIndex + 1);
+                    // Mostrar un mensaje de ejemplo con el año seleccionado
+                    JOptionPane.showMessageDialog(EstadoFinanciero.this, "Has seleccionado el mes: " + mesSeleccionado);
+                }
+            }
+        });
+    }
 
     private void anios() {
         int anioinicial = Integer.parseInt(ANIOINICIAL);
