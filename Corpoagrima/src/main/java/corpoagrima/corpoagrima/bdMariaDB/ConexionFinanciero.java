@@ -94,4 +94,28 @@ public class ConexionFinanciero {
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
     }
+    
+    public boolean actualizarGastosOperacionales(Connection conexion, float gastosOpera, int year, int month) throws SQLException {
+        String sql = "UPDATE Estado_Financiero SET Gastos_Operacionales=? "
+                + "WHERE MONTH(Fecha)=? AND YEAR(Fecha)=? BY ORDER Fecha DESC LIMIT 1";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setFloat(1, gastosOpera);
+        stmt.setInt(2, year);
+        stmt.setInt(3, month);
+        
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
+    
+    public boolean actualizarIngresos(Connection conexion, float ingresos, int year, int month) throws SQLException {
+        String sql = "UPDATE Estado_Financiero SET Ingresos=? "
+                + "WHERE MONTH(Fecha)=? AND YEAR(Fecha)=? BY ORDER Fecha DESC LIMIT 1";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setFloat(1, ingresos);
+        stmt.setInt(2, year);
+        stmt.setInt(3, month);
+        
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
 }
