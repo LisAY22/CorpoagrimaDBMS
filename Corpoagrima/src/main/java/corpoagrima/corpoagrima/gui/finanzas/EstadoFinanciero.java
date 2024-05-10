@@ -4,6 +4,7 @@
  */
 package corpoagrima.corpoagrima.gui.finanzas;
 
+import corpoagrima.corpoagrima.bdMariaDB.ConexionFinanciero;
 import corpoagrima.corpoagrima.gui.Principal;
 import corpoagrima.corpoagrima.gui.inventario.Inventario;
 import java.awt.event.ItemEvent;
@@ -271,12 +272,51 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         // Establecer el índice seleccionado en el combo box del año
         // Para encontrar el índice del año actual, restamos el año inicial (2024) del año actual y agregamos 1
         añojComboBox.setSelectedIndex(añoActual - Integer.parseInt(ANIOINICIAL));
+
+        try {
+            // Realizar la consulta a la base de datos
+            ResultSet resultadoConsulta = new ConexionFinanciero().consulta(conexion, mesActual, añoActual);
+
+            // Llenar la tabla con los datos obtenidos de la consulta
+            int fila = 0;
+            while (resultadoConsulta.next()) {
+                // Llenar la tabla con los valores de la fila actual de la consulta
+                for (int columna = 0; columna < jTable1.getColumnCount(); columna++) {
+                    // El primer valor de la consulta corresponde a la primera columna de la tabla,
+                    // por lo que usamos columna + 1 para movernos a través de las columnas de la tabla
+                    jTable1.setValueAt(resultadoConsulta.getObject(columna + 1), fila, columna);
+                }
+            }
+        } catch (SQLException ex) {
+            // Manejar cualquier excepción SQL
+            ex.printStackTrace();
+        }
+
     }
 
     private void actualizarTabla() {
+        try {
+            // Obtener el mes y el año seleccionados
+            int mesSeleccionadoIndex = mesjComboBox.getSelectedIndex() + 1; // El índice comienza desde 0
+            int añoSeleccionado = Integer.parseInt((String) añojComboBox.getSelectedItem());
 
-        float ventas = 0;
-        float costos_ventas = 0;
+            // Realizar la consulta a la base de datos con el mes y el año seleccionados
+            ResultSet resultadoConsulta = new ConexionFinanciero().consulta(conexion, mesSeleccionadoIndex, añoSeleccionado);
+
+            // Llenar la tabla con los datos obtenidos de la consulta
+            int fila = 0;
+            while (resultadoConsulta.next()) {
+                // Llenar la tabla con los valores de la fila actual de la consulta
+                for (int columna = 0; columna < jTable1.getColumnCount(); columna++) {
+                    // El primer valor de la consulta corresponde a la primera columna de la tabla,
+                    // por lo que usamos columna + 1 para movernos a través de las columnas de la tabla
+                    jTable1.setValueAt(resultadoConsulta.getObject(columna + 1), fila, columna);
+                }
+            }
+        } catch (SQLException ex) {
+            // Manejar cualquier excepción SQL
+            ex.printStackTrace();
+        }
 
     }
 
@@ -298,6 +338,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
 
     private void actualizarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarJButtonMouseClicked
         // TODO add your handling code here:
+        actualizarTabla();
     }//GEN-LAST:event_actualizarJButtonMouseClicked
 
     private void graficajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficajButtonActionPerformed
@@ -314,7 +355,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         // Establecer la editabilidad de la tabla completa basada en el mes actual
         jTable1.setEnabled(isMesActual);
     }
-    
+
     private void mes() {
         // Agregar el ItemListener después de haber agregado los años al combo box
         mesjComboBox.addItemListener(new ItemListener() {
@@ -324,6 +365,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
                     mesSeleccionado = (String) mesjComboBox.getSelectedItem();
                     int mesIndex = mesjComboBox.getSelectedIndex();
                     meses(mesIndex + 1);
+                    actualizarTabla();
                     // Mostrar un mensaje de ejemplo con el año seleccionado
                     JOptionPane.showMessageDialog(EstadoFinanciero.this, "Has seleccionado el mes: " + mesSeleccionado);
                 }
@@ -350,6 +392,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     añoSeleccionado = (String) añojComboBox.getSelectedItem();
+                    actualizarTabla();
                     // Mostrar un mensaje de ejemplo con el año seleccionado
                     JOptionPane.showMessageDialog(EstadoFinanciero.this, "Has seleccionado el año: " + añoSeleccionado);
                 }
