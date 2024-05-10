@@ -84,17 +84,17 @@
                                               <Component id="Direccion_Label" min="-2" pref="51" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="Direccion_TextField1" min="-2" pref="135" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
+                                              <EmptySpace pref="10" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="Consumidor_CheckBox" max="32767" attributes="0"/>
-                                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="Buscar_jbutton" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="5" max="32767" attributes="0"/>
                                           </Group>
                                           <Component id="NIT_CheckBox" max="32767" attributes="0"/>
                                       </Group>
@@ -120,21 +120,23 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="Guardar_Button" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="150" max="32767" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="Limpiar_button" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                           </Group>
                           <Component id="Eliminar_button" alignment="1" max="32767" attributes="0"/>
-                          <Component id="Agregar_button" max="32767" attributes="0"/>
                           <Component id="Efectivo_TextField" alignment="1" max="32767" attributes="0"/>
                           <Component id="Destacado_label2" max="32767" attributes="0"/>
                           <Component id="Cambio_TextField" max="32767" attributes="0"/>
                           <Component id="Destacado_label3" max="32767" attributes="0"/>
+                          <Component id="Agregar_button" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
