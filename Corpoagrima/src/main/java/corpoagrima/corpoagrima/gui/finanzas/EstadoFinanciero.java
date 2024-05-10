@@ -172,7 +172,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
                 {"Gastos Administrativos", null},
                 {"Gastos Operacionales", 0},
                 {"Utilidad antes de los Ingresos", null},
-                {"Ingresos", null},
+                {"Ingresos", 0},
                 {"Utilidad antes del ISR", null},
                 {"ISR 25%", null},
                 {"Utilidad Neta", null}
@@ -186,7 +186,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex] && rowIndex == 4;
+                return canEdit[columnIndex] && (rowIndex == 4 || rowIndex == 6);
             }
         });
         jTable1.setAutoscrolls(false);
