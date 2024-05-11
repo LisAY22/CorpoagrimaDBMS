@@ -20,4 +20,15 @@ public class ConexionVenta {
         stmt.setBoolean(3, false);
         return stmt.executeQuery();
     }
+    
+    public ResultSet consulta(Connection conexion) throws SQLException {
+        String sql = "SELECT ID_Venta, NoFactura, Cliente.Nombre, Cliente.Apellido, Tipo_de_venta, Total FROM Registro_Venta "
+                + "JOIN Cliente ON Registro_Venta.Cliente_ID_Cliente = Cliente.ID_Cliente "
+                + "WHERE Anulado=?";
+
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setBoolean(1, false);
+
+        return stmt.executeQuery();
+    }
 }

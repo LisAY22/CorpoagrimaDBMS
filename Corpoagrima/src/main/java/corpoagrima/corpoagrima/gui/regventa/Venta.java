@@ -3,30 +3,64 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package corpoagrima.corpoagrima.gui.regventa;
-
 import corpoagrima.corpoagrima.gui.Principal;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionVenta;
+import corpoagrima.corpoagrima.gui.regcompra.Compra;
+import corpoagrima.corpoagrima.gui.regcompra.EditarRegFactura;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author melis
  */
-public class Venta extends javax.swing.JFrame {
+public final class Venta extends javax.swing.JFrame {
 
-    private Connection conexion;
-    private ResultSet credenciales;
+    private final Connection conexion;
+    private final ResultSet credenciales;
+    private final ConexionVenta Venta;
     
     /**
-     * Creates new form Venta
+     * @param conexion
+     * @param credenciales
      */
     public Venta(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        this.Venta = new ConexionVenta();
         initComponents();
+        UpdateTableModel();
+    }
+    
+    
+    public void UpdateTableModel(){
+        try {
+            try (ResultSet Ventas_Result_Set = Venta.consulta(conexion)) {
+                DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+                model.setRowCount(0); // Limpiar los datos existentes
+                
+                ResultSetMetaData metaData = Ventas_Result_Set.getMetaData();
+                int columnCount = metaData.getColumnCount();
+                
+                while (Ventas_Result_Set.next()) {
+                    Object[] rowData = new Object[columnCount];
+                    for (int i = 0; i < columnCount; i++) {
+                        rowData[i] = Ventas_Result_Set.getObject(i + 1);
+                    }
+                    model.addRow(rowData);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos de ventas: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -52,6 +86,7 @@ public class Venta extends javax.swing.JFrame {
         Anular_jbutton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        Anular_jbutton2 = new javax.swing.JButton();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -61,7 +96,7 @@ public class Venta extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Venta");
+        jLabel1.setText("Ventas");
 
         Regresar_Bn.setBackground(new java.awt.Color(34, 85, 34));
         Regresar_Bn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -100,12 +135,13 @@ public class Venta extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(Refresh_button, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)))
+                        .addGap(10, 10, 10))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -118,17 +154,17 @@ public class Venta extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "No.Factura", "Empresa", "Fecha Compra", "Tipo compra", "Total"
+                "ID", "No.Factura", "Nombre", "Apellido", "Tipo Venta", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -141,6 +177,11 @@ public class Venta extends javax.swing.JFrame {
         EditarPuesto_jbutton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         EditarPuesto_jbutton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
         EditarPuesto_jbutton1.setToolTipText("");
+        EditarPuesto_jbutton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarPuesto_jbutton1ActionPerformed(evt);
+            }
+        });
 
         Anular_jbutton1.setBackground(new java.awt.Color(255, 0, 0));
         Anular_jbutton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -154,6 +195,10 @@ public class Venta extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("NUEVO");
 
+        Anular_jbutton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Anular_jbutton2.setText("Visualizar");
+        Anular_jbutton2.setEnabled(true);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -161,19 +206,23 @@ public class Venta extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(Anular_jbutton1)
-                        .addGap(40, 40, 40))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(EditarPuesto_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(NuevoPuesto_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4)))
-                        .addGap(51, 51, 51))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(NuevoPuesto_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel5)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(EditarPuesto_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))))
+                        .addGap(51, 51, 51))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Anular_jbutton2)
+                            .addComponent(Anular_jbutton1))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(Ordenar_Bn1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,23 +231,25 @@ public class Venta extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(116, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EditarPuesto_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NuevoPuesto_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Anular_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Anular_jbutton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Ordenar_Bn1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -240,10 +291,40 @@ public class Venta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Refresh_buttonActionPerformed
 
+    private void EditarPuesto_jbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarPuesto_jbutton1ActionPerformed
+        int selectedRow = jTable2.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura para editar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Obtener el número de factura de la fila seleccionada
+        Object facturaObject = jTable2.getValueAt(selectedRow, 0); 
+        if (facturaObject == null) {
+            JOptionPane.showMessageDialog(this, "No se puede obtener el número de factura.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si el número de factura es nulo
+        }
+
+        // Convertir el objeto a un String (el número de factura)
+        String numeroFactura = facturaObject.toString();
+
+        EditarRegVenta EditarWindow = null;
+        
+        try {
+            EditarWindow = new EditarRegVenta(conexion, credenciales, numeroFactura);
+        } catch (SQLException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        EditarWindow.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_EditarPuesto_jbutton1ActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Anular_jbutton1;
+    private javax.swing.JButton Anular_jbutton2;
     private javax.swing.JButton EditarPuesto_jbutton1;
     private javax.swing.JButton NuevoPuesto_jbutton1;
     private javax.swing.JButton Ordenar_Bn1;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
     </Component>
@@ -84,13 +84,11 @@
                                               <Component id="Direccion_Label" min="-2" pref="51" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="Direccion_TextField1" min="-2" pref="135" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
-                                          <Group type="102" attributes="0">
-                                              <Component id="Consumidor_CheckBox" max="32767" attributes="0"/>
-                                              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="Consumidor_CheckBox" max="32767" attributes="0"/>
                                       </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="Buscar_jbutton" min="-2" max="-2" attributes="0"/>
@@ -114,27 +112,32 @@
                               <Component id="Destacado_label5" min="-2" pref="144" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               <Component id="Total_TextField1" min="-2" pref="127" max="-2" attributes="0"/>
-                              <EmptySpace pref="90" max="32767" attributes="0"/>
+                              <EmptySpace pref="94" max="32767" attributes="0"/>
                               <Component id="Destacado_label4" min="-2" pref="95" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="Total_TextField" min="-2" pref="180" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="198" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane1" min="-2" pref="659" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane1" min="-2" pref="659" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="484" max="-2" attributes="0"/>
+                                      <Component id="Total_TextField" min="-2" pref="176" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace pref="10" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
-                              <Component id="Guardar_Button" min="-2" pref="105" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="Limpiar_button" min="-2" pref="109" max="-2" attributes="0"/>
-                          </Group>
                           <Component id="Eliminar_button" alignment="1" max="32767" attributes="0"/>
                           <Component id="Efectivo_TextField" alignment="1" max="32767" attributes="0"/>
                           <Component id="Destacado_label2" max="32767" attributes="0"/>
                           <Component id="Cambio_TextField" max="32767" attributes="0"/>
                           <Component id="Destacado_label3" max="32767" attributes="0"/>
                           <Component id="Agregar_button" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
+                              <Component id="Null_button" min="-2" pref="220" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -147,7 +150,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="encabezadoJPanel" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="3" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="filler1" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -198,7 +201,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="Agregar_button" min="-2" max="-2" attributes="0"/>
@@ -219,14 +222,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="Destacado_label5" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="Total_TextField1" alignment="1" min="-2" pref="45" max="-2" attributes="0"/>
-                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                          <Component id="Total_TextField" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                          <Component id="Guardar_Button" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Limpiar_button" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Destacado_label4" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                      </Group>
+                  <Component id="Total_TextField1" alignment="1" min="-2" pref="45" max="-2" attributes="0"/>
+                  <Component id="Null_button" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="Total_TextField" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="Destacado_label4" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -248,7 +248,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="back_Button" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="196" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="205" max="-2" attributes="0"/>
                   <Component id="puestoJLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -276,7 +276,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Editar Registro Factura"/>
+            <Property name="text" type="java.lang.String" value="Anular Registro Factura"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="back_Button">
@@ -635,14 +635,18 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Total_TextFieldActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="Guardar_Button">
+    <Component class="javax.swing.JButton" name="Null_button">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Guardar"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="Limpiar_button">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Limpiar"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="0" red="ff" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="14" style="0"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Anular"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="Buscar_jbutton">

@@ -9,15 +9,15 @@ import java.sql.ResultSet;
  *
  * @author User
  */
-public class EditarRegFactura extends javax.swing.JFrame {
+public class AnularRegVenta extends javax.swing.JFrame {
     private final Connection conexion;
     private final ResultSet credenciales;
     /**
-     * Creates new form EditarRegFactura
+     * Creates new form AnularRegFactura
      * @param conexion
      * @param credenciales
      */
-    public EditarRegFactura(Connection conexion, ResultSet credenciales) {
+    public AnularRegVenta(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
         initComponents();
@@ -67,8 +67,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
         Cambio_TextField = new javax.swing.JTextField();
         Destacado_label4 = new javax.swing.JLabel();
         Total_TextField = new javax.swing.JTextField();
-        Guardar_Button = new javax.swing.JButton();
-        Limpiar_button = new javax.swing.JButton();
+        Null_button = new javax.swing.JButton();
         Buscar_jbutton = new javax.swing.JButton();
         Total_TextField1 = new javax.swing.JTextField();
         Destacado_label5 = new javax.swing.JLabel();
@@ -80,7 +79,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
 
         puestoJLabel.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         puestoJLabel.setForeground(new java.awt.Color(255, 255, 255));
-        puestoJLabel.setText("Editar Registro Factura");
+        puestoJLabel.setText("Anular Registro Factura");
 
         back_Button.setBackground(new java.awt.Color(34, 85, 34));
         back_Button.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -105,7 +104,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
             .addGroup(encabezadoJPanelLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(back_Button)
-                .addGap(196, 196, 196)
+                .addGap(205, 205, 205)
                 .addComponent(puestoJLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -293,9 +292,10 @@ public class EditarRegFactura extends javax.swing.JFrame {
             }
         });
 
-        Guardar_Button.setText("Guardar");
-
-        Limpiar_button.setText("Limpiar");
+        Null_button.setBackground(new java.awt.Color(255, 0, 51));
+        Null_button.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Null_button.setForeground(new java.awt.Color(255, 255, 255));
+        Null_button.setText("Anular");
 
         Buscar_jbutton.setText("Buscar");
         Buscar_jbutton.addActionListener(new java.awt.event.ActionListener() {
@@ -365,10 +365,9 @@ public class EditarRegFactura extends javax.swing.JFrame {
                                                 .addComponent(Direccion_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(Direccion_TextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(Consumidor_CheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGap(18, 18, 18)))
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(Consumidor_CheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(Buscar_jbutton)
@@ -384,24 +383,26 @@ public class EditarRegFactura extends javax.swing.JFrame {
                                 .addComponent(Destacado_label5, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12)
                                 .addComponent(Total_TextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                                 .addComponent(Destacado_label4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Total_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(198, 198, 198))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(484, 484, 484)
+                                        .addComponent(Total_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 3, Short.MAX_VALUE)
-                                .addComponent(Guardar_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Limpiar_button, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(Eliminar_button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Efectivo_TextField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(Destacado_label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Cambio_TextField)
                             .addComponent(Destacado_label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Agregar_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(Agregar_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 8, Short.MAX_VALUE)
+                                .addComponent(Null_button, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -448,7 +449,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Direccion_Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Detalles_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Agregar_button)
@@ -467,13 +468,11 @@ public class EditarRegFactura extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Destacado_label5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(Total_TextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Total_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Guardar_Button)
-                            .addComponent(Limpiar_button)
-                            .addComponent(Destacado_label4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(Total_TextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Null_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Total_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Destacado_label4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -566,9 +565,6 @@ public class EditarRegFactura extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Agregar_button;
-    private javax.swing.JButton Anular_button;
-    private javax.swing.JButton Anular_button1;
-    private javax.swing.JButton Anular_button2;
     private javax.swing.JLabel Apellido_Label;
     private javax.swing.JLabel Apellido_Label1;
     private javax.swing.JTextField Apellido_TextField;
@@ -592,12 +588,11 @@ public class EditarRegFactura extends javax.swing.JFrame {
     private javax.swing.JLabel Empleado_label;
     private javax.swing.JTextField Fecha_TextField;
     private javax.swing.JLabel Fecha_label;
-    private javax.swing.JButton Guardar_Button;
-    private javax.swing.JButton Limpiar_button;
     private javax.swing.JCheckBox NIT_CheckBox;
     private javax.swing.JTextField NoFactura_TextField1;
     private javax.swing.JTextField Nombre_TextField;
     private javax.swing.JLabel Nombre_jLabel2;
+    private javax.swing.JButton Null_button;
     private javax.swing.JTable Productos_table;
     private javax.swing.JTextField Total_TextField;
     private javax.swing.JTextField Total_TextField1;
