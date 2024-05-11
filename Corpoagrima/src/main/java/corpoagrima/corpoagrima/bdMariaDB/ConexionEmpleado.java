@@ -139,7 +139,7 @@ public class ConexionEmpleado {
         String sql = "SELECT Empleado.Ajuste_Sueldo AS Ajuste_Sueldo, Empleado.Bonificaciones AS Bonificaciones, "
                 + "Puesto.Salario_Base AS Salario_Base FROM Empleado "
                 + "INNER JOIN Puesto ON Empleado.Puesto_ID_Puesto = Puesto.ID_Puesto "
-                + "WHERE Eliminado=?";
+                + "WHERE Empleado.Eliminado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setBoolean(1, false);
         return stmt.executeQuery();

@@ -84,7 +84,7 @@ public class DatoEstadoFinanciero {
         int anio = LocalDate.now().getYear();
         ResultSet financieroResult = financiero.consulta(conexion, mes, anio);
         financieroResult.next();
-        float gastosOperativos = financieroResult.getFloat("Gastos_Operativos");
+        float gastosOperativos = financieroResult.getFloat("Gastos_Operacionales");
         float ingresos = financieroResult.getFloat("Ingresos");
         float[] datos = datos(conexion, mes, anio, gastosOperativos, ingresos);
         
