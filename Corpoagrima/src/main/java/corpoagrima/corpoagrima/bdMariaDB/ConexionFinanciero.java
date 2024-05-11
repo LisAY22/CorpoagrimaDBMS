@@ -24,6 +24,21 @@ public class ConexionFinanciero {
         return stmt.executeQuery();
     }
     
+    public ResultSet consulta(Connection conexion, int dia, int mes, 
+            int anio) throws SQLException {
+        String sql = "SELECT Ventas, Costos_Ventas, Gastos_Administrativos, "
+                + "Gastos_Operacionales, Utilidad_Antes_Ingresos, Ingresos, "
+                + "Utilidad_Antes_ISR, ISR25, Utilidad_Neta "
+                + "FROM Estado_Financiero "
+                + "WHERE DAY(Fecha)=? AND MONTH(Fecha)=? AND YEAR(Fecha)=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setInt(1, dia);
+        stmt.setInt(2, mes);
+        stmt.setInt(3, anio);
+        
+        return stmt.executeQuery();
+    }
+    
     public ResultSet utilidadNeta(Connection conexion, int mes, int anio) throws SQLException{
         String sql = "SELECT Utilidad_Neta FROM Estado_Financiero "
                 + "WHERE MONTH(Fecha)=? AND YEAR(Fecha)=? BY ORDER Fecha";
