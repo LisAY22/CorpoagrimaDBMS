@@ -71,7 +71,7 @@ public class DatoEstadoFinanciero {
 
         while (empleadoResult.next()) {
             sueldoBase += empleadoResult.getFloat("Salario_base");
-            ajustoSueldo += Integer.valueOf(empleadoResult.getString("Ajuste_Sueldo"));
+            ajustoSueldo += Double.valueOf(empleadoResult.getString("Ajuste_Sueldo"));
             bonificacion += empleadoResult.getInt("Bonificaciones");
         }
 
