@@ -71,7 +71,7 @@ public class DatoEstadoFinanciero {
 
         while (empleadoResult.next()) {
             sueldoBase += empleadoResult.getFloat("Salario_base");
-            ajustoSueldo += Integer.valueOf(empleadoResult.getString("Ajusto_Sueldo"));
+            ajustoSueldo += Integer.valueOf(empleadoResult.getString("Ajuste_Sueldo"));
             bonificacion += empleadoResult.getInt("Bonificaciones");
         }
 
@@ -88,8 +88,8 @@ public class DatoEstadoFinanciero {
         float ingresos = financieroResult.getFloat("Ingresos");
         float[] datos = datos(conexion, mes, anio, gastosOperativos, ingresos);
         
-        this.financiero.actualizar(conexion, datos[0], datos[1], datos[3], 
-                datos[4], datos[5], datos[6], datos[7], datos[8], datos[9], 
-                datos[10]);
+        this.financiero.actualizar(conexion, datos[0], datos[1], datos[2], 
+                datos[3], datos[4], datos[5], datos[6], datos[7], datos[8], 
+                datos[9]);
     }
 }
