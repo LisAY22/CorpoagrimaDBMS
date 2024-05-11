@@ -42,11 +42,11 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         this.conexion = conexion;
         this.credenciales = credenciales;
         initComponents();
-        actualizarTabla();
         anios();
         informacionInicial();
         meses(LocalDate.now().getMonthValue());
         mes();
+        actualizarTabla();
     }
 
     /**
@@ -278,10 +278,10 @@ public class EstadoFinanciero extends javax.swing.JFrame {
             ResultSet resultadoConsulta = new ConexionFinanciero().consulta(conexion, mesActual, añoActual);
 
             // Llenar la tabla con los datos obtenidos de la consulta
-            int fila = 0;
+            int columna = 1;
             while (resultadoConsulta.next()) {
                 // Llenar la tabla con los valores de la fila actual de la consulta
-                for (int columna = 0; columna < jTable1.getColumnCount(); columna++) {
+                for (int fila = 0; fila < jTable1.getRowCount(); fila++) {
                     // El primer valor de la consulta corresponde a la primera columna de la tabla,
                     // por lo que usamos columna + 1 para movernos a través de las columnas de la tabla
                     jTable1.setValueAt(resultadoConsulta.getObject(columna + 1), fila, columna);
@@ -303,14 +303,14 @@ public class EstadoFinanciero extends javax.swing.JFrame {
             // Realizar la consulta a la base de datos con el mes y el año seleccionados
             ResultSet resultadoConsulta = new ConexionFinanciero().consulta(conexion, mesSeleccionadoIndex, añoSeleccionado);
 
-            // Llenar la tabla con los datos obtenidos de la consulta
-            int fila = 0;
+            // Llenar la tabla con los datos obtenidos de la consulta poniendo solo en la columna 2
+            int columna = 1;
             while (resultadoConsulta.next()) {
                 // Llenar la tabla con los valores de la fila actual de la consulta
-                for (int columna = 0; columna < jTable1.getColumnCount(); columna++) {
+                for (int fila = 0; fila < jTable1.getRowCount(); fila++) {
                     // El primer valor de la consulta corresponde a la primera columna de la tabla,
                     // por lo que usamos columna + 1 para movernos a través de las columnas de la tabla
-                    jTable1.setValueAt(resultadoConsulta.getObject(columna + 1), fila, columna);
+                    jTable1.setValueAt(resultadoConsulta.getObject(fila+1), fila, columna);
                 }
             }
         } catch (SQLException ex) {
