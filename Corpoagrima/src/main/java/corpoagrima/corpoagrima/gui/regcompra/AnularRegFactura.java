@@ -1,12 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package corpoagrima.corpoagrima.gui.regcompra;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
+import corpoagrima.corpoagrima.gui.Principal;
+import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -21,13 +21,15 @@ import javax.swing.table.DefaultTableModel;
  * @author lisaj
  */
 public class AnularRegFactura extends javax.swing.JFrame {
+
     private Connection conexion;
     private ResultSet credenciales;
     private ConexionCompra compras;
     private ConexionProducto productos;
     private String factura;
     private int id;
-    
+    private DatoEstadoFinanciero logicFinanciero;
+
     /**
      * Creates new form CAnularRegFactura
      */
@@ -35,14 +37,30 @@ public class AnularRegFactura extends javax.swing.JFrame {
         this.conexion = conexion;
         this.credenciales = credenciales;
         this.factura = numeroFactura;
+        this.logicFinanciero = new DatoEstadoFinanciero(conexion);
+
         compras = new ConexionCompra();
         productos = new ConexionProducto();
         initComponents();
         mostrarInformacion();
         sumarColumnaProductos();
+
+        // Agregar el WindowListener para detectar el cierre de la ventana
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Aquí colocas el código que deseas ejecutar cuando la ventana se cierre
+                try {
+                    // TODO add your handling code here:
+                    logicFinanciero.actualizarFinanciero(conexion);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
-    
-    public final void mostrarInformacion() throws SQLException{
+
+    public final void mostrarInformacion() throws SQLException {
         ResultSet rs = compras.busqueda(conexion, factura);
         if (rs.next()) {
             id = rs.getInt("ID_Compra");
@@ -56,13 +74,13 @@ public class AnularRegFactura extends javax.swing.JFrame {
             String nombreCompletoUsuario = nombreUsuario + " " + apellidoUsuario;
             String detalle = rs.getString("Detalle");
             double total = rs.getDouble("Total");
-            
+
             if ("Credito".equals(tipoCompra)) {
                 credito_checkBox.setSelected(true);
             } else {
                 credito_checkBox.setSelected(false);
             }
-            
+
             ResultSet proveedor = new ConexionProveedores().proveedor2(conexion, empresa);
             proveedor.next();
             String numero = proveedor.getString("Numero");
@@ -74,17 +92,17 @@ public class AnularRegFactura extends javax.swing.JFrame {
             empleado_textfield.setText(nombreCompletoUsuario);
             Detalle_textfield.setText(detalle);
             totalJTextField1.setText(String.valueOf(total));
-            
+
             // Obtener el modelo de la tabla actual
             try (ResultSet productos = compras.busqueda2(conexion, factura)) {
                 // Obtener el modelo de la tabla actual
                 DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
                 model.setRowCount(0); // Limpiar los datos existentes
-                
+
                 // Agregar nuevas filas al modelo de tabla
                 ResultSetMetaData metaData = productos.getMetaData();
                 int columnCount = metaData.getColumnCount();
-                
+
                 while (productos.next()) {
                     Object[] rowData = new Object[columnCount];
                     for (int i = 0; i < columnCount; i++) {
@@ -99,6 +117,7 @@ public class AnularRegFactura extends javax.swing.JFrame {
                     "Busqueda", JOptionPane.WARNING_MESSAGE);
         }
     }
+
     private void sumarColumnaProductos() {
         DefaultTableModel model = (DefaultTableModel) listaProductoJTable.getModel();
         int rowCount = model.getRowCount();

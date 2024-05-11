@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package corpoagrima.corpoagrima.gui;
 
 import corpoagrima.corpoagrima.gui.inventario.Inventario;
@@ -11,25 +7,28 @@ import corpoagrima.corpoagrima.gui.proveedor.Proveedor;
 import corpoagrima.corpoagrima.gui.regcompra.Compra;
 import corpoagrima.corpoagrima.gui.regventa.Venta;
 import corpoagrima.corpoagrima.gui.rrhh.RRHH;
+import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author lisaj
  */
 public class Principal extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form principal
      */
     private Connection conexion;
     private ResultSet credenciales;
-    
+    private DatoEstadoFinanciero logicFinanciero;
+
     public Principal(Connection conexion, ResultSet credenciales) throws SQLException {
         this.conexion = conexion;
         this.credenciales = credenciales;
@@ -48,7 +47,21 @@ public class Principal extends javax.swing.JFrame {
         comprasJButton.setEnabled(permisoRegCompra);
         ventasJButton.setEnabled(permisoRegVenta);
         finanzasJButton.setEnabled(permisoFinanciero);
-        
+        this.logicFinanciero = new DatoEstadoFinanciero(conexion);
+
+        // Agregar el WindowListener para detectar el cierre de la ventana
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Aquí colocas el código que deseas ejecutar cuando la ventana se cierre
+                try {
+                    // TODO add your handling code here:
+                    logicFinanciero.actualizarFinanciero(conexion);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
     /**
@@ -259,12 +272,16 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_rhJButtonActionPerformed
 
     private void regresarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarJButtonActionPerformed
-        // TODO add your handling code here:
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            logicFinanciero.actualizarFinanciero(conexion);
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Login login_screen = new Login();
         login_screen.setVisible(true);
         login_screen.setLocationRelativeTo(null);
-        
+
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_regresarJButtonActionPerformed
@@ -279,7 +296,7 @@ public class Principal extends javax.swing.JFrame {
     private void clientesJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesJButtonActionPerformed
         // TODO add your handling code here:
         Cliente clientes_screen = new Cliente(conexion, credenciales);
-        clientes_screen.setVisible(true);        
+        clientes_screen.setVisible(true);
         // Cerrar la ventana actual
         dispose();
     }//GEN-LAST:event_clientesJButtonActionPerformed

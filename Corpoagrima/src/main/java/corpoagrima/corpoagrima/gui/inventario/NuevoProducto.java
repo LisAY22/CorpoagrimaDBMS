@@ -6,6 +6,10 @@ package corpoagrima.corpoagrima.gui.inventario;
 
 import corpoagrima.corpoagrima.gui.inventario.Inventario;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
+import corpoagrima.corpoagrima.gui.Principal;
+import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +26,7 @@ public class NuevoProducto extends javax.swing.JFrame {
     private Connection conexion;
     private ResultSet credenciales;
     private ConexionProducto inventario;
+    private DatoEstadoFinanciero logicFinanciero;
     
     /**
      * Creates new form NuevoProducto
@@ -29,8 +34,23 @@ public class NuevoProducto extends javax.swing.JFrame {
     public NuevoProducto(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        this.logicFinanciero = new DatoEstadoFinanciero(conexion);
         inventario = new ConexionProducto();
         initComponents();
+        
+        // Agregar el WindowListener para detectar el cierre de la ventana
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Aquí colocas el código que deseas ejecutar cuando la ventana se cierre
+                try {
+                    // TODO add your handling code here:
+                    logicFinanciero.actualizarFinanciero(conexion);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
     /**

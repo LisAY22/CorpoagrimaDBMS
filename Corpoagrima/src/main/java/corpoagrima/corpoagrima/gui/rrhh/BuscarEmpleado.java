@@ -1,15 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package corpoagrima.corpoagrima.gui.rrhh;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionTelefono;
+import corpoagrima.corpoagrima.gui.Principal;
+import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
 import corpoagrima.corpoagrima.logic.encriptar;
 import java.awt.event.ItemEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,6 +37,7 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
     private int idTelefono;
     private String contrasenia;
     private String idEmpleado;
+    private DatoEstadoFinanciero logicFinanciero;
 
     /**
      * /**
@@ -49,6 +50,7 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
         this.conexion = conexion;
         this.credenciales = credenciales;
         this.idEmpleado = IDEmpleado;
+        this.logicFinanciero = new DatoEstadoFinanciero(conexion);
         Empleado = new ConexionEmpleado();
         Puesto = new ConexionPuesto();
         Usuario = new ConexionUsuario();
@@ -66,6 +68,19 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
                 Logger.getLogger(BuscarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+        // Agregar el WindowListener para detectar el cierre de la ventana
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Aquí colocas el código que deseas ejecutar cuando la ventana se cierre
+                try {
+                    // TODO add your handling code here:
+                    logicFinanciero.actualizarFinanciero(conexion);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
     
     public final void buscar(String IDString){

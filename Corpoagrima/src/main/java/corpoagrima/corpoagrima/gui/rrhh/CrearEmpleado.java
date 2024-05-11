@@ -1,15 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package corpoagrima.corpoagrima.gui.rrhh;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionTelefono;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
+import corpoagrima.corpoagrima.gui.Principal;
+import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
 import corpoagrima.corpoagrima.logic.encriptar;
 import java.awt.event.ItemEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,6 +33,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
     private ConexionTelefono Telefono;
     private int idPuesto;
     private int idUsuario;
+    private DatoEstadoFinanciero logicFinanciero;
     private int idTelefono;
 
     /**
@@ -42,6 +43,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
     public CrearEmpleado(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        this.logicFinanciero = new DatoEstadoFinanciero(conexion);
         Empleado = new ConexionEmpleado();
         Puesto = new ConexionPuesto();
         Usuario = new ConexionUsuario();
@@ -54,6 +56,19 @@ public class CrearEmpleado extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(CrearEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
+        // Agregar el WindowListener para detectar el cierre de la ventana
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Aquí colocas el código que deseas ejecutar cuando la ventana se cierre
+                try {
+                    // TODO add your handling code here:
+                    logicFinanciero.actualizarFinanciero(conexion);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
     
     private void comboboxfull() {

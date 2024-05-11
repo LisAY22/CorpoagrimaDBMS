@@ -5,7 +5,11 @@
 package corpoagrima.corpoagrima.gui.regcompra;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
+import corpoagrima.corpoagrima.gui.Principal;
 import corpoagrima.corpoagrima.gui.cliente.EditarCliente;
+import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -28,6 +32,7 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
     private NuevoRegFactura nuevaFactura = null;
     private EditarRegFactura editarFactura = null;
     private int id;
+    private DatoEstadoFinanciero logicFinanciero;
 
     /**
      * Creates new form AgregarPRegFactura
@@ -36,8 +41,24 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
         this.conexion = conexion;
         this.credenciales = credenciales;
         this.nuevaFactura = nuevaFactura;
+        this.logicFinanciero = new DatoEstadoFinanciero(conexion);
         producto = new ConexionProducto();
         initComponents();
+        
+        // Agregar el WindowListener para detectar el cierre de la ventana
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Aquí colocas el código que deseas ejecutar cuando la ventana se cierre
+                try {
+                    // TODO add your handling code here:
+                    logicFinanciero.actualizarFinanciero(conexion);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
     }
 
     public AgregarPRegFactura(Connection conexion, ResultSet credenciales, EditarRegFactura editarFactura) {
