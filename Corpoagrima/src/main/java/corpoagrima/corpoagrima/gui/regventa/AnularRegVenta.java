@@ -68,7 +68,6 @@ public class AnularRegVenta extends javax.swing.JFrame {
         Destacado_label4 = new javax.swing.JLabel();
         Total_TextField = new javax.swing.JTextField();
         Null_button = new javax.swing.JButton();
-        Buscar_jbutton = new javax.swing.JButton();
         Total_TextField1 = new javax.swing.JTextField();
         Destacado_label5 = new javax.swing.JLabel();
 
@@ -297,13 +296,6 @@ public class AnularRegVenta extends javax.swing.JFrame {
         Null_button.setForeground(new java.awt.Color(255, 255, 255));
         Null_button.setText("Anular");
 
-        Buscar_jbutton.setText("Buscar");
-        Buscar_jbutton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Buscar_jbuttonActionPerformed(evt);
-            }
-        });
-
         Total_TextField1.setForeground(new java.awt.Color(255, 51, 51));
         Total_TextField1.setToolTipText("Total venta");
         Total_TextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -368,11 +360,7 @@ public class AnularRegVenta extends javax.swing.JFrame {
                                                 .addGap(0, 0, Short.MAX_VALUE))
                                             .addComponent(Consumidor_CheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(Buscar_jbutton)
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                            .addComponent(NIT_CheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                                        .addComponent(NIT_CheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Direccion_Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -427,8 +415,7 @@ public class AnularRegVenta extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(Direccion_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Direccion_TextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Buscar_jbutton))
+                                .addComponent(Direccion_TextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Nombre_jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -550,10 +537,6 @@ public class AnularRegVenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Total_TextFieldActionPerformed
 
-    private void Buscar_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_jbuttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Buscar_jbuttonActionPerformed
-
     private void NIT_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NIT_CheckBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NIT_CheckBoxActionPerformed
@@ -568,7 +551,6 @@ public class AnularRegVenta extends javax.swing.JFrame {
     private javax.swing.JLabel Apellido_Label;
     private javax.swing.JLabel Apellido_Label1;
     private javax.swing.JTextField Apellido_TextField;
-    private javax.swing.JButton Buscar_jbutton;
     private javax.swing.JTextField Cambio_TextField;
     private javax.swing.JCheckBox Consumidor_CheckBox;
     private javax.swing.JCheckBox Credito_checkbox;

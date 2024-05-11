@@ -89,13 +89,7 @@
                                           <Component id="Consumidor_CheckBox" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="Buscar_jbutton" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Component id="NIT_CheckBox" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="NIT_CheckBox" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -171,7 +165,6 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="Direccion_Label" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                               <Component id="Direccion_TextField1" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="Buscar_jbutton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -648,14 +641,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Anular"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="Buscar_jbutton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Buscar_jbuttonActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="Total_TextField1">
       <Properties>

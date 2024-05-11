@@ -89,13 +89,7 @@
                                           <Component id="Consumidor_CheckBox" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="Buscar_jbutton" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Component id="NIT_CheckBox" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="NIT_CheckBox" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -112,7 +106,7 @@
                               <Component id="Destacado_label5" min="-2" pref="144" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               <Component id="Total_TextField1" min="-2" pref="127" max="-2" attributes="0"/>
-                              <EmptySpace pref="90" max="32767" attributes="0"/>
+                              <EmptySpace pref="94" max="32767" attributes="0"/>
                               <Component id="Destacado_label4" min="-2" pref="95" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="Total_TextField" min="-2" pref="180" max="-2" attributes="0"/>
@@ -122,7 +116,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
                               <Component id="Guardar_Button" min="-2" pref="105" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="Limpiar_button" min="-2" pref="109" max="-2" attributes="0"/>
@@ -166,7 +160,6 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="Direccion_Label" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                               <Component id="Direccion_TextField1" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="Buscar_jbutton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -640,16 +633,8 @@
     </Component>
     <Component class="javax.swing.JButton" name="Limpiar_button">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Limpiar"/>
+        <Property name="text" type="java.lang.String" value="Reestablecer"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="Buscar_jbutton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Buscar_jbuttonActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="Total_TextField1">
       <Properties>
