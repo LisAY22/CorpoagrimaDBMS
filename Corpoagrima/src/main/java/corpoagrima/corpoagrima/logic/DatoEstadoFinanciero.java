@@ -2,10 +2,12 @@ package corpoagrima.corpoagrima.logic;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionFinanciero;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionVenta;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 /**
  *
@@ -17,6 +19,7 @@ public class DatoEstadoFinanciero {
     private ConexionCompra compra;
     private ConexionVenta venta;
     private ConexionEmpleado empleado;
+    private ConexionFinanciero financiero;
 
     public DatoEstadoFinanciero(Connection conexion) {
         this.conexion = conexion;
@@ -73,5 +76,20 @@ public class DatoEstadoFinanciero {
         }
 
         return sueldoBase + ajustoSueldo + bonificacion;
+    }
+    
+    public void actualizarFinanciero(Connection conexion) throws SQLException{
+        this.financiero = new ConexionFinanciero();
+        int mes = LocalDate.now().getMonthValue();
+        int anio = LocalDate.now().getYear();
+        ResultSet financieroResult = financiero.consulta(conexion, mes, anio);
+        financieroResult.next();
+        float gastosOperativos = financieroResult.getFloat("Gastos_Operativos");
+        float ingresos = financieroResult.getFloat("Ingresos");
+        float[] datos = datos(conexion, mes, anio, gastosOperativos, ingresos);
+        
+        this.financiero.actualizar(conexion, datos[0], datos[1], datos[3], 
+                datos[4], datos[5], datos[6], datos[7], datos[8], datos[9], 
+                datos[10]);
     }
 }

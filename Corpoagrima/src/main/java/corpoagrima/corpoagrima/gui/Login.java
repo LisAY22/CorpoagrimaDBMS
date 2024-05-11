@@ -1,17 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package corpoagrima.corpoagrima.gui;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
 import corpoagrima.corpoagrima.bdMariaDB.Conexion;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionFinanciero;
 import corpoagrima.corpoagrima.logic.encriptar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,6 +18,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author lisaj
+ * @author WilderL
  */
 public class Login extends javax.swing.JFrame {
 
@@ -26,12 +26,12 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     private Connection conexion;
-    
+
     public Login() {
         Conexion conexion = new Conexion();
         this.conexion = conexion.obtenerConexion();
         initComponents();
-        
+
         usuarioJTextField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,7 +53,7 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         });
-    
+
     }
 
     /**
@@ -183,10 +183,10 @@ public class Login extends javax.swing.JFrame {
     private void contraseñaJButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseñaJButtonMousePressed
         // TODO add your handling code here:
         String contraseña = new String(contraseñaJPasswordField.getPassword());
-    
+
         // Establecer el campo de contraseña para mostrar el contenido en texto claro
         contraseñaJPasswordField.setEchoChar((char) 0);
-    
+
         // Establecer el texto del campo de contraseña como la contraseña
         contraseñaJPasswordField.setText(contraseña);
     }//GEN-LAST:event_contraseñaJButtonMousePressed
@@ -204,16 +204,39 @@ public class Login extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ingresarJButtonMouseClicked
-        
+
     private void ingresar() throws SQLException {
         String usuario = usuarioJTextField.getText();
         String contraseña = new String(contraseñaJPasswordField.getPassword());
         String contraseniaEncriptada = encriptar.encriptarContrasenia(contraseña);
-        
+
         ConexionUsuario login = new ConexionUsuario();
         ResultSet credenciales = login.consulta(conexion, usuario, contraseniaEncriptada);
         // Verificar las credenciales en la base de datos
         if (credenciales.next()) {
+            //Verificacion de la tabla financiera del dia actual (YY-MM-DD)
+            int dia = LocalDate.now().getDayOfMonth();
+            int mes = LocalDate.now().getMonthValue();
+            int anio = LocalDate.now().getYear();
+
+            ConexionFinanciero financiero = new ConexionFinanciero();
+            ResultSet esFinancieroActual = financiero.consulta(conexion);
+            if (!esFinancieroActual.next()) {
+                financiero.insertar(conexion, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            }
+            
+            esFinancieroActual = financiero.consulta(conexion, dia, mes, anio);
+            if (!esFinancieroActual.next()) {
+                // Crea la tabla financiera de inicio de mes
+                if (dia == 1) {
+                    financiero.insertar(conexion, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                } // Crea una copia con los datos actuales del dia de ayer y ponerlo al dia actual
+                else {
+                    String procedimiento = "{call duplicarRegistroDiario()}";
+                    CallableStatement statement = conexion.prepareCall(procedimiento);
+                    statement.execute();
+                }
+            }
             // Si las credenciales son correctas, abrir la nueva ventana
             Principal principal_screen = new Principal(conexion, credenciales);
             principal_screen.setVisible(true);
@@ -221,13 +244,12 @@ public class Login extends javax.swing.JFrame {
 
             // Cerrar la ventana actual
             dispose();
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton contraseñaJButton;
     private javax.swing.JLabel contraseñaJLabel;
