@@ -345,6 +345,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
                     // por lo que usamos columna + 1 para movernos a través de las columnas de la tabla
                     jTable1.setValueAt(String.valueOf(datoFinanciero[fila]), fila, columna);
                 }
+                logicFinanciero.actualizarFinanciero(conexion);
 
             } else {
                 // Realizar la consulta a la base de datos con el mes y el año seleccionados
@@ -383,7 +384,12 @@ public class EstadoFinanciero extends javax.swing.JFrame {
     }//GEN-LAST:event_regresarJButtonActionPerformed
 
     private void actualizarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarJButtonMouseClicked
-        actualizarTabla();
+        try {
+            informacionInicial();
+            logicFinanciero.actualizarFinanciero(conexion);
+        } catch (SQLException ex) {
+            Logger.getLogger(EstadoFinanciero.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_actualizarJButtonMouseClicked
 
     private void graficajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficajButtonActionPerformed
