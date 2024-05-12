@@ -66,13 +66,13 @@ public final class EditarRegVenta extends javax.swing.JFrame {
                 Destacado_checkBox.setSelected(true);
             }
             
-            if (NIT == "C/F"){
+            if (NIT.equals("C/F")){
                 Consumidor_CheckBox.setSelected(true);
             }else{
                 NIT_CheckBox.setSelected(true);
             }
             
-            if (Tipo == "Crédito"){
+            if (Tipo.equals("Crédito")){
                 Credito_checkbox.setSelected(true);
             }
             
