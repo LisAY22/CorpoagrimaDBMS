@@ -88,7 +88,7 @@ public class DatoEstadoFinanciero {
         this.financiero = new ConexionFinanciero();
         int mes = LocalDate.now().getMonthValue();
         int anio = LocalDate.now().getYear();
-        ResultSet financieroResult = financiero.consulta(conexion, mes, anio);
+        ResultSet financieroResult = financiero.financieroActual(conexion);
         financieroResult.next();
         float gastosOperativos = financieroResult.getFloat("Gastos_Operacionales");
         float ingresos = financieroResult.getFloat("Ingresos");

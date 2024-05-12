@@ -12,6 +12,18 @@ import java.time.LocalDate;
  */
 public class ConexionFinanciero {
     
+    public ResultSet financieroActual(Connection conexion) throws SQLException {
+        String sql = "SELECT Ventas, Costos_Ventas, Utilidad_Bruta, Gastos_Administrativos, "
+                + "Gastos_Operacionales, Utilidad_Antes_Ingresos, Ingresos, "
+                + "Utilidad_Antes_ISR, ISR25, Utilidad_Neta "
+                + "FROM Estado_Financiero WHERE Fecha=?";
+        String fecha = LocalDate.now().toString();
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, fecha);
+
+        return stmt.executeQuery();
+    }
+    
     public ResultSet consulta(Connection conexion) throws SQLException {
         String sql = "SELECT * FROM Estado_Financiero";
         PreparedStatement stmt = conexion.prepareStatement(sql);
@@ -23,7 +35,8 @@ public class ConexionFinanciero {
         String sql = "SELECT Ventas, Costos_Ventas, Utilidad_Bruta, Gastos_Administrativos, "
                 + "Gastos_Operacionales, Utilidad_Antes_Ingresos, Ingresos, "
                 + "Utilidad_Antes_ISR, ISR25, Utilidad_Neta "
-                + "FROM Estado_Financiero WHERE MONTH(Fecha)=? AND YEAR(Fecha)=?";
+                + "FROM Estado_Financiero WHERE MONTH(Fecha)=? AND YEAR(Fecha)=?"
+                + " ORDER BY Fecha DESC LIMIT 1";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setInt(1, mes);
         stmt.setInt(2, anio);
@@ -37,7 +50,7 @@ public class ConexionFinanciero {
                 + "Gastos_Operacionales, Utilidad_Antes_Ingresos, Ingresos, "
                 + "Utilidad_Antes_ISR, ISR25, Utilidad_Neta "
                 + "FROM Estado_Financiero "
-                + "WHERE DAY(Fecha)=? AND MONTH(Fecha)=? AND YEAR(Fecha)=?";
+                + "WHERE DAY(Fecha)=? AND MONTH(Fecha)=? AND YEAR(Fecha)=? ";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setInt(1, dia);
         stmt.setInt(2, mes);
@@ -119,25 +132,25 @@ public class ConexionFinanciero {
         return filasAfectadas > 0;
     }
     
-    public boolean actualizarGastosOperacionales(Connection conexion, float gastosOpera, int year, int month) throws SQLException {
+    public boolean actualizarGastosOperacionales(Connection conexion, float gastosOpera) throws SQLException {
         String sql = "UPDATE Estado_Financiero SET Gastos_Operacionales=? "
-                + "WHERE MONTH(Fecha)=? AND YEAR(Fecha)=? ORDER BY  Fecha DESC LIMIT 1";
+                + "WHERE Fecha=?";
+        String fecha = LocalDate.now().toString();
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setFloat(1, gastosOpera);
-        stmt.setInt(3, year);
-        stmt.setInt(2, month);
+        stmt.setString(2, fecha);
         
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
     }
     
-    public boolean actualizarIngresos(Connection conexion, float ingresos, int year, int month) throws SQLException {
+    public boolean actualizarIngresos(Connection conexion, float ingresos) throws SQLException {
         String sql = "UPDATE Estado_Financiero SET Ingresos=? "
-                + "WHERE MONTH(Fecha)=? AND YEAR(Fecha)=? ORDER BY Fecha DESC LIMIT 1";
+                + "WHERE Fecha=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
+        String fecha = LocalDate.now().toString();
         stmt.setFloat(1, ingresos);
-        stmt.setInt(3, year);
-        stmt.setInt(2, month);
+        stmt.setString(2, fecha);
         
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;

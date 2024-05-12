@@ -321,10 +321,11 @@ public class EstadoFinanciero extends javax.swing.JFrame {
 
                             // Actualizar la base de datos según la celda modificada
                             if (e.getFirstRow() == filaGastosOperacionales) {
-                                financiero.actualizarGastosOperacionales(conexion, valor, mes, anio);
+                                financiero.actualizarGastosOperacionales(conexion, valor);
                             } else if (e.getFirstRow() == filaIngresos) {
-                                financiero.actualizarIngresos(conexion, valor, mes, anio);
+                                financiero.actualizarIngresos(conexion, valor);
                             }
+                            actualizarTablaSinNotificar();
                         } catch (SQLException ex) {
                             Logger.getLogger(EstadoFinanciero.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (NumberFormatException ex) {
@@ -359,8 +360,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
             int añoActual = LocalDate.now().getYear();       // Año actual
 
             if (mesActual == mesSeleccionadoIndex && añoActual == añoSeleccionado) {
-                ResultSet financieroResult = financiero.consulta(conexion,
-                        mesSeleccionadoIndex, añoSeleccionado);
+                ResultSet financieroResult = financiero.financieroActual(conexion);
                 financieroResult.next();
                 float gastosOperativos = financieroResult.getFloat("Gastos_Operacionales");
                 float ingresos = financieroResult.getFloat("Ingresos");
