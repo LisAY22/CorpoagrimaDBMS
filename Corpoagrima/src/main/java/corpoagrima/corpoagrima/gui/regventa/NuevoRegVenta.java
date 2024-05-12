@@ -72,6 +72,10 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         Limpiar_button = new javax.swing.JButton();
         Guardar_button = new javax.swing.JButton();
+        AgregarBn = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        EliminarBn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -305,8 +309,30 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Limpiar_button)
                     .addComponent(Guardar_button))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        AgregarBn.setBackground(new java.awt.Color(136, 213, 133));
+        AgregarBn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agregar.png"))); // NOI18N
+        AgregarBn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarBnActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setText("AGREGAR");
+
+        EliminarBn.setBackground(new java.awt.Color(136, 213, 133));
+        EliminarBn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eliminar.png"))); // NOI18N
+        EliminarBn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarBnActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setText("ELIMINAR");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -327,16 +353,30 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                         .addContainerGap(310, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(Destacado_label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(169, 169, 169))
-                            .addComponent(Destacado_label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(49, 49, 49)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(Destacado_label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(169, 169, 169))
+                                    .addComponent(Destacado_label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(Efectivo_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(Cambio_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap())))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(Cambio_TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                                    .addComponent(Efectivo_TextField))
+                                .addGap(107, 107, 107)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(AgregarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(EliminarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(0, 0, Short.MAX_VALUE))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -439,32 +479,40 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                     .addComponent(Detalles_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Destacado_label2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Efectivo_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Destacado_label3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Cambio_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(94, 94, 94))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(totalProductoLabel)
-                                .addComponent(totalProductoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(totalLabel)
-                            .addComponent(totalJTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(AgregarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(EliminarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)
+                        .addComponent(Destacado_label2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Efectivo_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Destacado_label3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Cambio_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(totalProductoLabel)
+                        .addComponent(totalProductoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(totalLabel)
+                    .addComponent(totalJTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 359, Short.MAX_VALUE)
+                    .addGap(0, 371, Short.MAX_VALUE)
                     .addComponent(totalJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 359, Short.MAX_VALUE)))
+                    .addGap(0, 372, Short.MAX_VALUE)))
         );
 
         pack();
@@ -514,76 +562,24 @@ public class NuevoRegVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
 
     private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
-        // TODO add your handling code here:
-        limpiar();
+        
     }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
     private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
-        try {
-            // datos del proveedor
-            String nombreProveedor = (String) Proveedor_comboBox.getSelectedItem();
-            ResultSet proveedorResultSet = this.proveedor.idProveedor(conexion, nombreProveedor);
-            proveedorResultSet.next();
-            int idProveedor = proveedorResultSet.getInt("ID_Proveedor");
-            // datos de la factura
-            String noFactura = noFactura_textfield.getText();
-            String fecha = fecha_textfield.getText();
-            boolean esCredito = credito_checkBox.isSelected();
-            String credito = (esCredito) ? "Credito" : "Contado";
-            float total = Float.parseFloat(totalJTextField.getText());
-            // datos registro compra has producto
-            String detalle = detalle_textfield1.getText();
-            // guardado factura compra y obtener la id
-            boolean compraResultSet = compra.agregar(conexion, noFactura, false,
-                fecha, credito, total, idProveedor, idEmpleado);
-            if (!compraResultSet) {
-                throw new SQLException("Error al agregar un registro de compra");
-            }
-            ResultSet compraResult = compra.idCompra(conexion, noFactura);
-            compraResult.next();
-            int idCompra = compraResult.getInt("ID_Compra");
-            // recolecion de datos de la tabla
-            String nombreProducto;
-            int cantidad;
-            float costoUnidad;
-            float costoTotal;
-            DefaultTableModel modelo = (DefaultTableModel) listaProductoJTable.getModel();
-            int numFilas = modelo.getRowCount();
-            for (int fila = 0; fila < numFilas; fila++) {
-                nombreProducto = modelo.getValueAt(fila, 0).toString();
-                cantidad = Integer.parseInt(modelo.getValueAt(fila, 3).toString());
-                costoUnidad = Integer.parseInt(modelo.getValueAt(fila, 4).toString());
-                costoTotal = Integer.parseInt(modelo.getValueAt(fila, 5).toString());
-
-                // actualizar datos producto
-                ResultSet productoResult = producto.cantidad(conexion, nombreProducto);
-                productoResult.next();
-                int idProducto = productoResult.getInt("ID_Producto");
-                int stock = productoResult.getInt("Stock");
-                stock += cantidad;
-                producto.actualizar(conexion, idProducto, stock);
-                // guardado registro compra has producto
-                compraProducto.agregar(conexion, idCompra, idProducto, detalle,
-                    cantidad, costoUnidad, costoTotal);
-            }
-
-            if (compraResultSet) {
-                JOptionPane.showMessageDialog(this,
-                    "Se ha guardado exitosamente.",
-                    "Guardando", JOptionPane.INFORMATION_MESSAGE);
-                limpiar();
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(NuevoRegFactura.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this,
-                "Se ha producido un error.",
-                "Error", JOptionPane.INFORMATION_MESSAGE);
-        }
+    
     }//GEN-LAST:event_Guardar_buttonActionPerformed
+
+    private void AgregarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBnActionPerformed
+        
+    }//GEN-LAST:event_AgregarBnActionPerformed
+
+    private void EliminarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBnActionPerformed
+       
+    }//GEN-LAST:event_EliminarBnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AgregarBn;
     private javax.swing.JLabel Apellido_Label;
     private javax.swing.JLabel Apellido_Label1;
     private javax.swing.JTextField Apellido_TextField;
@@ -599,6 +595,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
     private javax.swing.JLabel Direccion_Label1;
     private javax.swing.JTextField Direccion_TextField;
     private javax.swing.JTextField Efectivo_TextField;
+    private javax.swing.JButton EliminarBn;
     private javax.swing.JTextField Empleado_TextField;
     private javax.swing.JLabel Empleado_label;
     private javax.swing.JTextField Fecha_TextField;
@@ -615,6 +612,8 @@ public class NuevoRegVenta extends javax.swing.JFrame {
     private javax.swing.JPanel encabezadoJPanel;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel puestoJLabel;
