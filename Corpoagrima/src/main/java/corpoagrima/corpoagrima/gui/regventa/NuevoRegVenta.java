@@ -207,10 +207,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
 
         Productos_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "Detalle", "Cantidad", "Descuento", "Precio Unidad", "Precio Total"
