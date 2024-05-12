@@ -34,7 +34,7 @@ public class ConexionVenta {
     
     public ResultSet ConsultaEditWindow(Connection conexion, String NoFactura) throws SQLException{
         String sql = "SELECT Cliente.Nombre, Cliente.Apellido, Cliente.Direccion, Cliente.NIT, Cliente.Cliente_destacado, "
-                + "rv.ID_Venta, rv.Fecha, rv.Tipo_de_Venta, Empleado.nombre "
+                + "rv.ID_Venta, rv.Fecha, rv.Tipo_de_Venta, Empleado.nombre, rv.Efectivo, rv.Cambio "
                 + "FROM Cliente INNER JOIN Registro_Venta rv ON Cliente.ID_Cliente = rv.Cliente_ID_Cliente "
                 + "INNER JOIN Empleado ON rv.Empleado_ID_Empleado = Empleado.ID_Empleado "
                 + "WHERE rv.NoFactura=?";

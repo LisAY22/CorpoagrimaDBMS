@@ -22,6 +22,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
     private String NoFactura;
     private ConexionVenta Venta;
     private int id;
+    private boolean edicion;
     /**
      * Creates new form EditarRegFactura
      * @param conexion
@@ -34,9 +35,22 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         this.credenciales = credenciales;
         this.NoFactura = Factura;
         this.Venta = new ConexionVenta();
+        edicion();
         initComponents();
         totales();
         initialParams();
+    }
+    
+    public void edicion() throws SQLException{
+        ResultSet Datos = Venta.ConsultaEditWindow(conexion, NoFactura);
+        if(Datos.next()){
+            boolean ClienteDestacado = Datos.getBoolean("Cliente_destacado");
+            if(ClienteDestacado == true){
+                edicion = true;
+            }else{
+                edicion = false;
+            }
+        }
     }
     
     public void initialParams() throws SQLException{
@@ -51,6 +65,10 @@ public final class EditarRegVenta extends javax.swing.JFrame {
             String NombreEmpleado = Datos.getString("nombre");
             String NIT = Datos.getString("NIT");
             String Tipo = Datos.getString("Tipo_de_Venta");
+            float cambio = Datos.getFloat("Cambio");
+            float efectivo = Datos.getFloat("Efectivo");
+            String Cambio = String.valueOf(cambio);
+            String Efectivo = String.valueOf(efectivo);
             
             // Insercion a los label correspondientes
             NoFactura_TextField1.setText(NoFactura);
@@ -60,6 +78,8 @@ public final class EditarRegVenta extends javax.swing.JFrame {
             Fecha_TextField.setText(FechaFactura);
             Empleado_TextField.setText(NombreEmpleado);
             NIT_textField.setText(NIT);
+            Efectivo_TextField.setText(Efectivo);
+            Cambio_TextField.setText(Cambio);
             
             // Habilitacion de los checkBox
             if (ClienteDestacado == true){
@@ -222,6 +242,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Apellido_Label.setText("Apellido");
 
         Nombre_TextField.setToolTipText("Nombre del cliente");
+        Nombre_TextField.setEnabled(false);
         Nombre_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Nombre_TextFieldActionPerformed(evt);
@@ -232,6 +253,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         jLabel2.setText("No. Factura");
 
         NoFactura_TextField1.setToolTipText("Número de factura");
+        NoFactura_TextField1.setEnabled(false);
         NoFactura_TextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NoFactura_TextField1ActionPerformed(evt);
@@ -242,6 +264,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Nombre_jLabel2.setText("Nombre");
 
         Apellido_TextField.setToolTipText("Apellido del cliente");
+        Apellido_TextField.setEnabled(false);
         Apellido_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Apellido_TextFieldActionPerformed(evt);
@@ -252,6 +275,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Apellido_Label1.setText("Dirección");
 
         Direccion_TextField.setToolTipText("Dirección del cliente");
+        Direccion_TextField.setEnabled(false);
         Direccion_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Direccion_TextFieldActionPerformed(evt);
@@ -262,6 +286,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Direccion_Label.setText("Nit");
 
         NIT_textField.setToolTipText("Búsqueda por NIT");
+        NIT_textField.setEnabled(false);
         NIT_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NIT_textFieldActionPerformed(evt);
@@ -272,6 +297,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Empleado_label.setText("Empleado");
 
         Empleado_TextField.setToolTipText("Empleado");
+        Empleado_TextField.setEnabled(false);
         Empleado_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Empleado_TextFieldActionPerformed(evt);
@@ -282,6 +308,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Fecha_label.setText("Fecha");
 
         Fecha_TextField.setToolTipText("Fecha");
+        Fecha_TextField.setEnabled(false);
         Fecha_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Fecha_TextFieldActionPerformed(evt);
@@ -290,6 +317,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
 
         Destacado_checkBox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Destacado_checkBox.setText("Destacado");
+        Destacado_checkBox.setEnabled(false);
         Destacado_checkBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Destacado_checkBoxActionPerformed(evt);
@@ -300,6 +328,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Direccion_Label1.setText("Detalle");
 
         Detalles_TextField.setToolTipText("Detalle de factura");
+        Detalles_TextField.setEnabled(false);
         Detalles_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Detalles_TextFieldActionPerformed(evt);
@@ -308,9 +337,11 @@ public final class EditarRegVenta extends javax.swing.JFrame {
 
         Consumidor_CheckBox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Consumidor_CheckBox.setText("Consumidor Final");
+        Consumidor_CheckBox.setEnabled(false);
 
         NIT_CheckBox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         NIT_CheckBox.setText("NIT");
+        NIT_CheckBox.setEnabled(false);
         NIT_CheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NIT_CheckBoxActionPerformed(evt);
@@ -319,6 +350,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
 
         Credito_checkbox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Credito_checkbox.setText("Crédito");
+        Credito_checkbox.setEnabled(false);
         Credito_checkbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Credito_checkboxActionPerformed(evt);
@@ -335,7 +367,24 @@ public final class EditarRegVenta extends javax.swing.JFrame {
             new String [] {
                 "Nombre", "Detalle", "Cantidad", "Descuento", "Precio Unidad", "Precio Total"
             }
-        ));
+        ) {
+            boolean editabl = edicion;
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                // Se ajusta la edición de las columnas 2 y 3 según el valor de permitirEdicionColumnas
+                if (editabl) {
+                    // Si permitirEdicionColumnas es true, las columnas 2 y 3 son editables
+                    return canEdit[columnIndex];
+                } else {
+                    // Si permitirEdicionColumnas es false, solo la columna 2 es editable
+                    return columnIndex == 2; // Columna 2
+                }
+            }
+        });
         jScrollPane1.setViewportView(Productos_table);
 
         Agregar_button.setBackground(new java.awt.Color(136, 213, 133));
