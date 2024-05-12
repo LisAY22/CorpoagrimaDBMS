@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package corpoagrima.corpoagrima.gui.regventa;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionVenta;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ public class EditarRegVenta extends javax.swing.JFrame {
     private final Connection conexion;
     private final ResultSet credenciales;
     private String NoFactura;
+    private ConexionVenta Venta;
     /**
      * Creates new form EditarRegFactura
      * @param conexion
@@ -25,13 +27,17 @@ public class EditarRegVenta extends javax.swing.JFrame {
         this.conexion = conexion;
         this.credenciales = credenciales;
         this.NoFactura = Factura;
+        this.Venta = new ConexionVenta();
         initComponents();
     }
     
-    
-    
-    
-    
+    public void initialParams() throws SQLException{
+        ResultSet Datos = Venta.ConsultaEditWindow(conexion, NoFactura);
+        if (Datos.next()){
+            
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
