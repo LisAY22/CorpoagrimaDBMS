@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package corpoagrima.corpoagrima.gui.finanzas;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionFinanciero;
@@ -14,14 +10,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -56,6 +51,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         meses(LocalDate.now().getMonthValue());
         mes();
         actualizarTabla();
+        modificacionDatoTabla();
 
         // Agregar el WindowListener para detectar el cierre de la ventana
         addWindowListener(new WindowAdapter() {
@@ -299,6 +295,30 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         actualizarTabla();
     }
 
+    private void modificacionDatoTabla() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        model.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE || e.getType() == TableModelEvent.INSERT || e.getType() == TableModelEvent.DELETE) {
+                    try {
+                        int mes = LocalDate.now().getMonthValue(); // Mes actual (1-12)
+                        int anio = LocalDate.now().getYear();       // Año actual
+                        float gastosOperacionales = (int) jTable1.getValueAt(4, 1);
+                        float ingresos = (int) jTable1.getValueAt(6, 1);
+                        
+                        financiero.actualizarGastosOperacionales(conexion,
+                                gastosOperacionales, mes, anio);
+                        financiero.actualizarIngresos(conexion, ingresos, mes, anio);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(EstadoFinanciero.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
+    }
+
     private void actualizarTabla() {
         try {
             // Obtener el mes y el año seleccionados
@@ -349,8 +369,6 @@ public class EstadoFinanciero extends javax.swing.JFrame {
     }
 
     private void regresarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarJButtonActionPerformed
-        // TODO add your handling code here:
-        // TODO add your handling code here:
         Principal principal_screen = null;
         try {
             principal_screen = new Principal(conexion, credenciales);
@@ -365,12 +383,10 @@ public class EstadoFinanciero extends javax.swing.JFrame {
     }//GEN-LAST:event_regresarJButtonActionPerformed
 
     private void actualizarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarJButtonMouseClicked
-        // TODO add your handling code here:
         actualizarTabla();
     }//GEN-LAST:event_actualizarJButtonMouseClicked
 
     private void graficajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficajButtonActionPerformed
-        // TODO add your handling code here:
         Grafica grafica_screen = new Grafica(conexion, credenciales);
         grafica_screen.setVisible(true);
         dispose();
