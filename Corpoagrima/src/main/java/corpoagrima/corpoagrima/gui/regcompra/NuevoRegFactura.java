@@ -550,8 +550,8 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             for (int fila = 0; fila < numFilas; fila++) {
                 nombreProducto = modelo.getValueAt(fila, 0).toString();
                 cantidad = Integer.parseInt(modelo.getValueAt(fila, 3).toString());
-                costoUnidad = Integer.parseInt(modelo.getValueAt(fila, 4).toString());
-                costoTotal = Integer.parseInt(modelo.getValueAt(fila, 5).toString());
+                costoUnidad = Float.parseFloat(modelo.getValueAt(fila, 4).toString());
+                costoTotal = Float.parseFloat(modelo.getValueAt(fila, 5).toString());
 
                 // actualizar datos producto
                 ResultSet productoResult = producto.cantidad(conexion, nombreProducto);
