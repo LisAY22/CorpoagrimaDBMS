@@ -63,7 +63,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Component id="Regresar_Bn" min="-2" pref="67" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="274" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="201" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="Refresh_button" min="-2" pref="67" max="-2" attributes="0"/>
@@ -99,7 +99,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Ventas"/>
+            <Property name="text" type="java.lang.String" value="REGISTOR DE VENTA"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="Regresar_Bn">
@@ -163,9 +163,9 @@
                                   <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                      <Component id="NuevoPuesto_jbutton" min="-2" pref="59" max="-2" attributes="0"/>
+                                      <Component id="Nuevo_jbutton" min="-2" pref="59" max="-2" attributes="0"/>
                                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                          <Component id="EditarPuesto_jbutton1" min="-2" pref="59" max="-2" attributes="0"/>
+                                          <Component id="Editar_jbutton1" min="-2" pref="59" max="-2" attributes="0"/>
                                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -188,11 +188,11 @@
                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="EditarPuesto_jbutton1" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="Editar_jbutton1" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="NuevoPuesto_jbutton" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="Nuevo_jbutton" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -279,7 +279,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="NuevoPuesto_jbutton">
+        <Component class="javax.swing.JButton" name="Nuevo_jbutton">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="85" green="d5" red="88" type="rgb"/>
@@ -292,7 +292,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NuevoPuesto_jbuttonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Nuevo_jbuttonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="Anular_jbutton">
@@ -312,7 +312,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="EditarPuesto_jbutton1">
+        <Component class="javax.swing.JButton" name="Editar_jbutton1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="85" green="d5" red="88" type="rgb"/>
@@ -326,7 +326,7 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EditarPuesto_jbutton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Editar_jbutton1ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">

@@ -183,7 +183,7 @@
                               <Component id="NIT_CheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="Buscar_textField" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="Buscar_Button" pref="33" max="32767" attributes="0"/>
+                          <Component id="Buscar_Button" pref="38" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -247,13 +247,13 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="371" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="375" max="32767" attributes="0"/>
                   <Component id="totalJTextField" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="372" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="375" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -271,23 +271,22 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="back_Button" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="196" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="199" max="-2" attributes="0"/>
                   <Component id="puestoJLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="352" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+          <Group type="103" groupAlignment="1" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="puestoJLabel" alignment="3" min="-2" pref="62" max="-2" attributes="0"/>
+                      <Component id="puestoJLabel" alignment="3" min="-2" pref="95" max="-2" attributes="0"/>
                       <Component id="back_Button" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -301,7 +300,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nuevo Registro Venta"/>
+            <Property name="text" type="java.lang.String" value="NUEVO REGISTRO DE VENTA"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="back_Button">
@@ -320,7 +319,6 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="back_ButtonMouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="back_ButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -386,9 +384,6 @@
         <Property name="editable" type="boolean" value="false"/>
         <Property name="toolTipText" type="java.lang.String" value="B&#xfa;squeda por NIT"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Buscar_textFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="Empleado_label">
       <Properties>
@@ -403,9 +398,6 @@
         <Property name="editable" type="boolean" value="false"/>
         <Property name="toolTipText" type="java.lang.String" value="Empleado"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Empleado_TextFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="Fecha_label">
       <Properties>
@@ -420,9 +412,6 @@
         <Property name="editable" type="boolean" value="false"/>
         <Property name="toolTipText" type="java.lang.String" value="Fecha"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Fecha_TextFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="Destacado_checkBox">
       <Properties>
@@ -453,6 +442,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Consumidor Final"/>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="Consumidor_CheckBoxItemStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="NIT_CheckBox">
       <Properties>
@@ -462,7 +454,7 @@
         <Property name="text" type="java.lang.String" value="NIT"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NIT_CheckBoxActionPerformed"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="NIT_CheckBoxItemStateChanged"/>
       </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="Credito_checkbox">
@@ -472,9 +464,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Cr&#xe9;dito"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Credito_checkboxActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.Box$Filler" name="filler1">
       <Properties>
@@ -571,9 +560,6 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Cantidad de efectivo"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Efectivo_TextFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="Destacado_label3">
       <Properties>
@@ -591,9 +577,6 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Cambio "/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Cambio_TextFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Buscar_Button">
       <Properties>
@@ -669,12 +652,11 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Limpiar_button" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="Guardar_button" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="30" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -687,9 +669,6 @@
               <Connection code="true" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Limpiar_buttonActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="Guardar_button">
           <Properties>
@@ -698,9 +677,6 @@
               <Connection code="true" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Guardar_buttonActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

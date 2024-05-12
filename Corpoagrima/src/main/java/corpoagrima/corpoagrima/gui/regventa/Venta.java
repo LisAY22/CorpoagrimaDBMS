@@ -87,9 +87,9 @@ public final class Venta extends javax.swing.JFrame {
         Ordenar_Bn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        NuevoPuesto_jbutton = new javax.swing.JButton();
+        Nuevo_jbutton = new javax.swing.JButton();
         Anular_jbutton = new javax.swing.JButton();
-        EditarPuesto_jbutton1 = new javax.swing.JButton();
+        Editar_jbutton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         Visualizar_jbutton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -103,7 +103,7 @@ public final class Venta extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Ventas");
+        jLabel1.setText("REGISTOR DE VENTA");
 
         Regresar_Bn.setBackground(new java.awt.Color(34, 85, 34));
         Regresar_Bn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -132,7 +132,7 @@ public final class Venta extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(274, 274, 274)
+                .addGap(201, 201, 201)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Refresh_button, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,12 +181,12 @@ public final class Venta extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable2);
 
-        NuevoPuesto_jbutton.setBackground(new java.awt.Color(136, 213, 133));
-        NuevoPuesto_jbutton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        NuevoPuesto_jbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
-        NuevoPuesto_jbutton.addActionListener(new java.awt.event.ActionListener() {
+        Nuevo_jbutton.setBackground(new java.awt.Color(136, 213, 133));
+        Nuevo_jbutton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Nuevo_jbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
+        Nuevo_jbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NuevoPuesto_jbuttonActionPerformed(evt);
+                Nuevo_jbuttonActionPerformed(evt);
             }
         });
 
@@ -196,13 +196,13 @@ public final class Venta extends javax.swing.JFrame {
         Anular_jbutton.setText("ANULAR");
         Anular_jbutton.setEnabled(true);
 
-        EditarPuesto_jbutton1.setBackground(new java.awt.Color(136, 213, 133));
-        EditarPuesto_jbutton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        EditarPuesto_jbutton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
-        EditarPuesto_jbutton1.setToolTipText("");
-        EditarPuesto_jbutton1.addActionListener(new java.awt.event.ActionListener() {
+        Editar_jbutton1.setBackground(new java.awt.Color(136, 213, 133));
+        Editar_jbutton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Editar_jbutton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
+        Editar_jbutton1.setToolTipText("");
+        Editar_jbutton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarPuesto_jbutton1ActionPerformed(evt);
+                Editar_jbutton1ActionPerformed(evt);
             }
         });
 
@@ -244,9 +244,9 @@ public final class Venta extends javax.swing.JFrame {
                                 .addGap(59, 59, 59)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel5)
-                                    .addComponent(NuevoPuesto_jbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Nuevo_jbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(EditarPuesto_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(Editar_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel4)))))))
                 .addGap(0, 43, Short.MAX_VALUE))
         );
@@ -261,11 +261,11 @@ public final class Venta extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(EditarPuesto_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Editar_jbutton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(NuevoPuesto_jbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Nuevo_jbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -319,11 +319,16 @@ public final class Venta extends javax.swing.JFrame {
         
     }//GEN-LAST:event_NuevoPuesto_jbutton1ActionPerformed
 
-    private void NuevoPuesto_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoPuesto_jbuttonActionPerformed
-        NuevoRegVenta NuevaVentana = new NuevoRegVenta(conexion, credenciales);
+    private void Nuevo_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nuevo_jbuttonActionPerformed
+        NuevoRegVenta NuevaVentana = null;
+        try {
+            NuevaVentana = new NuevoRegVenta(conexion, credenciales);
+        } catch (SQLException ex) {
+            Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
+        }
         NuevaVentana.setVisible(true);
         dispose();
-    }//GEN-LAST:event_NuevoPuesto_jbuttonActionPerformed
+    }//GEN-LAST:event_Nuevo_jbuttonActionPerformed
 
     private void Ordenar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ordenar_BnActionPerformed
         // TODO add your handling code here:
@@ -347,7 +352,7 @@ public final class Venta extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "El ordenamiento de la tabla ha sido habilitado.", "Ordenar tabla", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_Ordenar_BnActionPerformed
 
-    private void EditarPuesto_jbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarPuesto_jbutton1ActionPerformed
+    private void Editar_jbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar_jbutton1ActionPerformed
         int selectedRow = jTable2.getSelectedRow();
 
         if (selectedRow == -1) {
@@ -373,13 +378,13 @@ public final class Venta extends javax.swing.JFrame {
             Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose(); 
-    }//GEN-LAST:event_EditarPuesto_jbutton1ActionPerformed
+    }//GEN-LAST:event_Editar_jbutton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Anular_jbutton;
-    private javax.swing.JButton EditarPuesto_jbutton1;
-    private javax.swing.JButton NuevoPuesto_jbutton;
+    private javax.swing.JButton Editar_jbutton1;
+    private javax.swing.JButton Nuevo_jbutton;
     private javax.swing.JButton Ordenar_Bn;
     private javax.swing.JButton Refresh_button;
     private javax.swing.JButton Regresar_Bn;

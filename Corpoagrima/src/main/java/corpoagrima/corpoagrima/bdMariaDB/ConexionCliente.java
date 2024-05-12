@@ -33,6 +33,23 @@ public class ConexionCliente {
         return stmt.executeQuery();
 
     }
+    public ResultSet busqueda3(Connection conexion, String textoBusqueda) throws SQLException{
+
+        String sql = "SELECT * FROM Cliente WHERE NIT = ? AND Eliminado=False";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, textoBusqueda);
+
+        return stmt.executeQuery();
+
+    }
+    public ResultSet CF(Connection conexion) throws SQLException{
+
+        String sql = "SELECT * FROM Cliente WHERE ID_Cliente = 0 AND Eliminado=False";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+
+        return stmt.executeQuery();
+
+    }
     public ResultSet consulta(Connection conexion) throws SQLException{
         String sql = "SELECT * FROM Cliente WHERE Eliminado=False";
         PreparedStatement stmt = conexion.prepareStatement(sql);

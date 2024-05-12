@@ -3,30 +3,62 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package corpoagrima.corpoagrima.gui.regventa;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionCliente;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionVenta;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
+ * @author Karol
  */
 public class NuevoRegVenta extends javax.swing.JFrame {
     private final Connection conexion;
     private final ResultSet credenciales;
+    private final ConexionCliente clientes;
     private final ConexionProducto producto;
+    private final ConexionVenta venta;
+    private int factura;
     /**
      * Creates new form EditarRegFactura
      * @param conexion
      * @param credenciales
+     * @throws java.sql.SQLException
      */
-    public NuevoRegVenta(Connection conexion, ResultSet credenciales) {
+    public NuevoRegVenta(Connection conexion, ResultSet credenciales) throws SQLException {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        this.venta = new ConexionVenta();
         producto = new ConexionProducto();
+        clientes = new ConexionCliente();
         initComponents();
+        datosTotales();
+        
+        Date fechaActual = new Date();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaTexto = formatoFecha.format(fechaActual);
+        Fecha_TextField.setText(fechaTexto);
+        
+        String nombreEmpleado = credenciales.getString("Nombre");
+        String apellidoEmpleado = credenciales.getString("Apellido");
+        Empleado_TextField.setText(nombreEmpleado + " " + apellidoEmpleado);
+        
+        factura = obtenerUltimoNoFactura();
+        NoFactura_TextField1.setText(String.valueOf(factura));
+        
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -88,7 +120,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
 
         puestoJLabel.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         puestoJLabel.setForeground(new java.awt.Color(255, 255, 255));
-        puestoJLabel.setText("Nuevo Registro Venta");
+        puestoJLabel.setText("NUEVO REGISTRO DE VENTA");
 
         back_Button.setBackground(new java.awt.Color(34, 85, 34));
         back_Button.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -100,31 +132,25 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                 back_ButtonMouseClicked(evt);
             }
         });
-        back_Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                back_ButtonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout encabezadoJPanelLayout = new javax.swing.GroupLayout(encabezadoJPanel);
         encabezadoJPanel.setLayout(encabezadoJPanelLayout);
         encabezadoJPanelLayout.setHorizontalGroup(
             encabezadoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(encabezadoJPanelLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(35, 35, 35)
                 .addComponent(back_Button)
-                .addGap(196, 196, 196)
+                .addGap(199, 199, 199)
                 .addComponent(puestoJLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(352, Short.MAX_VALUE))
         );
         encabezadoJPanelLayout.setVerticalGroup(
-            encabezadoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, encabezadoJPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            encabezadoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, encabezadoJPanelLayout.createSequentialGroup()
                 .addGroup(encabezadoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(puestoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(puestoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(back_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         Apellido_Label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -153,33 +179,18 @@ public class NuevoRegVenta extends javax.swing.JFrame {
 
         Buscar_textField.setEditable(false);
         Buscar_textField.setToolTipText("Búsqueda por NIT");
-        Buscar_textField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Buscar_textFieldActionPerformed(evt);
-            }
-        });
 
         Empleado_label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Empleado_label.setText("Empleado");
 
         Empleado_TextField.setEditable(false);
         Empleado_TextField.setToolTipText("Empleado");
-        Empleado_TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Empleado_TextFieldActionPerformed(evt);
-            }
-        });
 
         Fecha_label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Fecha_label.setText("Fecha");
 
         Fecha_TextField.setEditable(false);
         Fecha_TextField.setToolTipText("Fecha");
-        Fecha_TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Fecha_TextFieldActionPerformed(evt);
-            }
-        });
 
         Destacado_checkBox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Destacado_checkBox.setText("Destacado");
@@ -192,22 +203,22 @@ public class NuevoRegVenta extends javax.swing.JFrame {
 
         Consumidor_CheckBox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Consumidor_CheckBox.setText("Consumidor Final");
+        Consumidor_CheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                Consumidor_CheckBoxItemStateChanged(evt);
+            }
+        });
 
         NIT_CheckBox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         NIT_CheckBox.setText("NIT");
-        NIT_CheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NIT_CheckBoxActionPerformed(evt);
+        NIT_CheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                NIT_CheckBoxItemStateChanged(evt);
             }
         });
 
         Credito_checkbox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Credito_checkbox.setText("Crédito");
-        Credito_checkbox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Credito_checkboxActionPerformed(evt);
-            }
-        });
 
         Productos_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -234,11 +245,6 @@ public class NuevoRegVenta extends javax.swing.JFrame {
 
         Efectivo_TextField.setBackground(new java.awt.Color(102, 255, 51));
         Efectivo_TextField.setToolTipText("Cantidad de efectivo");
-        Efectivo_TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Efectivo_TextFieldActionPerformed(evt);
-            }
-        });
 
         Destacado_label3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Destacado_label3.setText("Cambio");
@@ -246,11 +252,6 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         Cambio_TextField.setEditable(false);
         Cambio_TextField.setForeground(new java.awt.Color(255, 51, 51));
         Cambio_TextField.setToolTipText("Cambio ");
-        Cambio_TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cambio_TextFieldActionPerformed(evt);
-            }
-        });
 
         Buscar_Button.setBackground(new java.awt.Color(136, 213, 133));
         Buscar_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lupa.png"))); // NOI18N
@@ -279,19 +280,9 @@ public class NuevoRegVenta extends javax.swing.JFrame {
 
         Limpiar_button.setText("Limpiar");
         Limpiar_button.setEnabled(true);
-        Limpiar_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Limpiar_buttonActionPerformed(evt);
-            }
-        });
 
         Guardar_button.setText("Guardar");
         Guardar_button.setEnabled(true);
-        Guardar_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Guardar_buttonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -307,11 +298,10 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Limpiar_button)
-                    .addComponent(Guardar_button))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(Guardar_button)))
         );
 
         AgregarBn.setBackground(new java.awt.Color(136, 213, 133));
@@ -457,7 +447,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(NIT_CheckBox)
                                 .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Buscar_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
+                            .addComponent(Buscar_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Destacado_checkBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -509,12 +499,12 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                     .addComponent(totalJTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(16, 16, 16))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 371, Short.MAX_VALUE)
+                    .addGap(0, 375, Short.MAX_VALUE)
                     .addComponent(totalJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 372, Short.MAX_VALUE)))
+                    .addGap(0, 375, Short.MAX_VALUE)))
         );
 
         pack();
@@ -542,59 +532,141 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         model.addRow(new Object[]{nombre, descripcion, 0, 0, precio, 0});
     }
      
-    private void back_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_ButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_back_ButtonActionPerformed
-
-    private void Buscar_textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_textFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Buscar_textFieldActionPerformed
-
-    private void Empleado_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Empleado_TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Empleado_TextFieldActionPerformed
-
-    private void Fecha_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Fecha_TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Fecha_TextFieldActionPerformed
-
-    private void Credito_checkboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Credito_checkboxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Credito_checkboxActionPerformed
-
-    private void Efectivo_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Efectivo_TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Efectivo_TextFieldActionPerformed
-
-    private void Cambio_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cambio_TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Cambio_TextFieldActionPerformed
-
-    private void NIT_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NIT_CheckBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NIT_CheckBoxActionPerformed
-
-    private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
-
-    }//GEN-LAST:event_Buscar_ButtonActionPerformed
-
-    private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
-        
-    }//GEN-LAST:event_Limpiar_buttonActionPerformed
-
-    private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
-    
-    }//GEN-LAST:event_Guardar_buttonActionPerformed
-
     private void AgregarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBnActionPerformed
         AgregarProductoRegFactura AgregarWindow = new AgregarProductoRegFactura(conexion, credenciales, this);
         AgregarWindow.setVisible(true);
     }//GEN-LAST:event_AgregarBnActionPerformed
 
     private void EliminarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBnActionPerformed
-       
+        int fila = Productos_table.getSelectedRow();
+        if (fila != -1) {
+            DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
+            model.removeRow(fila);
+        }
     }//GEN-LAST:event_EliminarBnActionPerformed
 
+    private void NIT_CheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_NIT_CheckBoxItemStateChanged
+        if (NIT_CheckBox.isSelected()) {
+            Buscar_Button.setEnabled(true);
+            Buscar_textField.setEditable(true);
+        } else {
+            Buscar_Button.setEnabled(false);
+            Buscar_textField.setEditable(false);
+            Nombre_TextField.setText("");
+            Apellido_TextField.setText("");
+            Direccion_TextField.setText("");
+            Destacado_checkBox.setSelected(false);
+        }
+    }//GEN-LAST:event_NIT_CheckBoxItemStateChanged
+
+    private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
+        String textoBusqueda = Buscar_textField.getText().trim();
+        buscar(textoBusqueda);
+    }//GEN-LAST:event_Buscar_ButtonActionPerformed
+
+    private void Consumidor_CheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Consumidor_CheckBoxItemStateChanged
+        if (Consumidor_CheckBox.isSelected()) {
+            try {
+                ResultSet rs = clientes.CF(conexion);
+                if (rs.next()) {
+                    String nombre = rs.getString("Nombre");
+                    String apellido = rs.getString("Apellido");
+                    String direccion = rs.getString("Direccion");
+
+                    Nombre_TextField.setText(nombre);
+                    Apellido_TextField.setText(apellido);
+                    Direccion_TextField.setText(direccion);
+
+                }
+                
+                
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevoRegVenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            Nombre_TextField.setText("");
+            Apellido_TextField.setText("");
+            Direccion_TextField.setText("");
+        }
+    }//GEN-LAST:event_Consumidor_CheckBoxItemStateChanged
+
+    
+    public final void buscar(String textoBusqueda){
+        try {
+            if (textoBusqueda != null && !textoBusqueda.isEmpty()) {
+                ResultSet rs = clientes.busqueda3(conexion, textoBusqueda);
+                if (rs.next()) {
+                    String nombre = rs.getString("Nombre");
+                    String apellido = rs.getString("Apellido");
+                    String direccion = rs.getString("Direccion");
+                    int destacado = rs.getInt("Cliente_destacado");
+
+                    if (destacado == 1) {
+                        // Si el número es 1, marcamos el checkbox como seleccionado
+                        Destacado_checkBox.setSelected(true);
+                    } else {
+                        // Si el número no es 1, no marcamos el checkbox
+                        Destacado_checkBox.setSelected(false);
+                    }
+
+                    Nombre_TextField.setText(nombre);
+                    Apellido_TextField.setText(apellido);
+                    Direccion_TextField.setText(direccion);
+
+                    JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
+                            "Busqueda", JOptionPane.INFORMATION_MESSAGE);
+
+
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontraron resultados",
+                            "Busqueda", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "ERROR"
+                        + "compruebe el codigo ingresado", "Busqueda",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevoRegVenta.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Ha habido un error "
+                        + "compruebe la información", "Busqueda",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+    }
+    private void datosTotales() {
+        DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
+
+        model.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE || e.getType() == TableModelEvent.INSERT || e.getType() == TableModelEvent.DELETE) {
+                    int totalProductos = 0;
+                    double total = 0;
+                    int numFilas = model.getRowCount();
+                    for (int fila = 0; fila < numFilas; fila++) {
+                        totalProductos += Integer.parseInt(model.getValueAt(fila, 2).toString());
+                        total += Double.parseDouble(model.getValueAt(fila, 5).toString());
+                    }
+
+                    totalProductoJTextField.setText(String.valueOf(totalProductos));
+                    totalJTextField.setText(String.valueOf(total));
+                }
+            }
+        });
+    }
+   public int obtenerUltimoNoFactura() throws SQLException {
+       int ultimoNumeroFactura = 1;
+        try (ResultSet resultNoFactura = venta.noFactura(conexion)) {
+            if (resultNoFactura.next()) {
+                ultimoNumeroFactura = resultNoFactura.getInt("maxFac");
+                ultimoNumeroFactura += 1;
+            }
+        }
+        return ultimoNumeroFactura;
+   }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarBn;
