@@ -4,7 +4,6 @@
  */
 package corpoagrima.corpoagrima.gui.regventa;
 
-import corpoagrima.corpoagrima.gui.regcompra.*;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import corpoagrima.corpoagrima.gui.cliente.EditarCliente;
 import java.sql.Connection;
@@ -26,25 +25,28 @@ public class AgregarProductoRegFactura extends javax.swing.JFrame {
     private Connection conexion;
     private ResultSet credenciales;
     private ConexionProducto producto;
-    private NuevoRegFactura nuevaFactura = null;
-    private EditarRegFactura editarFactura = null;
+    private NuevoRegVenta nuevaVenta;
+    private EditarRegVenta editarVenta = null;
     private int id;
 
     /**
      * Creates new form AgregarPRegFactura
+     * @param conexion
+     * @param credenciales
+     * @param nuevaVenta
      */
-    public AgregarProductoRegFactura(Connection conexion, ResultSet credenciales, NuevoRegFactura nuevaFactura) {
+    public AgregarProductoRegFactura(Connection conexion, ResultSet credenciales, NuevoRegVenta nuevaVenta) {
         this.conexion = conexion;
         this.credenciales = credenciales;
-        this.nuevaFactura = nuevaFactura;
+        this.nuevaVenta = nuevaVenta;
         producto = new ConexionProducto();
         initComponents();
     }
 
-    public AgregarProductoRegFactura(Connection conexion, ResultSet credenciales, EditarRegFactura editarFactura) {
+    public AgregarProductoRegFactura(Connection conexion, ResultSet credenciales, EditarRegVenta editarVenta) {
         this.conexion = conexion;
         this.credenciales = credenciales;
-        this.editarFactura = editarFactura;
+        this.editarVenta = editarVenta;
         producto = new ConexionProducto();
         initComponents();
     }
@@ -289,19 +291,19 @@ public class AgregarProductoRegFactura extends javax.swing.JFrame {
 
     private void Seleccionar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Seleccionar_buttonActionPerformed
         try {
-            if (editarFactura == null) {
+            if (editarVenta == null) {
                 int fila = jTable1.getSelectedRow();
                 if (fila != -1) {
                     long ID = (long) jTable1.getValueAt(fila, 0);
                     int id = (int) ID; // Convertir long a int
-                    nuevaFactura.agregarProducto(id);
+                    nuevaVenta.agregarProducto(id);
                 }
             } else {
                 int fila1 = jTable1.getSelectedRow();
                 if (fila1 != -1) {
                     long ID = (long) jTable1.getValueAt(fila1, 0);
                     int id = (int) ID;
-                    editarFactura.agregarProducto(id);
+                    // editarVenta.agregarProducto(id);
                 }
             }
             dispose();

@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package corpoagrima.corpoagrima.gui.regventa;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -13,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 public class NuevoRegVenta extends javax.swing.JFrame {
     private final Connection conexion;
     private final ResultSet credenciales;
+    private final ConexionProducto producto;
     /**
      * Creates new form EditarRegFactura
      * @param conexion
@@ -21,6 +24,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
     public NuevoRegVenta(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        producto = new ConexionProducto();
         initComponents();
     }
 
@@ -210,7 +214,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Detalle", "Cantidad", "Descuento", "Precio Unidad", "Precio Total"
+                "Nombre", "Descripcion", "Cantidad", "Descuento", "Precio por Unidad", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -523,6 +527,21 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_back_ButtonMouseClicked
 
+     public void agregarProducto(int id) throws SQLException {
+        ResultSet resultado = producto.busqueda2(conexion, id);
+
+        // Obtener el modelo de la tabla actual
+        DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
+
+        resultado.next();
+        String nombre = resultado.getString("Nombre");
+        String descripcion = resultado.getString("Descripcion");
+        String precio = resultado.getString("Precio_Venta");
+
+        // Agregar a la tabla
+        model.addRow(new Object[]{nombre, descripcion, 0, 0, precio, 0});
+    }
+     
     private void back_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_ButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_back_ButtonActionPerformed
@@ -568,7 +587,8 @@ public class NuevoRegVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_Guardar_buttonActionPerformed
 
     private void AgregarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBnActionPerformed
-        
+        AgregarProductoRegFactura AgregarWindow = new AgregarProductoRegFactura(conexion, credenciales, this);
+        AgregarWindow.setVisible(true);
     }//GEN-LAST:event_AgregarBnActionPerformed
 
     private void EliminarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBnActionPerformed
