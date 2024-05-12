@@ -48,7 +48,7 @@ public class ConexionFinanciero {
     
     public ResultSet utilidadNeta(Connection conexion, int mes, int anio) throws SQLException{
         String sql = "SELECT Utilidad_Neta FROM Estado_Financiero "
-                + "WHERE MONTH(Fecha)=? AND YEAR(Fecha)=? BY ORDER Fecha";
+                + "WHERE MONTH(Fecha)=? AND YEAR(Fecha)=? ORDER BY Fecha";
         PreparedStatement stmt = conexion.prepareStatement(sql);
 
         
@@ -57,7 +57,7 @@ public class ConexionFinanciero {
     
     public ResultSet gastoIngreso(Connection conexion) throws SQLException{
         String sql = "SELECT Gastos_Operacionales, Ingresos "
-                + "FROM Estado_Financiero BY ORDER Fecha DESC LIMIT 1";
+                + "FROM Estado_Financiero ORDER BY Fecha DESC LIMIT 1";
         PreparedStatement stmt = conexion.prepareStatement(sql);
 
         
@@ -121,11 +121,11 @@ public class ConexionFinanciero {
     
     public boolean actualizarGastosOperacionales(Connection conexion, float gastosOpera, int year, int month) throws SQLException {
         String sql = "UPDATE Estado_Financiero SET Gastos_Operacionales=? "
-                + "WHERE MONTH(Fecha)=? AND YEAR(Fecha)=? BY ORDER Fecha DESC LIMIT 1";
+                + "WHERE MONTH(Fecha)=? AND YEAR(Fecha)=? ORDER BY  Fecha DESC LIMIT 1";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setFloat(1, gastosOpera);
-        stmt.setInt(2, year);
-        stmt.setInt(3, month);
+        stmt.setInt(3, year);
+        stmt.setInt(2, month);
         
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
@@ -133,11 +133,11 @@ public class ConexionFinanciero {
     
     public boolean actualizarIngresos(Connection conexion, float ingresos, int year, int month) throws SQLException {
         String sql = "UPDATE Estado_Financiero SET Ingresos=? "
-                + "WHERE MONTH(Fecha)=? AND YEAR(Fecha)=? BY ORDER Fecha DESC LIMIT 1";
+                + "WHERE MONTH(Fecha)=? AND YEAR(Fecha)=? ORDER BY Fecha DESC LIMIT 1";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setFloat(1, ingresos);
-        stmt.setInt(2, year);
-        stmt.setInt(3, month);
+        stmt.setInt(3, year);
+        stmt.setInt(2, month);
         
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;

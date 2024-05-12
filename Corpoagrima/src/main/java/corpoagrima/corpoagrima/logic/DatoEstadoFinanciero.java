@@ -53,14 +53,20 @@ public class DatoEstadoFinanciero {
 
     private float ventaT(Connection conexion, int mes, int anio) throws SQLException {
         ResultSet ventasResult = venta.total(conexion, mes, anio);
-        ventasResult.next();
-        return ventasResult.getFloat("ventaT");
+        if(ventasResult.next()){
+            return ventasResult.getFloat("ventaT");
+        }else{
+            return 0;
+        }
     }
 
     private float compraT(Connection conexion, int mes, int anio) throws SQLException {
         ResultSet compraResult = compra.total(conexion, mes, anio);
-        compraResult.next();
-        return compraResult.getFloat("compraT");
+        if(compraResult.next()){
+            return compraResult.getFloat("compraT");
+        }else{
+            return 0;
+        }
     }
 
     private float empleadoT(Connection conexion) throws SQLException {

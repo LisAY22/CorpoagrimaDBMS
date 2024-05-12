@@ -28,6 +28,7 @@ import javax.swing.table.TableRowSorter;
 public class EstadoFinanciero extends javax.swing.JFrame {
 
     private final String ANIOINICIAL = "2024";
+    private boolean cambiosPorUsuario = true;
     private String añoSeleccionado;
     private String mesSeleccionado;
     private float[] datoFinanciero;
@@ -50,7 +51,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         informacionInicial();
         meses(LocalDate.now().getMonthValue());
         mes();
-        actualizarTabla();
+        actualizarTablaSinNotificar();
         modificacionDatoTabla();
 
         // Agregar el WindowListener para detectar el cierre de la ventana
@@ -292,7 +293,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         // Para encontrar el índice del año actual, restamos el año inicial (2024) del año actual y agregamos 1
         añojComboBox.setSelectedIndex(añoActual - Integer.parseInt(ANIOINICIAL));
 
-        actualizarTabla();
+        actualizarTablaSinNotificar();
     }
 
     private void modificacionDatoTabla() {
@@ -301,22 +302,51 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         model.addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
-                if (e.getType() == TableModelEvent.UPDATE || e.getType() == TableModelEvent.INSERT || e.getType() == TableModelEvent.DELETE) {
-                    try {
-                        int mes = LocalDate.now().getMonthValue(); // Mes actual (1-12)
-                        int anio = LocalDate.now().getYear();       // Año actual
-                        float gastosOperacionales = (int) jTable1.getValueAt(4, 1);
-                        float ingresos = (int) jTable1.getValueAt(6, 1);
-                        
-                        financiero.actualizarGastosOperacionales(conexion,
-                                gastosOperacionales, mes, anio);
-                        financiero.actualizarIngresos(conexion, ingresos, mes, anio);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(EstadoFinanciero.class.getName()).log(Level.SEVERE, null, ex);
+                // Solo realizar acciones si los cambios son iniciados por el usuario
+                if (cambiosPorUsuario && (e.getType() == TableModelEvent.UPDATE
+                        || e.getType() == TableModelEvent.INSERT || 
+                        e.getType() == TableModelEvent.DELETE)) {
+                    int filaGastosOperacionales = 4;
+                    int filaIngresos = 6;
+                    int columnaCantidad = 1;
+
+                    // Verificar si el evento corresponde a la celda (4,1) o (6,1)
+                    if ((e.getFirstRow() == filaGastosOperacionales && e.getColumn() == columnaCantidad)
+                            || (e.getFirstRow() == filaIngresos && e.getColumn() == columnaCantidad)) {
+
+                        try {
+                            int mes = LocalDate.now().getMonthValue(); // Mes actual (1-12)
+                            int anio = LocalDate.now().getYear();       // Año actual
+                            float valor = Float.parseFloat(model.getValueAt(e.getFirstRow(), columnaCantidad).toString());
+
+                            // Actualizar la base de datos según la celda modificada
+                            if (e.getFirstRow() == filaGastosOperacionales) {
+                                financiero.actualizarGastosOperacionales(conexion, valor, mes, anio);
+                            } else if (e.getFirstRow() == filaIngresos) {
+                                financiero.actualizarIngresos(conexion, valor, mes, anio);
+                            }
+                        } catch (SQLException ex) {
+                            Logger.getLogger(EstadoFinanciero.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Ingrese un número válido en la celda.");
+                        }
                     }
                 }
             }
         });
+    }
+
+    // Método para actualizar la tabla sin activar el TableModelListener
+    private void actualizarTablaSinNotificar() {
+        // Temporalmente desactivar el TableModelListener
+        cambiosPorUsuario = false;
+        try {
+            // Llamar a actualizarTabla() sin que active el TableModelListener
+            actualizarTabla();
+        } finally {
+            // Reactivar el TableModelListener
+            cambiosPorUsuario = true;
+        }
     }
 
     private void actualizarTabla() {
@@ -415,7 +445,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
                     mesSeleccionado = (String) mesjComboBox.getSelectedItem();
                     int mesIndex = mesjComboBox.getSelectedIndex();
                     meses(mesIndex + 1);
-                    actualizarTabla();
+                    actualizarTablaSinNotificar();
                     // Mostrar un mensaje de ejemplo con el año seleccionado
                     JOptionPane.showMessageDialog(EstadoFinanciero.this, "Has seleccionado el mes: " + mesSeleccionado);
                 }
@@ -442,7 +472,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     añoSeleccionado = (String) añojComboBox.getSelectedItem();
-                    actualizarTabla();
+                    actualizarTablaSinNotificar();
                     // Mostrar un mensaje de ejemplo con el año seleccionado
                     JOptionPane.showMessageDialog(EstadoFinanciero.this, "Has seleccionado el año: " + añoSeleccionado);
                 }
