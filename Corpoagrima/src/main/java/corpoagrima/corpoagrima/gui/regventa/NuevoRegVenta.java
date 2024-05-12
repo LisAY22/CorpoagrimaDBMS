@@ -242,6 +242,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         Destacado_label3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Destacado_label3.setText("Cambio");
 
+        Cambio_TextField.setEditable(false);
         Cambio_TextField.setForeground(new java.awt.Color(255, 51, 51));
         Cambio_TextField.setToolTipText("Cambio ");
         Cambio_TextField.addActionListener(new java.awt.event.ActionListener() {
@@ -309,7 +310,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Limpiar_button)
                     .addComponent(Guardar_button))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         AgregarBn.setBackground(new java.awt.Color(136, 213, 133));
@@ -505,7 +506,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                         .addComponent(totalProductoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(totalLabel)
                     .addComponent(totalJTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

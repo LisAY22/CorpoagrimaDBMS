@@ -7,6 +7,7 @@ import corpoagrima.corpoagrima.gui.Principal;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionVenta;
 import corpoagrima.corpoagrima.gui.regcompra.Compra;
 import corpoagrima.corpoagrima.gui.regcompra.EditarRegFactura;
+import corpoagrima.corpoagrima.gui.regcompra.NuevoRegFactura;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -148,6 +149,11 @@ public final class Venta extends javax.swing.JFrame {
         NuevoPuesto_jbutton1.setBackground(new java.awt.Color(136, 213, 133));
         NuevoPuesto_jbutton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         NuevoPuesto_jbutton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo.png"))); // NOI18N
+        NuevoPuesto_jbutton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NuevoPuesto_jbutton1ActionPerformed(evt);
+            }
+        });
 
         Ordenar_Bn1.setBackground(new java.awt.Color(136, 213, 133));
         Ordenar_Bn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ordenar.png"))); // NOI18N
@@ -319,6 +325,12 @@ public final class Venta extends javax.swing.JFrame {
         EditarWindow.setVisible(true);
         dispose();
     }//GEN-LAST:event_EditarPuesto_jbutton1ActionPerformed
+
+    private void NuevoPuesto_jbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoPuesto_jbutton1ActionPerformed
+        NuevoRegVenta NuevaVentana = new NuevoRegVenta(conexion, credenciales);
+        NuevaVentana.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_NuevoPuesto_jbutton1ActionPerformed
 
    
 
