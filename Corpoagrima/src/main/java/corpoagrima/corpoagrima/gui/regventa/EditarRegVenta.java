@@ -242,6 +242,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Apellido_Label.setText("Apellido");
 
         Nombre_TextField.setToolTipText("Nombre del cliente");
+        Nombre_TextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         Nombre_TextField.setEnabled(false);
         Nombre_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,6 +254,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         jLabel2.setText("No. Factura");
 
         NoFactura_TextField1.setToolTipText("Número de factura");
+        NoFactura_TextField1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         NoFactura_TextField1.setEnabled(false);
         NoFactura_TextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -264,6 +266,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Nombre_jLabel2.setText("Nombre");
 
         Apellido_TextField.setToolTipText("Apellido del cliente");
+        Apellido_TextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         Apellido_TextField.setEnabled(false);
         Apellido_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,6 +278,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Apellido_Label1.setText("Dirección");
 
         Direccion_TextField.setToolTipText("Dirección del cliente");
+        Direccion_TextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         Direccion_TextField.setEnabled(false);
         Direccion_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,6 +290,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Direccion_Label.setText("Nit");
 
         NIT_textField.setToolTipText("Búsqueda por NIT");
+        NIT_textField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         NIT_textField.setEnabled(false);
         NIT_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,6 +302,8 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Empleado_label.setText("Empleado");
 
         Empleado_TextField.setToolTipText("Empleado");
+        Empleado_TextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        Empleado_TextField.setDoubleBuffered(true);
         Empleado_TextField.setEnabled(false);
         Empleado_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,6 +315,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Fecha_label.setText("Fecha");
 
         Fecha_TextField.setToolTipText("Fecha");
+        Fecha_TextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         Fecha_TextField.setEnabled(false);
         Fecha_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -328,7 +336,6 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Direccion_Label1.setText("Detalle");
 
         Detalles_TextField.setToolTipText("Detalle de factura");
-        Detalles_TextField.setEnabled(false);
         Detalles_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Detalles_TextFieldActionPerformed(evt);
@@ -412,6 +419,8 @@ public final class EditarRegVenta extends javax.swing.JFrame {
 
         Efectivo_TextField.setBackground(new java.awt.Color(102, 255, 51));
         Efectivo_TextField.setToolTipText("Cantidad de efectivo");
+        Efectivo_TextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        Efectivo_TextField.setEnabled(false);
         Efectivo_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Efectivo_TextFieldActionPerformed(evt);
@@ -423,6 +432,8 @@ public final class EditarRegVenta extends javax.swing.JFrame {
 
         Cambio_TextField.setForeground(new java.awt.Color(255, 51, 51));
         Cambio_TextField.setToolTipText("Cambio ");
+        Cambio_TextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        Cambio_TextField.setEnabled(false);
         Cambio_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Cambio_TextFieldActionPerformed(evt);
@@ -433,8 +444,12 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Destacado_label4.setForeground(new java.awt.Color(255, 0, 51));
         Destacado_label4.setText("Total ");
 
+        Total_TextField.setEditable(false);
+        Total_TextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Total_TextField.setForeground(new java.awt.Color(255, 51, 51));
         Total_TextField.setToolTipText("Total venta");
+        Total_TextField.setDisabledTextColor(new java.awt.Color(255, 0, 0));
+        Total_TextField.setEnabled(false);
         Total_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Total_TextFieldActionPerformed(evt);
@@ -445,8 +460,11 @@ public final class EditarRegVenta extends javax.swing.JFrame {
 
         Limpiar_button.setText("Reestablecer");
 
+        TotalProductos_TextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         TotalProductos_TextField.setForeground(new java.awt.Color(255, 51, 51));
         TotalProductos_TextField.setToolTipText("Total venta");
+        TotalProductos_TextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        TotalProductos_TextField.setEnabled(false);
         TotalProductos_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TotalProductos_TextFieldActionPerformed(evt);
