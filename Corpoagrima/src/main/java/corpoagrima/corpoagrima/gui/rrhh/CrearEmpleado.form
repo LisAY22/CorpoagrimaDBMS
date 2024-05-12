@@ -156,19 +156,17 @@
                       <Component id="Ajuste_label" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel13" min="-2" pref="117" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="Sueldobase_textfield" alignment="0" pref="129" max="32767" attributes="0"/>
                               <Component id="contrasena_textfield1" alignment="0" max="32767" attributes="0"/>
                               <Component id="Puesto_comboBox" alignment="0" pref="129" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="AjusteSueldo_textfield" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="AjusteSueldo_textfield" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

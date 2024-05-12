@@ -53,14 +53,20 @@ public class DatoEstadoFinanciero {
 
     private float ventaT(Connection conexion, int mes, int anio) throws SQLException {
         ResultSet ventasResult = venta.total(conexion, mes, anio);
-        ventasResult.next();
-        return ventasResult.getFloat("ventaT");
+        if(ventasResult.next()){
+            return ventasResult.getFloat("ventaT");
+        }else{
+            return 0;
+        }
     }
 
     private float compraT(Connection conexion, int mes, int anio) throws SQLException {
         ResultSet compraResult = compra.total(conexion, mes, anio);
-        compraResult.next();
-        return compraResult.getFloat("compraT");
+        if(compraResult.next()){
+            return compraResult.getFloat("compraT");
+        }else{
+            return 0;
+        }
     }
 
     private float empleadoT(Connection conexion) throws SQLException {
@@ -71,7 +77,7 @@ public class DatoEstadoFinanciero {
 
         while (empleadoResult.next()) {
             sueldoBase += empleadoResult.getFloat("Salario_base");
-            ajustoSueldo += Integer.valueOf(empleadoResult.getString("Ajusto_Sueldo"));
+            ajustoSueldo += Double.valueOf(empleadoResult.getString("Ajuste_Sueldo"));
             bonificacion += empleadoResult.getInt("Bonificaciones");
         }
 
@@ -82,14 +88,14 @@ public class DatoEstadoFinanciero {
         this.financiero = new ConexionFinanciero();
         int mes = LocalDate.now().getMonthValue();
         int anio = LocalDate.now().getYear();
-        ResultSet financieroResult = financiero.consulta(conexion, mes, anio);
+        ResultSet financieroResult = financiero.financieroActual(conexion);
         financieroResult.next();
-        float gastosOperativos = financieroResult.getFloat("Gastos_Operativos");
+        float gastosOperativos = financieroResult.getFloat("Gastos_Operacionales");
         float ingresos = financieroResult.getFloat("Ingresos");
         float[] datos = datos(conexion, mes, anio, gastosOperativos, ingresos);
         
-        this.financiero.actualizar(conexion, datos[0], datos[1], datos[3], 
-                datos[4], datos[5], datos[6], datos[7], datos[8], datos[9], 
-                datos[10]);
+        this.financiero.actualizar(conexion, datos[0], datos[1], datos[2], 
+                datos[3], datos[4], datos[5], datos[6], datos[7], datos[8], 
+                datos[9]);
     }
 }

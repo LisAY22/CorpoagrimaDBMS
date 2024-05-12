@@ -6,8 +6,8 @@ import corpoagrima.corpoagrima.bdMariaDB.ConexionFinanciero;
 import corpoagrima.corpoagrima.logic.encriptar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -224,7 +224,7 @@ public class Login extends javax.swing.JFrame {
             if (!esFinancieroActual.next()) {
                 financiero.insertar(conexion, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             }
-            
+
             esFinancieroActual = financiero.consulta(conexion, dia, mes, anio);
             if (!esFinancieroActual.next()) {
                 // Crea la tabla financiera de inicio de mes
@@ -232,9 +232,9 @@ public class Login extends javax.swing.JFrame {
                     financiero.insertar(conexion, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                 } // Crea una copia con los datos actuales del dia de ayer y ponerlo al dia actual
                 else {
-                    String procedimiento = "{call duplicarRegistroDiario()}";
-                    CallableStatement statement = conexion.prepareCall(procedimiento);
-                    statement.execute();
+                    String procedimiento = "call duplicarRegistroDiario()";
+                    PreparedStatement stmt = conexion.prepareStatement(procedimiento);
+                    stmt.execute();
                 }
             }
             // Si las credenciales son correctas, abrir la nueva ventana

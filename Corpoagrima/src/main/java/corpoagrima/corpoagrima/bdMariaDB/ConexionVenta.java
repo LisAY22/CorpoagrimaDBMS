@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class ConexionVenta {
     public ResultSet total(Connection conexion, int mes, int año) throws SQLException {
         String sql = "SELECT SUM(Registro_Venta.Total) AS ventaT FROM Registro_Venta "
-                + "WHERE (MONTH(Registro_Venta.Fecha) = ? AND YEAR(Registro_Venta.Fecha) = ?) AND "
+                + "WHERE MONTH(Registro_Venta.Fecha) = ? AND YEAR(Registro_Venta.Fecha) = ? AND "
                 + "Anulado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setInt(1, mes);

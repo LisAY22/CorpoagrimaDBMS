@@ -4,7 +4,11 @@ import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionRegCompraProducto;
+import corpoagrima.corpoagrima.gui.Principal;
+import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
 import java.awt.event.ItemEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -20,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author karol
  * @author WilderL
+ * @author lisaj
  */
 public class EditarRegFactura extends javax.swing.JFrame {
 
@@ -31,6 +36,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
     private ConexionRegCompraProducto compraProducto;
     private String factura;
     private int id;
+    private DatoEstadoFinanciero logicFinanciero;
 
     /**
      * Creates new form editarRegFactura
@@ -43,6 +49,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
         this.conexion = conexion;
         this.credenciales = credenciales;
         this.factura = numeroFactura;
+        this.logicFinanciero = new DatoEstadoFinanciero(conexion);
         producto = new ConexionProducto();
         compras = new ConexionCompra();
         proveedor = new ConexionProveedores();
@@ -50,6 +57,19 @@ public class EditarRegFactura extends javax.swing.JFrame {
         initComponents();
         datosTotales();
         mostrarInformacion();
+        // Agregar el WindowListener para detectar el cierre de la ventana
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Aquí colocas el código que deseas ejecutar cuando la ventana se cierre
+                try {
+                    // TODO add your handling code here:
+                    logicFinanciero.actualizarFinanciero(conexion);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
     public final void mostrarInformacion() throws SQLException {

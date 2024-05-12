@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package corpoagrima.corpoagrima.gui.proveedor;
 
 import corpoagrima.corpoagrima.gui.proveedor.EditarProveedor;
@@ -10,8 +6,11 @@ import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import corpoagrima.corpoagrima.gui.cliente.Cliente;
 import corpoagrima.corpoagrima.gui.Principal;
 import corpoagrima.corpoagrima.gui.inventario.EditarProducto;
+import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,6 +33,7 @@ public class Proveedor extends javax.swing.JFrame {
     private ResultSet credenciales;
     private ConexionProveedores proveedores;
     private TableRowSorter<DefaultTableModel> sorter; // Variable miembro para mantener el TableRowSorter
+    private DatoEstadoFinanciero logicFinanciero;
     
     /**
      * Creates new form Proveedores
@@ -41,10 +41,23 @@ public class Proveedor extends javax.swing.JFrame {
     public Proveedor(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        this.logicFinanciero = new DatoEstadoFinanciero(conexion);
         proveedores = new ConexionProveedores();
         initComponents();
         actualizarTabla();
-       
+       // Agregar el WindowListener para detectar el cierre de la ventana
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Aquí colocas el código que deseas ejecutar cuando la ventana se cierre
+                try {
+                    // TODO add your handling code here:
+                    logicFinanciero.actualizarFinanciero(conexion);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
     /**

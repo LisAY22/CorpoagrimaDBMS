@@ -1,39 +1,42 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package corpoagrima.corpoagrima.gui.finanzas;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionFinanciero;
 import corpoagrima.corpoagrima.gui.Principal;
 import corpoagrima.corpoagrima.gui.inventario.Inventario;
+import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author lisaj
+ * @author WilderL
  */
 public class EstadoFinanciero extends javax.swing.JFrame {
 
     private final String ANIOINICIAL = "2024";
+    private boolean cambiosPorUsuario = true;
     private String añoSeleccionado;
     private String mesSeleccionado;
+    private float[] datoFinanciero;
     private Connection conexion;
     private ResultSet credenciales;
     private TableRowSorter<DefaultTableModel> sorter; // Variable miembro para mantener el TableRowSorter
+    private DatoEstadoFinanciero logicFinanciero;
+    private ConexionFinanciero financiero;
 
     /**
      * Creates new form EstadoFinanciero
@@ -41,12 +44,29 @@ public class EstadoFinanciero extends javax.swing.JFrame {
     public EstadoFinanciero(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        this.logicFinanciero = new DatoEstadoFinanciero(conexion);
+        this.financiero = new ConexionFinanciero();
         initComponents();
         anios();
         informacionInicial();
         meses(LocalDate.now().getMonthValue());
         mes();
-        actualizarTabla();
+        actualizarTablaSinNotificar();
+        modificacionDatoTabla();
+
+        // Agregar el WindowListener para detectar el cierre de la ventana
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Aquí colocas el código que deseas ejecutar cuando la ventana se cierre
+                try {
+                    // TODO add your handling code here:
+                    logicFinanciero.actualizarFinanciero(conexion);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
     /**
@@ -273,25 +293,61 @@ public class EstadoFinanciero extends javax.swing.JFrame {
         // Para encontrar el índice del año actual, restamos el año inicial (2024) del año actual y agregamos 1
         añojComboBox.setSelectedIndex(añoActual - Integer.parseInt(ANIOINICIAL));
 
-        try {
-            // Realizar la consulta a la base de datos
-            ResultSet resultadoConsulta = new ConexionFinanciero().consulta(conexion, mesActual, añoActual);
+        actualizarTablaSinNotificar();
+    }
 
-            // Llenar la tabla con los datos obtenidos de la consulta
-            int columna = 1;
-            while (resultadoConsulta.next()) {
-                // Llenar la tabla con los valores de la fila actual de la consulta
-                for (int fila = 0; fila < jTable1.getRowCount(); fila++) {
-                    // El primer valor de la consulta corresponde a la primera columna de la tabla,
-                    // por lo que usamos columna + 1 para movernos a través de las columnas de la tabla
-                    jTable1.setValueAt(resultadoConsulta.getObject(columna + 1), fila, columna);
+    private void modificacionDatoTabla() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        model.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                // Solo realizar acciones si los cambios son iniciados por el usuario
+                if (cambiosPorUsuario && (e.getType() == TableModelEvent.UPDATE
+                        || e.getType() == TableModelEvent.INSERT
+                        || e.getType() == TableModelEvent.DELETE)) {
+                    int filaGastosOperacionales = 4;
+                    int filaIngresos = 6;
+                    int columnaCantidad = 1;
+
+                    // Verificar si el evento corresponde a la celda (4,1) o (6,1)
+                    if ((e.getFirstRow() == filaGastosOperacionales && e.getColumn() == columnaCantidad)
+                            || (e.getFirstRow() == filaIngresos && e.getColumn() == columnaCantidad)) {
+
+                        try {
+                            int mes = LocalDate.now().getMonthValue(); // Mes actual (1-12)
+                            int anio = LocalDate.now().getYear();       // Año actual
+                            float valor = Float.parseFloat(model.getValueAt(e.getFirstRow(), columnaCantidad).toString());
+
+                            // Actualizar la base de datos según la celda modificada
+                            if (e.getFirstRow() == filaGastosOperacionales) {
+                                financiero.actualizarGastosOperacionales(conexion, valor);
+                            } else if (e.getFirstRow() == filaIngresos) {
+                                financiero.actualizarIngresos(conexion, valor);
+                            }
+                            actualizarTablaSinNotificar();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(EstadoFinanciero.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Ingrese un número válido en la celda.");
+                        }
+                    }
                 }
             }
-        } catch (SQLException ex) {
-            // Manejar cualquier excepción SQL
-            ex.printStackTrace();
-        }
+        });
+    }
 
+    // Método para actualizar la tabla sin activar el TableModelListener
+    private void actualizarTablaSinNotificar() {
+        // Temporalmente desactivar el TableModelListener
+        cambiosPorUsuario = false;
+        try {
+            // Llamar a actualizarTabla() sin que active el TableModelListener
+            actualizarTabla();
+        } finally {
+            // Reactivar el TableModelListener
+            cambiosPorUsuario = true;
+        }
     }
 
     private void actualizarTabla() {
@@ -299,30 +355,60 @@ public class EstadoFinanciero extends javax.swing.JFrame {
             // Obtener el mes y el año seleccionados
             int mesSeleccionadoIndex = mesjComboBox.getSelectedIndex() + 1; // El índice comienza desde 0
             int añoSeleccionado = Integer.parseInt((String) añojComboBox.getSelectedItem());
+            // Obtener el mes y año actual
+            int mesActual = LocalDate.now().getMonthValue(); // Mes actual (1-12)
+            int añoActual = LocalDate.now().getYear();       // Año actual
 
-            // Realizar la consulta a la base de datos con el mes y el año seleccionados
-            ResultSet resultadoConsulta = new ConexionFinanciero().consulta(conexion, mesSeleccionadoIndex, añoSeleccionado);
+            if (mesActual == mesSeleccionadoIndex && añoActual == añoSeleccionado) {
+                ResultSet financieroResult = financiero.financieroActual(conexion);
+                financieroResult.next();
+                float gastosOperativos = financieroResult.getFloat("Gastos_Operacionales");
+                float ingresos = financieroResult.getFloat("Ingresos");
+                this.datoFinanciero = logicFinanciero.datos(conexion, mesSeleccionadoIndex,
+                        añoSeleccionado, gastosOperativos, ingresos);
 
-            // Llenar la tabla con los datos obtenidos de la consulta poniendo solo en la columna 2
-            int columna = 1;
-            while (resultadoConsulta.next()) {
+                // Llenar la tabla con los datos obtenidos de la consulta poniendo solo en la columna 2
+                int columna = 1;
                 // Llenar la tabla con los valores de la fila actual de la consulta
                 for (int fila = 0; fila < jTable1.getRowCount(); fila++) {
                     // El primer valor de la consulta corresponde a la primera columna de la tabla,
                     // por lo que usamos columna + 1 para movernos a través de las columnas de la tabla
-                    jTable1.setValueAt(resultadoConsulta.getObject(fila+1), fila, columna);
+                    jTable1.setValueAt(String.valueOf(datoFinanciero[fila]), fila, columna);
                 }
+                logicFinanciero.actualizarFinanciero(conexion);
+
+            } else {
+                // Realizar la consulta a la base de datos con el mes y el año seleccionados
+                ResultSet resultadoConsulta = new ConexionFinanciero().consulta(
+                        conexion, mesSeleccionadoIndex, añoSeleccionado);
+                ResultSet datoTabla = resultadoConsulta;
+                // Llenar la tabla con los datos obtenidos de la consulta poniendo solo en la columna 2
+                int columna = 1;
+                if (datoTabla.next()) {
+                    while (resultadoConsulta.next()) {
+                        // Llenar la tabla con los valores de la fila actual de la consulta
+                        for (int fila = 0; fila < jTable1.getRowCount(); fila++) {
+                            // El primer valor de la consulta corresponde a la primera columna de la tabla,
+                            // por lo que usamos columna + 1 para movernos a través de las columnas de la tabla
+                            jTable1.setValueAt(resultadoConsulta.getObject(fila + 1), fila, columna);
+                        }
+                    }
+                }else{
+                    for (int fila = 0; fila < jTable1.getRowCount(); fila++) {
+                            // El primer valor de la consulta corresponde a la primera columna de la tabla,
+                            // por lo que usamos columna + 1 para movernos a través de las columnas de la tabla
+                            jTable1.setValueAt(0, fila, columna);
+                        }
+                }
+
             }
         } catch (SQLException ex) {
-            // Manejar cualquier excepción SQL
-            ex.printStackTrace();
+            Logger.getLogger(EstadoFinanciero.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
     private void regresarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarJButtonActionPerformed
-        // TODO add your handling code here:
-        // TODO add your handling code here:
         Principal principal_screen = null;
         try {
             principal_screen = new Principal(conexion, credenciales);
@@ -337,12 +423,15 @@ public class EstadoFinanciero extends javax.swing.JFrame {
     }//GEN-LAST:event_regresarJButtonActionPerformed
 
     private void actualizarJButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actualizarJButtonMouseClicked
-        // TODO add your handling code here:
-        actualizarTabla();
+        try {
+            informacionInicial();
+            logicFinanciero.actualizarFinanciero(conexion);
+        } catch (SQLException ex) {
+            Logger.getLogger(EstadoFinanciero.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_actualizarJButtonMouseClicked
 
     private void graficajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficajButtonActionPerformed
-        // TODO add your handling code here:
         Grafica grafica_screen = new Grafica(conexion, credenciales);
         grafica_screen.setVisible(true);
         dispose();
@@ -365,7 +454,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
                     mesSeleccionado = (String) mesjComboBox.getSelectedItem();
                     int mesIndex = mesjComboBox.getSelectedIndex();
                     meses(mesIndex + 1);
-                    actualizarTabla();
+                    actualizarTablaSinNotificar();
                     // Mostrar un mensaje de ejemplo con el año seleccionado
                     JOptionPane.showMessageDialog(EstadoFinanciero.this, "Has seleccionado el mes: " + mesSeleccionado);
                 }
@@ -392,7 +481,7 @@ public class EstadoFinanciero extends javax.swing.JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     añoSeleccionado = (String) añojComboBox.getSelectedItem();
-                    actualizarTabla();
+                    actualizarTablaSinNotificar();
                     // Mostrar un mensaje de ejemplo con el año seleccionado
                     JOptionPane.showMessageDialog(EstadoFinanciero.this, "Has seleccionado el año: " + añoSeleccionado);
                 }

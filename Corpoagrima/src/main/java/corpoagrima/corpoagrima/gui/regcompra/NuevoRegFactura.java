@@ -4,7 +4,11 @@ import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionRegCompraProducto;
+import corpoagrima.corpoagrima.gui.Principal;
+import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
 import java.awt.event.ItemEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +33,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
     private ConexionProveedores proveedor;
     private ConexionRegCompraProducto compraProducto;
     private int idEmpleado;
+    private DatoEstadoFinanciero logicFinanciero;
 
     /**
      * Creates new form nuevoRegFactura
@@ -38,6 +43,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             this.conexion = conexion;
             this.idEmpleado = credenciales.getInt("ID_Empleado");
             this.credenciales = credenciales;
+            this.logicFinanciero = new DatoEstadoFinanciero(conexion);
             producto = new ConexionProducto();
             initComponents();
             datosTotales();
@@ -59,6 +65,20 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(NuevoRegFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        // Agregar el WindowListener para detectar el cierre de la ventana
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Aquí colocas el código que deseas ejecutar cuando la ventana se cierre
+                try {
+                    // TODO add your handling code here:
+                    logicFinanciero.actualizarFinanciero(conexion);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
     /**
@@ -357,7 +377,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         jLabel2.setText("AGREGAR");
 
         totalProductoLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        totalProductoLabel.setText("Total de producto:");
+        totalProductoLabel.setText("Total de productos:");
 
         totalLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         totalLabel.setForeground(new java.awt.Color(159, 46, 46));

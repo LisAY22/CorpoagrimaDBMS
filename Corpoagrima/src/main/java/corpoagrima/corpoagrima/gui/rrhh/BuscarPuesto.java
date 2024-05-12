@@ -3,6 +3,9 @@ package corpoagrima.corpoagrima.gui.rrhh;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import corpoagrima.corpoagrima.gui.Principal;
+import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author WilderL
  * @author User
+ * @author lisaj
  */
 public class BuscarPuesto extends javax.swing.JFrame {
 
@@ -22,6 +26,7 @@ public class BuscarPuesto extends javax.swing.JFrame {
     private ConexionPuesto puesto;
     private ConexionEmpleado empleado;
     private int id;
+    private DatoEstadoFinanciero logicFinanciero;
 
     /**
      * Creates new form Puesto
@@ -31,9 +36,23 @@ public class BuscarPuesto extends javax.swing.JFrame {
     public BuscarPuesto(Connection conexion, ResultSet credenciales) {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        this.logicFinanciero = new DatoEstadoFinanciero(conexion);
         puesto = new ConexionPuesto();
         empleado = new ConexionEmpleado();
         initComponents();
+        // Agregar el WindowListener para detectar el cierre de la ventana
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Aquí colocas el código que deseas ejecutar cuando la ventana se cierre
+                try {
+                    // TODO add your handling code here:
+                    logicFinanciero.actualizarFinanciero(conexion);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
     /**

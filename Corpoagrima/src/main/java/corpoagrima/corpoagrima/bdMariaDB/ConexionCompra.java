@@ -127,7 +127,7 @@ public class ConexionCompra {
     
     public ResultSet total(Connection conexion, int mes, int año) throws SQLException {
         String sql = "SELECT SUM(Registro_Compra.Total) AS compraT FROM Registro_Compra "
-                + "WHERE (MONTH(Registro_Compra.Fecha) = ? AND YEAR(Registro_Compra.Fecha) = ?) AND "
+                + "WHERE MONTH(Registro_Compra.Fecha) = ? AND YEAR(Registro_Compra.Fecha) = ? AND "
                 + "Anulado=?";
         PreparedStatement stmt = conexion.prepareStatement(sql);
         stmt.setInt(1, mes);
