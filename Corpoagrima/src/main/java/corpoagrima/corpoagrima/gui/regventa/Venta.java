@@ -12,10 +12,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -26,6 +30,7 @@ public final class Venta extends javax.swing.JFrame {
     private final Connection conexion;
     private final ResultSet credenciales;
     private final ConexionVenta Venta;
+    private TableRowSorter<DefaultTableModel> sorter;
     
     /**
      * @param conexion
@@ -149,6 +154,11 @@ public final class Venta extends javax.swing.JFrame {
 
         Ordenar_Bn.setBackground(new java.awt.Color(136, 213, 133));
         Ordenar_Bn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ordenar.png"))); // NOI18N
+        Ordenar_Bn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Ordenar_BnActionPerformed(evt);
+            }
+        });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -190,6 +200,11 @@ public final class Venta extends javax.swing.JFrame {
         EditarPuesto_jbutton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         EditarPuesto_jbutton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
         EditarPuesto_jbutton1.setToolTipText("");
+        EditarPuesto_jbutton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarPuesto_jbutton1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("EDITAR");
@@ -297,7 +312,7 @@ public final class Venta extends javax.swing.JFrame {
     }//GEN-LAST:event_Regresar_BnActionPerformed
 
     private void Refresh_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Refresh_buttonActionPerformed
-        // TODO add your handling code here:
+        UpdateTableModel();
     }//GEN-LAST:event_Refresh_buttonActionPerformed
 
     private void NuevoPuesto_jbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoPuesto_jbutton1ActionPerformed
@@ -310,7 +325,56 @@ public final class Venta extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_NuevoPuesto_jbuttonActionPerformed
 
-   
+    private void Ordenar_BnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ordenar_BnActionPerformed
+        // TODO add your handling code here:
+        if (sorter == null) {
+            // Crear un objeto TableRowSorter basado en el modelo de la tabla
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            sorter = new TableRowSorter<>(model);
+            jTable2.setRowSorter(sorter);
+        }
+
+        // Crear un RowSorter para ordenar por la columna "Nombre"
+        ArrayList<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        int columnIndexToSort = 1;
+        sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING)); // Orden ascendente
+        sorter.setSortKeys(sortKeys);
+
+        // Ordenar la tabla
+        sorter.sort();
+
+        // Mostrar un mensaje indicando que la tabla ha sido ordenada
+        JOptionPane.showMessageDialog(this, "El ordenamiento de la tabla ha sido habilitado.", "Ordenar tabla", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_Ordenar_BnActionPerformed
+
+    private void EditarPuesto_jbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarPuesto_jbutton1ActionPerformed
+        int selectedRow = jTable2.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura para editar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Obtener el número de factura de la fila seleccionada
+        Object facturaObject = jTable2.getValueAt(selectedRow, 1); 
+        if (facturaObject == null) {
+            JOptionPane.showMessageDialog(this, "No se puede obtener el número de factura.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si el número de factura es nulo
+        }
+
+        // Convertir el objeto a un String (el número de factura)
+        String numeroFactura = facturaObject.toString();
+
+        
+        try {
+            EditarRegVenta EditarWindow = new EditarRegVenta(conexion, credenciales, numeroFactura);
+            EditarWindow.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dispose(); 
+    }//GEN-LAST:event_EditarPuesto_jbutton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Anular_jbutton;
