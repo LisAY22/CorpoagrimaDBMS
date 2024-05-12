@@ -129,7 +129,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("NUEVO REGISTRO FACTURA");
+        jLabel1.setText("NUEVO REGISTRO DE COMPRA");
 
         Regresar_Bn.setBackground(new java.awt.Color(34, 85, 34));
         Regresar_Bn.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -149,9 +149,9 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(Regresar_Bn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(249, 249, 249)
+                .addGap(253, 253, 253)
                 .addComponent(jLabel1)
-                .addContainerGap(409, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

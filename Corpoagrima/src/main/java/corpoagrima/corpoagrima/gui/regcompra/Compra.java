@@ -440,7 +440,34 @@ public class Compra extends javax.swing.JFrame {
     }//GEN-LAST:event_Ordenar_BnActionPerformed
 
     private void Visualizar_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Visualizar_jbuttonActionPerformed
-        // TODO add your handling code here:
+        // Obtener la fila seleccionada
+        int selectedRow = jTable1.getSelectedRow();
+
+        // Verificar si se ha seleccionado una fila
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura para Visualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si no hay fila seleccionada
+        }
+
+        // Obtener el número de factura de la fila seleccionada
+        Object facturaObject = jTable1.getValueAt(selectedRow, 0); // Se asume que el número de factura está en la primera columna
+        if (facturaObject == null) {
+            JOptionPane.showMessageDialog(this, "No se puede obtener el número de factura.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si el número de factura es nulo
+        }
+
+        // Convertir el objeto a un String (el número de factura)
+        String numeroFactura = facturaObject.toString();
+
+        // Ahora puedes usar el número de factura como desees, por ejemplo, pasarlo a la ventana de anulación
+        VisualizarRegFactura VisualizarWindow = null;
+        try {
+            VisualizarWindow = new VisualizarRegFactura(conexion, credenciales, numeroFactura);
+        } catch (SQLException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        VisualizarWindow.setVisible(true);
+        dispose();
     }//GEN-LAST:event_Visualizar_jbuttonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
