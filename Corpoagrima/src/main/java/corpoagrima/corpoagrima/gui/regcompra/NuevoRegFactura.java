@@ -377,7 +377,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         jLabel2.setText("AGREGAR");
 
         totalProductoLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        totalProductoLabel.setText("Total de producto:");
+        totalProductoLabel.setText("Total de productos:");
 
         totalLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         totalLabel.setForeground(new java.awt.Color(159, 46, 46));
