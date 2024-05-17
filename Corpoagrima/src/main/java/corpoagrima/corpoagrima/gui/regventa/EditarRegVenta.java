@@ -4,11 +4,19 @@
  */
 package corpoagrima.corpoagrima.gui.regventa;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionVenta;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionCliente;
+import corpoagrima.corpoagrima.gui.cliente.Cliente;
+import corpoagrima.corpoagrima.gui.regcompra.EditarRegFactura;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -21,8 +29,12 @@ public final class EditarRegVenta extends javax.swing.JFrame {
     private final ResultSet credenciales;
     private String NoFactura;
     private ConexionVenta Venta;
+    private ConexionProducto Producto;
+    private ConexionUsuario Usuario;
+    private ConexionCliente Cliente;
     private int id;
     private boolean edicion;
+    private boolean cambiosPorUsuario = true;
     /**
      * Creates new form EditarRegFactura
      * @param conexion
@@ -35,10 +47,13 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         this.credenciales = credenciales;
         this.NoFactura = Factura;
         this.Venta = new ConexionVenta();
+        this.Producto = new ConexionProducto();
+        this.Usuario = new ConexionUsuario();
+        this.Cliente = new ConexionCliente();
         edicion();
         initComponents();
+        actualizarTablaSinNotificar();
         totales();
-        initialParams();
     }
     
     public void edicion() throws SQLException{
@@ -97,23 +112,34 @@ public final class EditarRegVenta extends javax.swing.JFrame {
             }
             
             
-            try (ResultSet productos = Venta.ConsultaProductos(conexion, NoFactura)) {
+            try (ResultSet productos1 = Venta.ConsultaProductos(conexion, NoFactura)) {
                 // Obtener el modelo de la tabla actual
                 DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
                 model.setRowCount(0); // Limpiar los datos existentes
 
                 // Agregar nuevas filas al modelo de tabla
-                ResultSetMetaData metaData = productos.getMetaData();
+                ResultSetMetaData metaData = productos1.getMetaData();
                 int columnCount = metaData.getColumnCount();
 
-                while (productos.next()) {
+                while (productos1.next()) {
                     Object[] rowData = new Object[columnCount];
                     for (int i = 0; i < columnCount; i++) {
-                        rowData[i] = productos.getObject(i + 1);
+                        rowData[i] = productos1.getObject(i + 1);
                     }
                     model.addRow(rowData);
                 }
             }
+            DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
+            
+            double total = 0;
+            int numFilas = model.getRowCount();
+            int totalProductos = 0;
+            for (int fila = 0; fila < numFilas; fila++) {
+                totalProductos += Integer.parseInt(model.getValueAt(fila, 2).toString());
+                total += Double.parseDouble(model.getValueAt(fila, 5).toString());
+            }
+            TotalProductos_TextField.setText(String.valueOf(totalProductos));
+            Total_TextField.setText(String.valueOf(total));
         }
         else{
             JOptionPane.showMessageDialog(this, "No se encontraron resultados",
@@ -121,27 +147,80 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         }
     }
     
+    private void actualizarTotalFila(){
+        DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
+        int numFilas = model.getRowCount();
+         for (int fila = 0; fila < numFilas; fila++) {
+            int Cantidad = Integer.parseInt(model.getValueAt(fila, 2).toString());
+            double Descuento = Double.parseDouble(model.getValueAt(fila, 3).toString());
+            double PrecioUnidad = Double.parseDouble(model.getValueAt(fila, 4).toString());
+            double PrecioTotal = (Cantidad * PrecioUnidad) - Descuento;
+            model.setValueAt(PrecioTotal, fila, 5);
+        }
+    }
+    
+    private void actualizarTablaSinNotificar() throws SQLException {
+        // Temporalmente desactivar el TableModelListener
+        cambiosPorUsuario = false;
+        try {
+            // Llamar a actualizarTabla() sin que active el TableModelListener
+            initialParams();
+        } finally {
+            // Reactivar el TableModelListener
+            cambiosPorUsuario = true;
+        }
+    }
+    
+    private void actualizarTablaSinNotificar2(){
+        // Temporalmente desactivar el TableModelListener
+        cambiosPorUsuario = false;
+        try {
+            // Llamar a actualizarTabla() sin que active el TableModelListener
+            actualizarTotalFila();
+        } finally {
+            // Reactivar el TableModelListener
+            cambiosPorUsuario = true;
+        }
+    }
+    
+    
     
     private void totales() {
         DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
-
-        model.addTableModelListener(new TableModelListener() {
-            @Override
-            public void tableChanged(TableModelEvent e) {
-                if (e.getType() == TableModelEvent.UPDATE || e.getType() == TableModelEvent.INSERT || e.getType() == TableModelEvent.DELETE) {
-                    int totalProductos = 0;
-                    double total = 0;
-                    int numFilas = model.getRowCount();
-                    for (int fila = 0; fila < numFilas; fila++) {
-                        totalProductos += Integer.parseInt(model.getValueAt(fila, 2).toString());
-                        total += Double.parseDouble(model.getValueAt(fila, 5).toString());
-                    }
-
-                    TotalProductos_TextField.setText(String.valueOf(totalProductos));
-                    Total_TextField.setText(String.valueOf(total));
+        model.addTableModelListener((TableModelEvent e) -> {
+            if (cambiosPorUsuario && (e.getType() == TableModelEvent.UPDATE || e.getType() == TableModelEvent.INSERT || e.getType() == TableModelEvent.DELETE)) {
+                actualizarTablaSinNotificar2();
+                int totalProductos = 0;
+                double total = 0;
+                int numFilas = model.getRowCount();
+                for (int fila = 0; fila < numFilas; fila++) {
+                    totalProductos += Integer.parseInt(model.getValueAt(fila, 2).toString());
+                    total += Double.parseDouble(model.getValueAt(fila, 5).toString());
                 }
+                TotalProductos_TextField.setText(String.valueOf(totalProductos));
+                Total_TextField.setText(String.valueOf(total));
+                
+                double Efectivo = Double.parseDouble(Efectivo_TextField.getText());
+                double Cambio = Efectivo - total;
+                
+                Cambio_TextField.setText(String.valueOf(Cambio));
             }
         });
+    }
+    
+    public void agregarProducto(int id) throws SQLException {
+        ResultSet resultado = Producto.busqueda2(conexion, id);
+
+        // Obtener el modelo de la tabla actual
+        DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
+
+        resultado.next();
+        String nombre = resultado.getString("Nombre");
+        String descripcion = resultado.getString("Descripcion");
+        String precio = resultado.getString("Precio_Venta");
+
+        // Agregar a la tabla
+        model.addRow(new Object[]{nombre, descripcion, 0, 0, precio, 0});
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -411,6 +490,11 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         Eliminar_button.setBackground(new java.awt.Color(255, 0, 0));
         Eliminar_button.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Eliminar_button.setText("Eliminar");
+        Eliminar_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Eliminar_buttonActionPerformed(evt);
+            }
+        });
 
         Destacado_label2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Destacado_label2.setText("Efectivo");
@@ -457,8 +541,18 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         });
 
         Guardar_Button.setText("Guardar");
+        Guardar_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Guardar_ButtonActionPerformed(evt);
+            }
+        });
 
         Limpiar_button.setText("Reestablecer");
+        Limpiar_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Limpiar_buttonActionPerformed(evt);
+            }
+        });
 
         TotalProductos_TextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         TotalProductos_TextField.setForeground(new java.awt.Color(255, 51, 51));
@@ -689,7 +783,8 @@ public final class EditarRegVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_Agregar_buttonMouseClicked
 
     private void Agregar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Agregar_buttonActionPerformed
-        // TODO add your handling code here:
+        AgregarProductoRegFactura AgregarWindow = new AgregarProductoRegFactura(conexion, credenciales, this);
+        AgregarWindow.setVisible(true);
     }//GEN-LAST:event_Agregar_buttonActionPerformed
 
     private void Efectivo_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Efectivo_TextFieldActionPerformed
@@ -711,6 +806,109 @@ public final class EditarRegVenta extends javax.swing.JFrame {
     private void TotalProductos_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotalProductos_TextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TotalProductos_TextFieldActionPerformed
+
+    private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
+        try {
+            initialParams();
+        } catch (SQLException ex) {
+            Logger.getLogger(EditarRegVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_Limpiar_buttonActionPerformed
+
+    private void Eliminar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_buttonActionPerformed
+        int fila = Productos_table.getSelectedRow();
+        if (fila != -1) {
+            DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
+            model.removeRow(fila);
+        }else{
+            JOptionPane.showMessageDialog(this, "No se selecionado una fila, porfavor intente de nuevo",
+                    "Eliminacion", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_Eliminar_buttonActionPerformed
+
+    private void Guardar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_ButtonActionPerformed
+        try {
+            // datos del Usuario
+            String Nombre = Nombre_TextField.getText();
+            String Apellido = Apellido_TextField.getText();
+            ResultSet ClienteResultSet = Cliente.idCliente2(conexion, Nombre, Apellido);
+            ClienteResultSet.next();
+            int Cliente = ClienteResultSet.getInt("ID_Cliente");
+            // datos de la factura
+            int noFactura = Integer.parseInt(NoFactura_TextField1.getText());
+            String fecha = Fecha_TextField.getText();
+            boolean esCredito = Credito_checkbox.isSelected();
+            String credito = (esCredito) ? "Credito" : "Contado";
+            float total = Float.parseFloat(Total_TextField.getText());
+            // datos registro compra has producto
+            String detalle = Detalles_TextField.getText();
+            
+            // reducir la cantidad de productos de la factura en editar
+            ResultSet idProductos = Venta.producto(conexion, noFactura);
+            int idProducto;
+            String nombreProducto;
+            int cantidad;
+            float costoUnidad;
+            float costoTotal;
+            while (idProductos.next()) {
+                idProducto = idProductos.getInt("idProducto");
+                cantidad = idProductos.getInt("cantidad");
+                // actualizar datos producto
+                ResultSet productoResult = Producto.cantidad(conexion, idProducto);
+                productoResult.next();
+                int stock = productoResult.getInt("Stock");
+                stock += cantidad;
+                Producto.actualizar(conexion, idProducto, stock);
+            }
+            
+            // eliminacion de registros Venta has producto de la factura
+            Venta.eliminarRelacion(conexion, id);
+            // obtener el estado de si es anulado la factura
+            ResultSet estadoResult = Venta.esAnulado(conexion, id);
+            estadoResult.next();
+            boolean esAnulado = estadoResult.getBoolean("Anulado");
+            float efectivo = Float.parseFloat(Efectivo_TextField.getText());
+            float Cambio = Float.parseFloat(Cambio_TextField.getText());
+            float Total = Float.parseFloat(Total_TextField.getText());
+            // actualizar factura compra
+            boolean VentaResultSet = Venta.actualizar(conexion, id, esAnulado, Total, Cambio, efectivo );
+            if (!VentaResultSet) {
+                throw new SQLException("Error al actualizar el registro de compra");
+            }
+            // recolecion de datos de la tabla
+            DefaultTableModel modelo = (DefaultTableModel) Productos_table.getModel();
+            int numFilas = modelo.getRowCount();
+            for (int fila = 0; fila < numFilas; fila++) {
+                nombreProducto = modelo.getValueAt(fila, 0).toString();
+                cantidad = Integer.parseInt(modelo.getValueAt(fila, 2).toString());
+                costoUnidad = Float.parseFloat(modelo.getValueAt(fila, 4).toString());
+                costoTotal = Float.parseFloat(modelo.getValueAt(fila, 5).toString());
+                Float descuento = Float.valueOf(modelo.getValueAt(fila, 3).toString());
+
+                // actualizar datos producto
+                ResultSet productoResult = Producto.cantidad(conexion, nombreProducto);
+                productoResult.next();
+                idProducto = productoResult.getInt("ID_Producto");
+                int stock = productoResult.getInt("Stock");
+                stock -= cantidad;
+                Producto.actualizar(conexion, idProducto, stock);
+                // guardado registro Venta has producto
+                Venta.agregar(conexion, id, idProducto, detalle,
+                        cantidad, descuento, costoUnidad, costoTotal);
+            }
+
+            if (VentaResultSet) {
+                JOptionPane.showMessageDialog(this,
+                        "Se ha guardado exitosamente.",
+                        "Guardando", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EditarRegVenta.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this,
+                    "Se ha producido un error.",
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_Guardar_ButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

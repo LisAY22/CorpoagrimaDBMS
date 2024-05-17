@@ -50,7 +50,7 @@ public class AgregarProductoRegFactura extends javax.swing.JFrame {
         producto = new ConexionProducto();
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -303,7 +303,7 @@ public class AgregarProductoRegFactura extends javax.swing.JFrame {
                 if (fila1 != -1) {
                     long ID = (long) jTable1.getValueAt(fila1, 0);
                     int id = (int) ID;
-                    // editarVenta.agregarProducto(id);
+                    editarVenta.agregarProducto(id);
                 }
             }
             dispose();

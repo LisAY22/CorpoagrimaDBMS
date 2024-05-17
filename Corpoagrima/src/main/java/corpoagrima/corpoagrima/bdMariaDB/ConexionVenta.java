@@ -62,4 +62,69 @@ public class ConexionVenta {
 
         return stmt.executeQuery();
     }
+    
+    public ResultSet producto(Connection conexion, int idFactura) throws SQLException{
+        String sql = "SELECT Producto_ID_Producto AS idProducto, Cantidad AS cantidad "
+                + "FROM Registro_Venta_has_Producto WHERE Registro_Venta_ID_Venta=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        
+        stmt.setInt(1, idFactura);
+        
+        return stmt.executeQuery();
+    }
+    
+    public boolean eliminarRelacion(Connection conexion, int idFactura) throws SQLException{
+        String sql = "DELETE FROM Registro_Venta_has_Producto WHERE Registro_Venta_ID_Venta = ?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        
+        stmt.setInt(1, idFactura);
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
+    
+    public ResultSet esAnulado(Connection conexion, int idVenta) throws SQLException{
+        String sql = "SELECT Anulado FROM Registro_Venta WHERE ID_Venta=?";
+        
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setInt(1, idVenta);
+        
+        return stmt.executeQuery();
+    }
+    
+    public boolean actualizar(Connection conexion, int id_Venta,
+            boolean anulado,
+            float total, float Cambio, float efectivo) throws SQLException {
+        String sql = "UPDATE Registro_Venta SET Efectivo = ?, Anulado=?, "
+                + "Total=?, Cambio=? "
+                + "WHERE ID_Venta=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setFloat(1, efectivo);
+        stmt.setBoolean(2, anulado);
+        stmt.setFloat(3, total);
+        stmt.setFloat(4, Cambio);
+        stmt.setInt(5, id_Venta);
+        // ejecutar la consulta
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
+    
+    public boolean agregar(Connection conexion, int idVenta, int idProducto,
+            String detalle, int cantidadCompra, float Descuento, float costoUnidad,
+            float costoTotal) throws SQLException {
+        String sql = "INSERT INTO Registro_Venta_has_Producto "
+                + "(Registro_Venta_ID_Venta, Producto_ID_Producto, Detalle,"
+                + "Cantidad, Descuento, Precio_Unidad, Precio_Total)"
+                + "VALUES(?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setInt(1, idVenta);
+        stmt.setInt(2, idProducto);
+        stmt.setString(3, detalle);
+        stmt.setFloat(4, cantidadCompra);
+        stmt.setFloat(5, Descuento);
+        stmt.setFloat(6, costoUnidad);
+        stmt.setFloat(7, costoTotal);
+
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
 }
