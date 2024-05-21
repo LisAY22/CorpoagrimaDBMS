@@ -16,7 +16,11 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -52,6 +56,8 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         
         String nombreEmpleado = credenciales.getString("Nombre");
         String apellidoEmpleado = credenciales.getString("Apellido");
+        Efectivo_TextField.setText("0");
+        Cambio_TextField.setText("0");
         Empleado_TextField.setText(nombreEmpleado + " " + apellidoEmpleado);
         
         factura = obtenerUltimoNoFactura();
@@ -81,7 +87,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         Apellido_TextField = new javax.swing.JTextField();
         Apellido_Label1 = new javax.swing.JLabel();
         Direccion_TextField = new javax.swing.JTextField();
-        Buscar_textField = new javax.swing.JTextField();
+        NIT_textField = new javax.swing.JTextField();
         Empleado_label = new javax.swing.JLabel();
         Empleado_TextField = new javax.swing.JTextField();
         Fecha_label = new javax.swing.JLabel();
@@ -103,7 +109,6 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         totalProductoLabel = new javax.swing.JLabel();
         totalProductoJTextField = new javax.swing.JTextField();
         totalLabel = new javax.swing.JLabel();
-        totalJTextField = new javax.swing.JTextField();
         totalJTextField1 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         Limpiar_button = new javax.swing.JButton();
@@ -177,8 +182,8 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         Direccion_TextField.setEditable(false);
         Direccion_TextField.setToolTipText("Dirección del cliente");
 
-        Buscar_textField.setEditable(false);
-        Buscar_textField.setToolTipText("Búsqueda por NIT");
+        NIT_textField.setEditable(false);
+        NIT_textField.setToolTipText("Búsqueda por NIT");
 
         Empleado_label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Empleado_label.setText("Empleado");
@@ -229,7 +234,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, false, false
+                false, false, true, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -272,14 +277,16 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         totalLabel.setForeground(new java.awt.Color(159, 46, 46));
         totalLabel.setText("Total");
 
-        totalJTextField.setEditable(false);
-        totalJTextField.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-
         totalJTextField1.setEditable(false);
         totalJTextField1.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
 
         Limpiar_button.setText("Limpiar");
         Limpiar_button.setEnabled(true);
+        Limpiar_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Limpiar_buttonActionPerformed(evt);
+            }
+        });
 
         Guardar_button.setText("Guardar");
         Guardar_button.setEnabled(true);
@@ -298,10 +305,10 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Limpiar_button)
-                    .addComponent(Guardar_button)))
+                    .addComponent(Guardar_button)
+                    .addComponent(Limpiar_button))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         AgregarBn.setBackground(new java.awt.Color(136, 213, 133));
@@ -336,9 +343,9 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(totalProductoLabel)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(totalProductoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(122, 122, 122)
+                        .addGap(128, 128, 128)
                         .addComponent(totalLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(totalJTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -397,7 +404,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
+                                .addGap(59, 59, 59)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(Destacado_checkBox, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -410,12 +417,12 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(Empleado_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(NIT_CheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(NIT_CheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(NIT_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(Credito_checkbox, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(Consumidor_CheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -423,11 +430,6 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                         .addComponent(Buscar_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(87, 87, 87))))
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 494, Short.MAX_VALUE)
-                    .addComponent(totalJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 494, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -446,8 +448,8 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                                 .addComponent(NoFactura_TextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(NIT_CheckBox)
-                                .addComponent(Buscar_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Buscar_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
+                                .addComponent(NIT_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Buscar_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Destacado_checkBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -465,7 +467,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Apellido_Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Direccion_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Direccion_Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Detalles_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -483,33 +485,45 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(EliminarBn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
+                        .addGap(34, 34, 34)
                         .addComponent(Destacado_label2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Efectivo_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Destacado_label3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Cambio_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(totalProductoLabel)
-                        .addComponent(totalProductoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(totalLabel)
-                    .addComponent(totalJTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(totalJTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(totalProductoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(totalProductoLabel))
+                    .addComponent(Cambio_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 375, Short.MAX_VALUE)
-                    .addComponent(totalJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 375, Short.MAX_VALUE)))
+                .addGap(8, 8, 8))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void limpiar() {
+        Nombre_TextField.setText("");
+        Apellido_TextField.setText("");
+        Direccion_TextField.setText("");
+        Detalles_TextField.setText("");
+        Efectivo_TextField.setText("0");
+        Cambio_TextField.setText("0");
+        NIT_textField.setText("");
+        Destacado_checkBox.setSelected(false);
+        NIT_CheckBox.setSelected(false);
+        Consumidor_CheckBox.setSelected(false);
+        Credito_checkbox.setSelected(false);
+        DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
+        model.setRowCount(0);
+    }
+    
     private void back_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_ButtonMouseClicked
         // TODO add your handling code here:
         Venta VentaWindow = new Venta(conexion, credenciales);
@@ -547,20 +561,24 @@ public class NuevoRegVenta extends javax.swing.JFrame {
 
     private void NIT_CheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_NIT_CheckBoxItemStateChanged
         if (NIT_CheckBox.isSelected()) {
-            Buscar_Button.setEnabled(true);
-            Buscar_textField.setEditable(true);
+        Buscar_Button.setEnabled(true);
+        NIT_textField.setEditable(true);
+        Consumidor_CheckBox.setSelected(false);
         } else {
-            Buscar_Button.setEnabled(false);
-            Buscar_textField.setEditable(false);
-            Nombre_TextField.setText("");
-            Apellido_TextField.setText("");
-            Direccion_TextField.setText("");
-            Destacado_checkBox.setSelected(false);
+        Buscar_Button.setEnabled(false);
+        NIT_textField.setEditable(false);
+        Destacado_checkBox.setSelected(false);
+            // Verifica si el Consumidor_CheckBox está seleccionado antes de restablecer los campos de texto
+            if (!Consumidor_CheckBox.isSelected()) {
+                Nombre_TextField.setText("");
+                Apellido_TextField.setText("");
+                Direccion_TextField.setText("");
+            }
         }
     }//GEN-LAST:event_NIT_CheckBoxItemStateChanged
 
     private void Buscar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscar_ButtonActionPerformed
-        String textoBusqueda = Buscar_textField.getText().trim();
+        String textoBusqueda = NIT_textField.getText().trim();
         buscar(textoBusqueda);
     }//GEN-LAST:event_Buscar_ButtonActionPerformed
 
@@ -576,11 +594,11 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                     Nombre_TextField.setText(nombre);
                     Apellido_TextField.setText(apellido);
                     Direccion_TextField.setText(direccion);
+                    Destacado_checkBox.setSelected(false);
+                    NIT_CheckBox.setSelected(false);
 
                 }
-                
-                
-                
+                  
             } catch (SQLException ex) {
                 Logger.getLogger(NuevoRegVenta.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -590,6 +608,10 @@ public class NuevoRegVenta extends javax.swing.JFrame {
             Direccion_TextField.setText("");
         }
     }//GEN-LAST:event_Consumidor_CheckBoxItemStateChanged
+
+    private void Limpiar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_buttonActionPerformed
+        limpiar();
+    }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
     
     public final void buscar(String textoBusqueda){
@@ -636,27 +658,56 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
     }
+    
+    
     private void datosTotales() {
         DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
+
+        // Flag para evitar la recursión infinita
+        final boolean[] updating = {false};
 
         model.addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
+                // Verificar si ya estamos actualizando para evitar recursión infinita
+                if (updating[0]) return;
+
                 if (e.getType() == TableModelEvent.UPDATE || e.getType() == TableModelEvent.INSERT || e.getType() == TableModelEvent.DELETE) {
                     int totalProductos = 0;
                     double total = 0;
                     int numFilas = model.getRowCount();
+
+                    // Iniciar actualización programática
+                    updating[0] = true;
+
                     for (int fila = 0; fila < numFilas; fila++) {
-                        totalProductos += Integer.parseInt(model.getValueAt(fila, 2).toString());
-                        total += Double.parseDouble(model.getValueAt(fila, 5).toString());
+                        int Cantidad = Integer.parseInt(model.getValueAt(fila, 2).toString());
+                        double Descuento = Double.parseDouble(model.getValueAt(fila, 3).toString());
+                        double PrecioUnidad = Double.parseDouble(model.getValueAt(fila, 4).toString());
+                        double PrecioTotal = (Cantidad * PrecioUnidad) - Descuento;
+
+                        // Acumular totales
+                        totalProductos += Cantidad;
+                        total += PrecioTotal;
+
+                        // Actualizar el valor de PrecioTotal en la tabla
+                        model.setValueAt(PrecioTotal, fila, 5);
                     }
 
+                    // Actualizar los campos de texto
                     totalProductoJTextField.setText(String.valueOf(totalProductos));
-                    totalJTextField.setText(String.valueOf(total));
+                    totalJTextField1.setText(String.valueOf(total));
+                    double Efectivo = Double.parseDouble(Efectivo_TextField.getText());
+                    double Cambio = Efectivo - total;
+                    Cambio_TextField.setText(String.valueOf(Cambio));
+
+                    // Finalizar actualización programática
+                    updating[0] = false;
                 }
             }
         });
     }
+
    public int obtenerUltimoNoFactura() throws SQLException {
        int ultimoNumeroFactura = 1;
         try (ResultSet resultNoFactura = venta.noFactura(conexion)) {
@@ -674,7 +725,6 @@ public class NuevoRegVenta extends javax.swing.JFrame {
     private javax.swing.JLabel Apellido_Label1;
     private javax.swing.JTextField Apellido_TextField;
     private javax.swing.JButton Buscar_Button;
-    private javax.swing.JTextField Buscar_textField;
     private javax.swing.JTextField Cambio_TextField;
     private javax.swing.JCheckBox Consumidor_CheckBox;
     private javax.swing.JCheckBox Credito_checkbox;
@@ -693,6 +743,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
     private javax.swing.JButton Guardar_button;
     private javax.swing.JButton Limpiar_button;
     private javax.swing.JCheckBox NIT_CheckBox;
+    private javax.swing.JTextField NIT_textField;
     private javax.swing.JTextField NoFactura_TextField1;
     private javax.swing.JTextField Nombre_TextField;
     private javax.swing.JLabel Nombre_jLabel2;
@@ -707,7 +758,6 @@ public class NuevoRegVenta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel puestoJLabel;
-    private javax.swing.JTextField totalJTextField;
     private javax.swing.JTextField totalJTextField1;
     private javax.swing.JLabel totalLabel;
     private javax.swing.JTextField totalProductoJTextField;

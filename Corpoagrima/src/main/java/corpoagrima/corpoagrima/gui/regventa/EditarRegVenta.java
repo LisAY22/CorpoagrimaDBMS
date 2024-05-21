@@ -278,7 +278,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
 
         puestoJLabel.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         puestoJLabel.setForeground(new java.awt.Color(255, 255, 255));
-        puestoJLabel.setText("Editar Registro Factura");
+        puestoJLabel.setText("EDITAR REGISTRO DE VENTA");
 
         back_Button.setBackground(new java.awt.Color(34, 85, 34));
         back_Button.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -303,7 +303,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
             .addGroup(encabezadoJPanelLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(back_Button)
-                .addGap(196, 196, 196)
+                .addGap(149, 149, 149)
                 .addComponent(puestoJLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
