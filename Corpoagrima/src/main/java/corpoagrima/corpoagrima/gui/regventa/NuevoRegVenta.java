@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package corpoagrima.corpoagrima.gui.regventa;
+
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCliente;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionVenta;
@@ -16,11 +17,9 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -28,43 +27,53 @@ import javax.swing.table.TableColumnModel;
  * @author Karol
  */
 public class NuevoRegVenta extends javax.swing.JFrame {
-    private final Connection conexion;
-    private final ResultSet credenciales;
-    private final ConexionCliente clientes;
-    private final ConexionProducto producto;
-    private final ConexionVenta venta;
+
+    private Connection conexion;
+    private ResultSet credenciales;
+    private ConexionCliente clientes;
+    private ConexionProducto producto;
+    private ConexionVenta venta;
+    private int idEmpleado;
     private int factura;
+    private int idCliente;
+    private boolean edicion;
+    
+
     /**
      * Creates new form EditarRegFactura
+     *
      * @param conexion
      * @param credenciales
      * @throws java.sql.SQLException
      */
     public NuevoRegVenta(Connection conexion, ResultSet credenciales) throws SQLException {
         this.conexion = conexion;
+        this.idEmpleado = credenciales.getInt("ID_Empleado");
         this.credenciales = credenciales;
         this.venta = new ConexionVenta();
         producto = new ConexionProducto();
         clientes = new ConexionCliente();
-        initComponents();
-        datosTotales();
         
+        edicion();
+        initComponents();
+        limpiar();
+        datosTotales();
+
         Date fechaActual = new Date();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         String fechaTexto = formatoFecha.format(fechaActual);
         Fecha_TextField.setText(fechaTexto);
-        
+
         String nombreEmpleado = credenciales.getString("Nombre");
         String apellidoEmpleado = credenciales.getString("Apellido");
         Efectivo_TextField.setText("0");
         Cambio_TextField.setText("0");
         Empleado_TextField.setText(nombreEmpleado + " " + apellidoEmpleado);
-        
+
         factura = obtenerUltimoNoFactura();
         NoFactura_TextField1.setText(String.valueOf(factura));
-        
+
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -227,18 +236,31 @@ public class NuevoRegVenta extends javax.swing.JFrame {
 
         Productos_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
+
             new String [] {
-                "Nombre", "Descripcion", "Cantidad", "Descuento", "Precio por Unidad", "Subtotal"
+                "Nombre", "Detalle", "Cantidad", "Descuento", "Precio Unidad", "Precio Total"
             }
         ) {
+            boolean editabl = edicion;
             boolean[] canEdit = new boolean [] {
                 false, false, true, true, false, false
             };
 
+            @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                // Se ajusta la edición de las columnas 2 y 3 según el valor de permitirEdicionColumnas
+                if (editabl) {
+                    // Si permitirEdicionColumnas es true, las columnas 2 y 3 son editables
+                    return canEdit[columnIndex];
+                } else {
+                    // Si permitirEdicionColumnas es false, solo la columna 2 es editable
+                    return columnIndex == 3; // Columna 2
+                }
             }
         });
         jScrollPane1.setViewportView(Productos_table);
@@ -290,6 +312,11 @@ public class NuevoRegVenta extends javax.swing.JFrame {
 
         Guardar_button.setText("Guardar");
         Guardar_button.setEnabled(true);
+        Guardar_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Guardar_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -507,6 +534,18 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void edicion() throws SQLException{
+        String NoFactura = String.valueOf(factura);
+        ResultSet Datos = venta.ConsultaEditWindow(conexion, NoFactura);
+        if(Datos.next()){
+            boolean ClienteDestacado = Datos.getBoolean("Cliente_destacado");
+            if(ClienteDestacado == true){
+                edicion = true;
+            }else{
+                edicion = false;
+            }
+        }
+    }
     
     private void limpiar() {
         Nombre_TextField.setText("");
@@ -523,7 +562,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
         model.setRowCount(0);
     }
-    
+
     private void back_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_ButtonMouseClicked
         // TODO add your handling code here:
         Venta VentaWindow = new Venta(conexion, credenciales);
@@ -531,7 +570,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_back_ButtonMouseClicked
 
-     public void agregarProducto(int id) throws SQLException {
+    public void agregarProducto(int id) throws SQLException {
         ResultSet resultado = producto.busqueda2(conexion, id);
 
         // Obtener el modelo de la tabla actual
@@ -545,7 +584,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         // Agregar a la tabla
         model.addRow(new Object[]{nombre, descripcion, 0, 0, precio, 0});
     }
-     
+
     private void AgregarBnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBnActionPerformed
         AgregarProductoRegFactura AgregarWindow = new AgregarProductoRegFactura(conexion, credenciales, this);
         AgregarWindow.setVisible(true);
@@ -561,13 +600,13 @@ public class NuevoRegVenta extends javax.swing.JFrame {
 
     private void NIT_CheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_NIT_CheckBoxItemStateChanged
         if (NIT_CheckBox.isSelected()) {
-        Buscar_Button.setEnabled(true);
-        NIT_textField.setEditable(true);
-        Consumidor_CheckBox.setSelected(false);
+            Buscar_Button.setEnabled(true);
+            NIT_textField.setEditable(true);
+            Consumidor_CheckBox.setSelected(false);
         } else {
-        Buscar_Button.setEnabled(false);
-        NIT_textField.setEditable(false);
-        Destacado_checkBox.setSelected(false);
+            Buscar_Button.setEnabled(false);
+            NIT_textField.setEditable(false);
+            Destacado_checkBox.setSelected(false);
             // Verifica si el Consumidor_CheckBox está seleccionado antes de restablecer los campos de texto
             if (!Consumidor_CheckBox.isSelected()) {
                 Nombre_TextField.setText("");
@@ -590,15 +629,17 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                     String nombre = rs.getString("Nombre");
                     String apellido = rs.getString("Apellido");
                     String direccion = rs.getString("Direccion");
+                    String nit = rs.getString("NIT");
 
                     Nombre_TextField.setText(nombre);
                     Apellido_TextField.setText(apellido);
                     Direccion_TextField.setText(direccion);
+                    NIT_textField.setText(nit);
                     Destacado_checkBox.setSelected(false);
                     NIT_CheckBox.setSelected(false);
 
                 }
-                  
+
             } catch (SQLException ex) {
                 Logger.getLogger(NuevoRegVenta.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -613,12 +654,76 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         limpiar();
     }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
-    
-    public final void buscar(String textoBusqueda){
+    private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
+        try {
+            String fecha = Fecha_TextField.getText();
+            boolean esCredito = Credito_checkbox.isSelected();
+            String credito = (esCredito) ? "Credito" : "Contado";
+            float total = Float.parseFloat(totalJTextField1.getText());
+            float efectivo = Float.parseFloat(Efectivo_TextField.getText());
+            float cambio = Float.parseFloat(Cambio_TextField.getText());
+            String detalle = Detalles_TextField.getText();
+
+            boolean ventaResultSet;
+
+            ventaResultSet = venta.agregar(conexion, factura, credito, fecha, total, efectivo, cambio, idCliente, idEmpleado);
+
+            if (!ventaResultSet) {
+                throw new SQLException("Error al agregar un registro de compra");
+            }
+            ResultSet ventaRs = venta.idVenta(conexion, factura);
+            ventaRs.next();
+            int idVenta = ventaRs.getInt("ID_Venta");
+
+            String nombreProducto;
+            int cantidad;
+            float descuento;
+            float precioUnidad;
+            float precioTotal;
+
+            DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
+            int numFilas = model.getRowCount();
+            for (int fila = 0; fila < numFilas; fila++) {
+                nombreProducto = model.getValueAt(fila, 0).toString();
+                cantidad = Integer.parseInt(model.getValueAt(fila, 2).toString());
+                descuento = Float.parseFloat(model.getValueAt(fila, 3).toString());
+                precioUnidad = Float.parseFloat(model.getValueAt(fila, 4).toString());
+                precioTotal = Float.parseFloat(model.getValueAt(fila, 5).toString());
+
+                ResultSet productoResult = producto.cantidad(conexion, nombreProducto);
+                productoResult.next();
+                int idProducto = productoResult.getInt("ID_Producto");
+                int stock = productoResult.getInt("Stock");
+                stock -= cantidad;
+                producto.actualizar(conexion, idProducto, stock);
+
+                venta.agregarProducto(conexion, idVenta, idProducto,
+                        detalle, cantidad, descuento,
+                        precioUnidad, precioTotal);
+            }
+
+            if (ventaResultSet) {
+                JOptionPane.showMessageDialog(this,
+                        "Se ha guardado exitosamente.",
+                        "Guardando", JOptionPane.INFORMATION_MESSAGE);
+                limpiar();
+                factura = obtenerUltimoNoFactura();
+                NoFactura_TextField1.setText(String.valueOf(factura));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoRegVenta.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this,
+                    "Se ha producido un error.",
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_Guardar_buttonActionPerformed
+
+    public final void buscar(String textoBusqueda) {
         try {
             if (textoBusqueda != null && !textoBusqueda.isEmpty()) {
                 ResultSet rs = clientes.busqueda3(conexion, textoBusqueda);
                 if (rs.next()) {
+                    idCliente = rs.getInt("ID_Cliente");
                     String nombre = rs.getString("Nombre");
                     String apellido = rs.getString("Apellido");
                     String direccion = rs.getString("Direccion");
@@ -639,8 +744,6 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "La busqueda ha sido exitosa",
                             "Busqueda", JOptionPane.INFORMATION_MESSAGE);
 
-
-
                 } else {
                     JOptionPane.showMessageDialog(this, "No se encontraron resultados",
                             "Busqueda", JOptionPane.WARNING_MESSAGE);
@@ -651,15 +754,14 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
 
-            } catch (SQLException ex) {
-                Logger.getLogger(NuevoRegVenta.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Ha habido un error "
-                        + "compruebe la información", "Busqueda",
-                        JOptionPane.ERROR_MESSAGE);
-            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoRegVenta.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Ha habido un error "
+                    + "compruebe la información", "Busqueda",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
-    
-    
+
     private void datosTotales() {
         DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
 
@@ -670,7 +772,9 @@ public class NuevoRegVenta extends javax.swing.JFrame {
             @Override
             public void tableChanged(TableModelEvent e) {
                 // Verificar si ya estamos actualizando para evitar recursión infinita
-                if (updating[0]) return;
+                if (updating[0]) {
+                    return;
+                }
 
                 if (e.getType() == TableModelEvent.UPDATE || e.getType() == TableModelEvent.INSERT || e.getType() == TableModelEvent.DELETE) {
                     int totalProductos = 0;
@@ -697,19 +801,56 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                     // Actualizar los campos de texto
                     totalProductoJTextField.setText(String.valueOf(totalProductos));
                     totalJTextField1.setText(String.valueOf(total));
-                    double Efectivo = Double.parseDouble(Efectivo_TextField.getText());
-                    double Cambio = Efectivo - total;
-                    Cambio_TextField.setText(String.valueOf(Cambio));
+                    actualizarCambio(total);
 
                     // Finalizar actualización programática
                     updating[0] = false;
                 }
             }
         });
+
+        // Agregar un DocumentListener al campo de texto de Efectivo
+        Efectivo_TextField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                actualizarCambioDesdeTexto();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                actualizarCambioDesdeTexto();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                actualizarCambioDesdeTexto();
+            }
+
+            private void actualizarCambioDesdeTexto() {
+                try {
+                    double total = Double.parseDouble(totalJTextField1.getText());
+                    actualizarCambio(total);
+                } catch (NumberFormatException ex) {
+                    // Manejar error si el texto no es un número válido
+                    Cambio_TextField.setText("0");
+                }
+            }
+        });
     }
 
-   public int obtenerUltimoNoFactura() throws SQLException {
-       int ultimoNumeroFactura = 1;
+    private void actualizarCambio(double total) {
+        try {
+            double Efectivo = Double.parseDouble(Efectivo_TextField.getText());
+            double Cambio = Efectivo - total;
+            Cambio_TextField.setText(String.valueOf(Cambio));
+        } catch (NumberFormatException e) {
+            // Manejar error si el texto no es un número válido
+            Cambio_TextField.setText("0");
+        }
+    }
+
+    public int obtenerUltimoNoFactura() throws SQLException {
+        int ultimoNumeroFactura = 1;
         try (ResultSet resultNoFactura = venta.noFactura(conexion)) {
             if (resultNoFactura.next()) {
                 ultimoNumeroFactura = resultNoFactura.getInt("maxFac");
@@ -717,7 +858,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
             }
         }
         return ultimoNumeroFactura;
-   }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarBn;
