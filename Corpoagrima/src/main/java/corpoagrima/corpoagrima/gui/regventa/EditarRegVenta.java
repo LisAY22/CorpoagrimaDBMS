@@ -77,7 +77,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
             String Direccion = Datos.getString("Direccion");
             boolean ClienteDestacado = Datos.getBoolean("Cliente_destacado");
             String FechaFactura = Datos.getString("Fecha");
-            String NombreEmpleado = Datos.getString("nombre");
+            String NombreEmpleado = Datos.getString("EMpleado");
             String NIT = Datos.getString("NIT");
             String Tipo = Datos.getString("Tipo_de_Venta");
             float cambio = Datos.getFloat("Cambio");

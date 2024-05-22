@@ -454,7 +454,7 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
             String Direccion = rs.getString("Direccion");
             boolean ClienteDestacado = rs.getBoolean("Cliente_destacado");
             String FechaFactura = rs.getString("Fecha");
-            String NombreEmpleado = rs.getString("nombre");
+            String NombreEmpleado = rs.getString("Empleado");
             String NIT = rs.getString("NIT");
             String Tipo = rs.getString("Tipo_de_Venta");
             float cambio = rs.getFloat("Cambio");

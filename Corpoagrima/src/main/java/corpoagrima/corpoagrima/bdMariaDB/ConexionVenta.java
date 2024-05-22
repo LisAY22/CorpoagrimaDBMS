@@ -80,7 +80,7 @@ public class ConexionVenta {
     
     public ResultSet ConsultaEditWindow(Connection conexion, String NoFactura) throws SQLException{
         String sql = "SELECT Cliente.Nombre, Cliente.Apellido, Cliente.Direccion, Cliente.NIT, Cliente.Cliente_destacado, "
-                + "rv.ID_Venta, rv.Fecha, rv.Tipo_de_Venta, Empleado.nombre, rv.Efectivo, rv.Cambio "
+                + "rv.ID_Venta, rv.Fecha, rv.Tipo_de_Venta, Empleado.Nombre AS Empleado, rv.Efectivo, rv.Cambio "
                 + "FROM Cliente INNER JOIN Registro_Venta rv ON Cliente.ID_Cliente = rv.Cliente_ID_Cliente "
                 + "INNER JOIN Empleado ON rv.Empleado_ID_Empleado = Empleado.ID_Empleado "
                 + "WHERE rv.NoFactura=?";
@@ -171,7 +171,7 @@ public class ConexionVenta {
     
     public ResultSet Detalles(Connection conexion, String NoFactura) throws SQLException{
         String sql = "SELECT rvp.Detalle "
-                + "FROM registro_venta rv INNER JOIN Registro_Venta_has_producto rvp ON rv.ID_Venta = rvp.Registro_Venta_ID_Venta "
+                + "FROM Registro_Venta rv INNER JOIN Registro_Venta_has_Producto rvp ON rv.ID_Venta = rvp.Registro_Venta_ID_Venta "
                 + "WHERE rv.NoFactura=? LIMIT 1";
 
         PreparedStatement stmt = conexion.prepareStatement(sql);
