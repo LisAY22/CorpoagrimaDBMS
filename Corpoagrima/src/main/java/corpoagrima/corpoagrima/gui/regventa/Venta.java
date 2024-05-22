@@ -214,6 +214,11 @@ public final class Venta extends javax.swing.JFrame {
         Visualizar_jbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ojo.png"))); // NOI18N
         Visualizar_jbutton.setEnabled(true);
         Visualizar_jbutton.setPreferredSize(new java.awt.Dimension(30, 31));
+        Visualizar_jbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Visualizar_jbuttonActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("VISUALIZAR");
@@ -379,6 +384,35 @@ public final class Venta extends javax.swing.JFrame {
         }
         dispose(); 
     }//GEN-LAST:event_Editar_jbutton1ActionPerformed
+
+    private void Visualizar_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Visualizar_jbuttonActionPerformed
+        int selectedRow = jTable2.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura para vidualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Obtener el número de factura de la fila seleccionada
+        Object facturaObject = jTable2.getValueAt(selectedRow, 1); 
+        if (facturaObject == null) {
+            JOptionPane.showMessageDialog(this, "No se puede obtener el número de factura.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si el número de factura es nulo
+        }
+
+        // Convertir el objeto a un String (el número de factura)
+        String numeroFactura = facturaObject.toString();
+
+        
+        VisualizarRegVenta VisualizarWindow = null;
+        try {
+            VisualizarWindow = new VisualizarRegVenta(conexion, credenciales, numeroFactura);
+        } catch (SQLException ex) {
+            Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        VisualizarWindow.setVisible(true);
+        dispose(); 
+    }//GEN-LAST:event_Visualizar_jbuttonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

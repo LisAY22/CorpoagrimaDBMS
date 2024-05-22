@@ -3,8 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package corpoagrima.corpoagrima.gui.regventa;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionCliente;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
+import corpoagrima.corpoagrima.bdMariaDB.ConexionVenta;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author User
@@ -12,15 +21,28 @@ import java.sql.ResultSet;
 public class VisualizarRegVenta extends javax.swing.JFrame {
     private final Connection conexion;
     private final ResultSet credenciales;
+    private String NoFactura;
+    private ConexionVenta Venta;
+    private ConexionProducto Producto;
+    private ConexionUsuario Usuario;
+    private ConexionCliente Cliente;
+    private int id;
     /**
      * Creates new form VisualizarRegFactura
      * @param conexion
      * @param credenciales
+     * @param Factura
      */
-    public VisualizarRegVenta(Connection conexion, ResultSet credenciales) {
+    public VisualizarRegVenta(Connection conexion, ResultSet credenciales, String Factura) throws SQLException {
         this.conexion = conexion;
         this.credenciales = credenciales;
+        this.NoFactura = Factura;
+        this.Venta = new ConexionVenta();
+        this.Producto = new ConexionProducto();
+        this.Usuario = new ConexionUsuario();
+        this.Cliente = new ConexionCliente();
         initComponents();
+        mostrarInformacion();
     }
 
     /**
@@ -44,8 +66,7 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
         Apellido_TextField = new javax.swing.JTextField();
         Apellido_Label1 = new javax.swing.JLabel();
         Direccion_TextField = new javax.swing.JTextField();
-        Direccion_Label = new javax.swing.JLabel();
-        Direccion_TextField1 = new javax.swing.JTextField();
+        NIT_TextField = new javax.swing.JTextField();
         Empleado_label = new javax.swing.JLabel();
         Empleado_TextField = new javax.swing.JTextField();
         Fecha_label = new javax.swing.JLabel();
@@ -59,16 +80,14 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
         jScrollPane1 = new javax.swing.JScrollPane();
         Productos_table = new javax.swing.JTable();
-        Agregar_button = new javax.swing.JButton();
-        Eliminar_button = new javax.swing.JButton();
         Destacado_label2 = new javax.swing.JLabel();
         Efectivo_TextField = new javax.swing.JTextField();
         Destacado_label3 = new javax.swing.JLabel();
         Cambio_TextField = new javax.swing.JTextField();
-        Destacado_label4 = new javax.swing.JLabel();
-        Total_TextField = new javax.swing.JTextField();
-        Total_TextField1 = new javax.swing.JTextField();
-        Destacado_label5 = new javax.swing.JLabel();
+        totalProductoLabel = new javax.swing.JLabel();
+        totalProductoJTextField = new javax.swing.JTextField();
+        totalLabel = new javax.swing.JLabel();
+        totalJTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -119,6 +138,7 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
         Apellido_Label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Apellido_Label.setText("Apellido");
 
+        Nombre_TextField.setEditable(false);
         Nombre_TextField.setToolTipText("Nombre del cliente");
         Nombre_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,6 +149,7 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("No. Factura");
 
+        NoFactura_TextField1.setEditable(false);
         NoFactura_TextField1.setToolTipText("Número de factura");
         NoFactura_TextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,6 +160,7 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
         Nombre_jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Nombre_jLabel2.setText("Nombre");
 
+        Apellido_TextField.setEditable(false);
         Apellido_TextField.setToolTipText("Apellido del cliente");
         Apellido_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +171,7 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
         Apellido_Label1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Apellido_Label1.setText("Dirección");
 
+        Direccion_TextField.setEditable(false);
         Direccion_TextField.setToolTipText("Dirección del cliente");
         Direccion_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,19 +179,18 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
             }
         });
 
-        Direccion_Label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Direccion_Label.setText("Nit");
-
-        Direccion_TextField1.setToolTipText("Búsqueda por NIT");
-        Direccion_TextField1.addActionListener(new java.awt.event.ActionListener() {
+        NIT_TextField.setEditable(false);
+        NIT_TextField.setToolTipText("Búsqueda por NIT");
+        NIT_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Direccion_TextField1ActionPerformed(evt);
+                NIT_TextFieldActionPerformed(evt);
             }
         });
 
         Empleado_label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Empleado_label.setText("Empleado");
 
+        Empleado_TextField.setEditable(false);
         Empleado_TextField.setToolTipText("Empleado");
         Empleado_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,6 +201,7 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
         Fecha_label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Fecha_label.setText("Fecha");
 
+        Fecha_TextField.setEditable(false);
         Fecha_TextField.setToolTipText("Fecha");
         Fecha_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,6 +211,7 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
 
         Destacado_checkBox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Destacado_checkBox.setText("Destacado");
+        Destacado_checkBox.setEnabled(false);
         Destacado_checkBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Destacado_checkBoxActionPerformed(evt);
@@ -197,6 +221,7 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
         Direccion_Label1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Direccion_Label1.setText("Detalle");
 
+        Detalles_TextField.setEditable(false);
         Detalles_TextField.setToolTipText("Detalle de factura");
         Detalles_TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,9 +231,11 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
 
         Consumidor_CheckBox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Consumidor_CheckBox.setText("Consumidor Final");
+        Consumidor_CheckBox.setEnabled(false);
 
         NIT_CheckBox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         NIT_CheckBox.setText("NIT");
+        NIT_CheckBox.setEnabled(false);
         NIT_CheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NIT_CheckBoxActionPerformed(evt);
@@ -217,6 +244,7 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
 
         Credito_checkbox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Credito_checkbox.setText("Crédito");
+        Credito_checkbox.setEnabled(false);
         Credito_checkbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Credito_checkboxActionPerformed(evt);
@@ -225,40 +253,28 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
 
         Productos_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "Detalle", "Cantidad", "Descuento", "Precio Unidad", "Precio Total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(Productos_table);
-
-        Agregar_button.setBackground(new java.awt.Color(136, 213, 133));
-        Agregar_button.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Agregar_button.setText("Agregar");
-        Agregar_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Agregar_buttonMouseClicked(evt);
-            }
-        });
-        Agregar_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Agregar_buttonActionPerformed(evt);
-            }
-        });
-
-        Eliminar_button.setBackground(new java.awt.Color(255, 0, 0));
-        Eliminar_button.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Eliminar_button.setText("Eliminar");
 
         Destacado_label2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Destacado_label2.setText("Efectivo");
         Destacado_label2.setToolTipText("");
         Destacado_label2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        Efectivo_TextField.setEditable(false);
         Efectivo_TextField.setBackground(new java.awt.Color(102, 255, 51));
         Efectivo_TextField.setToolTipText("Cantidad de efectivo");
         Efectivo_TextField.addActionListener(new java.awt.event.ActionListener() {
@@ -270,6 +286,7 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
         Destacado_label3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Destacado_label3.setText("Cambio");
 
+        Cambio_TextField.setEditable(false);
         Cambio_TextField.setForeground(new java.awt.Color(255, 51, 51));
         Cambio_TextField.setToolTipText("Cambio ");
         Cambio_TextField.addActionListener(new java.awt.event.ActionListener() {
@@ -278,28 +295,18 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
             }
         });
 
-        Destacado_label4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        Destacado_label4.setForeground(new java.awt.Color(255, 0, 51));
-        Destacado_label4.setText("Total ");
+        totalProductoLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        totalProductoLabel.setText("Total de productos:");
 
-        Total_TextField.setForeground(new java.awt.Color(255, 51, 51));
-        Total_TextField.setToolTipText("Total venta");
-        Total_TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Total_TextFieldActionPerformed(evt);
-            }
-        });
+        totalProductoJTextField.setEditable(false);
+        totalProductoJTextField.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
 
-        Total_TextField1.setForeground(new java.awt.Color(255, 51, 51));
-        Total_TextField1.setToolTipText("Total venta");
-        Total_TextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Total_TextField1ActionPerformed(evt);
-            }
-        });
+        totalLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        totalLabel.setForeground(new java.awt.Color(159, 46, 46));
+        totalLabel.setText("Total");
 
-        Destacado_label5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Destacado_label5.setText("Total Productos");
+        totalJTextField1.setEditable(false);
+        totalJTextField1.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -307,14 +314,14 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(encabezadoJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Apellido_Label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Apellido_Label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                            .addComponent(Nombre_jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(Nombre_jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                            .addComponent(Apellido_Label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,9 +332,7 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
                             .addComponent(Direccion_TextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(55, 55, 55)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -340,45 +345,43 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(Fecha_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(Destacado_checkBox, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(63, 63, 63)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Credito_checkbox, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Consumidor_CheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(NIT_CheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(NIT_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(Direccion_Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Detalles_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Destacado_label2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(totalProductoLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(totalProductoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(69, 69, 69)
+                                        .addComponent(totalLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(totalJTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(Credito_checkbox, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(Direccion_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(Direccion_TextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                            .addComponent(Consumidor_CheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(NIT_CheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Direccion_Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Detalles_TextField))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Destacado_label5, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(Total_TextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(67, 67, 67)
-                                .addComponent(Destacado_label4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
-                                .addComponent(Total_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Eliminar_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Agregar_button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Destacado_label2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Efectivo_TextField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Cambio_TextField)
-                            .addComponent(Destacado_label3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                                        .addGap(57, 57, 57)
+                                        .addComponent(Efectivo_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Cambio_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(Destacado_label3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -396,25 +399,21 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(Fecha_label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(Fecha_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Consumidor_CheckBox)
-                                .addComponent(NIT_CheckBox)))
+                                .addComponent(NIT_CheckBox)
+                                .addComponent(NIT_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(Direccion_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Direccion_TextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Nombre_jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Nombre_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Destacado_checkBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(Apellido_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Apellido_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Credito_checkbox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Empleado_label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Empleado_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(Nombre_jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Nombre_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Destacado_checkBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Consumidor_CheckBox, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Apellido_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Apellido_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Credito_checkbox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Empleado_label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Empleado_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Apellido_Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -423,37 +422,112 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Direccion_Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Detalles_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Agregar_button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Eliminar_button)
-                        .addGap(27, 27, 27)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(totalProductoLabel)
+                                .addComponent(totalProductoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(totalJTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(51, 51, 51))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(Destacado_label2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(12, 12, 12)
                         .addComponent(Efectivo_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Destacado_label3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Cambio_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Destacado_label5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Total_TextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Destacado_label4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Total_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(109, 109, 109))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public final void mostrarInformacion() throws SQLException {
+        ResultSet rs = Venta.ConsultaEditWindow(conexion, NoFactura);
+        if (rs.next()){
+            id = rs.getInt("ID_Venta");
+            String NombreCliente = rs.getString("Nombre");
+            String ApellidoCliente = rs.getString("Apellido");
+            String Direccion = rs.getString("Direccion");
+            boolean ClienteDestacado = rs.getBoolean("Cliente_destacado");
+            String FechaFactura = rs.getString("Fecha");
+            String NombreEmpleado = rs.getString("nombre");
+            String NIT = rs.getString("NIT");
+            String Tipo = rs.getString("Tipo_de_Venta");
+            float cambio = rs.getFloat("Cambio");
+            float efectivo = rs.getFloat("Efectivo");
+            String Cambio = String.valueOf(cambio);
+            String Efectivo = String.valueOf(efectivo);
+            
+            // Insercion a los label correspondientes
+            NoFactura_TextField1.setText(NoFactura);
+            Nombre_TextField.setText(NombreCliente);
+            Apellido_TextField.setText(ApellidoCliente);
+            Direccion_TextField.setText(Direccion);
+            Fecha_TextField.setText(FechaFactura);
+            Empleado_TextField.setText(NombreEmpleado);
+            NIT_TextField.setText(NIT);
+            Efectivo_TextField.setText(Efectivo);
+            Cambio_TextField.setText(Cambio);
+            
+            // Habilitacion de los checkBox
+            if (ClienteDestacado == true){
+                Destacado_checkBox.setSelected(true);
+            }
+            
+            if (NIT.equals("C/F")){
+                Consumidor_CheckBox.setSelected(true);
+            }else{
+                NIT_CheckBox.setSelected(true);
+            }
+            
+            if (Tipo.equals("Crédito")){
+                Credito_checkbox.setSelected(true);
+            }
+            
+            
+            try (ResultSet productos1 = Venta.ConsultaProductos(conexion, NoFactura)) {
+                // Obtener el modelo de la tabla actual
+                DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
+                model.setRowCount(0); // Limpiar los datos existentes
+
+                // Agregar nuevas filas al modelo de tabla
+                ResultSetMetaData metaData = productos1.getMetaData();
+                int columnCount = metaData.getColumnCount();
+
+                while (productos1.next()) {
+                    Object[] rowData = new Object[columnCount];
+                    for (int i = 0; i < columnCount; i++) {
+                        rowData[i] = productos1.getObject(i + 1);
+                    }
+                    model.addRow(rowData);
+                }
+            }
+            DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
+            
+            double total = 0;
+            int numFilas = model.getRowCount();
+            int totalProductos = 0;
+            for (int fila = 0; fila < numFilas; fila++) {
+                totalProductos += Integer.parseInt(model.getValueAt(fila, 2).toString());
+                total += Double.parseDouble(model.getValueAt(fila, 5).toString());
+            }
+            totalProductoJTextField.setText(String.valueOf(totalProductos));
+            totalJTextField1.setText(String.valueOf(total));
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "No se encontraron resultados",
+                    "Busqueda", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    
     private void back_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_ButtonMouseClicked
-        // TODO add your handling code here:
         Venta VentaWindow = new Venta(conexion, credenciales);
         VentaWindow.setVisible(true);
         dispose();
@@ -479,9 +553,9 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Direccion_TextFieldActionPerformed
 
-    private void Direccion_TextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Direccion_TextField1ActionPerformed
+    private void NIT_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NIT_TextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Direccion_TextField1ActionPerformed
+    }//GEN-LAST:event_NIT_TextFieldActionPerformed
 
     private void Empleado_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Empleado_TextFieldActionPerformed
         // TODO add your handling code here:
@@ -503,14 +577,6 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Credito_checkboxActionPerformed
 
-    private void Agregar_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Agregar_buttonMouseClicked
-        
-    }//GEN-LAST:event_Agregar_buttonMouseClicked
-
-    private void Agregar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Agregar_buttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Agregar_buttonActionPerformed
-
     private void Efectivo_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Efectivo_TextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Efectivo_TextFieldActionPerformed
@@ -519,21 +585,12 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Cambio_TextFieldActionPerformed
 
-    private void Total_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Total_TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Total_TextFieldActionPerformed
-
     private void NIT_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NIT_CheckBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NIT_CheckBoxActionPerformed
 
-    private void Total_TextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Total_TextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Total_TextField1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Agregar_button;
     private javax.swing.JLabel Apellido_Label;
     private javax.swing.JLabel Apellido_Label1;
     private javax.swing.JTextField Apellido_TextField;
@@ -543,26 +600,20 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
     private javax.swing.JCheckBox Destacado_checkBox;
     private javax.swing.JLabel Destacado_label2;
     private javax.swing.JLabel Destacado_label3;
-    private javax.swing.JLabel Destacado_label4;
-    private javax.swing.JLabel Destacado_label5;
     private javax.swing.JTextField Detalles_TextField;
-    private javax.swing.JLabel Direccion_Label;
     private javax.swing.JLabel Direccion_Label1;
     private javax.swing.JTextField Direccion_TextField;
-    private javax.swing.JTextField Direccion_TextField1;
     private javax.swing.JTextField Efectivo_TextField;
-    private javax.swing.JButton Eliminar_button;
     private javax.swing.JTextField Empleado_TextField;
     private javax.swing.JLabel Empleado_label;
     private javax.swing.JTextField Fecha_TextField;
     private javax.swing.JLabel Fecha_label;
     private javax.swing.JCheckBox NIT_CheckBox;
+    private javax.swing.JTextField NIT_TextField;
     private javax.swing.JTextField NoFactura_TextField1;
     private javax.swing.JTextField Nombre_TextField;
     private javax.swing.JLabel Nombre_jLabel2;
     private javax.swing.JTable Productos_table;
-    private javax.swing.JTextField Total_TextField;
-    private javax.swing.JTextField Total_TextField1;
     private javax.swing.JButton back_Button;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel encabezadoJPanel;
@@ -570,5 +621,9 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel puestoJLabel;
+    private javax.swing.JTextField totalJTextField1;
+    private javax.swing.JLabel totalLabel;
+    private javax.swing.JTextField totalProductoJTextField;
+    private javax.swing.JLabel totalProductoLabel;
     // End of variables declaration//GEN-END:variables
 }

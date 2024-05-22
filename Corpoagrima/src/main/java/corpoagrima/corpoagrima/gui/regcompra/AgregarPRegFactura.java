@@ -137,7 +137,15 @@ public class AgregarPRegFactura extends javax.swing.JFrame {
             new String [] {
                 "ID_Producto", "Nombre", "Descripción", "Marca", "Categoria", "Unidad Medida"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);

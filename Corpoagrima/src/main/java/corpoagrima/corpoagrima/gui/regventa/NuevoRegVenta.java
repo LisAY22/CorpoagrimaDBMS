@@ -26,7 +26,7 @@ import javax.swing.event.DocumentListener;
  * @author User
  * @author Karol
  */
-public class NuevoRegVenta extends javax.swing.JFrame {
+public final class NuevoRegVenta extends javax.swing.JFrame {
 
     private Connection conexion;
     private ResultSet credenciales;
@@ -36,7 +36,6 @@ public class NuevoRegVenta extends javax.swing.JFrame {
     private int idEmpleado;
     private int factura;
     private int idCliente;
-    private boolean edicion;
     
 
     /**
@@ -56,7 +55,6 @@ public class NuevoRegVenta extends javax.swing.JFrame {
         
         edicion();
         initComponents();
-        limpiar();
         datosTotales();
 
         Date fechaActual = new Date();
@@ -236,31 +234,18 @@ public class NuevoRegVenta extends javax.swing.JFrame {
 
         Productos_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
 
+            },
             new String [] {
                 "Nombre", "Detalle", "Cantidad", "Descuento", "Precio Unidad", "Precio Total"
             }
         ) {
-            boolean editabl = edicion;
             boolean[] canEdit = new boolean [] {
                 false, false, true, true, false, false
             };
 
-            @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                // Se ajusta la edición de las columnas 2 y 3 según el valor de permitirEdicionColumnas
-                if (editabl) {
-                    // Si permitirEdicionColumnas es true, las columnas 2 y 3 son editables
-                    return canEdit[columnIndex];
-                } else {
-                    // Si permitirEdicionColumnas es false, solo la columna 2 es editable
-                    return columnIndex == 3; // Columna 2
-                }
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(Productos_table);
@@ -537,13 +522,9 @@ public class NuevoRegVenta extends javax.swing.JFrame {
     public void edicion() throws SQLException{
         String NoFactura = String.valueOf(factura);
         ResultSet Datos = venta.ConsultaEditWindow(conexion, NoFactura);
-        if(Datos.next()){
+        if (Datos.next()) {
             boolean ClienteDestacado = Datos.getBoolean("Cliente_destacado");
-            if(ClienteDestacado == true){
-                edicion = true;
-            }else{
-                edicion = false;
-            }
+            edicion = ClienteDestacado;
         }
     }
     
@@ -637,6 +618,7 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                     NIT_textField.setText(nit);
                     Destacado_checkBox.setSelected(false);
                     NIT_CheckBox.setSelected(false);
+                    edicion = false;
 
                 }
 
@@ -732,9 +714,11 @@ public class NuevoRegVenta extends javax.swing.JFrame {
                     if (destacado == 1) {
                         // Si el número es 1, marcamos el checkbox como seleccionado
                         Destacado_checkBox.setSelected(true);
+                        edicion = true;
                     } else {
                         // Si el número no es 1, no marcamos el checkbox
                         Destacado_checkBox.setSelected(false);
+                        edicion = false;
                     }
 
                     Nombre_TextField.setText(nombre);
