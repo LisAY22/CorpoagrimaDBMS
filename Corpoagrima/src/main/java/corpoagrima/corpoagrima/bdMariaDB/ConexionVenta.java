@@ -158,4 +158,14 @@ public class ConexionVenta {
         int filasAfectadas = stmt.executeUpdate();
         return filasAfectadas > 0;
     }
+    
+    public ResultSet Detalles(Connection conexion, String NoFactura) throws SQLException{
+        String sql = "SELECT rvp.Detalle "
+                + "FROM registro_venta rv INNER JOIN Registro_Venta_has_producto rvp ON rv.ID_Venta = rvp.Registro_Venta_ID_Venta "
+                + "WHERE rv.NoFactura=? LIMIT 1";
+
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setString(1, NoFactura);
+        return stmt.executeQuery();
+    }
 }

@@ -111,6 +111,10 @@ public final class EditarRegVenta extends javax.swing.JFrame {
                 Credito_checkbox.setSelected(true);
             }
             
+            ResultSet detalles = Venta.Detalles(conexion, NoFactura);
+            detalles.next();
+            String Detail = detalles.getString("Detalle");
+            Detalles_TextField.setText(Detail);
             
             try (ResultSet productos1 = Venta.ConsultaProductos(conexion, NoFactura)) {
                 // Obtener el modelo de la tabla actual
