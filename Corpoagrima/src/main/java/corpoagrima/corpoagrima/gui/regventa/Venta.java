@@ -195,6 +195,11 @@ public final class Venta extends javax.swing.JFrame {
         Anular_jbutton.setForeground(new java.awt.Color(255, 255, 255));
         Anular_jbutton.setText("ANULAR");
         Anular_jbutton.setEnabled(true);
+        Anular_jbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Anular_jbuttonActionPerformed(evt);
+            }
+        });
 
         Editar_jbutton1.setBackground(new java.awt.Color(136, 213, 133));
         Editar_jbutton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -413,6 +418,35 @@ public final class Venta extends javax.swing.JFrame {
         VisualizarWindow.setVisible(true);
         dispose(); 
     }//GEN-LAST:event_Visualizar_jbuttonActionPerformed
+
+    private void Anular_jbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Anular_jbuttonActionPerformed
+        int selectedRow = jTable2.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura para vidualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Obtener el número de factura de la fila seleccionada
+        Object facturaObject = jTable2.getValueAt(selectedRow, 1); 
+        if (facturaObject == null) {
+            JOptionPane.showMessageDialog(this, "No se puede obtener el número de factura.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si el número de factura es nulo
+        }
+
+        // Convertir el objeto a un String (el número de factura)
+        String numeroFactura = facturaObject.toString();
+
+        
+        AnularRegVenta AnularWindow = null;
+        try {
+            AnularWindow = new AnularRegVenta(conexion, credenciales, numeroFactura);
+        } catch (SQLException ex) {
+            Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        AnularWindow.setVisible(true);
+        dispose(); 
+    }//GEN-LAST:event_Anular_jbuttonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

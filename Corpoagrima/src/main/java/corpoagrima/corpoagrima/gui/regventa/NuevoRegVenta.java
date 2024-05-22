@@ -28,12 +28,12 @@ import javax.swing.event.DocumentListener;
  */
 public final class NuevoRegVenta extends javax.swing.JFrame {
 
-    private Connection conexion;
-    private ResultSet credenciales;
-    private ConexionCliente clientes;
-    private ConexionProducto producto;
-    private ConexionVenta venta;
-    private int idEmpleado;
+    private final Connection conexion;
+    private final ResultSet credenciales;
+    private final ConexionCliente clientes;
+    private final ConexionProducto producto;
+    private final ConexionVenta venta;
+    private final int idEmpleado;
     private int factura;
     private int idCliente;
     
@@ -524,7 +524,6 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
         ResultSet Datos = venta.ConsultaEditWindow(conexion, NoFactura);
         if (Datos.next()) {
             boolean ClienteDestacado = Datos.getBoolean("Cliente_destacado");
-            edicion = ClienteDestacado;
         }
     }
     
@@ -618,7 +617,6 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
                     NIT_textField.setText(nit);
                     Destacado_checkBox.setSelected(false);
                     NIT_CheckBox.setSelected(false);
-                    edicion = false;
 
                 }
 
@@ -714,11 +712,9 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
                     if (destacado == 1) {
                         // Si el número es 1, marcamos el checkbox como seleccionado
                         Destacado_checkBox.setSelected(true);
-                        edicion = true;
                     } else {
                         // Si el número no es 1, no marcamos el checkbox
                         Destacado_checkBox.setSelected(false);
-                        edicion = false;
                     }
 
                     Nombre_TextField.setText(nombre);

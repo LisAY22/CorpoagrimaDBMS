@@ -21,6 +21,16 @@ public class ConexionVenta {
         return stmt.executeQuery();
     }
     
+    public boolean anular(Connection conexion, int id) throws SQLException {
+        String sql = "UPDATE Registro_Venta SET Anulado=? WHERE ID_Venta=?";
+        PreparedStatement stmt = conexion.prepareStatement(sql);
+        stmt.setBoolean(1, true);
+        stmt.setInt(2, id);
+
+        int filasAfectadas = stmt.executeUpdate();
+        return filasAfectadas > 0;
+    }
+    
     public boolean agregar(Connection conexion, int NoFactura, String tipoVenta,
             String fecha, float total, float efectivo, float cambio, int idCliente,
             int empleado_id_empleado) throws SQLException {

@@ -5,7 +5,6 @@
 package corpoagrima.corpoagrima.gui.regventa;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCliente;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
-import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionVenta;
 import java.sql.Connection;
@@ -21,12 +20,11 @@ import javax.swing.table.DefaultTableModel;
 public class VisualizarRegVenta extends javax.swing.JFrame {
     private final Connection conexion;
     private final ResultSet credenciales;
-    private String NoFactura;
-    private ConexionVenta Venta;
-    private ConexionProducto Producto;
-    private ConexionUsuario Usuario;
-    private ConexionCliente Cliente;
-    private int id;
+    private final String NoFactura;
+    private final ConexionVenta Venta;
+    private final ConexionProducto Producto;
+    private final ConexionUsuario Usuario;
+    private final ConexionCliente Cliente;
     /**
      * Creates new form VisualizarRegFactura
      * @param conexion
@@ -96,7 +94,7 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
 
         puestoJLabel.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         puestoJLabel.setForeground(new java.awt.Color(255, 255, 255));
-        puestoJLabel.setText("Visualizar Registro Factura");
+        puestoJLabel.setText("VISUALIZAR REGISTRO FACTURA");
 
         back_Button.setBackground(new java.awt.Color(34, 85, 34));
         back_Button.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -121,7 +119,7 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
             .addGroup(encabezadoJPanelLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(back_Button)
-                .addGap(196, 196, 196)
+                .addGap(152, 152, 152)
                 .addComponent(puestoJLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -451,7 +449,6 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
     public final void mostrarInformacion() throws SQLException {
         ResultSet rs = Venta.ConsultaEditWindow(conexion, NoFactura);
         if (rs.next()){
-            id = rs.getInt("ID_Venta");
             String NombreCliente = rs.getString("Nombre");
             String ApellidoCliente = rs.getString("Apellido");
             String Direccion = rs.getString("Direccion");
@@ -491,6 +488,10 @@ public class VisualizarRegVenta extends javax.swing.JFrame {
                 Credito_checkbox.setSelected(true);
             }
             
+            ResultSet detalles = Venta.Detalles(conexion, NoFactura);
+            detalles.next();
+            String Detalle = detalles.getString("Detalle");
+            Detalles_TextField.setText(Detalle);
             
             try (ResultSet productos1 = Venta.ConsultaProductos(conexion, NoFactura)) {
                 // Obtener el modelo de la tabla actual
