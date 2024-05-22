@@ -394,7 +394,7 @@ public final class Venta extends javax.swing.JFrame {
         int selectedRow = jTable2.getSelectedRow();
 
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura para vidualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura para visualizar.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -423,7 +423,7 @@ public final class Venta extends javax.swing.JFrame {
         int selectedRow = jTable2.getSelectedRow();
 
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura para visualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura para anular.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
