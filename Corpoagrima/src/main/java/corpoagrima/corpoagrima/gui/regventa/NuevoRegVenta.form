@@ -370,6 +370,9 @@
         <Property name="editable" type="boolean" value="false"/>
         <Property name="toolTipText" type="java.lang.String" value="B&#xfa;squeda por NIT"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="((PlainDocument) NIT_textField.getDocument()).setDocumentFilter(new PositiveIntegerFilter());"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="Empleado_label">
       <Properties>

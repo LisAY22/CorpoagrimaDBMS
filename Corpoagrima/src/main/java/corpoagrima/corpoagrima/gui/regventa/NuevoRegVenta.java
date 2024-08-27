@@ -98,6 +98,7 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
         Apellido_Label1 = new javax.swing.JLabel();
         Direccion_TextField = new javax.swing.JTextField();
         NIT_textField = new javax.swing.JTextField();
+        ((PlainDocument) NIT_textField.getDocument()).setDocumentFilter(new PositiveIntegerFilter());
         Empleado_label = new javax.swing.JLabel();
         Empleado_TextField = new javax.swing.JTextField();
         Fecha_label = new javax.swing.JLabel();
