@@ -39,4 +39,42 @@ public class Conexion {
             }
         }
     }
+    
+    // Método para iniciar una transacción
+    public boolean iniciarTransaccion(Connection conexion) {
+        try {
+            conexion.setAutoCommit(false);
+            System.out.println("Transacción iniciada.");
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al iniciar la transacción: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Método para hacer commit de una transacción
+    public boolean commitTransaccion(Connection conexion) {
+        try {
+            conexion.commit();
+            conexion.setAutoCommit(true);
+            System.out.println("Transacción realizada con éxito.");
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al hacer commit de la transacción: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Método para hacer rollback de una transacción
+    public boolean rollbackTransaccion(Connection conexion) {
+        try {
+            conexion.rollback();
+            conexion.setAutoCommit(true);
+            System.out.println("Rollback realizado.");
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al hacer rollback de la transacción: " + e.getMessage());
+            return false;
+        }
+    }
 }
