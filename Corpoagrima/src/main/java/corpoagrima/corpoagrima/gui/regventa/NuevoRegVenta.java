@@ -5,8 +5,10 @@
 package corpoagrima.corpoagrima.gui.regventa;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCliente;
+import corpoagrima.corpoagrima.bdMariaDB.Conexion;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionVenta;
+import corpoagrima.corpoagrima.logic.PositiveIntegerFilter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.PlainDocument;
 
 /**
  *
@@ -110,6 +113,7 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
         Productos_table = new javax.swing.JTable();
         Destacado_label2 = new javax.swing.JLabel();
         Efectivo_TextField = new javax.swing.JTextField();
+        ((PlainDocument) Efectivo_TextField.getDocument()).setDocumentFilter(new PositiveIntegerFilter());
         Destacado_label3 = new javax.swing.JLabel();
         Cambio_TextField = new javax.swing.JTextField();
         Buscar_Button = new javax.swing.JButton();
@@ -635,13 +639,31 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
     private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
+        Conexion conexionBD = new Conexion();
+
         try {
+            if (!conexionBD.iniciarTransaccion(conexion)) {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo iniciar la transacción.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             String fecha = Fecha_TextField.getText();
             boolean esCredito = Credito_checkbox.isSelected();
             String credito = (esCredito) ? "Credito" : "Contado";
             float total = Float.parseFloat(totalJTextField1.getText());
             float efectivo = Float.parseFloat(Efectivo_TextField.getText());
-            float cambio = Float.parseFloat(Cambio_TextField.getText());
+
+            if (efectivo < total) {
+                JOptionPane.showMessageDialog(this,
+                        "El efectivo no puede ser menor que el total.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            float cambio = efectivo - total;
+
             String detalle = Detalles_TextField.getText();
 
             String nombreProducto;
@@ -699,20 +721,32 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
                         precioUnidad, precioTotal);
             }
 
-            if (ventaResultSet) {
+            if (conexionBD.commitTransaccion(conexion)) {
                 JOptionPane.showMessageDialog(this,
                         "Se ha guardado exitosamente.",
                         "Guardando", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
                 factura = obtenerUltimoNoFactura();
                 NoFactura_TextField1.setText(String.valueOf(factura));
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo completar la transacción.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
+
         } catch (SQLException ex) {
+            if (conexion != null) {
+                conexionBD.rollbackTransaccion(conexion);
+            }
             Logger.getLogger(NuevoRegVenta.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this,
                     "Se ha producido un error.",
                     "Error", JOptionPane.INFORMATION_MESSAGE);
+        } finally {
+            // Cerrar la conexión
+            conexionBD.cerrarConexion();
         }
+    
     }//GEN-LAST:event_Guardar_buttonActionPerformed
 
     public final void buscar(String textoBusqueda) {

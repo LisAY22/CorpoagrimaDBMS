@@ -546,6 +546,9 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Cantidad de efectivo"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="((PlainDocument) Efectivo_TextField.getDocument()).setDocumentFilter(new PositiveIntegerFilter());"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="Destacado_label3">
       <Properties>
