@@ -644,25 +644,41 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
             float cambio = Float.parseFloat(Cambio_TextField.getText());
             String detalle = Detalles_TextField.getText();
 
-            boolean ventaResultSet;
+            String nombreProducto;
+            int cantidad;
+            DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
+            int numFilas = model.getRowCount();
 
-            ventaResultSet = venta.agregar(conexion, factura, credito, fecha, total, efectivo, cambio, idCliente, idEmpleado);
+            for (int fila = 0; fila < numFilas; fila++) {
+                nombreProducto = model.getValueAt(fila, 0).toString();
+                cantidad = Integer.parseInt(model.getValueAt(fila, 2).toString());
+
+                ResultSet productoResult = producto.cantidad(conexion, nombreProducto);
+                productoResult.next();
+                int stock = productoResult.getInt("Stock");
+
+                if (cantidad > stock) {
+                    JOptionPane.showMessageDialog(this,
+                            "La cantidad vendida de '" + nombreProducto + "' excede el stock disponible (" + stock + ").",
+                            "Error de Stock", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+
+            boolean ventaResultSet = venta.agregar(conexion, factura, credito, fecha, total, efectivo, cambio, idCliente, idEmpleado);
 
             if (!ventaResultSet) {
                 throw new SQLException("Error al agregar un registro de compra");
             }
+
             ResultSet ventaRs = venta.idVenta(conexion, factura);
             ventaRs.next();
             int idVenta = ventaRs.getInt("ID_Venta");
 
-            String nombreProducto;
-            int cantidad;
             float descuento;
             float precioUnidad;
             float precioTotal;
 
-            DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
-            int numFilas = model.getRowCount();
             for (int fila = 0; fila < numFilas; fila++) {
                 nombreProducto = model.getValueAt(fila, 0).toString();
                 cantidad = Integer.parseInt(model.getValueAt(fila, 2).toString());
@@ -674,6 +690,7 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
                 productoResult.next();
                 int idProducto = productoResult.getInt("ID_Producto");
                 int stock = productoResult.getInt("Stock");
+
                 stock -= cantidad;
                 producto.actualizar(conexion, idProducto, stock);
 
