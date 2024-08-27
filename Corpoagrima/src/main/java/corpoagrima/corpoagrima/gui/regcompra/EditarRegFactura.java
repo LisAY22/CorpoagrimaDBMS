@@ -1,11 +1,13 @@
 package corpoagrima.corpoagrima.gui.regcompra;
 
+import corpoagrima.corpoagrima.bdMariaDB.Conexion;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCompra;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionRegCompraProducto;
 import corpoagrima.corpoagrima.gui.Principal;
 import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
+import corpoagrima.corpoagrima.logic.PositiveIntegerFilter;
 import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -19,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.PlainDocument;
 
 /**
  *
@@ -190,6 +193,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
         telefonoLabel = new javax.swing.JLabel();
         ProveedorLabel = new javax.swing.JLabel();
         numeroFacturaTextfield = new javax.swing.JTextField();
+        ((PlainDocument) numeroFacturaTextfield.getDocument()).setDocumentFilter(new PositiveIntegerFilter());
         creditoCheckBox = new javax.swing.JCheckBox();
         Proveedor_comboBox = new javax.swing.JComboBox<>();
         CantidadComprasLabel1 = new javax.swing.JLabel();
@@ -593,6 +597,12 @@ public class EditarRegFactura extends javax.swing.JFrame {
 
     private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
         try {
+            // Iniciar la transacción usando el método externo
+            Conexion conexionHelper = new Conexion(); // Instancia de la clase donde están los métodos
+            if (!conexionHelper.iniciarTransaccion(conexion)) {
+                throw new SQLException("No se pudo iniciar la transacción.");
+            }
+            
             // datos del proveedor
             String nombreProveedor = (String) Proveedor_comboBox.getSelectedItem();
             ResultSet proveedorResultSet = this.proveedor.idProveedor(conexion, nombreProveedor);
@@ -640,9 +650,27 @@ public class EditarRegFactura extends javax.swing.JFrame {
             int numFilas = modelo.getRowCount();
             for (int fila = 0; fila < numFilas; fila++) {
                 nombreProducto = modelo.getValueAt(fila, 0).toString();
-                cantidad = Integer.parseInt(modelo.getValueAt(fila, 3).toString());
-                costoUnidad = Float.parseFloat(modelo.getValueAt(fila, 4).toString());
-                costoTotal = Float.parseFloat(modelo.getValueAt(fila, 5).toString());
+                
+                // Validación de cantidad (número entero positivo)
+                String cantidadStr = modelo.getValueAt(fila, 3).toString();
+                cantidad = Integer.parseInt(cantidadStr);
+                if (cantidad <= 0) {
+                    throw new IllegalArgumentException("La cantidad debe ser un número entero positivo.");
+                }
+
+                // Validación de costo unidad (número flotante positivo)
+                String costoUnidadStr = modelo.getValueAt(fila, 4).toString();
+                costoUnidad = Float.parseFloat(costoUnidadStr);
+                if (costoUnidad <= 0.0f) {
+                    throw new IllegalArgumentException("El costo por unidad debe ser un número flotante positivo.");
+                }
+
+                // Validación de costo total (número flotante positivo)
+                String costoTotalStr = modelo.getValueAt(fila, 5).toString();
+                costoTotal = Float.parseFloat(costoTotalStr);
+                if (costoTotal <= 0.0f) {
+                    throw new IllegalArgumentException("El costo total debe ser un número flotante positivo.");
+                }
 
                 // actualizar datos producto
                 ResultSet productoResult = producto.cantidad(conexion, nombreProducto);
@@ -655,14 +683,37 @@ public class EditarRegFactura extends javax.swing.JFrame {
                 compraProducto.agregar(conexion, id, idProducto, detalle,
                         cantidad, costoUnidad, costoTotal);
             }
-
+            
+            // Realizar commit de la transacción usando el método externo
+            if (!conexionHelper.commitTransaccion(conexion)) {
+                throw new SQLException("Error al hacer commit de la transacción.");
+            }
+            
             if (compraResultSet) {
                 JOptionPane.showMessageDialog(this,
                         "Se ha guardado exitosamente.",
                         "Guardando", JOptionPane.INFORMATION_MESSAGE);
+      
+        }       
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingresa valores numéricos válidos.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            if (conexion != null) {
+                Conexion conexionHelper = new Conexion();
+                conexionHelper.rollbackTransaccion(conexion);
+            }
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error de validación", JOptionPane.ERROR_MESSAGE);
+            if (conexion != null) {
+                Conexion conexionHelper = new Conexion();
+                conexionHelper.rollbackTransaccion(conexion);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(EditarRegFactura.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NuevoRegFactura.class.getName()).log(Level.SEVERE, null, ex);
+            // Realizar rollback de la transacción usando el método externo
+            if (conexion != null) {
+                Conexion conexionHelper = new Conexion();
+                conexionHelper.rollbackTransaccion(conexion);
+            }
             JOptionPane.showMessageDialog(this,
                     "Se ha producido un error.",
                     "Error", JOptionPane.INFORMATION_MESSAGE);
