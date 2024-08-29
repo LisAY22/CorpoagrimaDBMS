@@ -8,6 +8,7 @@ import corpoagrima.corpoagrima.bdMariaDB.ConexionCliente;
 import corpoagrima.corpoagrima.bdMariaDB.Conexion;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionVenta;
+import corpoagrima.corpoagrima.logic.Bitacora;
 import corpoagrima.corpoagrima.logic.PositiveIntegerFilter;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -641,7 +642,8 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
 
     private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
         Conexion conexionBD = new Conexion();
-
+        Bitacora bitacora = new Bitacora();
+        
         try {
             if (!conexionBD.iniciarTransaccion(conexion)) {
                 JOptionPane.showMessageDialog(this,
@@ -734,9 +736,10 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
                         "No se pudo completar la transacción.",
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
-
+        bitacora.actualizarEstado("Commit");
         } catch (SQLException ex) {
             if (conexion != null) {
+                bitacora.actualizarEstado("Rollback");
                 conexionBD.rollbackTransaccion(conexion);
             }
             Logger.getLogger(NuevoRegVenta.class.getName()).log(Level.SEVERE, null, ex);
