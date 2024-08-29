@@ -6,6 +6,7 @@ import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionRegCompraProducto;
 import corpoagrima.corpoagrima.gui.Principal;
+import corpoagrima.corpoagrima.logic.Bitacora;
 import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
 import corpoagrima.corpoagrima.logic.PositiveIntegerFilter;
 import java.awt.event.ItemEvent;
@@ -521,6 +522,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
     }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
     private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
+        Bitacora bitacora = new Bitacora();
         try {
             // Iniciar la transacción usando el método externo
             Conexion conexionHelper = new Conexion(); // Instancia de la clase donde están los métodos
@@ -604,16 +606,19 @@ public class NuevoRegFactura extends javax.swing.JFrame {
                         "Guardando", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
             }
+            bitacora.actualizarEstado("Commit");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Por favor, ingresa valores numéricos válidos.", "Error de formato", JOptionPane.ERROR_MESSAGE);
             if (conexion != null) {
                 Conexion conexionHelper = new Conexion();
+                bitacora.actualizarEstado("Rollback");
                 conexionHelper.rollbackTransaccion(conexion);
             }
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error de validación", JOptionPane.ERROR_MESSAGE);
             if (conexion != null) {
                 Conexion conexionHelper = new Conexion();
+                bitacora.actualizarEstado("Rollback");
                 conexionHelper.rollbackTransaccion(conexion);
             }
         } catch (SQLException ex) {
@@ -621,6 +626,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             // Realizar rollback de la transacción usando el método externo
             if (conexion != null) {
                 Conexion conexionHelper = new Conexion();
+                bitacora.actualizarEstado("Rollback");
                 conexionHelper.rollbackTransaccion(conexion);
             }
             JOptionPane.showMessageDialog(this, "Se ha producido un error.", "Error", JOptionPane.INFORMATION_MESSAGE);
