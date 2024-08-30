@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package corpoagrima.corpoagrima.gui.rrhh;
+import corpoagrima.corpoagrima.bdMariaDB.Conexion;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
@@ -34,6 +35,7 @@ public class RRHH extends javax.swing.JFrame {
     
     private Connection conexion;
     private ResultSet credenciales;
+    private final Conexion TRANSACCION = new Conexion();
     private ConexionEmpleado empleado;
     private ConexionPuesto puesto;
     private ConexionUsuario usuario;

@@ -1,5 +1,6 @@
 package corpoagrima.corpoagrima.gui.rrhh;
 
+import corpoagrima.corpoagrima.bdMariaDB.Conexion;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import corpoagrima.corpoagrima.gui.Principal;
 import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
@@ -20,6 +21,7 @@ public class CrearPuesto extends javax.swing.JFrame {
 
     private Connection conexion;
     private ResultSet credenciales;
+    private final Conexion TRANSACCION = new Conexion();
     private ConexionPuesto puesto;
     private int id;
     private DatoEstadoFinanciero logicFinanciero;
@@ -314,26 +316,34 @@ public class CrearPuesto extends javax.swing.JFrame {
             boolean moduloRegVenta = moduloVentaJCheckBox.isSelected();
             boolean moduloRegCompra = moduloCompraJCheckBox.isSelected();
             boolean moduloFinanciero = moduloFinancieroJCheckBox.isSelected();
+            // Iniciar Transaccion----------------------------------------------------
+            TRANSACCION.iniciarTransaccion(conexion);
             boolean resultSet = puesto.agregar(conexion, nombre, horario,
                     descripcion, salarioBase, moduloCliente, moduloRH,
                     moduloProveedores, moduloRegCompra, moduloRegVenta,
                     moduloFinanciero, moduloInventario);
-
+            
             if (resultSet) {
                 JOptionPane.showMessageDialog(this, "Se ha creado un nuevo "
                         + "puesto exitosamente.", "Nuevo Puesto",
                         JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
+                // Confirmar transaccion----------------------------------------------
+                TRANSACCION.commitTransaccion(conexion);
             } else {
                 JOptionPane.showMessageDialog(this, "Ha habido un error "
                         + "compruebe la información", "Nuevo Puesto",
                         JOptionPane.ERROR_MESSAGE);
+                // Rollback transaccion-----------------------------------------------
+                TRANSACCION.rollbackTransaccion(conexion);
             }
         } catch (SQLException ex) {
             Logger.getLogger(BuscarPuesto.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Nuevo Puesto",
                     JOptionPane.ERROR_MESSAGE);
+            // Rollback transaccion-----------------------------------------------
+            TRANSACCION.rollbackTransaccion(conexion);
         }
     }//GEN-LAST:event_guardarJButtonActionPerformed
 

@@ -1,5 +1,6 @@
 package corpoagrima.corpoagrima.gui.rrhh;
 
+import corpoagrima.corpoagrima.bdMariaDB.Conexion;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import corpoagrima.corpoagrima.gui.Principal;
@@ -23,6 +24,7 @@ public class BuscarPuesto extends javax.swing.JFrame {
 
     private Connection conexion;
     private ResultSet credenciales;
+    private final Conexion TRANSACCION = new Conexion();
     private ConexionPuesto puesto;
     private ConexionEmpleado empleado;
     private int id;
@@ -483,6 +485,8 @@ public class BuscarPuesto extends javax.swing.JFrame {
 
             // Comprobar la opción seleccionada
             if (opcion == JOptionPane.YES_OPTION) {
+                // Iniciar Transaccion
+                TRANSACCION.iniciarTransaccion(conexion);
                 boolean resultSet = puesto.eliminar(conexion, id);
                 boolean sinPuestoResultSet = empleado.sinPuesto(conexion, id);
                 if (resultSet && sinPuestoResultSet) {
@@ -491,6 +495,11 @@ public class BuscarPuesto extends javax.swing.JFrame {
                             "Eliminar Puesto", JOptionPane.INFORMATION_MESSAGE);
                     deshabilitar();
                     limpiar();
+                    // Confirmar Transaccion
+                    TRANSACCION.commitTransaccion(conexion);
+                }else{
+                    // Rollback transaccion
+                    TRANSACCION.rollbackTransaccion(conexion);
                 }
             }
 
@@ -499,6 +508,8 @@ public class BuscarPuesto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Eliminar puesto",
                     JOptionPane.ERROR_MESSAGE);
+            // Rollback transaccion
+            TRANSACCION.rollbackTransaccion(conexion);
         }
     }//GEN-LAST:event_eliminarJButtonActionPerformed
 
@@ -515,6 +526,8 @@ public class BuscarPuesto extends javax.swing.JFrame {
             boolean moduloRegVenta = moduloVentaJCheckBox.isSelected();
             boolean moduloRegCompra = moduloCompraJCheckBox.isSelected();
             boolean moduloFinanciero = moduloFinancieroJCheckBox.isSelected();
+            // Iniciar transaccion--------------------------------------------------
+            TRANSACCION.iniciarTransaccion(conexion);
             boolean resultSet = puesto.actualizar(conexion, nombre, horario,
                     descripcion, salarioBase, moduloCliente, moduloRH,
                     moduloProveedores, moduloRegCompra, moduloRegVenta,
@@ -525,12 +538,19 @@ public class BuscarPuesto extends javax.swing.JFrame {
                         "Guardar Puesto", JOptionPane.INFORMATION_MESSAGE);
                 deshabilitar();
                 limpiar();
+                // Confirmar transaccion---------------------------------------------
+                TRANSACCION.commitTransaccion(conexion);
+            }else{
+                // Rollback transaccion----------------------------------------------
+                TRANSACCION.rollbackTransaccion(conexion);
             }
         } catch (SQLException ex) {
             Logger.getLogger(BuscarPuesto.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Guardar Puesto",
                     JOptionPane.ERROR_MESSAGE);
+            // Rollback transaccion---------------------------------------------------
+            TRANSACCION.rollbackTransaccion(conexion);
         }
     }//GEN-LAST:event_guardarJButtonActionPerformed
 

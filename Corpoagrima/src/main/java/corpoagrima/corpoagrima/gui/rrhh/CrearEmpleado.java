@@ -1,11 +1,15 @@
 package corpoagrima.corpoagrima.gui.rrhh;
 
+import corpoagrima.corpoagrima.bdMariaDB.Conexion;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionTelefono;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
 import corpoagrima.corpoagrima.gui.Principal;
 import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
+import corpoagrima.corpoagrima.logic.DecimalFilter;
+import corpoagrima.corpoagrima.logic.PositiveIntegerFilter;
+import corpoagrima.corpoagrima.logic.SignedDecimalFilter;
 import corpoagrima.corpoagrima.logic.encriptar;
 import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
@@ -17,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.text.PlainDocument;
 
 /**
  *
@@ -27,6 +32,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
     
     private Connection conexion;
     private ResultSet credenciales;
+    private final Conexion TRANSACCION = new Conexion();
     private ConexionEmpleado Empleado;
     private ConexionPuesto Puesto;
     private ConexionUsuario Usuario;
@@ -130,11 +136,13 @@ public class CrearEmpleado extends javax.swing.JFrame {
         Nombre_textField = new javax.swing.JTextField();
         Apellido_textField = new javax.swing.JTextField();
         NIT_textfield = new javax.swing.JTextField();
+        ((PlainDocument) NIT_textfield.getDocument()).setDocumentFilter(new PositiveIntegerFilter());
         Correo_textfield = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         Direccion_textfield = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         Bonificaciones_textfield = new javax.swing.JTextField();
+        ((PlainDocument) Bonificaciones_textfield.getDocument()).setDocumentFilter(new DecimalFilter());
         jLabel11 = new javax.swing.JLabel();
         Puesto_comboBox = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
@@ -143,10 +151,12 @@ public class CrearEmpleado extends javax.swing.JFrame {
         Usuario_textfield = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         Telefono_textfield = new javax.swing.JTextField();
+        ((PlainDocument) Telefono_textfield.getDocument()).setDocumentFilter(new PositiveIntegerFilter());
         jLabel16 = new javax.swing.JLabel();
         contrasena_textfield1 = new javax.swing.JTextField();
         Ajuste_label = new javax.swing.JLabel();
         AjusteSueldo_textfield = new javax.swing.JTextField();
+        ((PlainDocument) AjusteSueldo_textfield.getDocument()).setDocumentFilter(new SignedDecimalFilter());
         jPanel4 = new javax.swing.JPanel();
         Save_button = new javax.swing.JButton();
         Clean_button = new javax.swing.JButton();
@@ -304,16 +314,12 @@ public class CrearEmpleado extends javax.swing.JFrame {
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Ajuste_label)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Sueldobase_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                            .addComponent(contrasena_textfield1)
-                            .addComponent(Puesto_comboBox, 0, 129, Short.MAX_VALUE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(AjusteSueldo_textfield)))
+                    .addComponent(Sueldobase_textfield, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(contrasena_textfield1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Puesto_comboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 129, Short.MAX_VALUE)
+                    .addComponent(AjusteSueldo_textfield))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -456,6 +462,8 @@ public class CrearEmpleado extends javax.swing.JFrame {
             int idPuesto;
 
             String contraseniaEncriptada = encriptar.encriptarContrasenia(contrasenia);
+            // Iniciar transaccion----------------------------------------------------
+            TRANSACCION.iniciarTransaccion(conexion);
             // tabla usuario
             boolean resultUsuario = Usuario.agregar(conexion, usuario, contraseniaEncriptada);
 
@@ -486,16 +494,22 @@ public class CrearEmpleado extends javax.swing.JFrame {
                         + "empleado exitosamente.", "Nuevo Empleado",
                         JOptionPane.INFORMATION_MESSAGE);
                 Clean();
+                // Confirmar transaccion----------------------------------------------
+                TRANSACCION.commitTransaccion(conexion);
             } else {
                 JOptionPane.showMessageDialog(this, "Ha habido un error "
                         + "compruebe la información", "Nuevo Empleado",
                         JOptionPane.ERROR_MESSAGE);
+                // Rolback transaccion------------------------------------------------
+                TRANSACCION.rollbackTransaccion(conexion);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CrearEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Nuevo Empleado",
                     JOptionPane.ERROR_MESSAGE);
+            // Rolback transaccion------------------------------------------------
+            TRANSACCION.rollbackTransaccion(conexion);
         }
 
     }//GEN-LAST:event_Save_buttonActionPerformed

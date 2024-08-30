@@ -1,5 +1,6 @@
 package corpoagrima.corpoagrima.gui.rrhh;
 
+import corpoagrima.corpoagrima.bdMariaDB.Conexion;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionEmpleado;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionPuesto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
@@ -28,6 +29,7 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
 
     private Connection conexion;
     private ResultSet credenciales;
+    private final Conexion TRANSACCION = new Conexion();
     private ConexionEmpleado Empleado;
     private ConexionPuesto Puesto;
     private ConexionUsuario Usuario;
@@ -647,6 +649,8 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
 
             // Comprobar la opción seleccionada
             if (opcion == JOptionPane.YES_OPTION) {
+                // Iniciar Transaccion
+                TRANSACCION.iniciarTransaccion(conexion);
                 boolean resultSet = Empleado.eliminar(conexion, IdInt);
                 boolean resultUsuario = Usuario.eliminar(conexion, idUsuario);
                 if (resultSet && resultUsuario) {
@@ -654,6 +658,11 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
                             "Se ha eliminado exitosamente el empleado.",
                             "Eliminar Empleado", JOptionPane.INFORMATION_MESSAGE);
                     reset();
+                    // Confirmar transaccion
+                    TRANSACCION.commitTransaccion(conexion);
+                }else{
+                    // Rollback transaccion
+                    TRANSACCION.rollbackTransaccion(conexion);
                 }
             }
 
@@ -718,7 +727,9 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
             String ajusteSueldo = AjusteSueldo_textfield.getText();
             String puesto = (String) Puesto_comboBox.getSelectedItem();
             int idPuesto;
-
+            
+            // Inicio de transaccion--------------------------------------------------
+            TRANSACCION.iniciarTransaccion(conexion);
             ResultSet restPuesto = Puesto.puestoID(conexion, puesto);
 
             restPuesto.next();
@@ -742,12 +753,18 @@ public final class BuscarEmpleado extends javax.swing.JFrame {
                         "Se ha guardado exitosamente el empleado.",
                         "Guardar Empleado", JOptionPane.INFORMATION_MESSAGE);
                 reset();
+                // Confirmar transaccion
+                TRANSACCION.commitTransaccion(conexion);
+            }else{
+                // Rollback transaccion
+                TRANSACCION.rollbackTransaccion(conexion);
             }
         } catch (SQLException ex) {
             Logger.getLogger(BuscarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Guardar Emplrado",
                     JOptionPane.ERROR_MESSAGE);
+            TRANSACCION.rollbackTransaccion(conexion);
         }
     }//GEN-LAST:event_Save_buttonActionPerformed
 
