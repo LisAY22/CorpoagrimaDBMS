@@ -56,13 +56,13 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="Efectivo_TextField" alignment="0" min="-2" pref="218" max="-2" attributes="0"/>
                                   <Component id="Cambio_TextField" alignment="0" min="-2" pref="218" max="-2" attributes="0"/>
+                                  <Component id="Destacado_label2" alignment="0" min="-2" pref="218" max="-2" attributes="0"/>
+                                  <Component id="Destacado_label3" alignment="0" min="-2" pref="218" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="Guardar_Button" min="-2" pref="105" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="Limpiar_button" min="-2" pref="109" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="Destacado_label2" alignment="0" min="-2" pref="218" max="-2" attributes="0"/>
-                                  <Component id="Destacado_label3" alignment="0" min="-2" pref="218" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="42" max="32767" attributes="0"/>
                           </Group>
@@ -200,7 +200,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -210,16 +210,17 @@
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="Eliminar_button" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Component id="Destacado_label2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="Efectivo_TextField" min="-2" pref="27" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="Destacado_label3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="Cambio_TextField" min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" min="-2" pref="294" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="totalProductoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -228,15 +229,14 @@
                       <Component id="Total_TextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="Cambio_TextField" min="-2" pref="27" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="Guardar_Button" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="Limpiar_button" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -580,7 +580,7 @@
         <Property name="text" type="java.lang.String" value="Efectivo"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Cursor Por defecto"/>
+          <Color id="Default Cursor"/>
         </Property>
       </Properties>
     </Component>

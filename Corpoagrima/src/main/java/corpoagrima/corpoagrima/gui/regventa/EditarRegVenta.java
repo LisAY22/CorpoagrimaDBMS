@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package corpoagrima.corpoagrima.gui.regventa;
+import corpoagrima.corpoagrima.bdMariaDB.Conexion;
+import corpoagrima.corpoagrima.logic.Bitacora;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionVenta;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionProducto;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionUsuario;
@@ -32,6 +34,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
     private ConexionProducto Producto;
     private ConexionUsuario Usuario;
     private ConexionCliente Cliente;
+    private Conexion Conect;
     private int id;
     private boolean edicion;
     private boolean cambiosPorUsuario = true;
@@ -50,6 +53,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         this.Producto = new ConexionProducto();
         this.Usuario = new ConexionUsuario();
         this.Cliente = new ConexionCliente();
+        this.Conect = new Conexion();
         edicion();
         initComponents();
         actualizarTablaSinNotificar();
@@ -154,12 +158,15 @@ public final class EditarRegVenta extends javax.swing.JFrame {
     private void actualizarTotalFila(){
         DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
         int numFilas = model.getRowCount();
+         try{
          for (int fila = 0; fila < numFilas; fila++) {
             int Cantidad = Integer.parseInt(model.getValueAt(fila, 2).toString());
             double Descuento = Double.parseDouble(model.getValueAt(fila, 3).toString());
             double PrecioUnidad = Double.parseDouble(model.getValueAt(fila, 4).toString());
             double PrecioTotal = (Cantidad * PrecioUnidad) - Descuento;
             model.setValueAt(PrecioTotal, fila, 5);
+        }}catch (NumberFormatException a){
+            System.out.println("");
         }
     }
     
@@ -189,7 +196,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
     
     
     
-    private void totales() {
+    private void totales(){
         DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
         model.addTableModelListener((TableModelEvent e) -> {
             if (cambiosPorUsuario && (e.getType() == TableModelEvent.UPDATE || e.getType() == TableModelEvent.INSERT || e.getType() == TableModelEvent.DELETE)) {
@@ -197,9 +204,15 @@ public final class EditarRegVenta extends javax.swing.JFrame {
                 int totalProductos = 0;
                 double total = 0;
                 int numFilas = model.getRowCount();
+                try{
                 for (int fila = 0; fila < numFilas; fila++) {
                     totalProductos += Integer.parseInt(model.getValueAt(fila, 2).toString());
                     total += Double.parseDouble(model.getValueAt(fila, 5).toString());
+                }
+                }catch (NumberFormatException aas){
+                    JOptionPane.showMessageDialog(this,
+                    "Se ha producido un error, revise que las cantidades sean correctas",
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
                 }
                 TotalProductos_TextField.setText(String.valueOf(totalProductos));
                 Total_TextField.setText(String.valueOf(total));
@@ -226,6 +239,18 @@ public final class EditarRegVenta extends javax.swing.JFrame {
         // Agregar a la tabla
         model.addRow(new Object[]{nombre, descripcion, 0, 0, precio, 0});
     }
+    
+    public static void verificarNegativo(int numero) {
+        if (numero < 0) {
+            throw new IllegalArgumentException("El número debe ser negativo.");
+        }
+    }
+    public static void verificarNegativo2(Float numero) {
+        if (numero < 0) {
+            throw new IllegalArgumentException("El número debe ser negativo.");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -604,12 +629,12 @@ public final class EditarRegVenta extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Efectivo_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(Cambio_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Destacado_label2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Destacado_label3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(Guardar_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(Limpiar_button, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(Destacado_label2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Destacado_label3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(Limpiar_button, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap(42, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -708,7 +733,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Direccion_Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Detalles_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -718,14 +743,15 @@ public final class EditarRegVenta extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Eliminar_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
+                        .addGap(17, 17, 17)
                         .addComponent(Destacado_label2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Efectivo_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Destacado_label3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Destacado_label3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Cambio_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(totalProductoLabel)
@@ -733,15 +759,12 @@ public final class EditarRegVenta extends javax.swing.JFrame {
                         .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(Total_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Cambio_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Guardar_Button)
                             .addComponent(Limpiar_button))))
-                .addGap(22, 22, 22))
+                .addGap(93, 93, 93))
         );
-
-        Eliminar_button.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -846,7 +869,17 @@ public final class EditarRegVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_Eliminar_buttonActionPerformed
 
     private void Guardar_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_ButtonActionPerformed
+        Bitacora bitacora = new Bitacora();
+        Conexion conexionBD = new Conexion();
         try {
+            
+            // Creacion de la transacción
+            if (!conexionBD.iniciarTransaccion(conexion)) {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo iniciar la transacción.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             // datos del Usuario
             String Nombre = Nombre_TextField.getText();
             String Apellido = Apellido_TextField.getText();
@@ -900,10 +933,11 @@ public final class EditarRegVenta extends javax.swing.JFrame {
             for (int fila = 0; fila < numFilas; fila++) {
                 nombreProducto = modelo.getValueAt(fila, 0).toString();
                 cantidad = Integer.parseInt(modelo.getValueAt(fila, 2).toString());
+                verificarNegativo(cantidad);
                 costoUnidad = Float.parseFloat(modelo.getValueAt(fila, 4).toString());
                 costoTotal = Float.parseFloat(modelo.getValueAt(fila, 5).toString());
                 Float descuento = Float.valueOf(modelo.getValueAt(fila, 3).toString());
-
+                verificarNegativo2(descuento);
                 // actualizar datos producto
                 ResultSet productoResult = Producto.cantidad(conexion, nombreProducto);
                 productoResult.next();
@@ -916,16 +950,39 @@ public final class EditarRegVenta extends javax.swing.JFrame {
                         cantidad, descuento, costoUnidad, costoTotal);
             }
 
-            if (VentaResultSet) {
+            if (VentaResultSet && conexionBD.commitTransaccion(conexion)) {
                 JOptionPane.showMessageDialog(this,
                         "Se ha guardado exitosamente.",
                         "Guardando", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
+            if (conexion != null) {
+                bitacora.actualizarEstado("Rollback");
+                conexionBD.rollbackTransaccion(conexion);
+            }
             Logger.getLogger(EditarRegVenta.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this,
                     "Se ha producido un error.",
                     "Error", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NumberFormatException ex) {
+            if (conexion != null) {
+                bitacora.actualizarEstado("Rollback");
+                conexionBD.rollbackTransaccion(conexion);
+            }
+            Logger.getLogger(EditarRegVenta.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this,
+                    "Se ha producido un error, revise que los datos en la tabla sean correctos",
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
+        }catch (IllegalArgumentException e){
+            if (conexion != null) {
+                bitacora.actualizarEstado("Rollback");
+                conexionBD.rollbackTransaccion(conexion);
+            }
+            JOptionPane.showMessageDialog(this,
+                    "Se ha producido un error, revise que las cantidades sean no negativas",
+                    "Error", JOptionPane.INFORMATION_MESSAGE);
+            bitacora.actualizarEstado("Rollback");
+            conexionBD.rollbackTransaccion(conexion);
         }
     }//GEN-LAST:event_Guardar_ButtonActionPerformed
 
