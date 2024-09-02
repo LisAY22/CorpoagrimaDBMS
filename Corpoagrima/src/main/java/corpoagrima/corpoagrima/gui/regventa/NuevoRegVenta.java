@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package corpoagrima.corpoagrima.gui.regventa;
 
 import corpoagrima.corpoagrima.bdMariaDB.ConexionCliente;
@@ -646,10 +642,7 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
         
         try {
             if (!conexionBD.iniciarTransaccion(conexion)) {
-                JOptionPane.showMessageDialog(this,
-                        "No se pudo iniciar la transacción.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+                throw new SQLException("No se pudo iniciar la transacción.");
             }
 
             String fecha = Fecha_TextField.getText();
@@ -677,7 +670,7 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
             for (int fila = 0; fila < numFilas; fila++) {
                 nombreProducto = model.getValueAt(fila, 0).toString();
                 cantidad = Integer.parseInt(model.getValueAt(fila, 2).toString());
-
+                
                 ResultSet productoResult = producto.cantidad(conexion, nombreProducto);
                 productoResult.next();
                 int stock = productoResult.getInt("Stock");
@@ -707,7 +700,13 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
             for (int fila = 0; fila < numFilas; fila++) {
                 nombreProducto = model.getValueAt(fila, 0).toString();
                 cantidad = Integer.parseInt(model.getValueAt(fila, 2).toString());
+                if (cantidad <= 0) {
+                    throw new IllegalArgumentException("La cantidad debe ser un número entero positivo.");
+                }
                 descuento = Float.parseFloat(model.getValueAt(fila, 3).toString());
+                if (descuento < 0) {
+                    throw new IllegalArgumentException("El descuento debe ser un número entero positivo.");
+                }
                 precioUnidad = Float.parseFloat(model.getValueAt(fila, 4).toString());
                 precioTotal = Float.parseFloat(model.getValueAt(fila, 5).toString());
 
@@ -732,23 +731,31 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
                 factura = obtenerUltimoNoFactura();
                 NoFactura_TextField1.setText(String.valueOf(factura));
             } else {
-                JOptionPane.showMessageDialog(this,
-                        "No se pudo completar la transacción.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                throw new SQLException("Error al hacer commit de la transacción.");
             }
         bitacora.actualizarEstado("Commit");
-        } catch (SQLException ex) {
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingresa valores numéricos válidos.", "Error de formato", JOptionPane.ERROR_MESSAGE);
             if (conexion != null) {
                 bitacora.actualizarEstado("Rollback");
                 conexionBD.rollbackTransaccion(conexion);
+                datosTotales();
             }
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error de validación", JOptionPane.ERROR_MESSAGE);
+            if (conexion != null) {
+                bitacora.actualizarEstado("Rollback");
+                conexionBD.rollbackTransaccion(conexion);
+                datosTotales();
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(NuevoRegVenta.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this,
-                    "Se ha producido un error.",
-                    "Error", JOptionPane.INFORMATION_MESSAGE);
-        } finally {
-            // Cerrar la conexión
-            conexionBD.cerrarConexion();
+            if (conexion != null) {
+                bitacora.actualizarEstado("Rollback");
+                conexionBD.rollbackTransaccion(conexion);
+                datosTotales();
+            }
+            JOptionPane.showMessageDialog(this, "Se ha producido un error.", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     
     }//GEN-LAST:event_Guardar_buttonActionPerformed
