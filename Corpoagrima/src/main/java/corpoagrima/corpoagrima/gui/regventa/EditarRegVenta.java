@@ -951,6 +951,7 @@ public final class EditarRegVenta extends javax.swing.JFrame {
             }
 
             if (VentaResultSet && conexionBD.commitTransaccion(conexion)) {
+                bitacora.actualizarEstado("Comprometida");
                 JOptionPane.showMessageDialog(this,
                         "Se ha guardado exitosamente.",
                         "Guardando", JOptionPane.INFORMATION_MESSAGE);
