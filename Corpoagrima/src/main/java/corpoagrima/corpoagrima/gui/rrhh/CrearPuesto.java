@@ -316,8 +316,6 @@ public class CrearPuesto extends javax.swing.JFrame {
             boolean moduloRegVenta = moduloVentaJCheckBox.isSelected();
             boolean moduloRegCompra = moduloCompraJCheckBox.isSelected();
             boolean moduloFinanciero = moduloFinancieroJCheckBox.isSelected();
-            // Iniciar Transaccion----------------------------------------------------
-            TRANSACCION.iniciarTransaccion(conexion);
             boolean resultSet = puesto.agregar(conexion, nombre, horario,
                     descripcion, salarioBase, moduloCliente, moduloRH,
                     moduloProveedores, moduloRegCompra, moduloRegVenta,
@@ -328,22 +326,16 @@ public class CrearPuesto extends javax.swing.JFrame {
                         + "puesto exitosamente.", "Nuevo Puesto",
                         JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
-                // Confirmar transaccion----------------------------------------------
-                TRANSACCION.commitTransaccion(conexion);
             } else {
                 JOptionPane.showMessageDialog(this, "Ha habido un error "
                         + "compruebe la información", "Nuevo Puesto",
                         JOptionPane.ERROR_MESSAGE);
-                // Rollback transaccion-----------------------------------------------
-                TRANSACCION.rollbackTransaccion(conexion);
             }
         } catch (SQLException ex) {
             Logger.getLogger(BuscarPuesto.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Nuevo Puesto",
                     JOptionPane.ERROR_MESSAGE);
-            // Rollback transaccion-----------------------------------------------
-            TRANSACCION.rollbackTransaccion(conexion);
         }
     }//GEN-LAST:event_guardarJButtonActionPerformed
 

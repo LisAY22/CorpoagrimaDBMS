@@ -7,6 +7,7 @@ import corpoagrima.corpoagrima.bdMariaDB.ConexionProveedores;
 import corpoagrima.corpoagrima.bdMariaDB.ConexionRegCompraProducto;
 import corpoagrima.corpoagrima.gui.Principal;
 import corpoagrima.corpoagrima.logic.Bitacora;
+import corpoagrima.corpoagrima.logic.DateFilter;
 import corpoagrima.corpoagrima.logic.DatoEstadoFinanciero;
 import corpoagrima.corpoagrima.logic.PositiveIntegerFilter;
 import java.awt.event.ItemEvent;
@@ -101,6 +102,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         FechaLabel = new javax.swing.JLabel();
         FacturaLabel = new javax.swing.JLabel();
         fecha_textfield = new javax.swing.JTextField();
+        ((PlainDocument) fecha_textfield.getDocument()).setDocumentFilter(new DateFilter());
         telefono_textfield = new javax.swing.JTextField();
         CantidadComprasLabel = new javax.swing.JLabel();
         empleado_textfield = new javax.swing.JTextField();

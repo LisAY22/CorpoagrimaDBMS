@@ -485,8 +485,6 @@ public class BuscarPuesto extends javax.swing.JFrame {
 
             // Comprobar la opción seleccionada
             if (opcion == JOptionPane.YES_OPTION) {
-                // Iniciar Transaccion
-                TRANSACCION.iniciarTransaccion(conexion);
                 boolean resultSet = puesto.eliminar(conexion, id);
                 boolean sinPuestoResultSet = empleado.sinPuesto(conexion, id);
                 if (resultSet && sinPuestoResultSet) {
@@ -495,11 +493,6 @@ public class BuscarPuesto extends javax.swing.JFrame {
                             "Eliminar Puesto", JOptionPane.INFORMATION_MESSAGE);
                     deshabilitar();
                     limpiar();
-                    // Confirmar Transaccion
-                    TRANSACCION.commitTransaccion(conexion);
-                }else{
-                    // Rollback transaccion
-                    TRANSACCION.rollbackTransaccion(conexion);
                 }
             }
 
@@ -508,8 +501,6 @@ public class BuscarPuesto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Eliminar puesto",
                     JOptionPane.ERROR_MESSAGE);
-            // Rollback transaccion
-            TRANSACCION.rollbackTransaccion(conexion);
         }
     }//GEN-LAST:event_eliminarJButtonActionPerformed
 

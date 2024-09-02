@@ -384,6 +384,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 Clean_buttonMouseClicked(evt);
             }
         });
+        Clean_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Clean_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -462,8 +467,6 @@ public class CrearEmpleado extends javax.swing.JFrame {
             int idPuesto;
 
             String contraseniaEncriptada = encriptar.encriptarContrasenia(contrasenia);
-            // Iniciar transaccion----------------------------------------------------
-            TRANSACCION.iniciarTransaccion(conexion);
             // tabla usuario
             boolean resultUsuario = Usuario.agregar(conexion, usuario, contraseniaEncriptada);
 
@@ -508,8 +511,6 @@ public class CrearEmpleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ha habido un error "
                     + "compruebe la información", "Nuevo Empleado",
                     JOptionPane.ERROR_MESSAGE);
-            // Rolback transaccion------------------------------------------------
-            TRANSACCION.rollbackTransaccion(conexion);
         }
 
     }//GEN-LAST:event_Save_buttonActionPerformed
@@ -529,6 +530,10 @@ public class CrearEmpleado extends javax.swing.JFrame {
         }
         dispose();
     }//GEN-LAST:event_back_ButtonMouseClicked
+
+    private void Clean_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Clean_buttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Clean_buttonActionPerformed
 
     private void sueldoBase(String nombre) throws SQLException {
         ResultSet result = Puesto.puestoNombre(conexion, nombre);
