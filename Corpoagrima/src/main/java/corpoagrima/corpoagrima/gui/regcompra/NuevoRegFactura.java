@@ -28,6 +28,7 @@ import javax.swing.text.PlainDocument;
  *
  * @author karol
  * @author WilderL
+ * @author lisaj
  */
 public class NuevoRegFactura extends javax.swing.JFrame {
 
@@ -102,7 +103,6 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         FechaLabel = new javax.swing.JLabel();
         FacturaLabel = new javax.swing.JLabel();
         fecha_textfield = new javax.swing.JTextField();
-        ((PlainDocument) fecha_textfield.getDocument()).setDocumentFilter(new DateFilter());
         telefono_textfield = new javax.swing.JTextField();
         CantidadComprasLabel = new javax.swing.JLabel();
         empleado_textfield = new javax.swing.JTextField();
@@ -111,7 +111,6 @@ public class NuevoRegFactura extends javax.swing.JFrame {
         DireccionLabel = new javax.swing.JLabel();
         ProveedorLabel = new javax.swing.JLabel();
         noFactura_textfield = new javax.swing.JTextField();
-        ((PlainDocument) noFactura_textfield.getDocument()).setDocumentFilter(new PositiveIntegerFilter());
         credito_checkBox = new javax.swing.JCheckBox();
         Proveedor_comboBox = new javax.swing.JComboBox<>();
         detalle_textfield1 = new javax.swing.JTextField();
@@ -537,14 +536,17 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             ResultSet proveedorResultSet = this.proveedor.idProveedor(conexion, nombreProveedor);
             proveedorResultSet.next();
             int idProveedor = proveedorResultSet.getInt("ID_Proveedor");
+            
             // datos de la factura
             String noFactura = noFactura_textfield.getText();
             String fecha = fecha_textfield.getText();
             boolean esCredito = credito_checkBox.isSelected();
             String credito = (esCredito) ? "Credito" : "Contado";
             float total = Float.parseFloat(totalJTextField.getText());
+            
             // datos registro compra has producto
             String detalle = detalle_textfield1.getText();
+            
             // guardado factura compra y obtener la id
             boolean compraResultSet = compra.agregar(conexion, noFactura, false,
                     fecha, credito, total, idProveedor, idEmpleado);
@@ -554,6 +556,7 @@ public class NuevoRegFactura extends javax.swing.JFrame {
             ResultSet compraResult = compra.idCompra(conexion, noFactura);
             compraResult.next();
             int idCompra = compraResult.getInt("ID_Compra");
+            
             // recolecion de datos de la tabla
             String nombreProducto;
             int cantidad;
@@ -567,24 +570,15 @@ public class NuevoRegFactura extends javax.swing.JFrame {
                 // Validación de cantidad (número entero positivo)
                 String cantidadStr = modelo.getValueAt(fila, 3).toString();
                 cantidad = Integer.parseInt(cantidadStr);
-                if (cantidad <= 0) {
-                    throw new IllegalArgumentException("La cantidad debe ser un número entero positivo.");
-                }
-
+               
                 // Validación de costo unidad (número flotante positivo)
                 String costoUnidadStr = modelo.getValueAt(fila, 4).toString();
                 costoUnidad = Float.parseFloat(costoUnidadStr);
-                if (costoUnidad <= 0.0f) {
-                    throw new IllegalArgumentException("El costo por unidad debe ser un número flotante positivo.");
-                }
-
+                
                 // Validación de costo total (número flotante positivo)
                 String costoTotalStr = modelo.getValueAt(fila, 5).toString();
                 costoTotal = Float.parseFloat(costoTotalStr);
-                if (costoTotal <= 0.0f) {
-                    throw new IllegalArgumentException("El costo total debe ser un número flotante positivo.");
-                }
-                
+               
                 // actualizar datos producto
                 ResultSet productoResult = producto.cantidad(conexion, nombreProducto);
                 productoResult.next();
@@ -609,20 +603,6 @@ public class NuevoRegFactura extends javax.swing.JFrame {
                 limpiar();
             }
             bitacora.actualizarEstado("Commit");
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingresa valores numéricos válidos.", "Error de formato", JOptionPane.ERROR_MESSAGE);
-            if (conexion != null) {
-                Conexion conexionHelper = new Conexion();
-                bitacora.actualizarEstado("Rollback");
-                conexionHelper.rollbackTransaccion(conexion);
-            }
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error de validación", JOptionPane.ERROR_MESSAGE);
-            if (conexion != null) {
-                Conexion conexionHelper = new Conexion();
-                bitacora.actualizarEstado("Rollback");
-                conexionHelper.rollbackTransaccion(conexion);
-            }
         } catch (SQLException ex) {
             Logger.getLogger(NuevoRegFactura.class.getName()).log(Level.SEVERE, null, ex);
             // Realizar rollback de la transacción usando el método externo

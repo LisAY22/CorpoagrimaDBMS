@@ -194,7 +194,6 @@ public class EditarRegFactura extends javax.swing.JFrame {
         telefonoLabel = new javax.swing.JLabel();
         ProveedorLabel = new javax.swing.JLabel();
         numeroFacturaTextfield = new javax.swing.JTextField();
-        ((PlainDocument) numeroFacturaTextfield.getDocument()).setDocumentFilter(new PositiveIntegerFilter());
         creditoCheckBox = new javax.swing.JCheckBox();
         Proveedor_comboBox = new javax.swing.JComboBox<>();
         CantidadComprasLabel1 = new javax.swing.JLabel();
@@ -610,14 +609,17 @@ public class EditarRegFactura extends javax.swing.JFrame {
             ResultSet proveedorResultSet = this.proveedor.idProveedor(conexion, nombreProveedor);
             proveedorResultSet.next();
             int idProveedor = proveedorResultSet.getInt("ID_Proveedor");
+            
             // datos de la factura
             String noFactura = numeroFacturaTextfield.getText();
             String fecha = fechaTextfield.getText();
             boolean esCredito = creditoCheckBox.isSelected();
             String credito = (esCredito) ? "Credito" : "Contado";
             float total = Float.parseFloat(totalFinalJTextField.getText());
+            
             // datos registro compra has producto
             String detalle = detalle_textfield1.getText();
+            
             // reducir la cantidad de productos de la factura en editar
             ResultSet idProductos = compraProducto.producto(conexion, id);
             int idProducto;
@@ -628,6 +630,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
             while (idProductos.next()) {
                 idProducto = idProductos.getInt("idProducto");
                 cantidad = idProductos.getInt("cantidad");
+                
                 // actualizar datos producto
                 ResultSet productoResult = producto.cantidad(conexion, idProducto);
                 productoResult.next();
@@ -635,18 +638,22 @@ public class EditarRegFactura extends javax.swing.JFrame {
                 stock -= cantidad;
                 producto.actualizar(conexion, idProducto, stock);
             }
+            
             // eliminacion de registros compra has producto de la factura
             compraProducto.eliminarRelacion(conexion, id);
+            
             // obtener el estado de si es anulado la factura
             ResultSet estadoResult = compras.esAnulado(conexion, id);
             estadoResult.next();
             boolean esAnulado = estadoResult.getBoolean("Anulado");
+            
             // actualizar factura compra
             boolean compraResultSet = compras.actualizar(conexion, id, noFactura,
                     esAnulado, fecha, credito, total, idProveedor);
             if (!compraResultSet) {
                 throw new SQLException("Error al actualizar el registro de compra");
             }
+            
             // recolecion de datos de la tabla
             DefaultTableModel modelo = (DefaultTableModel) listProductoJTable.getModel();
             int numFilas = modelo.getRowCount();
@@ -656,23 +663,14 @@ public class EditarRegFactura extends javax.swing.JFrame {
                 // Validación de cantidad (número entero positivo)
                 String cantidadStr = modelo.getValueAt(fila, 3).toString();
                 cantidad = Integer.parseInt(cantidadStr);
-                if (cantidad <= 0) {
-                    throw new IllegalArgumentException("La cantidad debe ser un número entero positivo.");
-                }
 
                 // Validación de costo unidad (número flotante positivo)
                 String costoUnidadStr = modelo.getValueAt(fila, 4).toString();
                 costoUnidad = Float.parseFloat(costoUnidadStr);
-                if (costoUnidad <= 0.0f) {
-                    throw new IllegalArgumentException("El costo por unidad debe ser un número flotante positivo.");
-                }
 
                 // Validación de costo total (número flotante positivo)
                 String costoTotalStr = modelo.getValueAt(fila, 5).toString();
                 costoTotal = Float.parseFloat(costoTotalStr);
-                if (costoTotal <= 0.0f) {
-                    throw new IllegalArgumentException("El costo total debe ser un número flotante positivo.");
-                }
 
                 // actualizar datos producto
                 ResultSet productoResult = producto.cantidad(conexion, nombreProducto);
@@ -681,6 +679,7 @@ public class EditarRegFactura extends javax.swing.JFrame {
                 int stock = productoResult.getInt("Stock");
                 stock += cantidad;
                 producto.actualizar(conexion, idProducto, stock);
+                
                 // guardado registro compra has producto
                 compraProducto.agregar(conexion, id, idProducto, detalle,
                         cantidad, costoUnidad, costoTotal);
@@ -698,20 +697,6 @@ public class EditarRegFactura extends javax.swing.JFrame {
       
             }
             bitacora.actualizarEstado("Commit");
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingresa valores numéricos válidos.", "Error de formato", JOptionPane.ERROR_MESSAGE);
-            if (conexion != null) {
-                Conexion conexionHelper = new Conexion();
-                bitacora.actualizarEstado("Rollback");
-                conexionHelper.rollbackTransaccion(conexion);
-            }
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error de validación", JOptionPane.ERROR_MESSAGE);
-            if (conexion != null) {
-                Conexion conexionHelper = new Conexion();
-                bitacora.actualizarEstado("Rollback");
-                conexionHelper.rollbackTransaccion(conexion);
-            }
         } catch (SQLException ex) {
             Logger.getLogger(NuevoRegFactura.class.getName()).log(Level.SEVERE, null, ex);
             // Realizar rollback de la transacción usando el método externo
