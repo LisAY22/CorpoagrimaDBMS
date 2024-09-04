@@ -637,10 +637,11 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_Limpiar_buttonActionPerformed
 
     private void Guardar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Guardar_buttonActionPerformed
-        Conexion conexionBD = new Conexion();
+        
         Bitacora bitacora = new Bitacora();
         
         try {
+            Conexion conexionBD = new Conexion();
             if (!conexionBD.iniciarTransaccion(conexion)) {
                 throw new SQLException("No se pudo iniciar la transacción.");
             }
@@ -686,7 +687,7 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
             boolean ventaResultSet = venta.agregar(conexion, factura, credito, fecha, total, efectivo, cambio, idCliente, idEmpleado);
 
             if (!ventaResultSet) {
-                throw new SQLException("Error al agregar un registro de compra");
+                throw new SQLException("Error al agregar un registro de venta");
             }
 
             ResultSet ventaRs = venta.idVenta(conexion, factura);
@@ -700,13 +701,7 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
             for (int fila = 0; fila < numFilas; fila++) {
                 nombreProducto = model.getValueAt(fila, 0).toString();
                 cantidad = Integer.parseInt(model.getValueAt(fila, 2).toString());
-                if (cantidad <= 0) {
-                    throw new IllegalArgumentException("La cantidad debe ser un número entero positivo.");
-                }
                 descuento = Float.parseFloat(model.getValueAt(fila, 3).toString());
-                if (descuento < 0) {
-                    throw new IllegalArgumentException("El descuento debe ser un número entero positivo.");
-                }
                 precioUnidad = Float.parseFloat(model.getValueAt(fila, 4).toString());
                 precioTotal = Float.parseFloat(model.getValueAt(fila, 5).toString());
 
@@ -723,34 +718,20 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
                         precioUnidad, precioTotal);
             }
 
-            if (conexionBD.commitTransaccion(conexion)) {
+            if (!conexionBD.commitTransaccion(conexion)) {
+                throw new SQLException("Error al hacer commit de la transacción.");
+            }
+            if (ventaResultSet) {
                 JOptionPane.showMessageDialog(this,
                         "Se ha guardado exitosamente.",
                         "Guardando", JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
-                factura = obtenerUltimoNoFactura();
-                NoFactura_TextField1.setText(String.valueOf(factura));
-            } else {
-                throw new SQLException("Error al hacer commit de la transacción.");
             }
-        bitacora.actualizarEstado("Commit");
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingresa valores numéricos válidos.", "Error de formato", JOptionPane.ERROR_MESSAGE);
-            if (conexion != null) {
-                bitacora.actualizarEstado("Rollback");
-                conexionBD.rollbackTransaccion(conexion);
-                datosTotales();
-            }
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error de validación", JOptionPane.ERROR_MESSAGE);
-            if (conexion != null) {
-                bitacora.actualizarEstado("Rollback");
-                conexionBD.rollbackTransaccion(conexion);
-                datosTotales();
-            }
+            bitacora.actualizarEstado("Commit");
         } catch (SQLException ex) {
             Logger.getLogger(NuevoRegVenta.class.getName()).log(Level.SEVERE, null, ex);
             if (conexion != null) {
+                Conexion conexionBD = new Conexion();
                 bitacora.actualizarEstado("Rollback");
                 conexionBD.rollbackTransaccion(conexion);
                 datosTotales();
