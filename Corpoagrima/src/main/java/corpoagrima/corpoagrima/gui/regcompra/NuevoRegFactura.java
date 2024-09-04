@@ -569,15 +569,37 @@ public class NuevoRegFactura extends javax.swing.JFrame {
                 
                 // Validación de cantidad (número entero positivo)
                 String cantidadStr = modelo.getValueAt(fila, 3).toString();
-                cantidad = Integer.parseInt(cantidadStr);
-               
+                try {
+                    cantidad = Integer.parseInt(cantidadStr);
+                    if (cantidad < 0) {
+                        throw new SQLException("La cantidad debe ser un número entero positivo.");
+                    }
+                } catch (NumberFormatException e) {
+                    throw new SQLException("Error al convertir la cantidad a un número entero.", e);
+                }
+
                 // Validación de costo unidad (número flotante positivo)
                 String costoUnidadStr = modelo.getValueAt(fila, 4).toString();
-                costoUnidad = Float.parseFloat(costoUnidadStr);
-                
+                try {
+                    costoUnidad = Float.parseFloat(costoUnidadStr);
+                    if (costoUnidad < 0) {
+                        throw new SQLException("El costo por unidad debe ser un número flotante positivo.");
+                    }
+                } catch (NumberFormatException e) {
+                    throw new SQLException("Error al convertir el costo por unidad a un número flotante.", e);
+                }
+
                 // Validación de costo total (número flotante positivo)
                 String costoTotalStr = modelo.getValueAt(fila, 5).toString();
-                costoTotal = Float.parseFloat(costoTotalStr);
+                try {
+                    costoTotal = Float.parseFloat(costoTotalStr);
+                    if (costoTotal < 0) {
+                        throw new SQLException("El costo total debe ser un número flotante positivo.");
+                    }
+                } catch (NumberFormatException e) {
+                    throw new SQLException("Error al convertir el costo total a un número flotante.", e);
+                }
+
                
                 // actualizar datos producto
                 ResultSet productoResult = producto.cantidad(conexion, nombreProducto);
