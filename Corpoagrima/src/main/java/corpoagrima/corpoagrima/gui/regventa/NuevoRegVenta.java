@@ -668,22 +668,6 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
             int numFilas = model.getRowCount();
 
-            for (int fila = 0; fila < numFilas; fila++) {
-                nombreProducto = model.getValueAt(fila, 0).toString();
-                cantidad = Integer.parseInt(model.getValueAt(fila, 2).toString());
-                
-                ResultSet productoResult = producto.cantidad(conexion, nombreProducto);
-                productoResult.next();
-                int stock = productoResult.getInt("Stock");
-
-                if (cantidad > stock) {
-                    JOptionPane.showMessageDialog(this,
-                            "La cantidad vendida de '" + nombreProducto + "' excede el stock disponible (" + stock + ").",
-                            "Error de Stock", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-            }
-
             boolean ventaResultSet = venta.agregar(conexion, factura, credito, fecha, total, efectivo, cambio, idCliente, idEmpleado);
 
             if (!ventaResultSet) {
