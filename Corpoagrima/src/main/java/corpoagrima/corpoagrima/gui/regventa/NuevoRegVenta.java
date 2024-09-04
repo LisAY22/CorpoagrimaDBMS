@@ -664,7 +664,7 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
             String detalle = Detalles_TextField.getText();
 
             String nombreProducto;
-            int cantidad;
+            
             DefaultTableModel model = (DefaultTableModel) Productos_table.getModel();
             int numFilas = model.getRowCount();
 
@@ -677,15 +677,24 @@ public final class NuevoRegVenta extends javax.swing.JFrame {
             ResultSet ventaRs = venta.idVenta(conexion, factura);
             ventaRs.next();
             int idVenta = ventaRs.getInt("ID_Venta");
-
+            int cantidad;
             float descuento;
             float precioUnidad;
             float precioTotal;
 
             for (int fila = 0; fila < numFilas; fila++) {
                 nombreProducto = model.getValueAt(fila, 0).toString();
-                cantidad = Integer.parseInt(model.getValueAt(fila, 2).toString());
-                descuento = Float.parseFloat(model.getValueAt(fila, 3).toString());
+                try {
+                    cantidad = Integer.parseInt(model.getValueAt(fila, 2).toString());
+                } catch(NumberFormatException e) {
+                    throw new SQLException("Error al convertir la cantidad a un número entero.", e);
+                }
+                try {
+                    descuento = Float.parseFloat(model.getValueAt(fila, 3).toString());
+                } catch(NumberFormatException e) {
+                    throw new SQLException("Error al convertir el descuento a un número flotante.", e);
+                }
+                
                 precioUnidad = Float.parseFloat(model.getValueAt(fila, 4).toString());
                 precioTotal = Float.parseFloat(model.getValueAt(fila, 5).toString());
 
